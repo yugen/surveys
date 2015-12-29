@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<survey name="Baseline Survey" version="1.0.0" title="Survey">
+  <page id="introduction" title="Introduction">
+    <html>
+      <![CDATA[
+        <p>Before we get started, I’d like to take a few minutes to ask you some survey questions about what kinds of foods you eat, your physical activity and other health habits. These survey questions will only take about 5 minutes. I’ll ask you the same questions again at the end of our last session a few months from today.</p>
+        <p>My first questions are about foods that you eat.</p>
+      ]]>
+    </html>
+  </page>
+  <page id="fruits_and_veggies" src="fruits_and_veggies.xml"></page>
+  <page id="beverages" title="Beverages">
+    <html>
+      <![CDATA[
+        <p>I’d also like to ask you…</p>
+      ]]>
+    </html>
+    <question name="beverages" type="multiple-choice">
+      <question-text>
+        <![CDATA[
+          On an average day, how many 12-ounce servings of sugar-sweetened beverages do you drink with meals or in between meals? One regular can of beverage is 12 ounces. Sugar-sweetened beverages include regular non-diet sodas, bottled fruit drinks, Kool-Aid, iced or hot coffee or tea that has been sweetened with sugar (including drinks like Coke, Pepsi, Sprite, Snapple, lemonade, or fruitade and sports or energy drinks). 
+          <br>
+          Would you say:
+        ]]>
+      </question-text>
+      <options>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="-99">No answer</option>
+      </options>
+    </question>
+  </page>
+  <page id="fats" title="fats">
+    <question name="nuts" type="mulitple-choice" required="true">
+      <question-text>
+        <![CDATA[
+          In an average week, how many servings of peanut butter or nuts (like peanuts, almond, pecans, walnuts, or cashews) do you usually eat?<br />Would you say:
+        ]]>
+      </question-text>
+      <options>
+        <option value="1">0-1</option>
+        <option value="2">2</option>
+        <option value="3">3+</option>
+        <option value="-99">No answer</option>
+      </options>
+    </question>
+    <question name="butter" type="multiple-choice" required="true">
+      <question-text>
+        <![CDATA[
+          What type of butter or margarine do you usually use?<br />Is it:
+        ]]>
+      </question-text>
+      <options>
+        <option value="1">Tub margarine or other trans-fat free</option>
+        <option value="2">Butter</option>
+        <option value="3">Stick margarine</option>
+        <option value="-99">No answer</option>
+      </options>
+    </question>
+  </page>
+  <page src="reside_a.xml"></page>
+  <page src="reside_b.xml"></page>
+  <page src="smoking.xml"></page>
+</survey>

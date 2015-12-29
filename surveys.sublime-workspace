@@ -1,0 +1,1999 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"question",
+				"question"
+			],
+			[
+				"question-",
+				"question-text"
+			],
+			[
+				"class",
+				"class	New Class"
+			],
+			[
+				"php",
+				"php"
+			],
+			[
+				"on",
+				"onchange	Attr"
+			],
+			[
+				"impor",
+				"improvement_category_id"
+			],
+			[
+				"Cat",
+				"CatModDecorator"
+			],
+			[
+				"for",
+				"for	for (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"resove",
+				"resolveDependentVariables"
+			],
+			[
+				"skipped",
+				"skippedBcTime"
+			],
+			[
+				"def",
+				"defineProperty"
+			],
+			[
+				"Dat",
+				"DatePickerOptions〔argument〕"
+			],
+			[
+				"Refusal",
+				"RefusalReasonTransformer"
+			],
+			[
+				"Ref",
+				"RefusalReasonTransformer〔class〕"
+			],
+			[
+				"non",
+				"nonExclusives"
+			],
+			[
+				"str_rep",
+				"str_replace〔function〕"
+			],
+			[
+				"$root",
+				"$rootScope	AngularJS"
+			],
+			[
+				"valid",
+				"validFilters〔variable〕"
+			],
+			[
+				"activity_moder",
+				"activity_moderate_ct"
+			],
+			[
+				"appointment",
+				"appointmentStatus"
+			],
+			[
+				"deb",
+				"debug_backtrace〔function〕"
+			],
+			[
+				"ref",
+				"referrals"
+			],
+			[
+				"Communi",
+				"CommunicationSender〔namespace〕"
+			],
+			[
+				"Communication",
+				"CommunicationRecipient"
+			],
+			[
+				"Tas",
+				"TaskTransformer〔class〕"
+			],
+			[
+				"TaskStatus",
+				"TaskStatusTransformer〔class〕"
+			],
+			[
+				"cli",
+				"clinicalCtrl"
+			],
+			[
+				"calculate",
+				"calculateNoFactorsRisk〔function〕"
+			],
+			[
+				"Relati",
+				"RelationsTask"
+			],
+			[
+				"re",
+				"relationCtrl"
+			],
+			[
+				"Relation",
+				"RelationTransformer〔namespace〕"
+			],
+			[
+				"or",
+				"orWhereNotNull"
+			],
+			[
+				"trans",
+				"trans_minutes"
+			],
+			[
+				"Appointment",
+				"AppointmentType"
+			],
+			[
+				"onCl",
+				"onClearOther"
+			],
+			[
+				"check",
+				"checkbox"
+			],
+			[
+				"Assign",
+				"AssignParticipantCustomGoal〔namespace〕"
+			],
+			[
+				"partic",
+				"participants/:participantId"
+			],
+			[
+				"Com",
+				"Communications"
+			],
+			[
+				"C",
+				"CommLog〔class〕"
+			],
+			[
+				"Comm",
+				"CommunicationReason〔class〕"
+			],
+			[
+				"getCurrent",
+				"getCurrentLocation"
+			],
+			[
+				"current",
+				"current_survey_step"
+			],
+			[
+				"SetRefer",
+				"SetReferralsFromFormData"
+			],
+			[
+				"Ass",
+				"AssignReferralToParticipant〔class〕"
+			],
+			[
+				"DS",
+				"DSHttpAdapter"
+			],
+			[
+				"Resc",
+				"RescheduleMissedTask〔class〕"
+			],
+			[
+				"as",
+				"asyncFunction"
+			],
+			[
+				"catego",
+				"categoryIdFromSlug"
+			],
+			[
+				"priority",
+				"priorityIsDirty"
+			],
+			[
+				"AssignP",
+				"AssignParticipantCustomGoal"
+			],
+			[
+				"cre",
+				"CreateAndAssignCustomReferral〔class〕"
+			],
+			[
+				"B",
+				"Bus〔namespace〕"
+			],
+			[
+				"improvement_",
+				"improvement_category_id"
+			],
+			[
+				"user",
+				"userGoal"
+			],
+			[
+				"referrals",
+				"referralsReview"
+			],
+			[
+				"boost",
+				"bootstrap-radiogroup	bootstrap-radiogroup"
+			],
+			[
+				"prioirt",
+				"priorityCategoryIdx"
+			],
+			[
+				"start",
+				"starts_at"
+			],
+			[
+				"makeS",
+				"makeStatusChwMissed"
+			],
+			[
+				"makeStatus",
+				"makeStatusParticipantMissed"
+			],
+			[
+				"I",
+				"ImprovementCategoriesCtrl"
+			],
+			[
+				"impo",
+				"improvementCategory"
+			],
+			[
+				"impro",
+				"improvement_category_id"
+			],
+			[
+				"testIC",
+				"testICControllerShowOKResponse"
+			],
+			[
+				"Transf",
+				"TransformerAbstract〔namespace〕"
+			],
+			[
+				"mo",
+				"module_number"
+			],
+			[
+				"imp",
+				"improvement_category_id"
+			],
+			[
+				"compl",
+				"completedCatMods"
+			],
+			[
+				"comp",
+				"completedCatMods"
+			],
+			[
+				"skpe",
+				"skippedCatMods"
+			],
+			[
+				"currentChild",
+				"currentChildIdx"
+			],
+			[
+				"Session",
+				"SessionCatModsDecorated"
+			],
+			[
+				"session",
+				"sessionTask"
+			],
+			[
+				"tas",
+				"task〔argument〕"
+			],
+			[
+				"login",
+				"loginRequestInterceptor"
+			],
+			[
+				"showAllChannels",
+				"showAllChannelslink"
+			],
+			[
+				"showAl",
+				"showAllChannelslink"
+			],
+			[
+				"primary_",
+				"primary_participant_id"
+			],
+			[
+				"channel",
+				"channelTypeId"
+			],
+			[
+				"Int",
+				"Interfaces"
+			],
+			[
+				"perm",
+				"permissionDeniedInterceptor"
+			],
+			[
+				"$http",
+				"$httpProvider〔argument〕"
+			],
+			[
+				"task",
+				"taskModel〔argument〕"
+			],
+			[
+				"goFr",
+				"goForwardDefault"
+			],
+			[
+				"prio",
+				"priority_category_id"
+			],
+			[
+				"childrne",
+				"childrenProcessed"
+			],
+			[
+				"TaskDecorat",
+				"TaskDecoratorFactory"
+			],
+			[
+				"Task",
+				"TaskDecorator〔argument〕"
+			],
+			[
+				"getPre",
+				"getPreviousLocation"
+			],
+			[
+				"getPrevious",
+				"getPreviousLocationDefault"
+			],
+			[
+				"bootstrap",
+				"bootstrap-radiogroup-yesno	bootstrap-radio-yesno"
+			],
+			[
+				"bootstrap-radio",
+				"bootstrap-radiogroup	bootstrap-radiogroup"
+			],
+			[
+				"tasks",
+				"tasksDefinition"
+			],
+			[
+				"_current",
+				"_currentChildIdx"
+			],
+			[
+				"$loca",
+				"$location	AngularJS"
+			],
+			[
+				"$route",
+				"$routeParams	AngularJS"
+			],
+			[
+				"parent",
+				"parent_task_type_id"
+			],
+			[
+				"next",
+				"nextLocation〔variable〕"
+			],
+			[
+				"cat",
+				"catModTask"
+			],
+			[
+				"hasPrevi",
+				"hasPreviousStep"
+			],
+			[
+				"go",
+				"goBackInSequence"
+			],
+			[
+				"goFor",
+				"goForwardInSequence"
+			],
+			[
+				"curren",
+				"currentChildIdx"
+			],
+			[
+				"cure",
+				"currentStepIdx〔variable〕"
+			],
+			[
+				"getNext",
+				"getNextStepInSequence〔function〕"
+			],
+			[
+				"currentCHild",
+				"currentChildIdx"
+			],
+			[
+				"getPr",
+				"getPreviousStepInSequence"
+			],
+			[
+				"step",
+				"steps"
+			],
+			[
+				"want",
+				"want_to_quit"
+			],
+			[
+				"quesiton",
+				"question-block	question-block"
+			],
+			[
+				"boots",
+				"bootstrap-radiogroup-yesno	bootstrap-radio-yesno"
+			],
+			[
+				"boot",
+				"bootstrap-radiogroup-yesno	bootstrap-radio-yesno"
+			],
+			[
+				"skipp",
+				"skipped_healthy_eating_bc"
+			],
+			[
+				"skip",
+				"skipped_healthy_eating_bc"
+			],
+			[
+				"bootst",
+				"bootstrap-radiogroup-yesno	bootstrap-radio-yesno"
+			],
+			[
+				"checkbox",
+				"checkbox-dir	checkbox-dir"
+			],
+			[
+				"boo",
+				"bootstrap-radiogroup	bootstrap-radiogroup"
+			],
+			[
+				"bootstarp",
+				"bootstrap-radiogroup-yesno	bootstrap-radio-yesno"
+			],
+			[
+				"bootstr",
+				"bootstrap-radiogroup-yesno	bootstrap-radio-yesno"
+			],
+			[
+				"variable",
+				"variableName"
+			],
+			[
+				"has",
+				"has_medication_list_form"
+			],
+			[
+				"adher",
+				"adherenc_probs_other"
+			],
+			[
+				"adn",
+				"adherenc_probs"
+			],
+			[
+				"vari",
+				"variableName"
+			],
+			[
+				"var",
+				"variableName"
+			],
+			[
+				"template",
+				"templateUrl"
+			],
+			[
+				"loading",
+				"loadingInterceptor"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "change_baseline.xml",
+			"settings":
+			{
+				"buffer_size": 2786,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "smoking.xml",
+			"settings":
+			{
+				"buffer_size": 1066,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fruits_and_veg.xml",
+			"settings":
+			{
+				"buffer_size": 1901,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "fruits_and_vegies.json",
+			"settings":
+			{
+				"buffer_size": 2420,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "reside_a.xml",
+			"settings":
+			{
+				"buffer_size": 1288,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "r",
+		"selected_items":
+		[
+			[
+				"r",
+				"ANF: Rename File"
+			],
+			[
+				"renam",
+				"ANF: Rename File"
+			],
+			[
+				"findus",
+				"PHPCompanion:Find Use"
+			],
+			[
+				"finduse",
+				"PHPCompanion:Find Use"
+			],
+			[
+				"gutter",
+				"SublimeLinter: Choose Gutter Theme"
+			],
+			[
+				"make",
+				"Laravel Artisan: Make: Controller"
+			],
+			[
+				"ad",
+				"ANF: Delete File"
+			],
+			[
+				"anf",
+				"ANF: Rename File"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"extract",
+				"PackageResourceViewer: Extract Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"checkbox",
+				"Snippet: bs3-input-checkbox"
+			],
+			[
+				"yesno",
+				"Snippet: ngyesnobuttons"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"packac",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"sublimeLinter",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"packa inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: row",
+				"Snippet: dataRow"
+			],
+			[
+				"Snippet: options",
+				"Snippet: loadoptions"
+			],
+			[
+				"json",
+				"Pretty JSON: JSON query with ./jq"
+			],
+			[
+				"Snippet: sirs_yes",
+				"Snippet: sirs_yesno"
+			],
+			[
+				"doc",
+				"DocBlockr: Decorate line comment"
+			],
+			[
+				"Snippet: doc",
+				"Snippet: Start Docblock"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/jward3/projects/packages/surveys/change_baseline.json",
+		"/Users/jward3/projects/packages/surveys/reside_a.html",
+		"/Users/jward3/projects/change/gulpfile.js",
+		"/Users/jward3/projects/change/public/ng_templates/surveys/social_network_collection.html",
+		"/Users/jward3/projects/change/public/ng_templates/tasks/task.html",
+		"/Users/jward3/projects/change/public/js/tasks/task_definitions.js",
+		"/Users/jward3/projects/change/public/js/components/task_decorator.js",
+		"/Users/jward3/projects/change/public/js/tasks/tasks.js",
+		"/Users/jward3/projects/change/resources/views/ng_app.blade.php",
+		"/Users/jward3/projects/change/public/build/css/change.css",
+		"/Users/jward3/projects/change/.env",
+		"/Users/jward3/projects/change/public/js/app.js",
+		"/Users/jward3/projects/change/public/js/routes.js",
+		"/Users/jward3/projects/change/app/Http/routes.php",
+		"/Users/jward3/projects/change/public/build/build/js/change-eca7f42267.js",
+		"/Users/jward3/projects/change/app/Fractal/Transformers/ReferralParticipantTransformer.php",
+		"/Users/jward3/projects/change/public/build/templateCache.js",
+		"/Users/jward3/projects/change/public/js/tasks/medication_steps.js",
+		"/Users/jward3/projects/change/public/js/tasks/measure_steps.js",
+		"/Users/jward3/projects/change/public/js/participants/participant_detail.js",
+		"/Users/jward3/projects/change/public/js/components/directives.js",
+		"/Users/jward3/projects/change/public/js/appointments/appointments.js",
+		"/Users/jward3/projects/change/public/js/appointments/appointment_detail.js",
+		"/Users/jward3/projects/change/public/js/tasks/task_step.js",
+		"/Users/jward3/projects/change/public/index-async.html",
+		"/Users/jward3/projects/change/resources/assets/less/app.less",
+		"/Users/jward3/projects/change/public/css/app.css",
+		"/Users/jward3/projects/change/vendor/sirs/tasks/src/Sirs/Tasks/Transformers/TaskTransformer.php",
+		"/Users/jward3/projects/change/vendor/sirs/communications/Sirs/Communications/src/Transformers/CommLogTransformer.php",
+		"/Users/jward3/projects/change/public/js/components/services.js",
+		"/Users/jward3/projects/change/vendor/sirs/communications/Sirs/Communications/src/API/CommunicationController.php",
+		"/Users/jward3/projects/change/public/participants/_comm_log.html",
+		"/Users/jward3/projects/change/public/js/models/Communications.js",
+		"/Users/jward3/projects/change/public/participants/participant_detail.html",
+		"/Users/jward3/projects/change/vendor/sirs/communications/Sirs/Communications/src/Models/CommLog.php",
+		"/Users/jward3/projects/change/vendor/sirs/tasks/src/Sirs/Tasks/Task.php",
+		"/Users/jward3/projects/change/app/Goal.php",
+		"/Users/jward3/projects/change/public/tasks/task.html",
+		"/Users/jward3/projects/change/vendor/sirs/appointments/src/Sirs/Appointments/Controllers/RestAppointmentsController.php",
+		"/Users/jward3/projects/change/vendor/sirs/appointments/src/Sirs/Appointments/Appointment.php",
+		"/Users/jward3/projects/change/app/Fractal/Transformers/GoalParticipantTransformer.php",
+		"/Users/jward3/projects/change/vendor/nesbot/carbon/src/Carbon/Carbon.php",
+		"/Users/jward3/projects/change/vendor/sirs/appointments/src/Sirs/Appointments/Commands/ScheduleAppointment.php",
+		"/Users/jward3/projects/change/public/js/models/Appointments.js",
+		"/Users/jward3/projects/change/public/surveys/social_network_collection.html",
+		"/Users/jward3/projects/change/node_modules/laravel-elixir/tasks/task.js",
+		"/Users/jward3/projects/change/public/surveys/booster_calls/initiate.html",
+		"/Users/jward3/projects/change/public/surveys/booster_calls/booster_referral_review.html",
+		"/Users/jward3/projects/change/vendor/sirs/tasks/src/Sirs/Tasks/Controllers/RestTaskController.php",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/goals_form.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/referrals_form.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/module_initiation.html",
+		"/Users/jward3/projects/change/node_modules/laravel-elixir/Task.js",
+		"/Users/jward3/projects/change/app/Handlers/Events/HandleUpdatedTaskData.php",
+		"/Users/jward3/projects/change/public/js/home/home.js",
+		"/Users/jward3/projects/change/app/Http/Controllers/ReportingController.php",
+		"/Users/jward3/projects/change/public/bower_components/bootstrap/less/type.less",
+		"/Users/jward3/projects/change/resources/assets/less/bootstrap/variables.less",
+		"/Users/jward3/projects/change/resources/assets/less/bootstrap/glyphicons.less",
+		"/Users/jward3/projects/change/app/Console/Commands/ParticipantImport.php",
+		"/Users/jward3/projects/change/resources/assets/less/loading.less",
+		"/Users/jward3/projects/change/public/bower_components/bootstrap/less/progress-bars.less",
+		"/Users/jward3/projects/change/bower.json",
+		"/Users/jward3/projects/change/public/js/communications/logEntryForm.js",
+		"/Users/jward3/projects/change/public/js/models/Users.js",
+		"/Users/jward3/projects/change/public/js/models/Tasks.js",
+		"/Users/jward3/projects/change/public/js/models/Relations.js",
+		"/Users/jward3/projects/change/public/js/models/RefusalReasons.js",
+		"/Users/jward3/projects/change/public/js/models/Participant.js",
+		"/Users/jward3/projects/change/public/js/models/ImprovementCategories.js",
+		"/Users/jward3/projects/change/public/js/participants/participant_create.js",
+		"/Users/jward3/projects/change/public/js/participants/participants.js",
+		"/Users/jward3/projects/change/public/js/participants/participants_list.js",
+		"/Users/jward3/projects/change/database/seeds/UsersSeeder.php",
+		"/Users/jward3/.bash_profile",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/jward3/projects/change/app/Http/Controllers/Controller.php",
+		"/Users/jward3/projects/change/app/Http/Controllers/RestGoalsController.php",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/builds/psr-2.sublime-build",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/jward3/projects/change/.bowerrc",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/constructor.sublime-snippet",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/New Class.sublime-snippet",
+		"/Users/jward3/projects/change/app/test.php",
+		"/Users/jward3/projects/change/app/Http/Controllers/RestParticipantsController.php",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/Material Theme/Material-Theme.sublime-theme",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/User/AdvancedNewFile.sublime-settings",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/AdvancedNewFile.sublime-settings",
+		"/Users/jward3/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/Default (OSX).sublime-keymap",
+		"/Users/jward3/projects/change/database/seeds/TaskTypesSeeder.php",
+		"/Users/jward3/projects/change/public/participants/clinical_info.html",
+		"/Users/jward3/projects/change/app/Participant.php",
+		"/Users/jward3/projects/change/public/surveys/weight_and_bp.html",
+		"/Users/jward3/projects/change/app/Exceptions/Handler.php",
+		"/Users/jward3/projects/change/vendor/sirs/tasks/src/Sirs/Tasks/Transformers/TaskTypeTransformer.php",
+		"/Users/jward3/projects/change/database/seeds/ParticipantsSeeder.php",
+		"/Users/jward3/projects/change/database/migrations/2015_07_07_144919_add_enrollment_location_id_to_participants.php",
+		"/Users/jward3/projects/change/database/migrations/2015_02_18_174124_create_participants_table.php",
+		"/Users/jward3/projects/change/database/migrations/2015_12_11_095256_add_bp_and_weight_fields_to_participant.php",
+		"/Users/jward3/projects/change/app/Http/Controllers/Auth/AuthController.php",
+		"/Users/jward3/projects/change/public/participants/participants_list.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/mod_instructions.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/goals_smoking.html",
+		"/Users/jward3/projects/change/database/seeds/GoalsSeeder.php",
+		"/Users/jward3/projects/change/database/seeds/ReferralsTableSeeder.php",
+		"/Users/jward3/projects/change/public/surveys/goal_review.html",
+		"/Users/jward3/projects/change/public/surveys/referral_review.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/smoking.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/goals_on_track.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/meds_med_list.html",
+		"/Users/jward3/projects/change/public/surveys/cat_modules/meds.html",
+		"/Users/jward3/projects/change/public/surveys/baseline/smoking.html",
+		"/Users/jward3/projects/change/public/surveys/booster_calls/meds.html",
+		"/Users/jward3/projects/change/app/Commands/AssignParticipantGoal.php",
+		"/Users/jward3/projects/change/app/Handlers/Events/SetGoalsFromFormData.php",
+		"/Users/jward3/projects/change/public/surveys/session_initiation.html",
+		"/Users/jward3/projects/change/app/Fractal/Transformers/ParticipantTransformer.php",
+		"/Users/jward3/projects/change/app/Http/Controllers/RestImprovementCategoriesController.php",
+		"/Users/jward3/projects/change/app/ImprovementCategory.php",
+		"/Users/jward3/projects/change/config/communications.php",
+		"/Users/jward3/projects/change/app/Handlers/Events/SetReferralsFromFormData.php",
+		"/Users/jward3/projects/change/app/Http/Controllers/ParticipantController.php",
+		"/Users/jward3/projects/change/config/administrator/communication_reasons.php",
+		"/Users/jward3/projects/change/config/administrator.php",
+		"/Users/jward3/projects/change/config/administrator/communication_statuses.php"
+	],
+	"find":
+	{
+		"height": 32.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*, -storage/*",
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*, -storage/logs/*",
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*, -storage/logs/*, *.blade.php",
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*, -storage/logs/*",
+			"public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*, -storage/logs/*",
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*, -storage/logs/*",
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*, -public/packages/*",
+			"-public/bower_components/*, -node_modules/*, -vendor/*, -public/build/*",
+			"-public/bower_components/*, -node_modules/*, -vendor/*",
+			"-public/build/*",
+			"",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, *.html",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, *.js",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, -*.js",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, -vendor/*",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*,",
+			"-vendor/*, -public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*,",
+			"-vendor/*, -public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, *.js",
+			"-vendor, -public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, *.js",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, -public/packages/*, *.js",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js, *.js",
+			"-public/bower_components, -node_modules/*, -app.css.map, -*.min.js",
+			"-public/bower_components, -vendor/*, -node_modules/*, -app.css.map, -*.min.js",
+			"vendor/bican/*",
+			"app/*, public/*, resources/*, workbench/*, -public/bower_components, -vendor/*, -node_modules/*, *.js, -app.css.map, -*.min.js, *.js",
+			"app/*, public/*, resources/*, workbench/*, -public/bower_components, -vendor/*, -node_modules/*, *.js, -app.css.map, -*.min.js",
+			"app/*, public/*, resources/*, -public/bower_components, -vendor/*, -node_modules/*, *.js, -app.css.map, -*.min.js",
+			"app/*, public/*, resources/*, -public/bower_components, -vendor/*, -node_modules/*, *.js, -app.css.map",
+			"app/*, public/*, resources/*, -public/bower_components, -vendor/*, -node_modules/*, *.js",
+			"app/*, public/*, resources/*, -public/bower_components, vendor/*, -node_modules/*, *.js",
+			"app/*, public/*, resources/*, -public/bower_components, -vendor/*, -node_modules/*, *.js",
+			"app/*, public/*, resources/*, -public/bower_components, -vendor/*, -node_modules/*",
+			"*.js",
+			"app/*, public/*, resources/*, -public/bower_components, -vendor/*, -node_modules/*",
+			"app/*, public/*, resources/*",
+			"",
+			"*.php",
+			"*.js",
+			"*.less",
+			"*.php, ,-vendor/*",
+			"*.php",
+			"",
+			"*.php",
+			"*.php,/Users/jward3/projects/change/hg/change/app",
+			"*.php,/Users/jward3/projects/change/hg/change/workbench/sirs/tasks/src/Sirs",
+			"*.php",
+			"*.php; ,-vendor/*",
+			"",
+			"*.php",
+			"-vendor/*",
+			"",
+			"*.php",
+			"",
+			"tj/*",
+			"/tj/*",
+			"",
+			"*.php",
+			"",
+			"*.php",
+			"dev/*.php",
+			"*.php",
+			"",
+			"*.php",
+			"",
+			"/Users/jward3/Projects/autism/hg/tj/web/Survey",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"required ",
+			"{",
+			"}",
+			" \"questionText\"",
+			"<question ",
+			"question-text",
+			"-",
+			"otption",
+			"goForward",
+			"task.goForward",
+			"formData",
+			"myApp",
+			"templateRoot+'/",
+			"enrollment.html",
+			"templateUrl+",
+			"test",
+			"templateUrl = \"",
+			"templateUrl = '",
+			"templateUrl: '",
+			"task){ ",
+			"templateUrl: '",
+			"})",
+			"templateUrl: '",
+			"templateUrl",
+			"typeDate",
+			"date_due",
+			"setup routes",
+			"goal",
+			"YYYY",
+			"date",
+			"public/bower_components",
+			"bower_com",
+			"appointmentsService",
+			"save",
+			"console.log(",
+			"console.log('task.beforeSave executed');",
+			"i",
+			"routes.js",
+			"social",
+			"setReviewSteps",
+			"')",
+			"};",
+			"})",
+			" == 0",
+			"inline",
+			"question",
+			"h3",
+			"form-navigation-container",
+			"3",
+			"h2",
+			"demo_edu",
+			"executed')",
+			"save",
+			"true",
+			"})",
+			"bootstrap",
+			"/bower_components/bootstrap",
+			"glu",
+			"icon-font-path",
+			"ttf",
+			"console.log($rootScope.loading);",
+			"body",
+			"loading",
+			".loading",
+			"templateUrl: '",
+			": '",
+			"when('/",
+			"test",
+			"NavController",
+			"navController",
+			"rename",
+			"full",
+			"38, 50, 56",
+			"        'child_order'=>6,\n",
+			"        'parent_task_type_id'=>500\n",
+			"taskMeds",
+			"inline-block",
+			"form-group",
+			"object['custom']",
+			"1",
+			"[1]",
+			"ctrl.someSelected",
+			"ng-required=\"ctrl.someSelected(ctrl.formData[ctrl.task.currentStep.catPrefix+'refs'])\"",
+			"            </label> \n            Other \n",
+			"</checkbox>",
+			"<checkbox ",
+			"checkbox",
+			"form-control\"",
+			"form-control",
+			"weight_",
+			"lbs.",
+			"clinicalCtrl.participant.weight_",
+			"<label",
+			"              <div class=\"input-group\">\n",
+			"</dt>",
+			"1",
+			"name=\"weigt_hv",
+			"Task::find($id)",
+			"transform",
+			"this.owner.sbp_hv",
+			"this.owner.weight_hv",
+			"task.data.sbp",
+			"task",
+			"2",
+			"$table->",
+			"sbp",
+			" ),",
+			"User:create",
+			"'id'",
+			"$2y",
+			"      ",
+			"     ",
+			"    ",
+			"   ",
+			"  ",
+			"2y",
+			"$2y",
+			"$2",
+			"$2y",
+			"$2y$1",
+			"email'=>",
+			"'id'=>",
+			"Muscle Strength",
+			"Staying on Track",
+			"Keep walking and increase other physical activities",
+			"Walking",
+			"Drinks, Desserts, Snacks, & Eating Out",
+			"Drinks, Desserts, Snacks, & Eating Out - Goal Review"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"templateRoot+'",
+			"last_reviewed_at",
+			"ctrl.",
+			"ctrl",
+			"ctrl.",
+			"Tasks\\Interfaces\\TaskOwner;",
+			"Task",
+			"ctrl.formData",
+			"{{$urlRoot}}",
+			"Sirs\\Tasks\\Surveys",
+			"use Sirs\\Appointments\\Commands\\AppointmentCommand;",
+			"CreateTasksForEnrolledParticipant",
+			"Sirs\\Tasks",
+			"Sirs\\Tasks\\",
+			"Tasks",
+			"sex",
+			"participant_types",
+			"TID_",
+			"TID",
+			"Moderately",
+			"}\n",
+			"  <h3>Primary contact info</h3>\n  <div id=\"PrimaryContactContainer\">\n    <div class=\"questionBlock\" id=\"address-fields\">\n      <div>\n        <label for=\"Street1\">Street:</label>\n        <input type=\"text\" name=\"Street1\" id=\"Street1\" class=\"typeText required\" />\n        <span class=\"error\" error_for=\"Street1\"></span>\n      </div>\n      <div>\n        <label for=\"Street2\"></label>\n        <input type=\"text\" name=\"Street2\" id=\"Street2\" class=\"typeText\" />\n      </div>\n      <div class=\"city-state-zip\">\n        <label for=\"City\">City:</label>\n        <input type=\"text\" name=\"City\" id=\"City\" class=\"typeText required\" />\n        <span class=\"error\" error_for=\"City\"></span>\n        \n        <label for=\"State\">State:</label>\n        <input type=\"text\" name=\"State\" id=\"State\" class=\"typeText required\" />\n        <span class=\"error\" error_for=\"State\"></span>\n        \n        <label for=\"Zip\">Zip:</label>\n        <input type=\"text\" name=\"Zip\" id=\"Zip\" class=\"typeText required\" />\n        <spanclass=\"error\"  error_for=\"Zip\"></span>\n      </div>\n    </div>\n    <div id=\"PhoneFields\">\n      <div class=\"questionBlock\" id=\"PhoneQuestion\">\n        <label for=\"Phone\" id=\"lbl_Phone\">Phone Number:</label>\n        <input type=\"text\" name=\"Phone\" id=\"Phone\" class=\"typeText required\" />\n        <span class=\"error\" error_for=\"Phone\"></span>\n      </div>\n    </div>\n    <div id=\"EmailFields\">\n      <div class=\"questionBlock\" id=\"EmailQuestion\">\n        <label for=\"Email\" id=\"lbl_Email\">Email:</label>\n        <input type=\"text\" name=\"Email\" id=\"Email\" class=\"typeText\" />\n      </div>\n    </div>  \n  </div>",
+			"RA",
+			"PROG",
+			"PI",
+			"value=\"4\"",
+			"value=\"3\"",
+			"value=\"2\"",
+			"value=\"1\"",
+			"value=\"0\"",
+			"ProjectForm",
+			"navigationTo",
+			"kneeoa",
+			"\\n",
+			"static::renderPartial",
+			"static->renderPartial",
+			"Application_",
+			"CurrentFormStep",
+			"selectQuery",
+			"name='nav_back'",
+			"",
+			"nav_next",
+			"nav_last",
+			"class=\"surveyWrapper\" id=\"survey-content\"",
+			"AbstractSurveyForm"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "change_baseline.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2786,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20,
+								20
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "smoking.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1066,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								136,
+								136
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "fruits_and_veg.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1901,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								20,
+								20
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "fruits_and_vegies.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2420,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "reside_a.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1233,
+								1233
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 32.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 180.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 136.0
+	},
+	"pinned_build_system": "Packages/User/builds/psr-2.sublime-build",
+	"project": "surveys.sublime-project",
+	"replace":
+	{
+		"height": 60.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app.php",
+				"config/app.php"
+			],
+			[
+				"compoer",
+				"composer.json"
+			],
+			[
+				"ng_app",
+				"resources/views/ng_app.blade.php"
+			],
+			[
+				"social",
+				"public/ng_templates/surveys/social_network_collection.html"
+			],
+			[
+				"gulp",
+				"gulpfile.js"
+			],
+			[
+				"task.html",
+				"public/ng_templates/tasks/task.html"
+			],
+			[
+				"tasks",
+				"public/js/tasks/tasks.js"
+			],
+			[
+				"task_decor",
+				"public/js/components/task_decorator.js"
+			],
+			[
+				"task_definitions",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				".env",
+				".env"
+			],
+			[
+				"routes.js",
+				"public/js/routes.js"
+			],
+			[
+				"route.s",
+				"app/Http/routes.php"
+			],
+			[
+				"app.js",
+				"public/js/app.js"
+			],
+			[
+				"referparttr",
+				"app/Fractal/Transformers/ReferralParticipantTransformer.php"
+			],
+			[
+				"taskdefin",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"gulpfile",
+				"gulpfile.js"
+			],
+			[
+				"app.less",
+				"resources/assets/less/app.less"
+			],
+			[
+				"app.css",
+				"public/css/app.css"
+			],
+			[
+				"serv",
+				"public/js/components/services.js"
+			],
+			[
+				"tasktra",
+				"vendor/sirs/tasks/src/Sirs/Tasks/Transformers/TaskTransformer.php"
+			],
+			[
+				"communication",
+				"public/js/models/Communications.js"
+			],
+			[
+				"partic_deta",
+				"public/js/participants/participant_detail.js"
+			],
+			[
+				"partic_det",
+				"public/participants/participant_detail.html"
+			],
+			[
+				"_com",
+				"public/participants/_comm_log.html"
+			],
+			[
+				"commlog",
+				"vendor/sirs/communications/Sirs/Communications/src/Models/CommLog.php"
+			],
+			[
+				"taskta",
+				"vendor/sirs/tasks/src/Sirs/Tasks/Transformers/TaskTransformer.php"
+			],
+			[
+				"referapart",
+				"app/Fractal/Transformers/ReferralParticipantTransformer.php"
+			],
+			[
+				"goal",
+				"app/Goal.php"
+			],
+			[
+				"task.php",
+				"vendor/sirs/tasks/src/Sirs/Tasks/Task.php"
+			],
+			[
+				"tasktrans",
+				"vendor/sirs/tasks/src/Sirs/Tasks/Transformers/TaskTransformer.php"
+			],
+			[
+				"appointment.php",
+				"vendor/sirs/appointments/src/Sirs/Appointments/Appointment.php"
+			],
+			[
+				"restappointment",
+				"vendor/sirs/appointments/src/Sirs/Appointments/Controllers/RestAppointmentsController.php"
+			],
+			[
+				"scheduleapp",
+				"vendor/sirs/appointments/src/Sirs/Appointments/Commands/ScheduleAppointment.php"
+			],
+			[
+				"appointmentscont",
+				"vendor/sirs/appointments/src/Sirs/Appointments/Controllers/RestAppointmentsController.php"
+			],
+			[
+				"services",
+				"public/js/components/services.js"
+			],
+			[
+				"task_deco",
+				"public/js/components/task_decorator.js"
+			],
+			[
+				"tasks.js",
+				"public/js/tasks/tasks.js"
+			],
+			[
+				"task.js",
+				"node_modules/laravel-elixir/tasks/task.js"
+			],
+			[
+				"task_dec",
+				"public/js/components/task_decorator.js"
+			],
+			[
+				"task_defin",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"ng_ap",
+				"resources/views/ng_app.blade.php"
+			],
+			[
+				"resttask",
+				"vendor/sirs/tasks/src/Sirs/Tasks/Controllers/RestTaskController.php"
+			],
+			[
+				"task_decorator",
+				"public/js/components/task_decorator.js"
+			],
+			[
+				"task_def",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"modu",
+				"public/surveys/cat_modules/module_initiation.html"
+			],
+			[
+				"goals_form",
+				"public/surveys/cat_modules/goals_form.html"
+			],
+			[
+				"referrals",
+				"public/surveys/cat_modules/referrals_form.html"
+			],
+			[
+				"app.les",
+				"resources/assets/less/app.less"
+			],
+			[
+				"measures",
+				"public/js/tasks/measure_steps.js"
+			],
+			[
+				"sirs/tasks/src/resttask",
+				"vendor/sirs/tasks/src/Sirs/Tasks/Controllers/RestTaskController.php"
+			],
+			[
+				"home.js",
+				"public/js/home/home.js"
+			],
+			[
+				"route",
+				"app/Http/routes.php"
+			],
+			[
+				"homes.",
+				"public/js/home/home.js"
+			],
+			[
+				".less",
+				"public/bower_components/bootstrap/less/type.less"
+			],
+			[
+				"tasks.html",
+				"public/tasks/task.html"
+			],
+			[
+				"task",
+				"public/js/tasks/tasks.js"
+			],
+			[
+				"directe",
+				"public/js/components/directives.js"
+			],
+			[
+				"direct",
+				"public/js/components/directives.js"
+			],
+			[
+				"progres",
+				"public/bower_components/bootstrap/less/progress-bars.less"
+			],
+			[
+				"usersee",
+				"database/seeds/UsersSeeder.php"
+			],
+			[
+				"ng",
+				"resources/views/ng_app.blade.php"
+			],
+			[
+				"communi.js",
+				"public/js/models/Communications.js"
+			],
+			[
+				"appointments.js",
+				"public/js/appointments/appointments.js"
+			],
+			[
+				"controller",
+				"app/Http/Controllers/Controller.php"
+			],
+			[
+				"testpartip",
+				"app/Http/Controllers/RestParticipantsController.php"
+			],
+			[
+				"bower",
+				"bower.json"
+			],
+			[
+				"tasktypesee",
+				"database/seeds/TaskTypesSeeder.php"
+			],
+			[
+				"clinica",
+				"public/participants/clinical_info.html"
+			],
+			[
+				"clinical",
+				"public/participants/clinical_info.html"
+			],
+			[
+				"tasktype",
+				"database/seeds/TaskTypesSeeder.php"
+			],
+			[
+				"exceptionhandler",
+				"app/Exceptions/Handler.php"
+			],
+			[
+				"partic",
+				"app/Participant.php"
+			],
+			[
+				"parti",
+				"database/seeds/ParticipantsSeeder.php"
+			],
+			[
+				"participant_detail",
+				"public/js/participants/participant_detail.js"
+			],
+			[
+				"create_parti",
+				"database/migrations/2015_02_18_174124_create_participants_table.php"
+			],
+			[
+				"add_",
+				"database/migrations/2015_07_07_144919_add_enrollment_location_id_to_participants.php"
+			],
+			[
+				"addbp",
+				"database/migrations/2015_12_11_095256_add_bp_and_weight_fields_to_participant.php"
+			],
+			[
+				"add_bp",
+				"database/migrations/2015_12_11_095256_add_bp_and_weight_fields_to_participant.php"
+			],
+			[
+				"measure",
+				"public/js/tasks/measure_steps.js"
+			],
+			[
+				"participant_list",
+				"public/participants/participants_list.html"
+			],
+			[
+				"goalssee",
+				"database/seeds/GoalsSeeder.php"
+			],
+			[
+				"refersee",
+				"database/seeds/ReferralsTableSeeder.php"
+			],
+			[
+				"goalsee",
+				"database/seeds/GoalsSeeder.php"
+			],
+			[
+				"referralsee",
+				"database/seeds/ReferralsTableSeeder.php"
+			],
+			[
+				"meds.html",
+				"public/surveys/booster_calls/meds.html"
+			],
+			[
+				"g",
+				"gulpfile.js"
+			],
+			[
+				"task_definit",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"session",
+				"public/surveys/session_initiation.html"
+			],
+			[
+				"setre",
+				"app/Handlers/Events/SetReferralsFromFormData.php"
+			],
+			[
+				"restinmp",
+				"app/Http/Controllers/RestImprovementCategoriesController.php"
+			],
+			[
+				"participant",
+				"app/Participant.php"
+			],
+			[
+				"participant_deta",
+				"public/js/participants/participant_detail.js"
+			],
+			[
+				"parti_list",
+				"public/js/participants/participants_list.js"
+			],
+			[
+				"home",
+				"public/js/home/home.js"
+			],
+			[
+				"participants_list",
+				"public/participants/participants_list.html"
+			],
+			[
+				"task_ef",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"smoking.html",
+				"public/surveys/baseline/smoking.html"
+			],
+			[
+				"reside",
+				"public/surveys/baseline/reside_a.html"
+			],
+			[
+				"taskdef",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"helpers",
+				"public/js/helpers.js"
+			],
+			[
+				"app",
+				"public/js/app.js"
+			],
+			[
+				"initit",
+				"public/surveys/booster_calls/initiate.html"
+			],
+			[
+				"init",
+				"public/surveys/booster_calls/initiate.html"
+			],
+			[
+				"initiate.",
+				"public/surveys/booster_calls/initiate.html"
+			],
+			[
+				"prior",
+				"public/surveys/priority_selection/priority_selection.html"
+			],
+			[
+				"app.blade",
+				"resources/views/app.blade.php"
+			],
+			[
+				"send",
+				"app/Commands/SendWelcomeEmail.php"
+			],
+			[
+				"welcom",
+				"resources/views/emails/welcome.blade.php"
+			],
+			[
+				"user_table",
+				"database/migrations/2015_01_15_114412_create_role_user_table.php"
+			],
+			[
+				"user",
+				"app/User.php"
+			],
+			[
+				"ng_a",
+				"resources/views/ng_app.blade.php"
+			],
+			[
+				"users.",
+				"config/administrator/users.php"
+			],
+			[
+				"eventser",
+				"app/Providers/EventServiceProvider.php"
+			],
+			[
+				"printable",
+				"public/participants/printable_summary.html"
+			],
+			[
+				"participant_det",
+				"public/participants/participant_detail.html"
+			],
+			[
+				"refustas",
+				"database/seeds/RefusalReasonsTableSeeder.php"
+			],
+			[
+				"composer",
+				"composer.json"
+			],
+			[
+				"improve",
+				"app/ImprovementCategory.php"
+			],
+			[
+				"task_defint",
+				"public/js/tasks/task_definitions.js"
+			],
+			[
+				"participant.php",
+				"app/Participant.php"
+			],
+			[
+				"createparttable",
+				"database/migrations/2015_02_18_174124_create_participants_table.php"
+			],
+			[
+				"parti.js",
+				"public/js/models/Participant.js"
+			],
+			[
+				"particpant.js",
+				"public/js/models/Participant.js"
+			],
+			[
+				"goals_sm",
+				"public/surveys/cat_modules/goals_smoking.html"
+			],
+			[
+				"partiicanimp",
+				"app/Console/Commands/ParticipantImport.php"
+			],
+			[
+				"hd",
+				"public/surveys/baseline/health_department_data.html"
+			],
+			[
+				"participants",
+				"public/js/participants/participants.js"
+			],
+			[
+				"dmograph",
+				"public/surveys/baseline/demographics.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/projects/change_linked/www/change_linked.sublime-project"
+			],
+			[
+				"change",
+				"~/projects/change_linked/www/change_linked.sublime-project"
+			],
+			[
+				"knee",
+				"~/projects/kneeoa/kneeoa.sublime-workspace"
+			],
+			[
+				"sirs",
+				"~/projects/sirs_boilerplate/sirs_boilerplate.sublime-project"
+			],
+			[
+				"kne",
+				"~/projects/kneeoa/kneeoa.sublime-workspace"
+			],
+			[
+				"nee",
+				"~/projects/kneeoa/kneeoa.sublime-workspace"
+			],
+			[
+				"ken",
+				"~/projects/kneeoa/kneeoa.sublime-workspace"
+			],
+			[
+				"prek",
+				"~/projects/pre-k/pre-k.sublime-project"
+			],
+			[
+				"prism",
+				"~/projects/prism/prism.sublime-project"
+			],
+			[
+				"boi",
+				"~/projects/boilerplate/boilerplate.sublime-workspace"
+			],
+			[
+				"ws",
+				"~/projects/ws/ws.sublime-project"
+			],
+			[
+				"boiler",
+				"~/projects/boilerplate/boilerplate.sublime-workspace"
+			],
+			[
+				"hhn",
+				"~/projects/hhn/hhn.sublime-project"
+			],
+			[
+				"larave",
+				"~/projects/packages/laravel-5.1.x-test.sublime-project"
+			],
+			[
+				"kn",
+				"~/projects/kneeoa/kneeoa.sublime-workspace"
+			],
+			[
+				"packa",
+				"~/projects/packages/laravel-5.1.x-test.sublime-project"
+			],
+			[
+				"sirs_fron",
+				"~/projects/sirs_front/sirs_front.sublime-project"
+			],
+			[
+				"sur",
+				"~/projects/sirs_survey/sirs_survey.sublime-project"
+			],
+			[
+				"cecmh",
+				"~/projects/cecmh/cecmh.sublime-project"
+			],
+			[
+				"wi",
+				"~/projects/wihs/wihs.sublime-project"
+			],
+			[
+				"wih",
+				"~/projects/wihs/wihs.sublime-project"
+			],
+			[
+				"knneoa_dem",
+				"~/projects/kneeoa/kneeoa_demo.sublime-project"
+			],
+			[
+				"autism",
+				"~/projects/autism/autism.sublime-project"
+			],
+			[
+				"sirs.",
+				"~/projects/sirs/sirs.sublime-project"
+			],
+			[
+				"yfc",
+				"~/projects/yfc/yfc.sublime-project"
+			],
+			[
+				"cemc",
+				"~/projects/cecmh/cecmh.sublime-project"
+			],
+			[
+				"comm",
+				"~/projects/communications/communications.sublime-project"
+			],
+			[
+				"sirstest",
+				"~/projects/sirstest.sublime-project"
+			],
+			[
+				"javas",
+				"~/projects/javascript/javascript.sublime-project"
+			],
+			[
+				"pad",
+				"~/projects/padres/padres.sublime-project"
+			],
+			[
+				"cste",
+				"~/Projects/cstep/hg/cstep.sublime-project"
+			],
+			[
+				"accu",
+				"~/Projects/accure/accure.sublime-project"
+			],
+			[
+				"aut",
+				"~/Projects/autism/autism.sublime-project"
+			],
+			[
+				"cst",
+				"~/Projects/cstep/hg/cstep.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 830.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 370.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

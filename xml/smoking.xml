@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page title="Smoking">
+  <html>
+    <![CDATA[
+      <p>I would like to ask you about smoking.</p>
+    ]]>
+  </html>
+  <question name="ever_smk" type="yes-no-noanswer" required="true">
+    <question-text>Have you ever smoked cigarettes?</question-text>
+  </question>
+  <questions name="smk_month" type="multiple-choice" skip="smk_ever_yes" required="true">
+    <question-text>How long ago did you smoke your last cigarette?</question-text>
+    <options>
+      <option value="1">Less than 1 month ago</option>
+      <option value="0">1 month ago or longer</option>
+      <option value="-99">No answer</option>
+    </options>
+  </questions>
+  <question name="smk_now" type="yes-no-noanswer" skip="smk_month_yes" required="true">
+    <question-text>Do you currently smoke cigarettes?</question-text>
+  </question>
+  <question name="smk_qt" type="yes-no-noanswer" skip="smk_now_yes" required="true">
+    <question-text>Do you smoke more than 10 cigarettes a day?</question-text>
+  </question>
+
+  <logic>
+    <skips>
+      <skip id="smk_ever_yes">
+        <trigger>
+          <condition depends-on="smk_ever" operator="!=" value="null" />
+          <condition>
+             <depends-on>smk_ever</depends-on>
+             <operator>===</operator>
+             <value>1</value>
+          </condition>
+        </trigger>
+        <target element="smk_month" action="show" />
+      </skip>
+      <skip id="smk_month_yes">
+        <trigger>
+          <condition depends-on="smk_month" operator="!=" value="null"></condition>
+          <condition depends-on="smk_month" operator="===" value="1"></condition>
+        </trigger>
+        <target element="smk_now" action="show"></target>
+      </skip>
+      <skip id="smk_now_yes">
+        <trigger>
+          <condition depends-on="smk_now" operator="!=" value="null"></condition>
+          <condition depends-on="smk_now" operator="===" value="1"></condition>
+        </trigger>
+        <target element="smk_qt" action="show"></target>
+      </skip>
+    </skips>
+  </logic>
+
+</page>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<xs:schema 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://sirs.unc.edu"
+  xmlns="http://sirs.unc.edu">
+
+  <xs:element name="html" type="xs:string" />
+  <xs:complexType name="sequence-container">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="html" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="question" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="question-group" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="src" type="xs:string"></xs:attribute>
+    <xs:attribute name="depends-on" type="xs:string"></xs:attribute>
+    <xs:attribute name="mutually-exclusive" type="xs:boolean"></xs:attribute>
+  </xs:complexType>
+
+  <xs:element name="section" type="sequence-container" />
+  <xs:element name="page" />
+
+  <xs:element name="survey">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="page" type="page" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" />
+      <xs:attribute name="title" type="xs:string" />
+      <xs:attribute name="version" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="question">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="question-text" type="xs:string" />
+          <xs:element name="label" type="xs:string" />
+          <xs:element name="options" />
+          <xs:element name="template" />
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="required" type="xs:boolean" default="true"/>
+      <xs:attribute name="mutuall-exclusive" type="xs:boolean" />
+      <xs:attribute name="name" type="xs:string" />
+      <xs:attribute name="type" type="xs:string" default="multiple-choice" /> 
+      <xs:attribute name="multi-select" type="xs:boolean" default="false" /> 
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="template">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="src" type="xs:string" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="question-group" type="sequence-container" />
+
+  <xs:element name="options">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="option" type="option-type" maxOccurs="unbounded"></xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="option">
+    <xs:complexType mixed="true">
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="value" type="xs:string" />
+          <xs:attribute name="other" type="xs:string" />
+        </xs:extension>        
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
