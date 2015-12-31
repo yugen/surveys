@@ -1,0 +1,10 @@
+	<number>
+		<name>count</name>
+		<label>Count</label>
+		<placeholder></placeholder>
+		<required>true</required>
+		<class>form-control</class>
+		<min>20</min>
+		<max>40.6</max>
+		<html></html>
+	</number>

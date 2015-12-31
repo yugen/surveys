@@ -1,0 +1,27 @@
+<logic>
+	<skip>
+		<triggers>
+			<trigger>
+				<id>Question4</id>
+				<operator>===</operator>
+				<value>4</value>
+			</trigger>
+			<trigger>
+				<id>Question6</id>
+				<operator>!==</operator>
+				<value>NULL</value>
+				<triggeroperator>OR</triggeroperator>
+			</trigger>
+		</triggers>
+		<targets>
+			<target>
+				<id>Question9</id>
+				<action>Hide</action>
+			</target>
+			<target>
+				<id>Picture_001</id>
+				<action>Show</action>
+			</target>
+		</targets>
+	</skip>
+</logic>

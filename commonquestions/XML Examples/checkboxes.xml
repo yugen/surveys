@@ -1,0 +1,25 @@
+<checkboxes>
+	<name>race</name>
+	<label>Race</label>
+	<required>1</required>
+	<class>form-group</class>
+	<checkbox>
+		<name>white</name>
+		<value>1</value>
+		<label>White</label>
+		<class>form-control</class>
+	</checkbox>
+	<checkbox>
+		<name>black</name>
+		<value>2</value>
+		<label>Black</label>
+		<class>form-control</class>
+	</checkbox>
+	<checkbox>
+		<name>asian</name>
+		<value>3</value>
+		<label>Asian</label>
+		<class>form-control</class>
+	</checkbox>
+	<html></html>
+</checkboxes>
