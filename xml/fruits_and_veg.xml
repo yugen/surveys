@@ -18,25 +18,25 @@
     </options>
     <prompt>How often do you eat/drink...</prompt>
     <questions>
-      <question name="fruit_juice" required>
+      <question name="fruit_juice" required="true">
         Fruit juice, like orange, apple, grape, fresh frozen or canned (Not sodas or other drinks.)
       </question>
-      <question name="fruit" required>
+      <question name="fruit" required="true">
         How often do you eat any fruit, fresh or canned? (Not counting juice.)
       </question>
-      <question name="vegie_juice" required>
+      <question name="vegie_juice" required="true">
         Vegetable juice, like tomato juice, V-8, carrot 
       </question>
-      <question name="salad" required>
+      <question name="salad" required="true">
         Green salad
       </question>
-      <question name="potatos" required>
+      <question name="potatos" required="true">
         Potatoes, any kind, including baked, mashed or French fried
       </question>
-      <question name="vegie_soup" required>
+      <question name="vegie_soup" required="true">
         Vegetable soup, or stew with vegetables
       </question>
-      <question name="other_vegies" required>
+      <question name="other_vegies" required="true">
         Any other vegetables, including string beans, peas, corn, broccoli or any other kind
       </question>
     </questions>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page title="Beverages">
+  <html>
+    <![CDATA[
+      <p>I’d also like to ask you…</p>
+    ]]>
+  </html>
+  <question name="beverages" type="multiple-choice">
+    <question-text>
+      <![CDATA[
+        On an average day, how many 12-ounce servings of sugar-sweetened beverages do you drink with meals or in between meals? One regular can of beverage is 12 ounces. Sugar-sweetened beverages include regular non-diet sodas, bottled fruit drinks, Kool-Aid, iced or hot coffee or tea that has been sweetened with sugar (including drinks like Coke, Pepsi, Sprite, Snapple, lemonade, or fruitade and sports or energy drinks). 
+        <br>
+        Would you say:
+      ]]>
+    </question-text>
+    <options>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="-99">No answer</option>
+    </options>
+  </question>
+</page>

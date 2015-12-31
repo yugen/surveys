@@ -1,0 +1,14 @@
+{
+    "name": "sirs/surveys",
+    "require-dev": {
+        "phpspec/phpspec": "^2.4",
+        "phpunit/phpunit": "^5.1"
+    },
+    "authors": [
+        {
+            "name": "TJ Ward",
+            "email": "jward3@email.unc.edu"
+        }
+    ],
+    "require": {}
+}
