@@ -1,7 +1,4 @@
-formatter.name: pretty
+# formatter.name: pretty
 suites:
-    main:
+    survey_suite:
         namespace: Sirs\Survey
-        psr4_prefix: App
-        src_path: src
-        spec_prefix: spec

@@ -4,10 +4,40 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "415428e1b873b07ffbae7bce1c4e0c33",
-    "content-hash": "cea4107a7face95aaa857cebf80d4e29",
+    "hash": "b7b1992ab6d2d151bf9b5c658da434c3",
+    "content-hash": "5181b3869264227d144642d5f77fb2ee",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "burti/vfsstream",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CasaVaticano/vfsStream.git",
+                "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CasaVaticano/vfsStream/zipball/fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
+                "reference": "fc0fe8f4d0b527254a2dc45f0c265567c881d07e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "org\\bovigo\\vfs": "src/main/php"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "homepage": "http://vfs.bovigo.org/",
+            "time": "2012-08-25 12:49:29"
+        },
         {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
