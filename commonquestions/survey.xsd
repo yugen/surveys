@@ -9,12 +9,15 @@
 				<xs:element name="page" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:choice maxOccurs="unbounded">
-							<xs:element name="text-input" type="text-input" />
-							<xs:element name="number-input" type="number-input" />
-							<xs:element name="date-input" type="date-input" />
-							<xs:element name="multiselect" type="multiselect" />
+							<xs:element name="question" type="question" />
+							<xs:element name="number" type="number" />
+							<xs:element name="date" type="date" />
+							<xs:element name="time" type="time" />
+							<xs:element name="upload" type="upload" />
+							<xs:element name="multiple-choice" type="multiple-choice" />
 							<xs:element name="likert" type="likert" />
 							<xs:element name="logic" type="logic" />
+							<xs:element name="html" type="xs:string" />
 						</xs:choice>
 					</xs:complexType>
 				</xs:element>
@@ -24,22 +27,23 @@
 
 <!-- element declarations -->
 
-	<!-- text inputs -->
-	<xs:complexType name="text-input">
+	<!-- question -->
+	<xs:complexType name="question">
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="name" type="xs:string" />
+				<xs:element name="id" type="xs:string" />
 				<xs:element name="question-text" type="xs:string" minOccurs="0"/>
-				<xs:element name="placeholder" type="xs:string" minOccurs="0" />
+				<xs:element name="template" type="template" />
 				<xs:element name="required" type="xs:boolean" minOccurs="0" />
 				<xs:element name="class" type="xs:string" minOccurs="0" />
-				<xs:element name="html" type="xs:string" minOccurs="0" />
+				<!-- TO DO: ADD ENUM OF SQL DATA TYPE -->
 			</xs:choice>
 	</xs:complexType>
 
 	<!-- number inputs -->
-	<xs:complexType name="number-input">
+	<xs:complexType name="number">
 	  <xs:complexContent>
-	    <xs:extension base="text-input">
+	    <xs:extension base="question">
 	      <xs:choice maxOccurs="unbounded">
 	        <xs:element name="min" type="xs:decimal" minOccurs="0" />
 			<xs:element name="max" type="xs:decimal" minOccurs="0" />
@@ -49,9 +53,9 @@
 	</xs:complexType>
 
 	<!-- date inputs -->
-	<xs:complexType name="date-input">
+	<xs:complexType name="date">
 	  <xs:complexContent>
-	    <xs:extension base="text-input">
+	    <xs:extension base="question">
 	      <xs:choice maxOccurs="unbounded">
 	        <xs:element name="min" type="xs:date" minOccurs="0" />
 			<xs:element name="max" type="xs:date" minOccurs="0" />
@@ -60,35 +64,60 @@
 	  </xs:complexContent>
 	</xs:complexType>
 
+	<!-- time inputs -->
+	<xs:complexType name="time">
+	  <xs:complexContent>
+	    <xs:extension base="question">
+	      <xs:choice maxOccurs="unbounded">
+	        <xs:element name="min" type="xs:time" minOccurs="0" />
+			<xs:element name="max" type="xs:time" minOccurs="0" />
+	      </xs:choice>
+	    </xs:extension>
+	  </xs:complexContent>
+	</xs:complexType>
+
+	<!-- file upload -->
+	<xs:complexType name="upload">
+	  <xs:complexContent>
+	    <xs:extension base="question">
+	      <xs:choice maxOccurs="unbounded">
+	        <xs:element name="multiple" type="xs:boolean" />
+	      </xs:choice>
+	    </xs:extension>
+	  </xs:complexContent>
+	</xs:complexType>
+
 	<!-- multi-selects -->
-	<xs:complexType name="multiselect">
-		<xs:choice maxOccurs="unbounded">
-			<xs:element name="question-text" type="xs:string" />
-			<xs:element name="label" type="xs:string"/>
-			<xs:element name="required" type="xs:boolean" minOccurs="0" />
-			<xs:element name="class" type="xs:string" minOccurs="0" />
-			<xs:element name="control-element" type="xs:string" minOccurs="0" />
-			<xs:element name="num-selectable" type="xs:integer" />
-			<xs:element name="selector" maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:choice maxOccurs="unbounded">
-						<xs:element name="name" type="xs:string" />
-						<xs:element name="selector-text" type="xs:string" />
-						<xs:element name="value" type="xs:string" />
-						<xs:element name="class" type="xs:string" minOccurs="0" />
-					</xs:choice>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="data-source">
-				<xs:complexType>
-					<xs:all>
-						<xs:element name="class" type="xs:string" />
-						<xs:element name="method" type="xs:string" />
-					</xs:all>
-				</xs:complexType>
-			</xs:element>
-			<xs:element name="html" type="xs:string" minOccurs="0" />
-		</xs:choice>
+	<xs:complexType name="multiple-choice">
+		<xs:complexContent>
+			<xs:extension base="question">
+				<xs:choice maxOccurs="unbounded">
+					<xs:element name="num-selectable" type="xs:integer" />
+					<xs:element name="option" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="id" type="xs:string" />
+								<xs:element name="name" type="xs:string" />
+								<xs:element name="label" type="xs:string" />
+								<xs:element name="value" type="xs:string" />
+								<xs:element name="selected" type="xs:boolean" minOccurs="0" />
+								<xs:element name="class" type="xs:string" minOccurs="0" />
+								<xs:element name="template" type="xs:string" minOccurs="0" />
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="data-source">
+						<xs:complexType>
+							<xs:all>
+								<xs:element name="class" type="xs:string" />
+								<xs:element name="method" type="xs:string" />
+							</xs:all>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="html" type="xs:string" minOccurs="0" />
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 
 	<!-- likerts -->
@@ -170,4 +199,11 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<!-- template -->
+	<xs:complexType name="template">
+		<xs:choice>
+			<xs:element name="src" type="xs:string" />
+			<xs:element name="custom" type="xs:string" />
+		</xs:choice>
+	</xs:complexType>
 </xs:schema>
