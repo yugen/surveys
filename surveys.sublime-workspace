@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"beCon",
+				"beConstructedWith〔function〕"
+			],
+			[
 				"question",
 				"question"
 			],
@@ -510,52 +514,27 @@
 			[
 				"template",
 				"templateUrl"
-			],
-			[
-				"loading",
-				"loadingInterceptor"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "change_baseline.xml",
+			"file": "src/Sirs/Survey/SurveyParser.php",
 			"settings":
 			{
-				"buffer_size": 2786,
+				"buffer_size": 377,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "smoking.xml",
+			"contents": "<?php\n\nnamespace spec\\Sirs\\Survey;\n\nuse PhpSpec\\ObjectBehavior;\nuse Prophecy\\Argument;\nuse org\\bovigo\\vfs\\VfsStream;\nuse org\\bovigo\\vfs\\VfsStreamWrapper;\n\nclass SurveyParserSpec extends ObjectBehavior\n{\n    function let()\n    {\n      $structure = [\n        'foo.txt'=>'foobar',\n      ];\n\n      VfsStream::setup('root_dir', null, $structure);\n\n      $this->beConstructedWith(VfsStream::url('root_dir'));\n    }\n\n    function it_is_initializable()\n    {\n        $this->shouldHaveType('Sirs\\Survey\\SurveyParser');\n    }\n\n    function it_fetches_a_surey_definition()\n    {\n      $this->fetchSurvey(\"foo.txt\")->shouldReturn('foobar');\n    }\n\n\n    // function it_gets_the_contents_of_survey_definition()\n    // {\n\n    // }\n\n    // function it_validates_the_survey_definition()\n    // {\n\n    // }\n\n}\n",
+			"file": "spec/Sirs/Survey/SurveyParserSpec.php",
+			"file_size": 799,
+			"file_write_time": 130961673180000000,
 			"settings":
 			{
-				"buffer_size": 1066,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "fruits_and_veg.xml",
-			"settings":
-			{
-				"buffer_size": 1901,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "fruits_and_vegies.json",
-			"settings":
-			{
-				"buffer_size": 2420,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "reside_a.xml",
-			"settings":
-			{
-				"buffer_size": 1288,
+				"buffer_size": 792,
 				"line_ending": "Unix"
 			}
 		}
@@ -568,9 +547,17 @@
 	"command_palette":
 	{
 		"height": 354.0,
-		"last_filter": "r",
+		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"new",
+				"ANF: New File"
+			],
 			[
 				"r",
 				"ANF: Rename File"
@@ -602,10 +589,6 @@
 			[
 				"anf",
 				"ANF: Rename File"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"extract",
@@ -676,7 +659,7 @@
 				"Snippet: Start Docblock"
 			]
 		],
-		"width": 575.0
+		"width": 830.0
 	},
 	"console":
 	{
@@ -694,8 +677,39 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/Users/jward3/projects/packages/sirs_surveys",
+		"/Users/jward3/projects/packages/sirs_surveys/spec",
+		"/Users/jward3/projects/packages/sirs_surveys/spec/Sirs",
+		"/Users/jward3/projects/packages/sirs_surveys/spec/Sirs/Survey",
+		"/Users/jward3/projects/packages/sirs_surveys/src",
+		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs",
+		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Survey",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src/main",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src/main/php",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src/main/php/org",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src/main/php/org/bovigo",
+		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src/main/php/org/bovigo/vfs"
+	],
 	"file_history":
 	[
+		"/Users/jward3/projects/packages/sirs_surveys/phpspec.yml",
+		"/Users/jward3/projects/packages/sirs_surveys/composer.json",
+		"/Users/jward3/projects/packages/sirs_surveys/xml/change_baseline.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/xml/smoking.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/xml/fruits_and_veg.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/xml/beverages.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/xml/fats.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/reside_a.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/fruits_and_vegies.json",
+		"/Users/jward3/projects/packages/sirs_surveys/fruits_and_veg.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/change_baseline.xml",
+		"/Users/jward3/projects/packages/sirs_surveys/smoking.xml",
 		"/Users/jward3/projects/packages/surveys/change_baseline.json",
 		"/Users/jward3/projects/packages/surveys/reside_a.html",
 		"/Users/jward3/projects/change/gulpfile.js",
@@ -811,23 +825,11 @@
 		"/Users/jward3/projects/change/public/surveys/cat_modules/meds_med_list.html",
 		"/Users/jward3/projects/change/public/surveys/cat_modules/meds.html",
 		"/Users/jward3/projects/change/public/surveys/baseline/smoking.html",
-		"/Users/jward3/projects/change/public/surveys/booster_calls/meds.html",
-		"/Users/jward3/projects/change/app/Commands/AssignParticipantGoal.php",
-		"/Users/jward3/projects/change/app/Handlers/Events/SetGoalsFromFormData.php",
-		"/Users/jward3/projects/change/public/surveys/session_initiation.html",
-		"/Users/jward3/projects/change/app/Fractal/Transformers/ParticipantTransformer.php",
-		"/Users/jward3/projects/change/app/Http/Controllers/RestImprovementCategoriesController.php",
-		"/Users/jward3/projects/change/app/ImprovementCategory.php",
-		"/Users/jward3/projects/change/config/communications.php",
-		"/Users/jward3/projects/change/app/Handlers/Events/SetReferralsFromFormData.php",
-		"/Users/jward3/projects/change/app/Http/Controllers/ParticipantController.php",
-		"/Users/jward3/projects/change/config/administrator/communication_reasons.php",
-		"/Users/jward3/projects/change/config/administrator.php",
-		"/Users/jward3/projects/change/config/administrator/communication_statuses.php"
+		"/Users/jward3/projects/change/public/surveys/booster_calls/meds.html"
 	],
 	"find":
 	{
-		"height": 32.0
+		"height": 94.0
 	},
 	"find_in_files":
 	{
@@ -909,6 +911,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"question \n        name",
+			"required>",
+			"src",
 			"required ",
 			"{",
 			"}",
@@ -1033,10 +1038,7 @@
 			"'id'=>",
 			"Muscle Strength",
 			"Staying on Track",
-			"Keep walking and increase other physical activities",
-			"Walking",
-			"Drinks, Desserts, Snacks, & Eating Out",
-			"Drinks, Desserts, Snacks, & Eating Out - Goal Review"
+			"Keep walking and increase other physical activities"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1099,59 +1101,34 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "change_baseline.xml",
+					"file": "src/Sirs/Survey/SurveyParser.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2786,
+						"buffer_size": 377,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								20,
-								20
+								368,
+								368
 							]
 						],
 						"settings":
 						{
+							"auto_complete": false,
 							"incomplete_sync": null,
-							"syntax": "Packages/XML/XML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "smoking.xml",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1066,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								136,
-								136
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"syntax": "Packages/XML/XML.tmLanguage"
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1161,98 +1138,35 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "fruits_and_veg.xml",
+					"buffer": 1,
+					"file": "spec/Sirs/Survey/SurveyParserSpec.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1901,
+						"buffer_size": 792,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								20,
-								20
+								636,
+								636
 							]
 						],
 						"settings":
 						{
-							"incomplete_sync": null,
-							"syntax": "Packages/XML/XML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "fruits_and_vegies.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2420,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1,
-								1
-							]
-						],
-						"settings":
-						{
+							"auto_complete": false,
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 386.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "reside_a.xml",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1288,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1233,
-								1233
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/XML/XML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1314,6 +1228,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"yml",
+				"phpspec.yml"
+			],
 			[
 				"app.php",
 				"config/app.php"
@@ -1821,10 +1739,6 @@
 			[
 				"participants",
 				"public/js/participants/participants.js"
-			],
-			[
-				"dmograph",
-				"public/surveys/baseline/demographics.html"
 			]
 		],
 		"width": 0.0
