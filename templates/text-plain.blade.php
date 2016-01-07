@@ -1,0 +1,1 @@
+<input type="text" name="{{ $question->name }}" id="{{ $question->id }}-input" class="form-control {{ $question->class }}" placeholder="{{ $question->placeholder }}" {{ ($question->required)?"required":"" }} />
