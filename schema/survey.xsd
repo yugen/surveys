@@ -115,8 +115,7 @@
 							<xs:element name="data-source">
 								<xs:complexType>
 									<xs:all>
-										<xs:element name="class" type="xs:string" />
-										<xs:element name="method" type="xs:string" />
+										<xs:element name="URI" type="xs:string" />
 									</xs:all>
 								</xs:complexType>
 							</xs:element>
