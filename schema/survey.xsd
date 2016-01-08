@@ -5,9 +5,10 @@
 	<xs:element name="survey">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="survey-name" type="xs:string" />
-				<xs:element name="page" maxOccurs="unbounded" />
+				<xs:element name="page" type="page" maxOccurs="unbounded" />
 			</xs:sequence>
+			<xs:attribute name="survey-name" type="xs:string" />
+			<xs:attribute name="version" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 
@@ -34,10 +35,8 @@
 			<xs:complexType name="question-group">
 				<xs:complexContent>
 					<xs:extension base="container">
-						<xs:choice maxOccurs="unbounded">
-							<xs:element name="id" type="xs:string" />
-							<xs:element name="class" type="xs:string" minOccurs="0" />
-						</xs:choice>
+						<xs:attribute name="id" type="xs:string" />
+						<xs:attribute name="class" type="xs:string"/>
 					</xs:extension>
 				</xs:complexContent>
 			</xs:complexType>
@@ -57,13 +56,13 @@
 				<xs:choice maxOccurs="unbounded">
 					<xs:element name="question-text" type="xs:string" minOccurs="0"/>
 					<xs:element name="template" type="template" />
-					<!-- TO DO: ADD ENUM OF SQL DATA TYPE -->
 				</xs:choice>
 				<xs:attribute name="name" type="xs:string" />
 				<xs:attribute name="id" type="xs:string" />
 				<xs:attribute name="required" type="xs:boolean" />
 				<xs:attribute name="class" type="xs:string" />
 				<xs:attribute name="hidden" type="xs:boolean" />
+				<xs:attribute name="data-format" type="data-format" />
 		</xs:complexType>
 
 			<!-- date inputs -->
@@ -177,11 +176,11 @@
 									<xs:element name="question" maxOccurs="unbounded">
 										<xs:complexType>
 											<xs:choice maxOccurs="unbounded">
-												<xs:element name="questionname" type="xs:string" />
 												<xs:element name="questiontext" type="xs:string" />
-												<xs:element name="required" type="xs:boolean" minOccurs="0" />
 												<xs:element name="html" type="xs:string" minOccurs="0" />
 											</xs:choice>
+											<xs:attribute name="required" type="xs:boolean"/>
+											<xs:attribute name="questionname" type="xs:string" />
 										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
@@ -234,4 +233,37 @@
 		<xs:complexType name="template">
 			<xs:attribute name="src" type="xs:string" />
 		</xs:complexType>
+
+		<!-- data-format -->
+		<xs:simpleType name="data-format">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="tinyint" />
+				<xs:enumeration value="smallint" />
+				<xs:enumeration value="mediumint" />
+				<xs:enumeration value="int" />
+				<xs:enumeration value="bigint" />
+				<xs:enumeration value="float" />
+				<xs:enumeration value="double" />
+				<xs:enumeration value="decimal" />
+				<xs:enumeration value="bit" />
+				<xs:enumeration value="char" />
+				<xs:enumeration value="varchar" />
+				<xs:enumeration value="tinytext" />
+				<xs:enumeration value="text" />
+				<xs:enumeration value="mediumtext" />
+				<xs:enumeration value="longtext" />
+				<xs:enumeration value="binary" />
+				<xs:enumeration value="varbinary" />
+				<xs:enumeration value="tinyblob" />
+				<xs:enumeration value="blob" />
+				<xs:enumeration value="longblob" />
+				<xs:enumeration value="enum" />
+				<xs:enumeration value="set" />
+				<xs:enumeration value="date" />
+				<xs:enumeration value="datetime" />
+				<xs:enumeration value="time" />
+				<xs:enumeration value="timestamp" />
+				<xs:enumeration value="year" />
+			</xs:restriction>
+		</xs:simpleType>
 </xs:schema>
