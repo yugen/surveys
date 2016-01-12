@@ -94,33 +94,7 @@
 				<xs:complexContent>
 					<xs:extension base="question">
 						<xs:choice maxOccurs="unbounded">
-							<xs:element name="options">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="option" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:choice maxOccurs="unbounded">
-													<xs:element name="label" type="xs:string" />
-													<xs:element name="value" type="xs:string" />
-													<xs:element name="template" type="template" minOccurs="0" />
-												</xs:choice>
-												<xs:attribute name="id" type="xs:string" />
-												<xs:attribute name="name" type="xs:string" />
-												<xs:attribute name="selected" type="xs:boolean"/>
-												<xs:attribute name="class" type="xs:string"/>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="data-source">
-								<xs:complexType>
-									<xs:all>
-										<xs:element name="URI" type="xs:string" />
-									</xs:all>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="html" type="xs:string" minOccurs="0" />
+							<xs:element name="options" type="options" />
 						</xs:choice>
 						<xs:attribute name="num-selectable" type="xs:integer" />
 					</xs:extension>
@@ -155,20 +129,7 @@
 			<xs:sequence>
 				<xs:element name="prompt" type="xs:string" />
 				<xs:element name="template" type="template" />
-				<xs:element name="options">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="option" maxOccurs="unbounded">
-								<xs:complexType>
-									<xs:all minOccurs="1">
-										<xs:element name="label" type="xs:string" />
-										<xs:element name="value" type="xs:string" />
-									</xs:all>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="options" type="options" />
 				<xs:element name="questions">
 					<xs:complexType>
 						<xs:sequence>
@@ -263,4 +224,29 @@
 				<xs:enumeration value="year" />
 			</xs:restriction>
 		</xs:simpleType>
+
+		<!-- options -->
+		<xs:complexType name="options">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="option" type="option" />
+				<xs:element name="data-source">
+					<xs:complexType>
+						<xs:attribute name="URI" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+
+		<!-- option -->
+		<xs:complexType name="option">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="label" type="xs:string" />
+				<xs:element name="value" type="xs:string" />
+				<xs:element name="template" type="template" minOccurs="0" />
+			</xs:choice>
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="selected" type="xs:boolean"/>
+			<xs:attribute name="class" type="xs:string"/>
+		</xs:complexType>
 </xs:schema>
