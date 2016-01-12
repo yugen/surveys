@@ -519,25 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/Sirs/Survey/SurveyParser.php",
-			"settings":
-			{
-				"buffer_size": 377,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<?php\n\nnamespace spec\\Sirs\\Survey;\n\nuse PhpSpec\\ObjectBehavior;\nuse Prophecy\\Argument;\nuse org\\bovigo\\vfs\\VfsStream;\nuse org\\bovigo\\vfs\\VfsStreamWrapper;\n\nclass SurveyParserSpec extends ObjectBehavior\n{\n    function let()\n    {\n      $structure = [\n        'foo.txt'=>'foobar',\n      ];\n\n      VfsStream::setup('root_dir', null, $structure);\n\n      $this->beConstructedWith(VfsStream::url('root_dir'));\n    }\n\n    function it_is_initializable()\n    {\n        $this->shouldHaveType('Sirs\\Survey\\SurveyParser');\n    }\n\n    function it_fetches_a_surey_definition()\n    {\n      $this->fetchSurvey(\"foo.txt\")->shouldReturn('foobar');\n    }\n\n\n    // function it_gets_the_contents_of_survey_definition()\n    // {\n\n    // }\n\n    // function it_validates_the_survey_definition()\n    // {\n\n    // }\n\n}\n",
-			"file": "spec/Sirs/Survey/SurveyParserSpec.php",
-			"file_size": 799,
-			"file_write_time": 130961673180000000,
-			"settings":
-			{
-				"buffer_size": 792,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -680,13 +661,10 @@
 	"expanded_folders":
 	[
 		"/Users/jward3/projects/packages/sirs_surveys",
-		"/Users/jward3/projects/packages/sirs_surveys/spec",
-		"/Users/jward3/projects/packages/sirs_surveys/spec/Sirs",
-		"/Users/jward3/projects/packages/sirs_surveys/spec/Sirs/Survey",
-		"/Users/jward3/projects/packages/sirs_surveys/src",
-		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs",
-		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Survey",
-		"/Users/jward3/projects/packages/sirs_surveys/vendor",
+		"/Users/jward3/projects/packages/sirs_surveys/scratch",
+		"/Users/jward3/projects/packages/sirs_surveys/scratch/src",
+		"/Users/jward3/projects/packages/sirs_surveys/scratch/src/Sirs",
+		"/Users/jward3/projects/packages/sirs_surveys/scratch/src/Sirs/Survey",
 		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti",
 		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream",
 		"/Users/jward3/projects/packages/sirs_surveys/vendor/burti/vfsstream/src",
@@ -698,6 +676,8 @@
 	],
 	"file_history":
 	[
+		"/Users/jward3/projects/packages/sirs_surveys/spec/Sirs/Survey/SurveyParserSpec.php",
+		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Survey/SurveyParser.php",
 		"/Users/jward3/projects/packages/sirs_surveys/phpspec.yml",
 		"/Users/jward3/projects/packages/sirs_surveys/composer.json",
 		"/Users/jward3/projects/packages/sirs_surveys/xml/change_baseline.xml",
@@ -823,9 +803,7 @@
 		"/Users/jward3/projects/change/public/surveys/cat_modules/smoking.html",
 		"/Users/jward3/projects/change/public/surveys/cat_modules/goals_on_track.html",
 		"/Users/jward3/projects/change/public/surveys/cat_modules/meds_med_list.html",
-		"/Users/jward3/projects/change/public/surveys/cat_modules/meds.html",
-		"/Users/jward3/projects/change/public/surveys/baseline/smoking.html",
-		"/Users/jward3/projects/change/public/surveys/booster_calls/meds.html"
+		"/Users/jward3/projects/change/public/surveys/cat_modules/meds.html"
 	],
 	"find":
 	{
@@ -1101,74 +1079,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/Sirs/Survey/SurveyParser.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 377,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								368,
-								368
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "spec/Sirs/Survey/SurveyParserSpec.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 792,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								636,
-								636
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 386.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
