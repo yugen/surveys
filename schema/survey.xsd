@@ -94,14 +94,6 @@
 					<xs:extension base="question">
 						<xs:choice maxOccurs="unbounded">
 							<xs:element name="options" type="options" />
-							<xs:element name="data-source">
-								<xs:complexType>
-									<xs:all>
-										<xs:element name="URI" type="xs:string" />
-									</xs:all>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="html" type="xs:string" minOccurs="0" />
 						</xs:choice>
 						<xs:attribute name="num-selectable" type="xs:integer" />
 					</xs:extension>
@@ -236,6 +228,11 @@
 		<xs:complexType name="options">
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="option" type="option" />
+				<xs:element name="data-source">
+					<xs:complexType>
+						<xs:attribute name="URI" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
 			</xs:choice>
 		</xs:complexType>
 
