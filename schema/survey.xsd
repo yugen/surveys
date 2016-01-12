@@ -151,43 +151,40 @@
 	<!-- others -->
 		<!-- likerts -->
 		<xs:complexType name="likert">
-			<xs:complexContent>
-				<xs:extension base="question">
-					<xs:sequence>
-						<xs:element name="prompt" type="xs:string" />
-						<xs:element name="options">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="option" maxOccurs="unbounded">
-										<xs:complexType>
-											<xs:all minOccurs="1">
-												<xs:element name="label" type="xs:string" />
-												<xs:element name="value" type="xs:string" />
-											</xs:all>
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-						<xs:element name="questions">
-							<xs:complexType>
-								<xs:sequence>
-									<xs:element name="question" maxOccurs="unbounded">
-										<xs:complexType>
-											<xs:choice maxOccurs="unbounded">
-												<xs:element name="questiontext" type="xs:string" />
-												<xs:element name="html" type="xs:string" minOccurs="0" />
-											</xs:choice>
-											<xs:attribute name="required" type="xs:boolean"/>
-											<xs:attribute name="questionname" type="xs:string" />
-										</xs:complexType>
-									</xs:element>
-								</xs:sequence>
-							</xs:complexType>
-						</xs:element>
-					</xs:sequence>
-				</xs:extension>
-			</xs:complexContent>
+			<xs:sequence>
+				<xs:element name="prompt" type="xs:string" />
+				<xs:element name="template" type="template" />
+				<xs:element name="options">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="option" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:all minOccurs="1">
+										<xs:element name="label" type="xs:string" />
+										<xs:element name="value" type="xs:string" />
+									</xs:all>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="questions">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="question" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:choice maxOccurs="unbounded">
+										<xs:element name="questiontext" type="xs:string" />
+										<xs:element name="html" type="xs:string" minOccurs="0" />
+									</xs:choice>
+									<xs:attribute name="required" type="xs:boolean"/>
+									<xs:attribute name="questionname" type="xs:string" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
 		</xs:complexType>
 
 		<!-- logic -->
