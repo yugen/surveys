@@ -1,0 +1,12 @@
+HOME VISIT 1
+introduction
+consent
+  + if consent.data.refused -> finish -> redirect
+measures
+  + if !participant.elligibleForCvd() -> go to prioritySelection
+cvdRiskCalculator
+prioritySelection
+  - if !participant.elligibleForCvd() -> go to measures.demographics
+categoryModules
+scheduling
+

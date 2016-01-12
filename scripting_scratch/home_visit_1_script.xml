@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<sequence>
+  <page name="introduction"></page>
+  <page name="consent">
+    <complete-if>
+      false
+    </complete-if>
+  </page>
+  <page name="measures"></page>
+  <page name="cvdCalculator">
+    <skip-if>
+      !participant.isElligibleForCvdCalc()
+    </skip-if>
+  </page>
+  <page name="prioritySelection"></page>
+  <page name="modules"></page>
+  <page name="scheduling"></page>
+</sequence>
