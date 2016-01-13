@@ -42,7 +42,7 @@ class SurveyParser
     {
         $pages = [];
         foreach($this->xml->page as $page){
-            $pages[] = new Page($page);
+            $pages[] = $page;
         }
         return $pages;
     }
