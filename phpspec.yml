@@ -1,4 +1,4 @@
-# formatter.name: pretty
+formatter.name: pretty
 suites:
     survey_suite:
-        namespace: Sirs\Survey
+        namespace: Sirs\Surveys
