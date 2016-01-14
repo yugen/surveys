@@ -33,7 +33,7 @@ class SurveyParser
 
     public function parse()
     {
-        $survey = new Survey();
+        $survey = new Survey(); // change to SurveyDefinition
         return $survey;
         // TODO: write logic here
     }
@@ -42,6 +42,8 @@ class SurveyParser
     {
         $pages = [];
         foreach($this->xml->page as $page){
+            print_r($page);
+            print("\n\n");
             $pages[] = $page;
         }
         return $pages;

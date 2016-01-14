@@ -520,18 +520,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/Sirs/Surveys/Contracts/RenderableBlock.php",
+			"file": "src/Sirs/Surveys/SurveyParser.php",
 			"settings":
 			{
-				"buffer_size": 735,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "schema/survey.xsd",
-			"settings":
-			{
-				"buffer_size": 8433,
+				"buffer_size": 1049,
 				"line_ending": "Unix"
 			}
 		}
@@ -689,11 +681,12 @@
 	],
 	"file_history":
 	[
+		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/Contracts/RenderableBlock.php",
 		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/Contracts/Option.php",
+		"/Users/jward3/projects/packages/sirs_surveys/schema/survey.xsd",
 		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/Contracts/HasOptions.php",
 		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/Contracts/StructuredData.php",
 		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/Contracts/Container.php",
-		"/Users/jward3/projects/packages/sirs_surveys/schema/survey.xsd",
 		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/SurveyParser.php",
 		"/Users/jward3/projects/packages/sirs_surveys/spec/Sirs/Surveys/SurveyParserSpec.php",
 		"/Users/jward3/projects/packages/sirs_surveys/src/Sirs/Surveys/Survey.php",
@@ -815,8 +808,7 @@
 		"/Users/jward3/projects/change/vendor/sirs/tasks/src/Sirs/Tasks/Transformers/TaskTypeTransformer.php",
 		"/Users/jward3/projects/change/database/seeds/ParticipantsSeeder.php",
 		"/Users/jward3/projects/change/database/migrations/2015_07_07_144919_add_enrollment_location_id_to_participants.php",
-		"/Users/jward3/projects/change/database/migrations/2015_02_18_174124_create_participants_table.php",
-		"/Users/jward3/projects/change/database/migrations/2015_12_11_095256_add_bp_and_weight_fields_to_participant.php"
+		"/Users/jward3/projects/change/database/migrations/2015_02_18_174124_create_participants_table.php"
 	],
 	"find":
 	{
@@ -1097,32 +1089,33 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/Sirs/Surveys/Contracts/RenderableBlock.php",
+					"file": "src/Sirs/Surveys/SurveyParser.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 735,
+						"buffer_size": 1049,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								207,
-								207
+								878,
+								857
 							]
 						],
 						"settings":
 						{
-							"_anf_new": "",
 							"auto_complete": false,
 							"incomplete_sync": null,
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/PHP/PHP.tmLanguage"
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 237.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1131,42 +1124,8 @@
 			]
 		},
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 1,
-					"file": "schema/survey.xsd",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8433,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/XML/XML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1198,7 +1157,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.953271028037,
 			1.0
 		],
 		"rows":

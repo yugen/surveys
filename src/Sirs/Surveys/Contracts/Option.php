@@ -26,9 +26,25 @@ interface Option
   /**
    * sets the value for this option
    *
-   * @return mixed $value
+   * @param mixed $value
    **/
   public function setValue($value);
+
+  /**
+   * gets the value for this option
+   *
+   * @return mixed $value
+   **/
+  public function getValue();
+
+
+  /**
+   * gets the selected flag for this option
+   *
+   * @return void
+   * @author 
+   **/
+  function getSelected(bool $selected = null);
 
   /**
    * Sets the selected flag for this option
