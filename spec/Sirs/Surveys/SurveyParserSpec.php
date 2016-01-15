@@ -72,6 +72,9 @@ XML;
     {
       $page = new \SimpleXMLElement("<?xml version=\"1.0\" ?><page name=\"page1\"></page>");
       $this->getAttribute($page, 'name')->shouldBe('page1');
+
+      $this->getAttribute($page, 'beans')->shouldBe(null);
+
     }
 
 }
