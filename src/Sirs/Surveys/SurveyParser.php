@@ -56,7 +56,7 @@ class SurveyParser
         return $pages;
     }
 
-    protected function getAttribute(\SimpleXMLElement $simpleXmlEl, $attribute)
+    public function getAttribute(\SimpleXMLElement $simpleXmlEl, $attribute)
     {
         if( $simpleXmlEl->attributes()->{$attribute} ){
             return $simpleXmlEl->attributes()->{$attribute}->__toString();

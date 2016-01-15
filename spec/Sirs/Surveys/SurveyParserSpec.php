@@ -68,4 +68,10 @@ XML;
       $pages = $this->getPages()->shouldHaveCount(2);
     }
 
+    function it_should_get_an_attribute_from_an_xml_element()
+    {
+      $page = new \SimpleXMLElement("<?xml version=\"1.0\" ?><page name=\"page1\"></page>");
+      $this->getAttribute($page, 'name')->shouldBe('page1');
+    }
+
 }
