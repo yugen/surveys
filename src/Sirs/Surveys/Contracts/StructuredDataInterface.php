@@ -8,7 +8,7 @@ namespace Sirs\Surveys\Contacts;
  * @package sirs/surveys
  * @author 
  **/
-interface StructuredData
+interface StructuredDataInterface
 {
   /**
    * sets the variable name for this item

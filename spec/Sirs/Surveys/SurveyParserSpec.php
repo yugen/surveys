@@ -60,12 +60,12 @@ XML;
 
     function it_should_return_a_survey_object()
     {
-      $this->parse()->shouldHaveType('Sirs\Surveys\Survey');
+      $this->parse()->shouldHaveType('Sirs\Surveys\SurveyDocument');
     }
 
     function it_should_get_a_list_of_pages_in_the_survey()
     {
-      $this->getPages()->shouldHaveCount(2);
+      $pages = $this->getPages()->shouldHaveCount(2);
     }
 
 }

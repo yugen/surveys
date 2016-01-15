@@ -7,7 +7,7 @@ namespace Sirs\Surveys\Contacts;
  * @package sirs/surveys
  * @author 
  **/
-interface Option
+interface OptionInterface
 {
   /**
    * sets label for option 

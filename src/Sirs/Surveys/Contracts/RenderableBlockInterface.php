@@ -1,6 +1,6 @@
-<?
+<?php
 
-namespace Sirs\Surveys\Contacts;
+namespace Sirs\Surveys\Contracts;
 
 use Closure;
 /**
@@ -8,7 +8,7 @@ use Closure;
  *
  * @package sirs/surveys
  **/
-interface RenderableBlock
+interface RenderableBlockInterface
 {
 
   /**
@@ -34,4 +34,11 @@ interface RenderableBlock
    * @return string
    **/
   public function render(Closure $beforeRender = null, Closure$afterRender = null);
+
+  public function setId($id);
+  public function getId();
+
+  public function setClass($class);
+  public function getClass();
+
 }

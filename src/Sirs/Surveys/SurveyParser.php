@@ -2,7 +2,8 @@
 
 namespace Sirs\Surveys;
 
-use Sirs\Surveys\Survey;
+use Sirs\Surveys\PageDocument;
+use Sirs\Surveys\SurveyDocument;
 
 class SurveyParser
 {
@@ -33,7 +34,7 @@ class SurveyParser
 
     public function parse()
     {
-        $survey = new Survey(); // change to SurveyDefinition
+        $survey = new SurveyDocument(); // change to SurveyDefinition
         return $survey;
         // TODO: write logic here
     }
@@ -42,10 +43,23 @@ class SurveyParser
     {
         $pages = [];
         foreach($this->xml->page as $page){
-            print_r($page);
-            print("\n\n");
-            $pages[] = $page;
+            $name = $this->getAttribute($page, 'name');
+            $title = $this->getAttribute($page, 'title');
+            $source = $this->getAttribute($page, 'src');
+            $class = $this->getAttribute($page, 'class');
+            $id = $this->getAttribute($page, 'id');
+            $contents = [];
+            $template = '';
+
+            $pages[] = new PageDocument($title, $source, $name, $contents, $class, $id, $template);
         }
         return $pages;
+    }
+
+    protected function getAttribute(\SimpleXMLElement $simpleXmlEl, $attribute)
+    {
+        if( $simpleXmlEl->attributes()->{$attribute} ){
+            return $simpleXmlEl->attributes()->{$attribute}->__toString();
+        }
     }
 }

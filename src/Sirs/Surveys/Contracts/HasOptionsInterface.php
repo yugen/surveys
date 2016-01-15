@@ -7,7 +7,7 @@ namespace Sirs\Surveys\Contacts;
  *
  * @package sirs/survays
  **/
-interface HasOptions
+interface HasOptionsInterface
 {
   /**
    * Sets options for possible values
