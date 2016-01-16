@@ -20,12 +20,13 @@ class SurveyDocument implements SurveyDocumentInterface
   /**
    * sets the survey's name
    *
-   * @return void
+   * @return $this
    * @param string $name
    **/
   function setName($name)
   {
     $this->name = $name;
+    return $this;
   }
 
   /**
@@ -41,12 +42,13 @@ class SurveyDocument implements SurveyDocumentInterface
   /**
    * sets the survey's name
    *
-   * @return void
+   * @return $this;
    * @param string $version
    **/
   function setVersion($version)
   {
     $this->version = $version;
+    return $this;
   }
 
   /**
@@ -62,12 +64,14 @@ class SurveyDocument implements SurveyDocumentInterface
   /**
    * sets the survey's pages
    *
-   * @return void
+   * @param array $pages of PageDocuments
+   * @return $this
    * @param array $pages
    **/
   function setPages($pages)
   {
     $this->pages = $pages;
+    return $this;
   }
 
   /**
@@ -83,11 +87,26 @@ class SurveyDocument implements SurveyDocumentInterface
   /**
    * adds a page to the survey
    *
-   * @return void
+   * @param PageDocument $page
+   * @return $this
    * @param Sirs\Surveys\Contracts\PageDocument $page
    **/
-  function addPage(PageDocument $page){
-    $this->pages[] = $page;
+  function appendPage(PageDocument $page){
+    array_push($this->pages, $page);
+    return $this;
+  }
+
+  /**
+   * Adds a page document to the surveys pages list
+   *
+   * @param PageDocument $page
+   * @return $this
+   * @author 
+   **/
+  public function prependPage(PageDocument $page)
+  {
+    array_unshift($this->pages, $page);
+    return $this;
   }
 
 }

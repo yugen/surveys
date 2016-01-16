@@ -60,10 +60,18 @@ interface SurveyDocumentInterface
   function setPages($pages);
 
   /**
-   * adds a page to the survey
+   * adds a page to the end of the survey
    *
    * @return void
    * @param Sirs\Surveys\Contracts\PageDocument $page
    **/
-  function addPage(PageDocument $page);
+  function appendPage(PageDocument $page);
+
+  /**
+   * prepends a page to the survey
+   *
+   * @return void
+   * @param Sirs\Surveys\Contracts\PageDocument $page
+   **/
+  function prependPage(PageDocument $page);
 } // END interface SurveyDocument

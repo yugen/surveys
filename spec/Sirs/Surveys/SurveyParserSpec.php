@@ -60,12 +60,7 @@ XML;
 
     function it_should_return_a_survey_object()
     {
-      $this->parse()->shouldHaveType('Sirs\Surveys\SurveyDocument');
-    }
-
-    function it_should_get_a_list_of_pages_in_the_survey()
-    {
-      $pages = $this->getPages()->shouldHaveCount(2);
+      $survey = $this->parse()->shouldHaveType('Sirs\Surveys\SurveyDocument');
     }
 
     function it_should_get_an_attribute_from_an_xml_element()
@@ -74,7 +69,6 @@ XML;
       $this->getAttribute($page, 'name')->shouldBe('page1');
 
       $this->getAttribute($page, 'beans')->shouldBe(null);
-
     }
 
 }
