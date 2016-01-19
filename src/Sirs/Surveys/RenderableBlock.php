@@ -4,20 +4,24 @@ namespace Sirs\Surveys;
 
 use Sirs\Surveys\Contracts\RenderableBlockInterface;
 
-class RenderableBlock implements RenderableBlockInterface
+class RenderableBlock extends XmlDocument implements RenderableBlockInterface
 {
   protected $class;
   protected $id;
   protected $template;
+  protected $documentFactory;
 
-  public function __construct($class = null, $id = null, $template=null)
+  public function __construct($xml = null)
   {
-    $this->setClass($class);
-    $this->setId($id);
-    $this->setTemplate($template);
+    parent::__construct($xml);
   }
 
-
+  public function parse()
+  {
+    $this->setClass($this->getAttribute($this->xmlElement, 'class'));
+    $this->setId($this->getAttribute($this->xmlElement, 'id'));
+    $this->setTemplate($this->xmlElement->template[0]);
+  }
 
   /**
    * Sets the template to use for this block

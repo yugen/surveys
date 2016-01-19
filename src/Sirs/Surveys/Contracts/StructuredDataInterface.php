@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirs\Surveys\Contacts;
+namespace Sirs\Surveys\Contracts;
 
 /**
  * An interface for objects that represent structured data
@@ -16,7 +16,7 @@ interface StructuredDataInterface
    * @param string $varName
    * @return string
    **/
-  public function setVariableName(string $varName);
+  public function setVariableName($varName);
 
   /**
    * returns the variable name for this item
@@ -30,7 +30,7 @@ interface StructuredDataInterface
    *
    * @param string
    **/
-  function setDataFormat(string $dataFormat);
+  function setDataFormat($dataFormat);
 
   /**
    * returns the datatype for this item
@@ -45,7 +45,7 @@ interface StructuredDataInterface
    * @param string $questionText
    * @author 
    **/
-  public function setQuestionText(string $questionText);
+  public function setQuestionText($questionText);
 
   /**
    * gets the question text used to collect this data

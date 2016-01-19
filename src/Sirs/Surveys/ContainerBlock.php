@@ -5,7 +5,7 @@ namespace Sirs\Surveys;
 use Sirs\Surveys\Contracts\ContainerInterface;
 use Sirs\Surveys\RenderableBlock;
 
-class Container extends RenderableBlock implements ContainerInterface
+class ContainerBlock extends RenderableBlock implements ContainerInterface
 {
   protected $name;
   protected $contents;
@@ -19,10 +19,26 @@ class Container extends RenderableBlock implements ContainerInterface
    * @param string $id id used in rendering
    * @param string $template template path
    **/
-  function __construct($name=null, $contents=null, $class = null, $id = null, $template=null){
-    $this->setName($name);
-    $this->setContents(($contents) ? $contents : []);
-    parent::__construct($class, $id, $template);
+  function __construct($xml = null){
+    $this->contents = [];
+    parent::__construct($xml);
+  }
+
+  function parse()
+  {
+    $this->setName($this->getAttribute($this->xmlElement, 'name'));
+    // foreach children do the right thing
+    $this->setContents($this->parseContents());
+    return $this;
+  }
+
+  function parseContents(){
+    $blockFactory = new BlockFactory();
+    $children = [];
+    foreach($this->xmlElement->children() as $child){
+      $children[] = $blockFactory->create($child);
+    }   
+    return $children;
   }
 
   /**

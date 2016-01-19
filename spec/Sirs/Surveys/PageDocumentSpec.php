@@ -22,18 +22,6 @@ class PageDocumentSpec extends ObjectBehavior
       $this->shouldImplement('Sirs\Surveys\Contracts\ContainerInterface');
     }
 
-    function its_constructor_should_take_its_properties()
-    {
-      $this->beConstructedWith('title', 'source', 'name', ['contents'], 'class', 'id', 'template');
-      $this->getTitle()->shouldBe('title');
-      $this->getSource()->shouldBe('source');
-      $this->getName()->shouldBe('name');
-      $this->getContents()->shouldBe(['contents']);
-      $this->getClass()->shouldBe('class');
-      $this->getId()->shouldBe('id');
-      $this->getTemplate()->shouldBe('template');
-    }
-
     function it_should_set_and_get_its_source()
     {
       $this->setSource('beans.txt');

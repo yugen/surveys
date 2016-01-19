@@ -4,22 +4,20 @@ namespace spec\Sirs\Surveys;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Sirs\Surveys\ContainerBlock;
+use Sirs\Surveys\DocumentFactory;
+use Sirs\Surveys\QuestionBlock;
 
-class ContainerSpec extends ObjectBehavior
+class ContainerBlockSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function let()
     {
-        $this->shouldHaveType('Sirs\Surveys\Container');
+      $this->beConstructedWith('<container><question name="beans"></question><question name="foo" data-format="int"></question><container><question name="beer" data-format="int"></question><question name="coffee"></question></container></container>');
     }
 
-    function its_constructor_should_take_its_properties()
+    function it_is_initializable()
     {
-      $this->beConstructedWith('$name', ['contents'], '$class', '$id', '$template');
-      $this->getName()->shouldBe('$name');
-      $this->getContents()->shouldBe(['contents']);
-      $this->getClass()->shouldBe('$class');
-      $this->getId()->shouldBe('$id');
-      $this->getTemplate()->shouldBe('$template');
+        $this->shouldHaveType('Sirs\Surveys\ContainerBlock');
     }
 
     function it_should_get_and_set_its_name()
@@ -36,6 +34,7 @@ class ContainerSpec extends ObjectBehavior
 
     function it_should_append_stuff_to_its_contents()
     {
+      $this->setContents([]);
       $this->appendContent('item');
       $this->getContents()->shouldBe(['item']);
 
@@ -56,15 +55,21 @@ class ContainerSpec extends ObjectBehavior
     function it_should_return_itself_unless_method_is_getter()
     {
       $self = $this->setContents(['beans', 'monkeys']);
-      $self->shouldHaveType('Sirs\Surveys\Container');
+      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
 
       $self = $this->setName(['beans', 'monkeys']);
-      $self->shouldHaveType('Sirs\Surveys\Container');
+      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
 
       $self = $this->prependContent(['beer', 'coffee']);
-      $self->shouldHaveType('Sirs\Surveys\Container');
+      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
 
       $self = $this->appendContent(['beans', 'monkeys']);
-      $self->shouldHaveType('Sirs\Surveys\Container');
+      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
     }
+
+    function it_should_parse_its_contents(QuestionBlock $q1, QuestionBlock $q2, ContainerBlock $container)
+    {
+      $this->parseContents()->shouldHaveCount(3);
+    }
+
 }

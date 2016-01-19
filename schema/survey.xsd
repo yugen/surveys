@@ -72,7 +72,7 @@
 			    <xs:extension base="question">
 			      <xs:choice maxOccurs="unbounded">
 			        <xs:element name="min" type="xs:date" minOccurs="0" />
-					<xs:element name="max" type="xs:date" minOccurs="0" />
+							<xs:element name="max" type="xs:date" minOccurs="0" />
 			      </xs:choice>
 			    </xs:extension>
 			  </xs:complexContent>
@@ -117,7 +117,7 @@
 			    <xs:extension base="question">
 			      <xs:choice maxOccurs="unbounded">
 			        <xs:element name="min" type="xs:time" minOccurs="0" />
-					<xs:element name="max" type="xs:time" minOccurs="0" />
+							<xs:element name="max" type="xs:time" minOccurs="0" />
 			      </xs:choice>
 			    </xs:extension>
 			  </xs:complexContent>

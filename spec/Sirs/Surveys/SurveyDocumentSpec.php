@@ -8,10 +8,42 @@ use Sirs\Surveys\PageDocument;
 
 class SurveyDocumentSpec extends ObjectBehavior
 {
+    function let()
+    {
+
+      $xml = <<<XML
+<?xml version="1.0"?>
+<survey 
+  name="test" 
+  version="1.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="sirs.unc.edu file://'.__DIR__.'/../../../../schema/survey.xsd"
+>
+  <page name="page1">
+    <html>Beans!</html>
+    <question name="question1">
+      <question-text>This is the first question</question-text>
+    </question>
+  </page>
+  <page name="page2">
+    <html>Monkeys!</html>
+  </page>
+</survey>
+XML;
+
+      $this->beConstructedWith($xml);
+
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Sirs\Surveys\SurveyDocument');
         $this->shouldImplement('Sirs\Surveys\Contracts\SurveyDocumentInterface');
+    }
+
+    function it_validates_a_survey_definition()
+    {
+      $this->validate()->shouldBe(true);
     }
 
     function it_sets_and_gets_its_name()
@@ -47,6 +79,14 @@ class SurveyDocumentSpec extends ObjectBehavior
       $this->setPages([$page1]);
       $this->prependPage($page2);
       $this->getPages()->shouldBe([$page2,$page1]);
+    }
+
+    function it_should_get_an_attribute_from_an_xml_element()
+    {
+      $page = new \SimpleXMLElement("<?xml version=\"1.0\" ?><page name=\"page1\"></page>");
+      $this->getAttribute($page, 'name')->shouldBe('page1');
+
+      $this->getAttribute($page, 'beans')->shouldBe(null);
     }
 
 }

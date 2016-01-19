@@ -4,6 +4,7 @@ namespace spec\Sirs\Surveys;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Sirs\Surveys\BlockFactory;
 
 class RenderableBlockSpec extends ObjectBehavior
 {
@@ -15,14 +16,6 @@ class RenderableBlockSpec extends ObjectBehavior
     function it_should_implement_RenderableBlockInterface()
     {
       $this->shouldImplement('Sirs\Surveys\Contracts\RenderableBlockInterface');
-    }
-
-    function its_constructor_should_take_its_properties()
-    {
-      $this->beConstructedWith('$class', '$id', '$template');
-      $this->getClass()->shouldBe('$class');
-      $this->getId()->shouldBe('$id');
-      $this->getTemplate()->shouldBe('$template');
     }
 
     function it_should_set_and_get_its_template()
@@ -58,6 +51,13 @@ class RenderableBlockSpec extends ObjectBehavior
 
       $self = $this->setId('className');
       $self->shouldHaveType('Sirs\Surveys\RenderableBlock');
+    }
+
+    function it_should_build_itself_based_on_the_xml()
+    {
+      $this->setXmlElement('<container class="test" id="test"><question name="testQuestion" id="testQueston" class="class"></question></container>');
+      $this->getId()->shouldBe('test');
+      $this->getClass()->shouldBe('test');
     }
 
 }

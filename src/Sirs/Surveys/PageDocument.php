@@ -5,15 +5,20 @@ namespace Sirs\Surveys;
 use Sirs\Surveys\Contracts\PageDocumentInterface;
 
 // class PageDocument implements PageDocumentInterface
-class PageDocument extends Container implements PageDocumentInterface
+class PageDocument extends ContainerBlock implements PageDocumentInterface
 {
   protected $source;
   protected $title;
 
-  function __construct($title=null,$source=null,$name=null, $contents=null, $class = null, $id = null, $template=null){
-    $this->setTitle($title);
-    $this->setSource($source);
-    parent::__construct($name, $contents, $class, $id, $template);
+  function __construct($xml = null){
+    parent::__construct($xml);
+  }
+
+  public function parse()
+  {
+    $this->setTitle($this->xmlElement, 'title');
+    $this->setSource($this->xmlElement, 'source');
+    parent::parse();
   }
 
   /**

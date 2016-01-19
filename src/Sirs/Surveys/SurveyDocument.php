@@ -5,16 +5,27 @@ namespace Sirs\Surveys;
 use Sirs\Surveys\Contracts\SurveyDocumentInterface;
 use Sirs\Surveys\PageDocument;
 
-class SurveyDocument implements SurveyDocumentInterface
+class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 {
+
   protected $name;
   protected $version;
   protected $pages;
+  protected $xmlElement;
 
-  public function __construct(string $name = null, string $version = null, $pages = null){
-    $this->pages = ($pages) ? $this->setPages($pages) : [];
-    $this->name = $this->setName($name);
-    $this->version = $this->setVersion($version);
+  public function __construct($xml = null)
+  {
+    $this->pages = [];
+    parent::__construct($xml);
+  }
+
+  public function parse()
+  {
+      foreach( $this->xmlElement->page as $pageElement ){
+          $this->appendPage(new PageDocument($pageElement));
+      }
+      $this->setName($this->getAttribute($this->xmlElement, 'name'));
+      $this->setVersion($this->getAttribute($this->xmlElement, 'version'));
   }
 
   /**
