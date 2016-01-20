@@ -2,7 +2,7 @@
 
 namespace Sirs\Surveys;
 
-class DateQuestion extends QuestionBlock
+class DateQuestion extends BoundedQuestion
 {
   protected $min;
   protected $max;
@@ -14,37 +14,12 @@ class DateQuestion extends QuestionBlock
     $this->defaultDataFormat = 'date';
   }
 
-  function parse()
+  public function boundaryIsValid($boundary)
   {
-    parent::parse();
-    if( $this->xmlElement->min[0] ){
-      $this->setMin($this->xmlElement->min[0]->__toString(), 'min');
-    }
-    if( $this->xmlElement->max[0] ){
-      $this->setMax($this->xmlElement->max[0]->__toString(), 'max');
-    }
-  }
-
-  public function setMin($min)
-  {
-    $this->min = $min;
-    return $this;
-  }
-
-  public function getMin()
-  {
-    return $this->min;
-  }
-
-  public function setMax($max)
-  {
-    $this->max = $max;
-    return $this;
-  }
-
-  public function getMax()
-  {
-    return $this->max;
+      if( is_string($boundary) ){
+          return (boolean)(preg_match('/^\d\d\d\d-\d\d-\d\d?$/', $boundary));
+      }
+      return false;
   }
 
 }

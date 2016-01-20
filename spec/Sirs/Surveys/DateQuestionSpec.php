@@ -26,4 +26,16 @@ class DateQuestionSpec extends ObjectBehavior
       $this->getMax()->shouldBe($testVal);
     }
 
+    function it_validates_a_boundary()
+    {
+      $this->boundaryIsValid(1)->shouldBe(false);
+      $this->boundaryIsValid('beans')->shouldBe(false);
+      $this->boundaryIsValid('1977-09-16')->shouldBe(true);
+    }
+
+    function it_throws_an_invalid_argument_exception_when_max_or_min_invalid()
+    {
+      $this->shouldThrow('\InvalidArgumentException')->duringSetMin('beans');
+      $this->shouldThrow('\InvalidArgumentException')->duringSetMin([1,2,3]);
+    }
 }

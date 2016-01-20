@@ -2,7 +2,7 @@
 
 namespace Sirs\Surveys;
 
-class TimeQuestion extends QuestionBlock
+class TimeQuestion extends BoundedQuestion
 {
     protected $min;
     protected $max;
@@ -14,25 +14,13 @@ class TimeQuestion extends QuestionBlock
         parent::__construct($xml);
     }
 
-    public function setMin($argument1)
-    {
-        $this->min = $argument1;
-        return $this;
-    }
+      public function boundaryIsValid($boundary)
+      {
+          if( is_string($boundary) ){
+              return (boolean)(preg_match('/^\d\d:\d\d(:\d\d)?$/', $boundary));
+          }
+          return false;
+      }
 
-    public function getMin()
-    {
-        return $this->min;
-    }
 
-    public function setMax($argument1)
-    {
-        $this->max = $argument1;
-        return $this;
-    }
-
-    public function getMax()
-    {
-        return $this->max;
-    }
 }
