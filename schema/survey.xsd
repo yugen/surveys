@@ -70,10 +70,8 @@
 			<xs:complexType name="date">
 			  <xs:complexContent>
 			    <xs:extension base="question">
-			      <xs:choice maxOccurs="unbounded">
-			        <xs:element name="min" type="xs:date" minOccurs="0" />
-							<xs:element name="max" type="xs:date" minOccurs="0" />
-			      </xs:choice>
+			        <xs:attribute name="min" type="xs:date"/>
+					<xs:attribute name="max" type="xs:date"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -82,9 +80,7 @@
 			<xs:complexType name="upload">
 			  <xs:complexContent>
 			    <xs:extension base="question">
-			      <xs:choice maxOccurs="unbounded">
-			        <xs:element name="multiple" type="xs:boolean" />
-			      </xs:choice>
+			        <xs:attribute name="multiple" type="xs:boolean" />
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -105,7 +101,7 @@
 			<xs:complexType name="number">
 			  <xs:complexContent>
 			    <xs:extension base="question">
-			      <xs:attribute name="min" type="xs:decimal"/>
+			      	<xs:attribute name="min" type="xs:decimal"/>
 					<xs:attribute name="max" type="xs:decimal"/>
 			    </xs:extension>
 			  </xs:complexContent>
@@ -115,10 +111,8 @@
 			<xs:complexType name="time">
 			  <xs:complexContent>
 			    <xs:extension base="question">
-			      <xs:choice maxOccurs="unbounded">
-			        <xs:element name="min" type="xs:time" minOccurs="0" />
-							<xs:element name="max" type="xs:time" minOccurs="0" />
-			      </xs:choice>
+			        <xs:attribute name="min" type="xs:time"/>
+					<xs:attribute name="max" type="xs:time"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
