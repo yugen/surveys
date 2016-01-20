@@ -10,10 +10,12 @@ class RenderableBlock extends XmlDocument implements RenderableBlockInterface
   protected $id;
   protected $template;
   protected $documentFactory;
+  protected $defaultTemplate;
 
   public function __construct($xml = null)
   {
     parent::__construct($xml);
+    $this->defaultTemplate = 'blocks/default.blade.php';
   }
 
   public function parse()
@@ -30,6 +32,8 @@ class RenderableBlock extends XmlDocument implements RenderableBlockInterface
    * @return void
    **/
   public function setTemplate($template = null){
+    // print("\n----\n RenderableBlock::setTemplate \n---\n");
+    // print('template: '. $template."\n");
     $this->template = $template;
     return $this;
   }
@@ -40,7 +44,7 @@ class RenderableBlock extends XmlDocument implements RenderableBlockInterface
    * @return string
    **/
   public function getTemplate(){
-    return $this->template;
+    return ($this->template) ? $this->template : $this->defaultTemplate;
   }
 
   public function setId($id){

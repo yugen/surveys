@@ -9,9 +9,18 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $variableName;
   protected $dataFormat;
   protected $questionText;
+  protected $defaultDataFormat;
+
+  public function __construct($xml = null)
+  {
+    parent::__construct($xml);
+    $this->defaultDataFormat = 'varchar';
+    $this->defaultTemplate = 'questions/default.blade.php';
+  }
 
   public function parse()
   {
+
     parent::parse();
     $this->setVariableName($this->getAttribute($this->xmlElement, 'variable-name'));
     $this->setQuestionText($this->xmlElement->{'question-text'}[0]);
@@ -54,7 +63,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
    * @return string
    **/
   function getDataFormat(){
-    return ($this->dataFormat) ? $this->dataFormat : 'varchar';
+    return ($this->dataFormat) ? $this->dataFormat : $this->defaultDataFormat;
   }
 
   /**

@@ -18,6 +18,11 @@ class RenderableBlockSpec extends ObjectBehavior
       $this->shouldImplement('Sirs\Surveys\Contracts\RenderableBlockInterface');
     }
 
+    function it_should_have_a_default_template()
+    {
+      $this->getTemplate()->shouldBe('blocks/default.blade.php');
+    }
+
     function it_should_set_and_get_its_template()
     {
       $this->setTemplate('template.blade.php');
