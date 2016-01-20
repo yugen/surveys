@@ -2,7 +2,6 @@
     "name": "sirs/surveys",
     "require-dev": {
         "phpspec/phpspec": "^2.4",
-        "phpunit/phpunit": "^5.1",
         "burti/vfsstream": "^1.1"
     },
     "authors": [
@@ -11,7 +10,9 @@
             "email": "jward3@email.unc.edu"
         }
     ],
-    "require": {},
+    "require": {
+        "phpunit/phpunit": "^5.1"
+    },
     "autoload": {
         "psr-0": {
             "Sirs\\Survey": "src"

@@ -7,8 +7,8 @@
 			<xs:sequence>
 				<xs:element name="page" type="page" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="survey-name" type="xs:string" />
-			<xs:attribute name="version" type="xs:string" />
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="version" type="xs:string" use="required" />
 		</xs:complexType>
 	</xs:element>
 
@@ -28,15 +28,16 @@
 				<xs:element name="logic" type="logic" />
 				<xs:element name="html" type="xs:string" />
 				<xs:element name="question-group" type="question-group" />
-				<xs:element name="template" type="template" />
+				<xs:element name="template" type="template" />				
 			</xs:choice>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="class" type="xs:string"/>
 		</xs:complexType>
 			<!-- question group -->
 			<xs:complexType name="question-group">
 				<xs:complexContent>
 					<xs:extension base="container">
-						<xs:attribute name="id" type="xs:string" />
-						<xs:attribute name="class" type="xs:string"/>
 					</xs:extension>
 				</xs:complexContent>
 			</xs:complexType>
@@ -71,7 +72,7 @@
 			    <xs:extension base="question">
 			      <xs:choice maxOccurs="unbounded">
 			        <xs:element name="min" type="xs:date" minOccurs="0" />
-					<xs:element name="max" type="xs:date" minOccurs="0" />
+							<xs:element name="max" type="xs:date" minOccurs="0" />
 			      </xs:choice>
 			    </xs:extension>
 			  </xs:complexContent>
@@ -116,7 +117,7 @@
 			    <xs:extension base="question">
 			      <xs:choice maxOccurs="unbounded">
 			        <xs:element name="min" type="xs:time" minOccurs="0" />
-					<xs:element name="max" type="xs:time" minOccurs="0" />
+							<xs:element name="max" type="xs:time" minOccurs="0" />
 			      </xs:choice>
 			    </xs:extension>
 			  </xs:complexContent>

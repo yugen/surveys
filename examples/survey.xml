@@ -10,29 +10,29 @@
 		</html>
 		<question-group id="Name">
 			<template src="name.blade.php" />
-			<question name="FirstName"  required="1" data-format="text">
+			<question name="FirstName"  required="1" data-format="varchar">
 				<question-text>First Name:</question-text>
 				<template src="text-plain.blade.php" />
 			</question>
-			<question name="LastName" required="1" data-format="text">
+			<question name="LastName" required="1" data-format="varchar">
 				<question-text>Last Name:</question-text>
 				<template src="text-plain.blade.php" />
 			</question>
 		</question-group>
-		<question name="Phone" required="1" data-format="text">
+		<question name="Phone" required="1" data-format="varchar">
 			<question-text>Phone:</question-text>
 		</question>
 		<question-group id="Address">
-			<question name="Street1" required="1" data-format="text">
+			<question name="Street1" required="1" data-format="varchar">
 				<question-text>Street 1:</question-text>
 			</question>
-			<question name="Street2" required="1" data-format="text">
+			<question name="Street2" required="1" data-format="varchar">
 				<question-text>Street 2:</question-text>
 			</question>
-			<question name="City" required="1" data-format="text">
+			<question name="City" required="1" data-format="varchar">
 				<question-text>City:</question-text>
 			</question>
-			<multiple-choice name="State" required="1" num-selectable="1" data-format="text">
+			<multiple-choice name="State" required="1" num-selectable="1" data-format="varchar">
 				<question-text>State:</question-text>
 				<template>
 					<src>select</src>
@@ -44,10 +44,12 @@
 				<question-text>Zip:</question-text>
 			</question>
 		</question-group>
+		<!-- Is data-format redundant here? Can it be optional? -->
 		<date name="DOB" required="1" data-format="date">
 			<question-text>Date of Birth:</question-text>
 		</date>
 		<question-group id="insurance">
+			<!-- Choose a default template based on num-seleted -->
 			<multiple-choice name="insurance" num-selectable="all">
 				<template src="checkgroup-default.blade.php" />
 				<options>
