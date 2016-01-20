@@ -72,4 +72,10 @@ class ContainerBlockSpec extends ObjectBehavior
       $this->parseContents()->shouldHaveCount(3);
     }
 
+    function it_should_get_its_questions()
+    {
+      // $this->beConstructedWith('<container><question name="question1"><question-text>This is the first question</question-text></question></container>');
+      // $this->getQuestions()->shouldHaveCount(1);  
+    }
+
 }

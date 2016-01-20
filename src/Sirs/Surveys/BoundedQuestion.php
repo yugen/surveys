@@ -20,7 +20,7 @@ abstract class BoundedQuestion extends QuestionBlock
           $this->min = $min;
           return $this;
         }else{
-          throw new \InvalidArgumentException('Invalid min given for quesiton '.$this->getVariableName());
+          throw new \InvalidArgumentException('Invalid min given for quesiton '.$this->getName());
         }
     }
 
@@ -35,7 +35,7 @@ abstract class BoundedQuestion extends QuestionBlock
           $this->max = $max;
           return $this;
         }else{
-          throw new \InvalidArgumentException('Invalid max given for quesiton '.$this->getVariableName());
+          throw new \InvalidArgumentException('Invalid max given for quesiton '.$this->getName());
         }
     }
 

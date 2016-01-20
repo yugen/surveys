@@ -16,14 +16,14 @@ interface StructuredDataInterface
    * @param string $varName
    * @return string
    **/
-  public function setVariableName($varName);
+  public function setName($varName);
 
   /**
    * returns the variable name for this item
    *
    * @return string
    **/
-  public function getVariableName();
+  public function getName();
 
   /**
    * sets the datatype for this item

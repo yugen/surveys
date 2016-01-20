@@ -9,6 +9,7 @@ class BlockFactory
   function create(\SimpleXMLElement $element){
     switch ($element->getName()) {
       case 'container':
+      case 'question-group':
         $block = new ContainerBlock($element);
         break;
       case 'date':

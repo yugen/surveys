@@ -22,7 +22,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   {
 
     parent::parse();
-    $this->setVariableName($this->getAttribute($this->xmlElement, 'variable-name'));
+    $this->setName($this->getAttribute($this->xmlElement, 'name'));
     $this->setQuestionText($this->xmlElement->{'question-text'}[0]);
     $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
   }
@@ -33,7 +33,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
    * @param string $varName
    * @return string
    **/
-  public function setVariableName($varName){
+  public function setName($varName){
     $this->variableName = $varName;
     return $this;
   }
@@ -43,7 +43,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
    *
    * @return string
    **/
-  public function getVariableName(){
+  public function getName(){
     return $this->variableName;
   }
 
@@ -97,7 +97,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
    **/
   public function getDataDefinition(){
     return [
-      'variableName'=>$this->getVariableName(),
+      'variableName'=>$this->getName(),
       'dataFormat'=>$this->getDataFormat(),
       'questionText'=>$this->getQuestionText()
     ];

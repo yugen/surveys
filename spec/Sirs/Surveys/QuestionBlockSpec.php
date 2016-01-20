@@ -14,8 +14,8 @@ class QuestionBlockSpec extends ObjectBehavior
 
     function it_should_set_and_get_its_variable_name()
     {
-      $this->setVariableName('test');
-      $this->getVariableName()->shouldBe('test');
+      $this->setName('test');
+      $this->getName()->shouldBe('test');
     }
 
     function it_should_have_a_default_data_format()
@@ -43,7 +43,7 @@ class QuestionBlockSpec extends ObjectBehavior
 
     function it_should_get_a_data_definition()
     {
-      $this->setVariableName('question');
+      $this->setName('question');
       $this->setQuestionText('What is this?');
       $this->getDataDefinition()->shouldBe([
         'variableName'=>'question',

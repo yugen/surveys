@@ -3,10 +3,10 @@
 namespace Sirs\Surveys;
 
 use Sirs\Surveys\Contracts\SurveyDocumentInterface;
-use Sirs\Surveys\PageDocument;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 {
+  use HasQuestionsTrait;
 
   protected $name;
   protected $version;

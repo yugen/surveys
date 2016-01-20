@@ -7,6 +7,8 @@ use Sirs\Surveys\Contracts\PageDocumentInterface;
 // class PageDocument implements PageDocumentInterface
 class PageDocument extends ContainerBlock implements PageDocumentInterface
 {
+  use HasQuestionsTrait;
+
   protected $source;
   protected $title;
 

@@ -74,4 +74,12 @@ interface SurveyDocumentInterface
    * @param Sirs\Surveys\Contracts\PageDocument $page
    **/
   function prependPage(PageDocument $page);
+
+  /**
+   * gets all questions in the survey
+   *
+   * @return array of questionBlocks
+   **/
+  public function getQuestions();
+
 } // END interface SurveyDocument

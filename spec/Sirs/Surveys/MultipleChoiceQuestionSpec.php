@@ -33,6 +33,13 @@ class MultipleChoiceQuestionSpec extends ObjectBehavior
 
       $this->setNumSelectable(2);
       $this->getTemplate()->shouldBe('questions/multiple_choice/checkbox_group.blade.php');
-
     }
+
+    function it_includes_options_in_its_data_definition()
+    {
+      $test = [1,2,3];
+      $this->setOptions($test);
+      $this->getDataDefinition()->shouldHaveKeyWithValue('options', $test);
+    }
+
 }

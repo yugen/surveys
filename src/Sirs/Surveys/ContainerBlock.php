@@ -7,6 +7,8 @@ use Sirs\Surveys\RenderableBlock;
 
 class ContainerBlock extends RenderableBlock implements ContainerInterface
 {
+  use HasQuestionsTrait;
+
   protected $name;
   protected $contents;
   /**
@@ -39,6 +41,10 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
       $children[] = $blockFactory->create($child);
     }   
     return $children;
+  }
+
+  function getQuestions(){
+    return [];
   }
 
   /**

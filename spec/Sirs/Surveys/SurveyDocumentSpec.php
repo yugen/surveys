@@ -27,6 +27,29 @@ class SurveyDocumentSpec extends ObjectBehavior
   </page>
   <page name="page2">
     <html>Monkeys!</html>
+    <question-group name="group1">
+      <multiple-choice name="question2" num-selectable="1">
+        <question-text>What is your favorite color?</question-text>
+        <options>
+          <option>
+            <value>1</value>
+            <label>Cyan</label>
+          </option>
+          <option>
+            <value>2</value>
+            <label>Magenta</label>
+          </option>
+          <option>
+            <value>3</value>
+            <label>Yellow</label>
+          </option>
+          <option>
+            <value>4</value>
+            <label>Black</label>
+          </option>
+        </options>
+      </multiple-choice>
+    </question-group>
   </page>
 </survey>
 XML;
@@ -87,6 +110,11 @@ XML;
       $this->getAttribute($page, 'name')->shouldBe('page1');
 
       $this->getAttribute($page, 'beans')->shouldBe(null);
+    }
+
+    function it_should_get_its_questions()
+    {
+      $this->getQuestions()->shouldHaveCount(2);
     }
 
 }

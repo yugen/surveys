@@ -42,4 +42,10 @@ class PageDocumentSpec extends ObjectBehavior
       $self = $this->setTitle('Test Title');
       $self->shouldHaveType('Sirs\Surveys\PageDocument');
     }
+
+    function it_should_get_its_questions()
+    {
+      $this->beConstructedWith('<page><question name="question1"><question-text>This is the first question</question-text></question></page>');
+      $this->getQuestions()->shouldHaveCount(1);  
+    }
 }

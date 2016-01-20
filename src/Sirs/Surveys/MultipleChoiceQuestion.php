@@ -18,6 +18,26 @@ class MultipleChoiceQuestion extends QuestionBlock
         $this->defaultDataFormat = 'int';
     }
 
+    public function parse()
+    {
+        parent::parse();
+        $this->parseOptions();
+        $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
+    }
+
+    public function parseOptions(){
+        $options = [];
+        if( $this->xmlElement->options->option ){
+            foreach( $this->xmlElement->options->option as $option ){
+                $options[] = [
+                    'label'=>$option->label[0]->__toString(),
+                    'value'=>$option->value[0]->__toString()
+                ];
+            }
+            $this->setOptions($options);
+        }
+    }
+
     public function setOptions($options)
     {
         $this->options = $options;
@@ -45,5 +65,21 @@ class MultipleChoiceQuestion extends QuestionBlock
       $this->defaultTemplate = ($this->getNumSelectable() > 1) ? $this->defaultMultiTemplate : $this->defaultSingleTemplate;
       return parent::getTemplate();
     }
+
+      /**
+       * returns a data definition for this item
+       *
+       * @return void
+       * @author 
+       **/
+      public function getDataDefinition(){
+        return [
+          'variableName'=>$this->getName(),
+          'dataFormat'=>$this->getDataFormat(),
+          'questionText'=>$this->getQuestionText(),
+          'options'=>$this->getOptions(),
+        ];
+      }
+
 
 }

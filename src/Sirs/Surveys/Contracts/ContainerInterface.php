@@ -56,4 +56,11 @@ interface ContainerInterface extends RenderableBlockInterface
    **/
   function prependContent($content);
 
+  /**
+   * gets all questions in the survey
+   *
+   * @return array of questionBlocks
+   **/
+  public function getQuestions();
+
 } // END interface Container extends RenderableBlock
