@@ -58,7 +58,7 @@
 					<xs:element name="question-text" type="xs:string" minOccurs="0"/>
 					<xs:element name="template" type="template" />
 				</xs:choice>
-				<xs:attribute name="name" type="xs:string" />
+				<xs:attribute name="name" type="xs:string" use="required"/>
 				<xs:attribute name="id" type="xs:string" />
 				<xs:attribute name="required" type="xs:boolean" />
 				<xs:attribute name="class" type="xs:string" />
