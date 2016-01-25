@@ -10,6 +10,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $dataFormat;
   protected $questionText;
   protected $defaultDataFormat;
+  protected $required = false;
 
   public function __construct($xml = null)
   {
@@ -25,6 +26,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setName($this->getAttribute($this->xmlElement, 'name'));
     $this->setQuestionText($this->xmlElement->{'question-text'}[0]);
     $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
+    $this->setRequired($this->getAttribute($this->xmlElement, 'required'));
   }
 
   /**
@@ -102,5 +104,16 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       'questionText'=>$this->getQuestionText()
     ];
   }
+
+    public function setRequired($required)
+    {
+        $this->required = ($required !== null) ? $required : false;
+        return $this;
+    }
+
+    public function getRequired()
+    {
+        return $this->required;
+    }
 
 }

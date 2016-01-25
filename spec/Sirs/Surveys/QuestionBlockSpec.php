@@ -51,4 +51,10 @@ class QuestionBlockSpec extends ObjectBehavior
         'questionText'=>'What is this?'
       ]);
     }
+
+    function it_should_set_and_get_required()
+    {
+      $this->setRequired(true);
+      $this->getRequired()->shouldBe(true);
+    }
 }
