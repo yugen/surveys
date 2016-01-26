@@ -2,10 +2,10 @@
 
 namespace Sirs\Surveys;
 
-use Sirs\Surveys\Contracts\RenderableBlockInterface;
+use Sirs\Surveys\Contracts\RenderableInterface;
 use Windwalker\Renderer\BladeRenderer;
 
-class RenderableBlock extends XmlDocument implements RenderableBlockInterface
+class RenderableBlock extends XmlDocument implements RenderableInterface
 {
   protected $class;
   protected $id;
@@ -73,20 +73,10 @@ class RenderableBlock extends XmlDocument implements RenderableBlockInterface
   /**
    * Render the block using it's template
    *
-   * @param Closure $beforeRender - function to call before rendering the block
-   * @param Closure $afterRender - function to call after rendering
    * @return string
    **/
-  public function render(Closure $beforeRender = null, Closure $afterRender = null){
-    if( $beforeRender ){
-      $beforeRender($this);
-    }    
-
+  public function render(){
     $view = $this->renderer->render($this->getTemplate(), ['renderable'=>$this]);
-
-    if( $afterRender ){
-      $afterRender($this);
-    }
     return $view;
   }
 }

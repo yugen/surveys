@@ -2,6 +2,7 @@
 
 namespace Sirs\Surveys;
 
+use Sirs\Surveys\Contracts\RenderableInterface;
 use Sirs\Surveys\Contracts\SurveyDocumentInterface;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
@@ -12,6 +13,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
   protected $version;
   protected $pages;
   protected $xmlElement;
+  protected $template;
 
   public function __construct($xml = null)
   {
@@ -26,6 +28,22 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
       }
       $this->setName($this->getAttribute($this->xmlElement, 'name'));
       $this->setVersion($this->getAttribute($this->xmlElement, 'version'));
+  }
+
+  public function setTemplate($template = null)
+  {
+    $this->template = $template;
+    return $this;
+  }
+
+  public function getTemplate()
+  {
+    return $this->template;
+  }
+
+  public function render()
+  {
+    
   }
 
   /**

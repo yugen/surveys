@@ -62,6 +62,7 @@ XML;
     {
         $this->shouldHaveType('Sirs\Surveys\SurveyDocument');
         $this->shouldImplement('Sirs\Surveys\Contracts\SurveyDocumentInterface');
+        $this->shouldImplement('Sirs\Surveys\Contracts\RenderableInterface');
     }
 
     function it_validates_a_survey_definition()
@@ -115,6 +116,11 @@ XML;
     function it_should_get_its_questions()
     {
       $this->getQuestions()->shouldHaveCount(2);
+    }
+
+    function it_should_render_itself()
+    {
+      $this->render()->shouldBe();
     }
 
 }

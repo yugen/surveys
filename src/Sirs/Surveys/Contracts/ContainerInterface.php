@@ -8,7 +8,7 @@ namespace Sirs\Surveys\Contracts;
  * @package sirs/surveys
  * @author 
  **/
-interface ContainerInterface extends RenderableBlockInterface
+interface ContainerInterface extends RenderableInterface
 {
 
   /**

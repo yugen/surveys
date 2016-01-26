@@ -13,9 +13,9 @@ class RenderableBlockSpec extends ObjectBehavior
         $this->shouldHaveType('Sirs\Surveys\RenderableBlock');
     }
 
-    function it_should_implement_RenderableBlockInterface()
+    function it_should_implement_RenderableInterface()
     {
-      $this->shouldImplement('Sirs\Surveys\Contracts\RenderableBlockInterface');
+      $this->shouldImplement('Sirs\Surveys\Contracts\RenderableInterface');
     }
 
     function it_should_have_a_default_template()
