@@ -2,7 +2,9 @@
 
 namespace Sirs\Surveys;
 
-class MultipleChoiceQuestion extends QuestionBlock
+use Sirs\Surveys\Contracts\HasOptionsInterface;
+
+class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterface
 {
     protected $options;
     protected $numSelectable;
@@ -38,7 +40,7 @@ class MultipleChoiceQuestion extends QuestionBlock
         }
     }
 
-    public function setOptions($options)
+    public function setOptions(array $options)
     {
         $this->options = $options;
         return $this;

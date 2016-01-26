@@ -58,6 +58,23 @@ abstract class XmlDocument
     return $this->xmlElement;
   }
 
+  public function __get($property)
+  {
+    $getterMethod = 'get'.ucfirst($property);
+    if( method_exists($this, $getterMethod) ){
+      return $this->{$getterMethod}();
+    }
+    return $this->{$property};
+  }
+
+  public function __set($property, $value)
+  {
+    $setterMethod = 'set'.ucfirst($property);
+    if( method_exists($this, $setterMethod) ){
+      return $this->{$setterMethod}($value);
+    }
+    return $this->{$property} = $value;
+  }
 
 
 }

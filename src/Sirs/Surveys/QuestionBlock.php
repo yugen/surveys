@@ -16,7 +16,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   {
     parent::__construct($xml);
     $this->defaultDataFormat = 'varchar';
-    $this->defaultTemplate = 'questions/default.blade.php';
+    $this->defaultTemplate = 'questions.text.default';
   }
 
   public function parse()
