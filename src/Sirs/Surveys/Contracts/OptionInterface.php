@@ -1,5 +1,5 @@
 <?
-namespace Sirs\Surveys\Contacts;
+namespace Sirs\Surveys\Contracts;
 
 /**
  * Interface defining Options

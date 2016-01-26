@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirs\Surveys\Contacts;
+namespace Sirs\Surveys\Contracts;
 
 /**
  * Interface for Structured data with limited number of possible values
