@@ -9,6 +9,7 @@
 			</xs:sequence>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="version" type="xs:string" use="required" />
+			<xs:attribute name="title" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 
@@ -34,7 +35,9 @@
 			<xs:attribute name="id" type="xs:string" />
 			<xs:attribute name="class" type="xs:string"/>
 		</xs:complexType>
+
 			<!-- question group -->
+			<!-- included for semantic purposes -->
 			<xs:complexType name="question-group">
 				<xs:complexContent>
 					<xs:extension base="container">
@@ -54,15 +57,15 @@
 	<!-- question and children -->
 		<!-- question -->
 		<xs:complexType name="question">
-				<xs:choice maxOccurs="unbounded">
-					<xs:element name="question-text" type="xs:string" minOccurs="0"/>
-					<xs:element name="template" type="template" />
-				</xs:choice>
+				<xs:all minOccurs="0">
+					<xs:element name="question-text" type="xs:string"/>
+					<xs:element name="template" type="template"/>
+				</xs:all>
 				<xs:attribute name="name" type="xs:string" use="required"/>
 				<xs:attribute name="id" type="xs:string" />
 				<xs:attribute name="required" type="xs:boolean" />
 				<xs:attribute name="class" type="xs:string" />
-				<xs:attribute name="hidden" type="xs:boolean" />
+				<xs:attribute name="hide" type="xs:boolean" />
 				<xs:attribute name="data-format" type="data-format" />
 		</xs:complexType>
 
@@ -127,16 +130,7 @@
 				<xs:element name="questions">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="question" maxOccurs="unbounded">
-								<xs:complexType>
-									<xs:choice maxOccurs="unbounded">
-										<xs:element name="questiontext" type="xs:string" />
-										<xs:element name="html" type="xs:string" minOccurs="0" />
-									</xs:choice>
-									<xs:attribute name="required" type="xs:boolean"/>
-									<xs:attribute name="questionname" type="xs:string" />
-								</xs:complexType>
-							</xs:element>
+							<xs:element name="question" type="questions" maxOccurs="unbounded" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -183,7 +177,7 @@
 
 		<!-- template -->
 		<xs:complexType name="template">
-			<xs:attribute name="src" type="xs:string" />
+			<xs:attribute name="source" type="xs:string" />
 		</xs:complexType>
 
 		<!-- data-format -->

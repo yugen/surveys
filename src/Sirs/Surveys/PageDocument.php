@@ -18,8 +18,8 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
 
   public function parse()
   {
-    $this->setTitle($this->xmlElement, 'title');
-    $this->setSource($this->xmlElement, 'source');
+    $this->setTitle($this->getAttribute($this->xmlElement, 'title'));
+    $this->setSource($this->getAttribute($this->xmlElement, 'source'));
     parent::parse();
   }
 
