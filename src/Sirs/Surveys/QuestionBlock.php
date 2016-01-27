@@ -11,12 +11,13 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $questionText;
   protected $defaultDataFormat;
   protected $required = false;
+  protected $placeholder;
 
   public function __construct($xml = null)
   {
     parent::__construct($xml);
     $this->defaultDataFormat = 'varchar';
-    $this->defaultTemplate = 'questions.text.default';
+    $this->defaultTemplate = 'questions.text.default_text';
   }
 
   public function parse()
@@ -27,6 +28,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setQuestionText($this->xmlElement->{'question-text'}[0]);
     $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
     $this->setRequired($this->getAttribute($this->xmlElement, 'required'));
+    $this->setPlaceholder($this->getAttribute($this->xmlElement, 'placeholder'));
   }
 
   /**
@@ -114,6 +116,17 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getRequired()
     {
         return $this->required;
+    }
+
+    public function setPlaceholder($placeholder)
+    {
+      $this->placeholder = ($placeholder !== null) ? $placeholder : null;
+      return $this;
+    }
+
+    public function getPlaceholder()
+    {
+      return $this->placeholder;
     }
 
 }

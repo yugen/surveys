@@ -14,12 +14,41 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
   protected $pages;
   protected $xmlElement;
   protected $template;
+  protected $responseLimit;
 
   public function __construct($xml = null)
   {
     $this->pages = [];
     parent::__construct($xml);
   }
+
+  static public function initFromFile($filePath){
+    $xmlString = file_get_contents($filePath);
+    $class = get_called_class();
+    return new $class($xmlString);
+  }
+
+  public function getPageByName($name)
+  {
+    foreach( $this->getPages() as $idx => $page ){
+      if( $page->name == $name ){
+        return $page;
+      }
+    }
+    throw new \OutOfBoundsException('The page '.$name.' was not found');
+  }
+
+  public function getPageIndexByName($name)
+  {
+    foreach( $this->getPages() as $idx => $page ){
+      if( $page->name == $name ){
+        return $idx;
+      }
+    }
+    throw new \OutOfBoundsException('The page '.$name.' was not found');
+  }
+
+
 
   public function parse()
   {
@@ -137,5 +166,18 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     array_unshift($this->pages, $page);
     return $this;
   }
+
+  public function setResponseLimit($responseLimit)
+  {
+    $this->responseLimit = $responseLimit;
+    return $this;
+  }
+
+  public function getResponseLimit()
+  {
+      return ($this->responseLimit) ? $this->responseLimit : 1;
+  }
+
+
 
 }

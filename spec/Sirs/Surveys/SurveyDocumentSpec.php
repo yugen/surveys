@@ -19,6 +19,9 @@ class SurveyDocumentSpec extends ObjectBehavior
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="sirs.unc.edu file://'.__DIR__.'/../../../../schema/survey.xsd"
 >
+  <page name="page0">
+    <html>Beans!</html>
+  </page>
   <page name="page1">
     <html>Beans!</html>
     <question name="question1">
@@ -84,6 +87,11 @@ XML;
       $this->getVersion()->shouldBe($version);
     }
 
+    function it_sets_and_gets_its_response_limit()
+    {
+      $this->getResponseLimit()->shouldBe(1);
+    }
+
     function it_gets_and_sets_its_pages(PageDocument $page1, PageDocument $page2)
     {
       $pages = [$page1, $page2];
@@ -120,7 +128,19 @@ XML;
 
     function it_should_render_itself()
     {
-      $this->render()->shouldBe();
+      $this->render()->shouldBe(null);
+    }
+
+    function it_should_get_a_page_by_it_name()
+    {
+      $this->getPageByName('page0')->shouldBe($this->pages[0]);
+      $this->shouldThrow('\OutOfBoundsException')->duringGetPageByName('beans');
+    }
+
+    function it_should_get_a_page_index_by_the_page_Name()
+    {
+      $this->getPageIndexByName('page1')->shouldBe(1);
+      $this->shouldThrow('\OutOfBoundsException')->duringGetPageByName('beans');
     }
 
 }
