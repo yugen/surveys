@@ -8,7 +8,7 @@ use Closure;
  *
  * @package sirs/surveys
  **/
-interface RenderableBlockInterface
+interface RenderableInterface
 {
 
   /**
@@ -29,16 +29,8 @@ interface RenderableBlockInterface
   /**
    * Render the block using it's template
    *
-   * @param Closure $beforeRender - function to call before rendering the block
-   * @param Closure $afterRender - function to call after rendering
    * @return string
    **/
-  public function render(Closure $beforeRender = null, Closure$afterRender = null);
-
-  public function setId($id);
-  public function getId();
-
-  public function setClass($class);
-  public function getClass();
+  public function render();
 
 }

@@ -12,7 +12,12 @@
     ],
     "require": {
         "phpunit/phpunit": "^5.1",
-        "nesbot/carbon": "^1.21"
+        "nesbot/carbon": "^1.21",
+        "windwalker/renderer": "~2.0",
+        "illuminate/view": "^5.2",
+        "symfony/var-dumper": "^3.0",
+        "paragonie/random_compat": "^1.1",
+        "jeremeamia/superclosure": "^2.2"
     },
     "autoload": {
         "psr-0": {

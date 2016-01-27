@@ -12,6 +12,8 @@ class BlockFactory
       case 'question-group':
         $block = new ContainerBlock($element);
         break;
+      case 'likert':
+        $block = new LikertBlock($element);
       case 'date':
       case 'time':
       case 'upload':

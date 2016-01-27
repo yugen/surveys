@@ -10,7 +10,7 @@ use Sirs\Surveys\PageDocument;
  * @package default
  * @author 
  **/
-interface SurveyDocumentInterface
+interface SurveyDocumentInterface extends RenderableInterface
 {
 
   /**

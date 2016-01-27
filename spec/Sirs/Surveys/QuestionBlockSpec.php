@@ -25,7 +25,7 @@ class QuestionBlockSpec extends ObjectBehavior
 
     function it_should_have_a_default_template()
     {
-      $this->getTemplate()->shouldBe('questions/default.blade.php');
+      $this->getTemplate()->shouldBe('questions.text.default_text');
     }
 
     function it_should_set_and_get_its_data_format()
@@ -56,5 +56,32 @@ class QuestionBlockSpec extends ObjectBehavior
     {
       $this->setRequired(true);
       $this->getRequired()->shouldBe(true);
+    }
+
+    function it_should_render_itself()
+    {
+      $this->name = 'Beans';
+      $this->required = true;
+      $this->class = 'monkey';
+      $this->id = 'beans';
+      $this->questionText = 'What is your favorite color';
+      $this->dataFormat = 'varchar';
+      $this->placeholder = 'beans!';
+      $template = <<<TPL
+<div 
+  class="form-group question-block monkey
+  @if( count(\$response->errors['Beans']) > 0 ) has-error @endif" 
+  id=""
+>
+    <div class="question-text">What is your favorite color</div>
+  
+  @if('\$response->errors['Beans']['required'])<div class="error">This question is required</div>@endif
+  <div class="question-answers">
+    <input type="text" name="Beans" placeholder=" required />
+  </div>
+</div>
+
+TPL;
+      $view = $this->renderer->render($this->defaultTemplate, ['renderable'=>$this])->shouldBe($template);
     }
 }

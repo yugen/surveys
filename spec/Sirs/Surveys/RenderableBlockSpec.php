@@ -13,14 +13,14 @@ class RenderableBlockSpec extends ObjectBehavior
         $this->shouldHaveType('Sirs\Surveys\RenderableBlock');
     }
 
-    function it_should_implement_RenderableBlockInterface()
+    function it_should_implement_RenderableInterface()
     {
-      $this->shouldImplement('Sirs\Surveys\Contracts\RenderableBlockInterface');
+      $this->shouldImplement('Sirs\Surveys\Contracts\RenderableInterface');
     }
 
     function it_should_have_a_default_template()
     {
-      $this->getTemplate()->shouldBe('blocks/default.blade.php');
+      $this->getTemplate()->shouldBe('block_default');
     }
 
     function it_should_set_and_get_its_template()
@@ -43,7 +43,8 @@ class RenderableBlockSpec extends ObjectBehavior
 
     function it_should_render_itself()
     {
-      
+      $this->content = '<p>beans!!</p>';
+      $this->render()->shouldBe('<div><p>beans!!</p></div>');
     }
 
     function it_should_return_itself_unless_method_is_getter()

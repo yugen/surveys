@@ -2,20 +2,26 @@
 
 namespace Sirs\Surveys;
 
-use Sirs\Surveys\Contracts\RenderableBlockInterface;
+use Sirs\Surveys\Contracts\RenderableInterface;
+use Windwalker\Renderer\BladeRenderer;
 
-class RenderableBlock extends XmlDocument implements RenderableBlockInterface
+class RenderableBlock extends XmlDocument implements RenderableInterface
 {
   protected $class;
   protected $id;
   protected $template;
+  protected $defaultTemplatePath;
   protected $documentFactory;
   protected $defaultTemplate;
+  protected $renderer;
+  public $content;
 
   public function __construct($xml = null)
   {
     parent::__construct($xml);
-    $this->defaultTemplate = 'blocks/default.blade.php';
+    $this->defaultTemplatePath = __DIR__.'/Views';
+    $this->defaultTemplate = 'block_default';
+    $this->renderer = new BladeRenderer([$this->defaultTemplatePath], [ 'cache_path' => __DIR__.'/cache' ]);
   }
 
   public function parse()
@@ -67,11 +73,10 @@ class RenderableBlock extends XmlDocument implements RenderableBlockInterface
   /**
    * Render the block using it's template
    *
-   * @param Closure $beforeRender - function to call before rendering the block
-   * @param Closure $afterRender - function to call after rendering
    * @return string
    **/
-  public function render(Closure $beforeRender = null, Closure $afterRender = null){
-    
+  public function render(){
+    $view = $this->renderer->render($this->getTemplate(), ['renderable'=>$this]);
+    return $view;
   }
 }

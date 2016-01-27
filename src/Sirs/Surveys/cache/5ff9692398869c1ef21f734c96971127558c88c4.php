@@ -1,0 +1,1 @@
+<div><?php echo isset($renderable->content) ? $renderable->content : ''; ?></div>
