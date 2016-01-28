@@ -2,6 +2,11 @@
 
 namespace Sirs\Surveys\Factories;
 
+use Sirs\Surveys\ContainerBlock;
+use Sirs\Surveys\Factories\QuestionFactory;
+use Sirs\Surveys\HtmlBlock;
+use Sirs\Surveys\LikertBlock;
+
 class BlockFactory
 {
   protected $blockTypes;

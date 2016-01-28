@@ -2,6 +2,12 @@
 
 namespace Sirs\Surveys\Factories;
 
+use Sirs\Surveys\DateQuestion;
+use Sirs\Surveys\MultipleChoiceQuestion;
+use Sirs\Surveys\NumberQuestion;
+use Sirs\Surveys\QuestionBlock;
+use Sirs\Surveys\TimeQuestion;
+
 class QuestionFactory
 {
 
