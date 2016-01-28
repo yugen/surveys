@@ -9,7 +9,7 @@ class QuestionFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\QuestionFactory');
+        $this->shouldHaveType('Sirs\Surveys\Factories\QuestionFactory');
     }
 
     function it_creates_a_default_question()

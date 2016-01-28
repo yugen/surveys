@@ -4,6 +4,7 @@ namespace Sirs\Surveys;
 
 use Sirs\Surveys\Contracts\ContainerInterface;
 use Sirs\Surveys\RenderableBlock;
+use Sirs\Surveys\Factories\BlockFactory;
 
 class ContainerBlock extends RenderableBlock implements ContainerInterface
 {

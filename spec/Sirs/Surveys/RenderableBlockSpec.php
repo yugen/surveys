@@ -4,7 +4,7 @@ namespace spec\Sirs\Surveys;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sirs\Surveys\BlockFactory;
+use Sirs\Surveys\Factories\BlockFactory;
 
 class RenderableBlockSpec extends ObjectBehavior
 {

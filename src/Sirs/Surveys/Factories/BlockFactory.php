@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Factories;
 
 class BlockFactory
 {

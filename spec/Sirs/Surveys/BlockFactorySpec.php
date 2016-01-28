@@ -9,7 +9,7 @@ class BlockFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\BlockFactory');
+        $this->shouldHaveType('Sirs\Surveys\Factories\BlockFactory');
     }
 
     function it_should_create_a_ContainerBlock_object_when_it_gets_a_container_definition()
