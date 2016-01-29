@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class PageDocumentSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\PageDocument');
+        $this->shouldHaveType('Sirs\Surveys\Documents\PageDocument');
     }
 
     function it_should_implement_PageDocumentInterface()
@@ -37,10 +37,10 @@ class PageDocumentSpec extends ObjectBehavior
     function it_should_return_itself_unless_method_is_a_getter()
     {
       $self = $this->setSource('beans.txt');
-      $self->shouldHaveType('Sirs\Surveys\PageDocument');
+      $self->shouldHaveType('Sirs\Surveys\Documents\PageDocument');
 
       $self = $this->setTitle('Test Title');
-      $self->shouldHaveType('Sirs\Surveys\PageDocument');
+      $self->shouldHaveType('Sirs\Surveys\Documents\PageDocument');
     }
 
     function it_should_get_its_questions()

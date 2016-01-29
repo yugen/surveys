@@ -1,9 +1,12 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents;
 
 use Sirs\Surveys\Contracts\RenderableInterface;
 use Sirs\Surveys\Contracts\SurveyDocumentInterface;
+use Sirs\Surveys\Documents\PageDocument;
+use Sirs\Surveys\Documents\XmlDocument;
+use Sirs\Surveys\HasQuestionsTrait;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 {

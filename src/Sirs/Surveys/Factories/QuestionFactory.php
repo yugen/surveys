@@ -2,11 +2,12 @@
 
 namespace Sirs\Surveys\Factories;
 
-use Sirs\Surveys\DateQuestion;
-use Sirs\Surveys\MultipleChoiceQuestion;
-use Sirs\Surveys\NumberQuestion;
-use Sirs\Surveys\QuestionBlock;
-use Sirs\Surveys\TimeQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\DateQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\MultipleChoiceQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\NumberQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
+use Sirs\Surveys\Documents\Blocks\Questions\TimeQuestion;
+
 
 class QuestionFactory
 {

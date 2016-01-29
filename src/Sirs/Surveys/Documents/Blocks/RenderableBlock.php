@@ -1,8 +1,9 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks;
 
 use Sirs\Surveys\Contracts\RenderableInterface;
+use Sirs\Surveys\Documents\XmlDocument;
 use Windwalker\Renderer\BladeRenderer;
 
 class RenderableBlock extends XmlDocument implements RenderableInterface
@@ -19,7 +20,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   public function __construct($xml = null)
   {
     parent::__construct($xml);
-    $this->defaultTemplatePath = __DIR__.'/Views';
+    $this->defaultTemplatePath = __DIR__.'/../../Views';
     $this->defaultTemplate = 'block_default';
     $this->renderer = new BladeRenderer([$this->defaultTemplatePath], [ 'cache_path' => __DIR__.'/cache' ]);
   }

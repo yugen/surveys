@@ -1,8 +1,9 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks\Questions;
 
 use Sirs\Surveys\Contracts\StructuredDataInterface;
+use Sirs\Surveys\Documents\Blocks\RenderableBlock;
 
 class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 {

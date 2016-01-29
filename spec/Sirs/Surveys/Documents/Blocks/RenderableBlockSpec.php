@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents\Blocks;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -10,7 +10,7 @@ class RenderableBlockSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\RenderableBlock');
+        $this->shouldHaveType('Sirs\Surveys\Documents\Blocks\RenderableBlock');
     }
 
     function it_should_implement_RenderableInterface()
@@ -50,13 +50,13 @@ class RenderableBlockSpec extends ObjectBehavior
     function it_should_return_itself_unless_method_is_getter()
     {
       $self = $this->setTemplate('beans');
-      $self->shouldHaveType('Sirs\Surveys\RenderableBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\RenderableBlock');
 
       $self = $this->setClass('className');
-      $self->shouldHaveType('Sirs\Surveys\RenderableBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\RenderableBlock');
 
       $self = $this->setId('className');
-      $self->shouldHaveType('Sirs\Surveys\RenderableBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\RenderableBlock');
     }
 
     function it_should_build_itself_based_on_the_xml()

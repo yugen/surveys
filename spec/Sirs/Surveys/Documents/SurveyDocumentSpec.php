@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sirs\Surveys\PageDocument;
+use Sirs\Surveys\Documents\PageDocument;
 
 class SurveyDocumentSpec extends ObjectBehavior
 {
@@ -63,7 +63,7 @@ XML;
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\SurveyDocument');
+        $this->shouldHaveType('Sirs\Surveys\Documents\SurveyDocument');
         $this->shouldImplement('Sirs\Surveys\Contracts\SurveyDocumentInterface');
         $this->shouldImplement('Sirs\Surveys\Contracts\RenderableInterface');
     }

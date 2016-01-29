@@ -1,8 +1,10 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents;
 
 use Sirs\Surveys\Contracts\PageDocumentInterface;
+use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
+use Sirs\Surveys\HasQuestionsTrait;
 
 // class PageDocument implements PageDocumentInterface
 class PageDocument extends ContainerBlock implements PageDocumentInterface

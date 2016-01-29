@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents\Blocks\Containers;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class LikertBlockSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\LikertBlock');
+        $this->shouldHaveType('Sirs\Surveys\Documents\Blocks\Containers\LikertBlock');
     }
 
     function it_should_implement_has_options()

@@ -1,6 +1,9 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks\Questions;
+
+use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
+
 
 abstract class BoundedQuestion extends QuestionBlock
 {

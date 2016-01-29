@@ -1,6 +1,8 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks\Questions;
+
+use Sirs\Surveys\Documents\Blocks\Questions\BoundedQuestion;
 
 class TimeQuestion extends BoundedQuestion
 {

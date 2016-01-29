@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks\Questions;
 
 use Sirs\Surveys\Contracts\HasOptionsInterface;
 

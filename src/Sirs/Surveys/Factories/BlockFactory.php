@@ -2,10 +2,10 @@
 
 namespace Sirs\Surveys\Factories;
 
-use Sirs\Surveys\ContainerBlock;
+use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
+use Sirs\Surveys\Documents\Blocks\Containers\LikertBlock;
+use Sirs\Surveys\Documents\Blocks\HtmlBlock;
 use Sirs\Surveys\Factories\QuestionFactory;
-use Sirs\Surveys\HtmlBlock;
-use Sirs\Surveys\LikertBlock;
 
 class BlockFactory
 {

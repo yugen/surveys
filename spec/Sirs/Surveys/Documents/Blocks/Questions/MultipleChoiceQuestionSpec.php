@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents\Blocks\Questions;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class MultipleChoiceQuestionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\MultipleChoiceQuestion');
+        $this->shouldHaveType('Sirs\Surveys\Documents\Blocks\Questions\MultipleChoiceQuestion');
     }
 
     function it_should_set_and_get_its_options()

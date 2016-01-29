@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents\Blocks;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class HtmlBlockSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\HtmlBlock');
+        $this->shouldHaveType('Sirs\Surveys\Documents\Blocks\HtmlBlock');
     }
 
     function it_should_set_and_get_its_contents()

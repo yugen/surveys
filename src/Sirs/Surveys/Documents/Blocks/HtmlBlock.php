@@ -1,8 +1,9 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks;
 
 use Sirs\Surveys\Contracts\HtmlBlockInterface;
+use Sirs\Surveys\Documents\Blocks\RenderableBlock;
 
 class HtmlBlock extends RenderableBlock implements HtmlBlockInterface
 {

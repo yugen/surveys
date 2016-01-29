@@ -1,8 +1,9 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks\Containers;
 
 use Sirs\Surveys\Contracts\HasOptionsInterface;
+use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
 
 class LikertBlock extends ContainerBlock implements HasOptionsInterface
 {

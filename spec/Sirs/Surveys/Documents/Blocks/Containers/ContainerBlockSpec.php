@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents\Blocks\Containers;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Sirs\Surveys\ContainerBlock;
-use Sirs\Surveys\DocumentFactory;
-use Sirs\Surveys\QuestionBlock;
+use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
+use Sirs\Surveys\Factories\DocumentFactory;
+use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
 
 class ContainerBlockSpec extends ObjectBehavior
 {
@@ -17,7 +17,7 @@ class ContainerBlockSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\ContainerBlock');
+        $this->shouldHaveType('Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock');
     }
 
     function it_should_get_and_set_its_name()
@@ -55,16 +55,16 @@ class ContainerBlockSpec extends ObjectBehavior
     function it_should_return_itself_unless_method_is_getter()
     {
       $self = $this->setContents(['beans', 'monkeys']);
-      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock');
 
       $self = $this->setName(['beans', 'monkeys']);
-      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock');
 
       $self = $this->prependContent(['beer', 'coffee']);
-      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock');
 
       $self = $this->appendContent(['beans', 'monkeys']);
-      $self->shouldHaveType('Sirs\Surveys\ContainerBlock');
+      $self->shouldHaveType('Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock');
     }
 
     function it_should_parse_its_contents(QuestionBlock $q1, QuestionBlock $q2, ContainerBlock $container)

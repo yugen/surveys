@@ -1,10 +1,11 @@
 <?php
 
-namespace Sirs\Surveys;
+namespace Sirs\Surveys\Documents\Blocks\Containers;
 
 use Sirs\Surveys\Contracts\ContainerInterface;
-use Sirs\Surveys\RenderableBlock;
+use Sirs\Surveys\Documents\Blocks\RenderableBlock;
 use Sirs\Surveys\Factories\BlockFactory;
+use Sirs\Surveys\HasQuestionsTrait;
 
 class ContainerBlock extends RenderableBlock implements ContainerInterface
 {

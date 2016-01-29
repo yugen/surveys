@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Sirs\Surveys;
+namespace spec\Sirs\Surveys\Documents\Blocks\Questions;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -9,7 +9,7 @@ class QuestionBlockSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Sirs\Surveys\QuestionBlock');
+        $this->shouldHaveType('Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock');
     }
 
     function it_should_set_and_get_its_variable_name()

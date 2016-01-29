@@ -2,7 +2,7 @@
 
 namespace Sirs\Surveys\Contracts;
 
-use Sirs\Surveys\PageDocument;
+use Sirs\Surveys\Documents\PageDocument;
 
 /**
  * undocumented class
