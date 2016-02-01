@@ -21,9 +21,7 @@ A package for building surveys using xml and rendering them to html in Laravel p
 ```
 2. Add the service provider to config/app.php: 
 ```
-...
 Sirs\Surveys\SurveysServiceProvider::class,
-...
 ```
 
 
