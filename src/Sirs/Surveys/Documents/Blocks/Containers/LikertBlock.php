@@ -4,29 +4,21 @@ namespace Sirs\Surveys\Documents\Blocks\Containers;
 
 use Sirs\Surveys\Contracts\HasOptionsInterface;
 use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
+use Sirs\Surveys\HasOptionsTrait;
 
 class LikertBlock extends ContainerBlock implements HasOptionsInterface
 {
-  protected $options;
+  use HasOptionsTrait;
 
-  public function setOptions(array $options){
-    $this->options = $options;
-    return $this;
-  }
-
-  public function getOptions()
+  public function setPrompt($prompt)
   {
-    return $this->options;
+      $this->prompt = $prompt;
+      return $this;
   }
 
-    public function setPrompt($prompt)
-    {
-        $this->prompt = $prompt;
-        return $this;
-    }
+  public function getPrompt()
+  {
+      return $this->prompt;
+  }
 
-    public function getPrompt()
-    {
-        return $this->prompt;
-    }
 }

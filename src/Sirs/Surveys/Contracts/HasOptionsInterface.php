@@ -9,6 +9,9 @@ namespace Sirs\Surveys\Contracts;
  **/
 interface HasOptionsInterface
 {
+
+  public function parseOptions();
+
   /**
    * Sets options for possible values
    *

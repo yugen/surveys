@@ -47,6 +47,10 @@ class RenderableBlockSpec extends ObjectBehavior
       $this->render()->shouldBe('<div><p>beans!!</p></div>');
     }
 
+    function it_should_render_itself_with_a_defaul_template_set_at_render_time()
+    {
+    }
+
     function it_should_return_itself_unless_method_is_getter()
     {
       $self = $this->setTemplate('beans');

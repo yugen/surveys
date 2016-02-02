@@ -3,9 +3,12 @@
 namespace Sirs\Surveys\Documents\Blocks\Questions;
 
 use Sirs\Surveys\Contracts\HasOptionsInterface;
+use Sirs\Surveys\HasOptionsTrait;
 
 class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterface
 {
+    use HasOptionsTrait;
+    
     protected $options;
     protected $numSelectable;
     protected $defaultSingleTemplate;
@@ -25,30 +28,6 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         parent::parse();
         $this->parseOptions();
         $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
-    }
-
-    public function parseOptions(){
-        $options = [];
-        if( $this->xmlElement->options->option ){
-            foreach( $this->xmlElement->options->option as $option ){
-                $options[] = [
-                    'label'=>$option->label[0]->__toString(),
-                    'value'=>$option->value[0]->__toString()
-                ];
-            }
-            $this->setOptions($options);
-        }
-    }
-
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
-        return $this;
-    }
-
-    public function getOptions()
-    {
-        return $this->options;
     }
 
     public function setNumSelectable($number)

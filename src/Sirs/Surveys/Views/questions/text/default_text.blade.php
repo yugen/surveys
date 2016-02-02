@@ -10,6 +10,10 @@
   <?= '@if(\'$response->errors[\''.$renderable->name.'\'][\'required\'])' ?><div class="error">This question is required</div><?= '@endif' ?>
 
   <div class="question-answers">
-    <input type="text" name="{{$renderable->name}}" placeholder="{{$renderable->placeholder or ''}}{{($renderable->required) ? ' required' : ''}} />
+    <input 
+      type="text" 
+      name="{{$renderable->name}}" 
+      placeholder="{{$renderable->placeholder or ''}}{{($renderable->required) ? ' required' : ''}}" 
+    />
   </div>
 </div>
