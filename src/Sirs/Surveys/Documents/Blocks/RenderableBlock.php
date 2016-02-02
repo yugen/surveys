@@ -80,4 +80,11 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     $view = $this->renderer->render($this->getTemplate(), ['renderable'=>$this]);
     return $view;
   }
+
+  public function renderWithDefault($defaultTemplate){
+    $renderTemplate = ($this->getTemplate()) ? $this->getTemplate() : $defaultTemplate;
+    $view = $this->renderer->render($renderTemplate, ['renderable'=>$this]);
+    return $view;
+  }
+  
 }
