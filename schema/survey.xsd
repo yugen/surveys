@@ -9,6 +9,8 @@
 			</xs:sequence>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="version" type="xs:string" use="required" />
+			<xs:attribute name="title" type="xs:string" />
+			<xs:attribute name="response-limit" type="xs:integer" />
 		</xs:complexType>
 	</xs:element>
 
@@ -34,7 +36,9 @@
 			<xs:attribute name="id" type="xs:string" />
 			<xs:attribute name="class" type="xs:string"/>
 		</xs:complexType>
+
 			<!-- question group -->
+			<!-- included for semantic purposes -->
 			<xs:complexType name="question-group">
 				<xs:complexContent>
 					<xs:extension base="container">
@@ -54,15 +58,16 @@
 	<!-- question and children -->
 		<!-- question -->
 		<xs:complexType name="question">
-				<xs:choice maxOccurs="unbounded">
-					<xs:element name="question-text" type="xs:string" minOccurs="0"/>
-					<xs:element name="template" type="template" />
+				<xs:choice maxOccurs="2">
+					<xs:element name="question-text" type="xs:string"/>
+					<xs:element name="template" type="template"/>
 				</xs:choice>
 				<xs:attribute name="name" type="xs:string" use="required"/>
 				<xs:attribute name="id" type="xs:string" />
 				<xs:attribute name="required" type="xs:boolean" />
 				<xs:attribute name="class" type="xs:string" />
-				<xs:attribute name="hidden" type="xs:boolean" />
+				<xs:attribute name="placeholder" type="xs:string" />
+				<xs:attribute name="hide" type="xs:boolean" />
 				<xs:attribute name="data-format" type="data-format" />
 		</xs:complexType>
 
@@ -71,7 +76,7 @@
 			  <xs:complexContent>
 			    <xs:extension base="question">
 			        <xs:attribute name="min" type="xs:date"/>
-					<xs:attribute name="max" type="xs:date"/>
+							<xs:attribute name="max" type="xs:date"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -102,7 +107,7 @@
 			  <xs:complexContent>
 			    <xs:extension base="question">
 			      	<xs:attribute name="min" type="xs:decimal"/>
-					<xs:attribute name="max" type="xs:decimal"/>
+							<xs:attribute name="max" type="xs:decimal"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -112,7 +117,7 @@
 			  <xs:complexContent>
 			    <xs:extension base="question">
 			        <xs:attribute name="min" type="xs:time"/>
-					<xs:attribute name="max" type="xs:time"/>
+							<xs:attribute name="max" type="xs:time"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -123,23 +128,7 @@
 			<xs:sequence>
 				<xs:element name="prompt" type="xs:string" />
 				<xs:element name="template" type="template" />
-				<xs:element name="options" type="options" />
-				<xs:element name="questions">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="question" maxOccurs="unbounded">
-								<xs:complexType>
-									<xs:choice maxOccurs="unbounded">
-										<xs:element name="questiontext" type="xs:string" />
-										<xs:element name="html" type="xs:string" minOccurs="0" />
-									</xs:choice>
-									<xs:attribute name="required" type="xs:boolean"/>
-									<xs:attribute name="questionname" type="xs:string" />
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
+				<xs:element name="question" type="question" maxOccurs="unbounded" />
 			</xs:sequence>
 		</xs:complexType>
 
@@ -183,7 +172,7 @@
 
 		<!-- template -->
 		<xs:complexType name="template">
-			<xs:attribute name="src" type="xs:string" />
+			<xs:attribute name="source" type="xs:string" />
 		</xs:complexType>
 
 		<!-- data-format -->

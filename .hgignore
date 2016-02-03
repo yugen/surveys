@@ -1,0 +1,19 @@
+syntax: glob
+.env
+bootstrap/cache/
+vendor/
+.idea/
+storage/
+public/bower_components
+*.sql
+*.DS_Store
+node_modules/
+npm-debug.log
+public/js/all.js.map
+public/js/all.js
+public/css/app.css
+public/css/all.css
+public/build
+public/build/
+cache/*
+*.sublime-*

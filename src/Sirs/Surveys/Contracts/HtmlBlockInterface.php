@@ -8,7 +8,7 @@ namespace Sirs\Surveys\Contracts;
  * @package Sirs/Surveys
  * @author 
  **/
-interface HtmlBlockInterface extends RenderableBlockInterface
+interface HtmlBlockInterface extends RenderableInterface
 {
   /**
    * Html that will be rendered
@@ -24,4 +24,4 @@ interface HtmlBlockInterface extends RenderableBlockInterface
    * @return string
    **/
   function getHtml();
-} // END interface HtmlBlockInterface extends RenderableBlockInterface
+} // END interface HtmlBlockInterface extends RenderableInterface

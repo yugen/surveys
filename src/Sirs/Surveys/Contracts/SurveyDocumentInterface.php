@@ -2,7 +2,7 @@
 
 namespace Sirs\Surveys\Contracts;
 
-use Sirs\Surveys\PageDocument;
+use Sirs\Surveys\Documents\PageDocument;
 
 /**
  * undocumented class
@@ -10,7 +10,7 @@ use Sirs\Surveys\PageDocument;
  * @package default
  * @author 
  **/
-interface SurveyDocumentInterface
+interface SurveyDocumentInterface extends RenderableInterface
 {
 
   /**

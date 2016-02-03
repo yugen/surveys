@@ -1,9 +1,5 @@
 {
     "name": "sirs/surveys",
-    "require-dev": {
-        "phpspec/phpspec": "^2.4",
-        "burti/vfsstream": "^1.1"
-    },
     "authors": [
         {
             "name": "TJ Ward",
@@ -11,8 +7,14 @@
         }
     ],
     "require": {
-        "phpunit/phpunit": "^5.1",
-        "nesbot/carbon": "^1.21"
+        "php": ">=5.4.0",
+        "windwalker/renderer": "~2.0",
+        "laravel/framework": "~5.1",
+        "cviebrock/eloquent-sluggable": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "^2.4"
     },
     "autoload": {
         "psr-0": {

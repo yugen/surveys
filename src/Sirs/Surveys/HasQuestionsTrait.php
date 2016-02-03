@@ -1,6 +1,7 @@
 <?php
 
 namespace Sirs\Surveys;
+use Sirs\Surveys\Factories\QuestionFactory;
 
 trait HasQuestionsTrait{
 
