@@ -1,0 +1,109 @@
+<?php
+
+namespace Sirs\Console;
+
+use App\User;
+use App\DripEmailer;
+use Illuminate\Console\Command;
+
+class CreateSurveyMigrationsFromTemplate extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'surveys:create_migration {template}
+                            {template: File location of survey template}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Create/update migrations from survey template';
+
+    /**
+     * The console command option for template location
+     *
+     * @var string
+     */
+    protected $templateFile = null;
+
+/**
+     * Create a new command instance.
+     *
+     * @param  DripEmailer  $drip
+     * @return void
+     */
+    public function __construct( $template)
+    {
+        parent::__construct();
+
+        $this->templateFile = $template;
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        
+        $contents = $this->getMigrationText();
+
+        $bytes_written = File::put($file, $contents);
+        if ($bytes_written === false)
+        {
+            die("Error writing to file");
+        }
+        
+    }
+    public function getMigrationText() 
+    {
+        $str = $this->getDefaultText();
+
+
+    }
+
+    public function getDefaultText() 
+    {
+
+        return '
+        <?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class DummyClass extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create(\'DummyTable\', function (Blueprint $table) {
+            $table->increments(\'id\');
+            INSERTSURVEY
+            $table->text(\'last_page\');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop(\'DummyTable\');
+    }
+}
+';
+
+    }
+}
