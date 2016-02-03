@@ -1,11 +1,10 @@
 <?php
 
-namespace Sirs\Console;
+namespace Sirs\Surveys\Console;
 
-use App\User;
-use App\DripEmailer;
 use Illuminate\Console\Command;
-use Sirs\SurveyDocument;
+use Sirs\Surveys\Documents\SurveyDocument;
+use File;
 
 class CreateSurveyMigrationsFromTemplate extends Command
 {
@@ -14,8 +13,8 @@ class CreateSurveyMigrationsFromTemplate extends Command
      *
      * @var string
      */
-    protected $signature = 'surveys:create_migration {template}
-                            {template: File location of survey template}';
+    protected $signature = 'surveys:create_migration 
+                            {template : File location of survey template}';
 
     /**
      * The console command description.
@@ -31,18 +30,14 @@ class CreateSurveyMigrationsFromTemplate extends Command
      */
     protected $templateFile = null;
 
-/**
-     * Create a new command instance.
+     /**
+     * The survey object
      *
-     * @param  DripEmailer  $drip
-     * @return void
+     * @var string
      */
-    public function __construct( $template)
-    {
-        parent::__construct();
+    protected $survey = null;
 
-        $this->templateFile = $template;
-    }
+
 
     /**
      * Execute the console command.
@@ -52,49 +47,65 @@ class CreateSurveyMigrationsFromTemplate extends Command
     public function handle()
     {
         
-        $contents = $this->getMigrationText();
+        $this->templateFile =  $this->argument('template');
 
-        $bytes_written = File::put($file, $contents);
-        if ($bytes_written === false)
-        {
-            die("Error writing to file");
-        }
+        $contents = $this->getMigrationText();
+        $filename =  'database/migrations/0000_00_00_000000_create_survey'
+            .'_'.$this->survey->getName()
+            .'_'.str_replace('.', '', $this->survey->getVersion()).'.php';
+
+            $bytes_written = File::put($filename, $contents);
+            if ($bytes_written === false)
+            {
+                die("Error writing to file");
+            }
+        
+        
         
     }
     public function getMigrationText() 
     {
         $str = $this->getDefaultText();
-        $survey =  \SurveyDocument::initFromFile('directory/'.$this->templateFile.".xml");
+
+        $survey =  SurveyDocument::initFromFile($this->templateFile.".xml");
+
+        $this->survey = $survey;
         $questions = $survey->getQuestions();
-        dd($questions);
+        
         $str = str_replace('DummyTable', $survey->getName(), $str);
 
-        $strQuestions = ''
+        $str = str_replace('DummyClass', str_replace('-', '', str_replace('.', '', 'CreateSurvey'.$survey->getName().$survey->getVersion())), $str);
+
+        $strQuestions = '';
         foreach( $questions as $question ) {
-            $strQuestion .= '\n' . '$table->'.$this->setMigrationDataType($question->type)
-                ."('".$question->name."');";
+            $strQuestions .= "\n" . '$table->'.$this->setMigrationDataType($question->dataFormat)
+                ."('".$question->variableName."');";
         }
-        $str = str_replace('INSERTSURVEY', $strQuestion, $str);
-
-
+        $str = str_replace('INSERTSURVEY', $strQuestions, $str);
+        
+        return $str;
     }
 
     public function setMigrationDataType( $questionType ) 
     {
         
         switch( $questionType ) {
-            case: 'time':
-                $return = 'time'
+            case 'time':
+                $return = 'time';
                 break;
             case 'date':
-                $return = 'date'
+                $return = 'date';
                 break;
             case 'number':
-                $return = 'integer'
+                $return = 'integer';
                 break;
             case 'text':
+                $return = 'text';
+                break;
+            case 'varchar':
+            case 'char':
             default:
-                $return = 'string'
+                $return = 'string';
                 break;
         }
         return $return;
@@ -104,8 +115,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
     public function getDefaultText() 
     {
 
-        return '
-        <?php
+        return '<?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
