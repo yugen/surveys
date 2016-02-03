@@ -5,6 +5,7 @@ namespace Sirs\Console;
 use App\User;
 use App\DripEmailer;
 use Illuminate\Console\Command;
+use Sirs\SurveyDocument;
 
 class CreateSurveyMigrationsFromTemplate extends Command
 {
@@ -63,7 +64,40 @@ class CreateSurveyMigrationsFromTemplate extends Command
     public function getMigrationText() 
     {
         $str = $this->getDefaultText();
+        $survey =  \SurveyDocument::initFromFile('directory/'.$this->templateFile.".xml");
+        $questions = $survey->getQuestions();
+        dd($questions);
+        $str = str_replace('DummyTable', $survey->getName(), $str);
 
+        $strQuestions = ''
+        foreach( $questions as $question ) {
+            $strQuestion .= '\n' . '$table->'.$this->setMigrationDataType($question->type)
+                ."('".$question->name."');";
+        }
+        $str = str_replace('INSERTSURVEY', $strQuestion, $str);
+
+
+    }
+
+    public function setMigrationDataType( $questionType ) 
+    {
+        
+        switch( $questionType ) {
+            case: 'time':
+                $return = 'time'
+                break;
+            case 'date':
+                $return = 'date'
+                break;
+            case 'number':
+                $return = 'integer'
+                break;
+            case 'text':
+            default:
+                $return = 'string'
+                break;
+        }
+        return $return;
 
     }
 
@@ -85,10 +119,13 @@ class DummyClass extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists(\'DummyTable\');
+
         Schema::create(\'DummyTable\', function (Blueprint $table) {
             $table->increments(\'id\');
+            $table->morphs(\'respondent\');
             INSERTSURVEY
-            $table->text(\'last_page\');
+            $table->string(\'last_page\');
             $table->timestamps();
         });
     }
