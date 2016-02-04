@@ -145,7 +145,7 @@ class DummyClass extends Migration
             $table->morphs(\'respondent\');
             INSERTSURVEY
             $table->string(\'last_page\');
-            $table->integer(\'duration_seconds\');
+            $table->integer(\'duration\');
             $table->timestamp(\'started_at\')->nullable();
             $table->timestamp(\'finalized_at\')->nullable();
             $table->timestamps();
