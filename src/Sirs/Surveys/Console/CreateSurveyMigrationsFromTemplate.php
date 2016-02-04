@@ -79,17 +79,17 @@ class CreateSurveyMigrationsFromTemplate extends Command
         $strQuestions = '';
         foreach( $questions as $question ) {
             $strQuestions .= "\n" . '$table->'.$this->setMigrationDataType($question->dataFormat)
-                ."('".$question->variableName."');";
+                ."('".$question->variableName."')->nullable();";
         }
         $str = str_replace('INSERTSURVEY', $strQuestions, $str);
         
         return $str;
     }
 
-    public function setMigrationDataType( $questionType ) 
+    public function setMigrationDataType( $dataFormat ) 
     {
         
-        switch( $questionType ) {
+        switch( $dataFormat ) {
             case 'time':
                 $return = 'time';
                 break;
@@ -136,6 +136,9 @@ class DummyClass extends Migration
             $table->morphs(\'respondent\');
             INSERTSURVEY
             $table->string(\'last_page\');
+            $table->integer(\'duration_seconds\');
+            $table->timestamp(\'started_at\')->nullable();
+            $table->timestamp(\'finalized_at\')->nullable();
             $table->timestamps();
         });
     }
