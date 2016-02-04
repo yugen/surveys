@@ -30,11 +30,11 @@ class SurveysServiceProvider extends ServiceProvider {
    */
   public function register()
   {
-    $this->app->singleton('command.surveys.create_migration', function($app) {
+    $this->app->singleton('command.survey.migration', function($app) {
             
             return new CreateSurveyMigrationsFromTemplate();
         });
-    $this->commands('command.surveys.create_migration');
+    $this->commands('command.survey.migration');
   }
 
   /**
@@ -46,7 +46,7 @@ class SurveysServiceProvider extends ServiceProvider {
     {
         return [
 
-            'command.surveys.create_migration'
+            'command.survey.migration'
         ];
     }
 

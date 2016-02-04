@@ -13,7 +13,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
      *
      * @var string
      */
-    protected $signature = 'surveys:create_migration 
+    protected $signature = 'survey:migration 
                             {template : File location of survey template}';
 
     /**
@@ -50,7 +50,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
         $this->templateFile =  $this->argument('template');
 
         $contents = $this->getMigrationText();
-        $filename =  'database/migrations/0000_00_00_000000_create_survey'
+        $filename =  'database/migrations/0000_00_00_000000_create_survey_rsp'
             .'_'.$this->survey->getName()
             .'_'.str_replace('.', '', $this->survey->getVersion()).'.php';
 
@@ -72,9 +72,9 @@ class CreateSurveyMigrationsFromTemplate extends Command
         $this->survey = $survey;
         $questions = $survey->getQuestions();
         
-        $str = str_replace('DummyTable', $survey->getName(), $str);
+        $str = str_replace('DummyTable', $this->formatTableName( $survey->getName(), $survey->getVersion() ), $str);
 
-        $str = str_replace('DummyClass', str_replace('-', '', str_replace('.', '', 'CreateSurvey'.$survey->getName().$survey->getVersion())), $str);
+        $str = str_replace('DummyClass', $this->formatClassName( $survey->getName(), $survey->getVersion() ), $str);
 
         $strQuestions = '';
         foreach( $questions as $question ) {
@@ -112,6 +112,16 @@ class CreateSurveyMigrationsFromTemplate extends Command
 
     }
 
+    public function formatTableName( $name, $version ) 
+    {
+        return 'rsp_'.strtolower( str_replace('-', '_', $name )).'_'.$version;
+    }
+
+    public function formatClassName( $name, $version ) 
+    {
+        return str_replace('-', '', str_replace('.', '', 'CreateSurveyRsp'.$name.$version ));
+    }
+
     public function getDefaultText() 
     {
 
@@ -129,8 +139,7 @@ class DummyClass extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists(\'DummyTable\');
-
+        
         Schema::create(\'DummyTable\', function (Blueprint $table) {
             $table->increments(\'id\');
             $table->morphs(\'respondent\');
