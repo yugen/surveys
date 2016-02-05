@@ -19,6 +19,7 @@ class CreateSurveysTable extends Migration {
       $table->string('version');
       $table->string('slug')->unique();
       $table->string('file_name')->unique();
+      $table->string('table')->unique();
       $table->timestamps();
 
       $table->unique(['name', 'version']);
