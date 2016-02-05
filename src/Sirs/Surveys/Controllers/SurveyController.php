@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Sirs-Survey\SurveyDocument;
+use Sirs\Surveys\Documents\SurveyDocument;
 
 class SurveyController extends Controller
 {
@@ -22,7 +22,7 @@ class SurveyController extends Controller
     public function show( $respondentType, $respondentId, $surveyName, $pageName, $responseId = null){
 
     	// get survey if response ID is populated
-    		if ( isset( $responseId ) {
+    		if ( isset( $responseId ) ) {
     			// get survey responses
     			$response = "";
     		}else{
@@ -70,7 +70,7 @@ class SurveyController extends Controller
 
     	/** getting navigation direction and passing all data on to the router, so that we don't have to re-do queries **/
     		$nav = $data['nav'];
-    		$this->route($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId);
+    		$this->navigate($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId);
     }
 
 
@@ -80,7 +80,7 @@ class SurveyController extends Controller
 	 * @return redirect
 	 * @author SIRS
 	 **/
-    public function route($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId){
+    public function navigate($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId){
 
     	/**instatiating survey document and getting pages **/
 	    	$survey =  \SurveyDocument::initFromFile('directory/'.$surveyName.".xml");
