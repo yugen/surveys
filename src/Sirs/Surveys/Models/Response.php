@@ -10,58 +10,29 @@ class Response extends Model {
   protected $name = null;
   protected $version = null;
 
-  /**
-   * set up response to pull from the correct table
-   *
-   * @param string $surveyName Name of survey
-   * @param string #surveyVersion Version of the survey
-   * @return void
-   */
-  public function setSurveyVersion($surveyName = null, $versionNumber = null) 
-  {
-    $survey = new \Sirs\Surveys\Models\Survey;
-    if ( $surveyName ) 
-    {
-      $survey->where('name', '=', $surveyName);
-      $this->name = $surveyName;
-    }
-    if ( $versionNumber ) 
-    {
-      $survey->where('version', '=', $versionNumber);
-      $this->version = $versionNumber;
-    }
-      
-    $sr = $survey->orderBy('name', 'DESC')->orderBy('version', 'DESC')->first();
-    $this->survey_id = $sr->id;
-    $this->table = $sr->table;
-  }
-  /**
-   * allows you to statically intialize Response
-   * @param string $surveyName ame of survey
-   * @param string  $versionNumber Version of the survey
-   *
-   * @return void
-   */
-  public static function surveyVersion($surveyName = null, $versionNumber = null) 
-  {
-    $instance = new static;
-    $instance->setSurveyVersion($surveyName, $versionNumber);
-    return $instance->newQuery();
-  }
-  /**
-   * used when statically initiating the model
-   * @param array $attributes
-   * @param bool  $exists 
-   *
-   * @return void
-   */
-  // this allows Response to be called statically, i.e. Resonse::surveyVersion('Baseline', 2)->findOrFail
   
-  public function newInstance($attributes = array(), $exists = false)
+  /**
+   * sets table given input
+   *
+   * @return void
+   * @author SIRS
+   **/
+  public function setTable($table)
   {
-      $model = parent::newInstance($attributes, $exists);
-      $model->setSurveyVersion($this->name, $this->version);
-      return $model;
+    $this->table = $table;
+  }
+
+  /**
+   * gets all responses for a given survey
+   *
+   * @return responses
+   * @author SIRS
+   **/
+  public function getSurveyResponses($survey)
+  {
+    $this->setTable($survey->table);
+    $responses = $this->get();
+    return $responses;
   }
 
   /**
