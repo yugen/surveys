@@ -7,8 +7,8 @@ class Response extends Model {
 	protected $table = null;
   protected $guarded = ['id', 'finalized_at', 'survey_id'];
 
-  protected $surveyName = null;
-  protected $surveyVersion = null;
+  protected $name = null;
+  protected $version = null;
 
   /**
    * set up response to pull from the correct table
@@ -17,21 +17,21 @@ class Response extends Model {
    * @param string #surveyVersion Version of the survey
    * @return void
    */
-  public function setSurveyVersion($surveyName, $versionNumber = null) 
+  public function setSurveyVersion($surveyName = null, $versionNumber = null) 
   {
-    $survey = Survey;
-
-    
-    $survey->where('name', '=', $surveyName);
-    $this->surveyName = $surveyName;
-    
-    if ( $surveyVersion ) 
+    $survey = new \Sirs\Surveys\Models\Survey;
+    if ( $surveyName ) 
+    {
+      $survey->where('name', '=', $surveyName);
+      $this->name = $surveyName;
+    }
+    if ( $versionNumber ) 
     {
       $survey->where('version', '=', $versionNumber);
-      $this->surveyVersion = $versionNumber;
+      $this->version = $versionNumber;
     }
       
-    $sr = $survey->orderBy('version', 'DESC')->firstOrFail();
+    $sr = $survey->orderBy('name', 'DESC')->orderBy('version', 'DESC')->first();
     $this->survey_id = $sr->id;
     $this->table = $sr->table;
   }
@@ -42,7 +42,7 @@ class Response extends Model {
    *
    * @return void
    */
-  public static function surveyVersion($surveyName, $versionNumber = null) 
+  public static function surveyVersion($surveyName = null, $versionNumber = null) 
   {
     $instance = new static;
     $instance->setSurveyVersion($surveyName, $versionNumber);
@@ -60,7 +60,7 @@ class Response extends Model {
   public function newInstance($attributes = array(), $exists = false)
   {
       $model = parent::newInstance($attributes, $exists);
-      $model->setSurveyVersion($this->surveyName, $this->surveyVersion);
+      $model->setSurveyVersion($this->name, $this->version);
       return $model;
   }
 

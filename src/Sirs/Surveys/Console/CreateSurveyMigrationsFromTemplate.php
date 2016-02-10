@@ -151,7 +151,7 @@ class DummyClass extends Migration
             $table->timestamp(\'finalized_at\')->nullable();
             $table->timestamps();
 
-            $table->foreign(\survey_id\')->references(\'id\')->on(\'surveys\')->onDelete(\'restrict\');
+            $table->foreign(\'survey_id\')->references(\'id\')->on(\'surveys\')->onDelete(\'restrict\');
             $table->index([\'respondent_type\', \'respondent_id\', \'survey_id\']);
             $table->index([\'respondent_type\', \'respondent_id\']);
             $table->index([\'respondent_type\']);
