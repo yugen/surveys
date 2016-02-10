@@ -31,7 +31,7 @@ class Response extends Model {
       $this->surveyVersion = $versionNumber;
     }
       
-    $sr = $survey->orderBy('version', 'DESC')->first();
+    $sr = $survey->orderBy('version', 'DESC')->firstOrFail();
     $this->survey_id = $sr->id;
     $this->table = $sr->table;
   }
@@ -48,7 +48,15 @@ class Response extends Model {
     $instance->setSurveyVersion($surveyName, $versionNumber);
     return $instance->newQuery();
   }
+  /**
+   * used when statically initiating the model
+   * @param array $attributes
+   * @param bool  $exists 
+   *
+   * @return void
+   */
   // this allows Response to be called statically, i.e. Resonse::surveyVersion('Baseline', 2)->findOrFail
+  
   public function newInstance($attributes = array(), $exists = false)
   {
       $model = parent::newInstance($attributes, $exists);
@@ -62,20 +70,29 @@ class Response extends Model {
    * @param bool  $override allow setting a new finalized_at date even if one already exists
    *
    * @return void
-   */
+   * @example 
+   *    $responses  = Response;
+   *    $responses->setSurveyVersion('Baseline')->get();
+   *    
+   *    $response = Response::surveyVersion('Baseline', 3)->findOrFail(4);
+  */
   public function finalizeResponse( $finalizeDate = null, $override = false ) 
   {
-    if( $this->finalized_at == null || $override == true ) {
-        if ( $finalizeDate ) 
-        {
-          $this->finalized_at = date( strtotime( $finalizeDate ));
-        } else 
-        {
-          $this->finalized_at = date();
-        }
-        
-        $this->save();
+    if( $this->finalized_at == null || $override == true ) 
+    {
+      if ( $finalizeDate ) 
+      {
+        $this->finalized_at = date( strtotime( $finalizeDate ));
+      } else 
+      {
+        $this->finalized_at = date();
       }
+      
+      $this->save();
+    } else if ( $override == false ) 
+    {
+      throw new \Sirs\Surveys\Exceptions\ResponseException("Tried to set finalized_at when it is already set");
+    }
   }
 
 
@@ -83,6 +100,11 @@ class Response extends Model {
   {
       
     return $this->belongsTo('Sirs\Survey\Survey');
+  }
+
+  public function respondant()
+  {
+    return $this->morphTo();
   }
 
 
