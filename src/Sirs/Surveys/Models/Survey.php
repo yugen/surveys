@@ -12,7 +12,7 @@ class Survey extends Model implements SluggableInterface {
 
 	use SluggableTrait;
 
-	protected $table = "Surveys";
+	protected $table = "surveys";
 	protected $fillable = ['name', 'version', 'file_name', 'table'];
 
 
