@@ -50,17 +50,26 @@ class Survey extends Model implements SluggableInterface {
 	/**
 	 * documented function
 	 *
-	 * @return void
-	 * @author 
+	 * @return Response object(s)
+	 * @author SIRS
 	 **/
 	public function getSurveyVersionResponses()
 	{
 		$response = new Response;
-		return $response->getSurveyResponses($this);
+		return $response->getSurveyResponses($this->table_name);
 		
 	}
 
-
+	/**
+	 * Gets the validation rules for a given survey in a format acceptable for laravel validation
+	 *
+	 * @return array
+	 * @author SIRS
+	 **/
+	public function getValidationRules()
+	{
+		
+	}
 
 
 

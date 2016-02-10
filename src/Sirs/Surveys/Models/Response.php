@@ -23,14 +23,14 @@ class Response extends Model {
   }
 
   /**
-   * gets all responses for a given survey
+   * gets all responses for a given table
    *
    * @return responses
    * @author SIRS
    **/
-  public function getSurveyResponses($survey)
+  public function getSurveyResponses($table)
   {
-    $this->setTable($survey->table);
+    $this->setTable($table);
     $responses = $this->get();
     return $responses;
   }
