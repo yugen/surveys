@@ -55,6 +55,8 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function getSurveyVersionResponses()
 	{
+		$response = new Response;
+		return $response->getSurveyResponses($this);
 		
 	}
 
