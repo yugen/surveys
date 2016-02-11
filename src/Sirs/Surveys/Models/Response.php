@@ -4,6 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Response extends Model {
 
+
+public static function __construct($table = null, array $attributes = array())
+{
+    $this->table = $table;
+    parent::__construct($attributes);
+}
+
 	protected $table = null;
   protected $guarded = ['id', 'finalized_at', 'survey_id'];
 
