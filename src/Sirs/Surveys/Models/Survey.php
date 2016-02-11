@@ -17,36 +17,34 @@ class Survey extends Model implements SluggableInterface {
 
 
 	/**
-	 * Retrieves a Survey record given a survey and version
+	 * Scope for name
 	 *
-	 * @return Survey Object
+	 * @return Query Builder Object
 	 * @author SIRS
 	 **/
-	public function getSurveyVersion($survey, $version){
-		return $this->where('name', $survey)->where('version', $version)->firstOrFail();
+	public function scopeName($query, $name){
+		return $query->where('name', $name);
 	}
 
 	/**
-	 * retrieves the record for the latest version of a given survey
+	 * scope for Version
 	 *
-	 * @return Survey Object
+	 * @return Query Builder Object
 	 * @author SIRS
 	 **/
-	public function getLatestSurvey($survey){
-		return $this->where('name', $survey)->orderBy('version', 'desc')->firstOrFail();
+	public function scopeVersion($query, $version){
+		return $this->where('version', $version);
 	}
 
 	/**
-	 * gets all versions of a given survey
+	 * scope for slug
 	 *
-	 * @return void
-	 * @author 
+	 * @return Query Builder Object
+	 * @author SIRS
 	 **/
-	public function getAllVersions($survey)
-	{
-		return $this->where('name', $survey)->get();
+	public function scopeSlug($query, $slug){
+		return $query->where('slug', $slug);
 	}
-
 	/**
 	 * retrieves survey document object for a given survey
 	 *
@@ -59,16 +57,25 @@ class Survey extends Model implements SluggableInterface {
 	}
 
 	/**
+	 * get response object for a given survey
+	 *
+	 * @return Response object(s)
+	 * @author SIRS
+	 **/
+	public function responses()
+	{
+		return Response::lookupTable($this->table_name);
+	}
+
+	/**
 	 * get all responses for a given survey
 	 *
 	 * @return Response object(s)
 	 * @author SIRS
 	 **/
-	public function getResponses()
+	public function getResponsesAttribute()
 	{
-		$response = new Response;
-		return $response->getSurveyResponses($this->table_name);
-		
+		return Response::lookupTable($this->table_name)->get();
 	}
 
 	/**
@@ -81,9 +88,6 @@ class Survey extends Model implements SluggableInterface {
 	{
 		
 	}
-
-
-
 
 }
   ?>
