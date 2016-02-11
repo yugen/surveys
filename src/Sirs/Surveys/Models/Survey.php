@@ -37,6 +37,17 @@ class Survey extends Model implements SluggableInterface {
 	}
 
 	/**
+	 * gets all versions of a given survey
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function getAllVersions($survey)
+	{
+		return $this->where('name', $survey)->get();
+	}
+
+	/**
 	 * retrieves survey document object for a given survey
 	 *
 	 * @return Survey Document Object
@@ -48,12 +59,12 @@ class Survey extends Model implements SluggableInterface {
 	}
 
 	/**
-	 * documented function
+	 * get all responses for a given survey
 	 *
 	 * @return Response object(s)
 	 * @author SIRS
 	 **/
-	public function getSurveyVersionResponses()
+	public function getResponses()
 	{
 		$response = new Response;
 		return $response->getSurveyResponses($this->table_name);
