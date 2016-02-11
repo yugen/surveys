@@ -141,14 +141,22 @@ class DummyClass extends Migration
     {
         
         Schema::create(\'DummyTable\', function (Blueprint $table) {
-            $table->increments(\'id\');
+            $table->increments(\'id\')->unsigned();
             $table->morphs(\'respondent\');
+            $table->integer(\'survey_id\');
             INSERTSURVEY
             $table->string(\'last_page\');
             $table->integer(\'duration\');
             $table->timestamp(\'started_at\')->nullable();
             $table->timestamp(\'finalized_at\')->nullable();
             $table->timestamps();
+
+            $table->foreign(\'survey_id\')->references(\'id\')->on(\'surveys\')->onDelete(\'restrict\');
+            $table->index([\'respondent_type\', \'respondent_id\', \'survey_id\']);
+            $table->index([\'respondent_type\', \'respondent_id\']);
+            $table->index([\'respondent_type\']);
+            $table->index([\'survey_id\']);
+            $table->index([\'started_at\', \'finalized_at\', \'survey_id\']);
         });
     }
 
