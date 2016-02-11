@@ -4,44 +4,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Response extends Model {
 
-
-public static function __construct($table = null, array $attributes = array())
-{
-    $this->table = $table;
-    parent::__construct($attributes);
-}
-
 	protected $table = null;
   protected $guarded = ['id', 'finalized_at', 'survey_id'];
 
   protected $name = null;
   protected $version = null;
 
-  
-  /**
-   * sets table given input
+
+ /**
+   * allows you to statically intialize Response
+   * @param string $surveyName ame of survey
+   * @param string  $versionNumber Version of the survey
    *
    * @return void
-   * @author SIRS
-   **/
-  public function setTable($table)
+   */
+  public static function lookupTable($table = null) 
   {
-    $this->table = $table;
+    $instance = new static;
+    $instance->setTable($table);
+    return $instance->newQuery();
   }
-
-  /**
-   * gets all responses for a given table
-   *
-   * @return responses
-   * @author SIRS
-   **/
-  public function getSurveyResponses($table)
-  {
-    $this->setTable($table);
-    $responses = $this->get();
-    return $responses;
-  }
-
+  
   /**
    * finalize survey if it has not already been finalized
    * @param string $finalizeDate date string of time to set finalized_at to
