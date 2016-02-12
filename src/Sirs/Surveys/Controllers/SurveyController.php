@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Models\Survey;
 use Sirs\Surveys\Models\Response;
+use Validator;
 
 class SurveyController extends Controller
 {
@@ -20,7 +21,7 @@ class SurveyController extends Controller
 	 * @return rendered page
 	 * @author SIRS
 	 **/
-    public function show( $respondentType, $respondentId, $surveySlug, $pageName = null, $responseId = null){
+    public function show( $respondentType, $respondentId, $surveySlug, $responseId = null, $pageName = null){
 
     	
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail(); 
@@ -40,39 +41,54 @@ class SurveyController extends Controller
     }
 
 	/**
-	 * saves input data from a survey page to SurveyResponse object, then hands off to route function
+	 * Instatiates or creates response object, validates input, checks for/runs beforeSave method from rules doc, saves input, checks for/runs afterSave method on rules doc, runs navigate function
 	 *
-	 * @return redirect
+	 * @return 
 	 * @author SIRS
 	 **/
-    public function save( $respondentType, $respondentId, $surveyName, $pageName, $responseId, Request $request ){
-    	/** getting survey data back from the document **/
-    		$data = $request->all();
+    public function store( $respondentType, $respondentId, $surveySlug, $responseId = null, $pageName, Request $request ){
+    	
+    	// instatiating objects
+    	$data = $request->all();
+    	$survey = $Survey::where('slug', $surveySlug)->firstOrFail();
+    	$surveydoc = $survey->getSurveyDocument();
+    	if ( is_null( $responseId ) ) {
+    		$response = $survey->responses();
+    	} else {
+    		$response = $survey->responses()->findOrFail($responseId);
+    	}
 
-    	/** TO DO: ADD VALIDATION AGAINST XML VALUES? **/
+    	// validating data
+    	$validation = $surveydoc->pages[ $surveydoc->getPageIndexByName( $pageName ) ]->getValidation();
+    	$validator = Validator::make( $request->all(), $validation);
+    	if ( $validator->fails() ) {
+    		/** TO DO: Return rendered page with errors  */
+    	}
 
-    	/** instatiate rules doc **/
-    		$rulesdoc = $surveyName."Rules";
-    		$rules = new $rulesdoc;
-    		$method = $pageName."Save";
+    	// creating strings for the rules doc
+    	$rules = $surveySlug . "Rules";
+    	$beforeSave = $pageName . "BeforeSave";
+    	$afterSave = $pageName . "AfterSave";
 
-    	/** instatiating response **/
-    		$response = SurveyResponse::firstOrFail($responseId);
+    	// checking for and running before save method in rules doc
+    	if ( method_exists( $rules, $beforeSave ) ) {
+    		call_user_func($rules, $beforeSave);
+    	}
 
-    		if ( method_exists( $rules, $method ) ) {
-    			// there is a custom rule for save here
-    			call_user_func($rules, $method);
-    		}else{
-    			// there is not a custom rule for save here
-    			foreach ($data as $key => $value) {
-    				$response->$key = $value;
-	    		}
-	    		$response->save();
-    		}	
+    	// saving data
+    	foreach ($data as $key => $value) {
+    		$response->$key = $value;
+    	}
+    	$response->save();
+    	$responseId = $response->id;
 
-    	/** getting navigation direction and passing all data on to the router, so that we don't have to re-do queries **/
-    		$nav = $data['nav'];
-    		$this->navigate($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId);
+    	// checking for and running after save method in rules doc
+    	if ( method_exists( $rules, $afterSave ) ) {
+    		call_user_func($rules, $afterSave);
+    	}
+
+    	// passing all data to navigate function
+    	$this->navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName);
     }
 
 
@@ -82,7 +98,7 @@ class SurveyController extends Controller
 	 * @return redirect
 	 * @author SIRS
 	 **/
-    public function navigate($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId){
+    public function navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName){
 
     	/**instatiating survey document and getting pages **/
 	    	$survey =  \SurveyDocument::initFromFile('directory/'.$surveyName.".xml");
