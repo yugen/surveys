@@ -2,6 +2,7 @@
 namespace Sirs\Surveys;
 
 use Illuminate\Support\ServiceProvider;
+use Sirs\Surveys\Console\CreateSurveyMigrationsFromTemplate;
 
 class SurveysServiceProvider extends ServiceProvider {
 
@@ -29,8 +30,25 @@ class SurveysServiceProvider extends ServiceProvider {
    */
   public function register()
   {
-    
+    $this->app->singleton('command.survey.migration', function($app) {
+            
+            return new CreateSurveyMigrationsFromTemplate();
+        });
+    $this->commands('command.survey.migration');
   }
+
+  /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+
+            'command.survey.migration'
+        ];
+    }
 
 
 }
