@@ -24,10 +24,23 @@ class SurveyController extends Controller
 
     	// instantiate survey object
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
-
-    	// check if we know our response, if not start new form
+    	$surveydoc = $survey->getSurveyDocument();
+    	// check if we know our response, if not start new form with no response
     	if ( is_null($responseId) ) {
-    		$doc = $survey->getSurveyDocu
+    		$surveydoc->pages[0]->render();
+    	}else{
+    	// if there is a response, retrieve the response object
+    		$response = $survey->responses()->findOrFail($responseId);
+    	// check if page name is set, if not use the last page from the response
+    		if ( is_null( $pageName ) ) {
+    			$pageName = $response->last_page;
+    		}
+    	// render the page with the given response data
+/** TO DO: Pass response into rendered survey **/
+    		$pageName = $surveydoc->getPageIndexByName($pageName);
+    		$surveydoc->pages[$pageName]->render();
+
+
     	}
 
     }
