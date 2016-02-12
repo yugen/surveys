@@ -15,34 +15,28 @@ class SurveyController extends Controller
 
 
 	/**
-	 * Checks if a Survey Response has already been created, and creates a new one if not. Retrieves appropriate page from Survey Document and renders it.
+	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
 	 *
-	 * @return view
+	 * @return rendered page
 	 * @author SIRS
 	 **/
     public function show( $respondentType, $respondentId, $surveySlug, $pageName = null, $responseId = null){
 
-    	// instantiate survey object
-    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
+    	
+    	$survey = Survey::where('slug',$surveySlug)->firstOrFail(); 
     	$surveydoc = $survey->getSurveyDocument();
-    	// check if we know our response, if not start new form with no response
-    	if ( is_null($responseId) ) {
+    	if ( is_null($responseId) ) { 
     		$surveydoc->pages[0]->render();
-    	}else{
-    	// if there is a response, retrieve the response object
+    	} else {
     		$response = $survey->responses()->findOrFail($responseId);
-    	// check if page name is set, if not use the last page from the response
-    		if ( is_null( $pageName ) ) {
+    		if ( is_null( $pageName ) ) { 
     			$pageName = $response->last_page;
     		}
-    	// render the page with the given response data
-/** TO DO: Pass response into rendered survey **/
+			/** TO DO: Pass response into rendered survey **/
     		$pageName = $surveydoc->getPageIndexByName($pageName);
-    		$surveydoc->pages[$pageName]->render();
-
+    		$surveydoc->pages[$pageName]->render(); 
 
     	}
-
     }
 
 	/**
