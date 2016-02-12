@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Sirs\Surveys\Documents\SurveyDocument;
+use Sirs\Surveys\Models\Survey;
+use Sirs\Surveys\Models\Response;
 
 class SurveyController extends Controller
 {
@@ -19,21 +20,15 @@ class SurveyController extends Controller
 	 * @return view
 	 * @author SIRS
 	 **/
-    public function show( $respondentType, $respondentId, $surveyName, $pageName, $responseId = null){
+    public function show( $respondentType, $respondentId, $surveySlug, $pageName = null, $responseId = null){
 
-    	// get survey if response ID is populated
-    		if ( isset( $responseId ) ) {
-    			// get survey responses
-    			$response = "";
-    		}else{
-    			// check if response limit is met for this survey, if not then create new for given respondent dd
-    			$response = "";
-    		}
+    	// instantiate survey object
+    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
 
-    	// get survey object using surveyName and pageName
-    		$survey =  \SurveyDocument::initFromFile('directory/'.$surveyName.".xml");
-    		$page = $survey->getPageByName($pageName);
-    		return $page->render();
+    	// check if we know our response, if not start new form
+    	if ( is_null($responseId) ) {
+    		$doc = $survey->getSurveyDocu
+    	}
 
     }
 
