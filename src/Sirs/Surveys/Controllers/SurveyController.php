@@ -26,7 +26,7 @@ class SurveyController extends Controller
     			// get survey responses
     			$response = "";
     		}else{
-    			// check if response limit is met for this survey, if not then create new for given respondent
+    			// check if response limit is met for this survey, if not then create new for given respondent dd
     			$response = "";
     		}
 
