@@ -87,8 +87,12 @@ class SurveyController extends Controller
     		call_user_func($rules, $afterSave);
     	}
 
+    	if ( $data['nav'] == 'finalize' ) {
+    		$response->finalize();
+    	}
+
     	// passing all data to navigate function
-    	$this->navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName);
+    	$this->navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName, $data, $survey, $surveydoc);
     }
 
 
@@ -98,49 +102,55 @@ class SurveyController extends Controller
 	 * @return redirect
 	 * @author SIRS
 	 **/
-    public function navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName){
+    public function navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName, $data, $survey, $surveydoc){
 
-    	/**instatiating survey document and getting pages **/
-	    	$survey =  \SurveyDocument::initFromFile('directory/'.$surveyName.".xml");
-	    	$pageIndex = $survey->getPageIndexByName($pageName);
-	    	// get page name and find next page using the nav
-	    	if ($nav = 'next') {
-	    		$nav = 1;
-	    	} elseif ($nav = 'prev') {
-	    		$nav = -1;
-	    	}
-	    	$pageIndex += $nav;
-	    	$target = $survey->pages[$pageIndex]->name;
-	    	$method = $target."Skip";
-	    /** looking for custom skip method, deciding what to do with response **/
-	    	if ( method_exists( $rules, $method ) ) {
-	    		$skip = call_user_func($rules, $method);
-	    		switch ($skip) {
-	    			case 0:
-	    				// we are not skipping
-	    				return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveyName, $pageName, $responseId ] ) );
-	    				break;
-	    			case 1:
-	    				// we are skipping this page
-	    				$pageIndex = $survey->getPageIndexByName($target);
-	    				$pageIndex += $nav;
-	    				$pageName = $survey->pages[$pageIndex]->name;
-	    				$this->route($nav, $response, $rules, $respondentType, $respondentId, $surveyName, $pageName, $responseId);
-	    				break;
-	    			case 2:
-	    				// we are finalizing
-	    				$response->finalize();
-	    				break;
-	    			default:
-	    				Throw new InvalidInputException("Invalid value returned in ".$target);
-	    				break;
-	    		}
+		// getting page index and incrementing it to match the navigation button
+    	$origin = $surveydoc->getPageIndexByName($pageName);
+    	if ($data['nav'] = 'next') {
+    		$nav = 1;
+    	} elseif ($data['nav'] = 'prev') {
+    		$nav = -1;
+    	}
+    	$pageIndex  = $origin + $nav;
+    	$target = $survey->pages[$pageIndex]->name;
+    	$rules = $surveySlug . "Rules";
+    	$method = $target."Skip";
 
-	    	} else{
-	    		// no custom method
-	    		$pageName = $target;
-	    		return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveyName, $pageName, $responseId ] ) );
-	    	}
+    	// looking for custom skip method, deciding what to do with response
+    	if ( method_exists( $rules, $method ) ) {
+    		$skip = call_user_func($rules, $method);
+
+    		switch ($skip) {
+
+    			case 0:
+    				// we are not skipping page
+    				$pageName = $target;
+    				return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveySlug, $responseId, $pageName ] ) );
+    				break;
+
+    			case 1:
+    				// we are skipping this page
+    				$pageIndex = $survey->getPageIndexByName($target);
+    				$pageIndex += $nav;
+    				$pageName = $survey->pages[$pageIndex]->name;
+    				$this->navigate($respondentType, $respondentId, $surveySlug, $responseId, $pageName, $data, $survey, $surveydoc);
+    				break;
+
+    			case 2:
+    				// we are finalizing
+    				$response->finalize();
+    				break;
+
+    			default:
+    				Throw new InvalidInputException("Invalid value returned in ".$target);
+    				break;
+    		}
+
+    	} else{
+    		// no custom method
+    		$pageName = $target;
+    		return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveySlug, $responseId, $pageName ] ) );
+    	}
     }
 
 }
