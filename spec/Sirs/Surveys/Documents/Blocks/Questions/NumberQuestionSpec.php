@@ -37,4 +37,19 @@ class NumberQuestionSpec extends ObjectBehavior
       $this->shouldThrow('\InvalidArgumentException')->duringSetMin('beans');
       $this->shouldThrow('\InvalidArgumentException')->duringSetMin([1,2,3]);
     }
+
+    function it_gets_its_validation_string()
+    {
+      $this->getValidationString()->shouldBe('');
+      
+      $this->setMin(0);
+      $this->getValidationString()->shouldBe('min:0');
+
+      $this->setMax(10);
+      $this->getValidationString()->shouldBe('min:0|max:10');
+
+      $this->setMin(null);
+      $this->getValidationString()->shouldBe('max:10');
+
+    }
 }

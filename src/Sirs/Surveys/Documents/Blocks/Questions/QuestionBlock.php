@@ -13,6 +13,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $defaultDataFormat;
   protected $required = false;
   protected $placeholder;
+  protected $validations = [];
 
   public function __construct($xml = null)
   {
@@ -130,4 +131,38 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       return $this->placeholder;
     }
 
+    protected function getValidationRules()
+    {
+      $validations = [];
+      if( $this->required ){
+        $validations[] = 'required';
+      }
+      switch ($this->dataFormat) {
+        case 'int':
+        case 'tinyint':
+        case 'mediumint':
+        case 'bigint':
+          $validations[] = 'integer';
+          break;
+        case 'float':
+        case 'double':
+        case 'decimal':
+          $validations[] = 'numeric';
+          break;
+        case 'date':
+        case 'time':
+          $validations[] = 'date';
+          break;
+        case 'year':
+          $validations[] = 'regex:\d\d\d\d';
+        default:
+          break;
+      }
+      return $validations;
+    }
+
+    public function getValidationString()
+    {
+      return implode('|', $this->getValidationRules());
+    }
 }

@@ -62,4 +62,12 @@ interface StructuredDataInterface
    * @author 
    **/
   public function getDataDefinition();
+
+  /**
+   * Gets a laravel validator friendly rule string based on attributes
+   *
+   * @return string
+   * @author 
+   **/
+  public function getValidationString();
 } // END interface StructuredData

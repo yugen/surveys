@@ -18,7 +18,22 @@ class NumberQuestion extends BoundedQuestion
     {
         if( is_scalar($bound) ){
             return (is_int($bound) || preg_match('/^\d?$/', $bound));
+        }elseif(is_null($bound)){
+            return true;
         }
         return false;
+    }
+
+    protected function getValidationRules()
+    {   
+        $validations = parent::getValidationRules();
+        if( $this->min !== null){
+            $validations[] = 'min:'.$this->min;
+        }
+        if( $this->max !== null){
+            $validations[] = 'max:'.$this->max;
+        }
+
+        return $validations;
     }
 }
