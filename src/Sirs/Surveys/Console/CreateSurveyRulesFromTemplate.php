@@ -66,15 +66,11 @@ class CreateSurveyRulesFromTemplate extends Command
     {
         $str = $this->getDefaultText();
 
-        $survey =  SurveyDocument::initFromFile($this->templateFile.".xml");
-
-        $this->survey = $survey;
+        $this->survey =  SurveyDocument::initFromFile($this->templateFile.".xml");
         
-        
-      
-        $str = str_replace('DummyClass', $this->formatClassName( $survey->getName(), $survey->getVersion() ), $str);
+        $str = str_replace('DummyClass', $this->formatClassName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
-       $pages = $survey->getPages();
+       $pages = $this->survey->getPages();
        
        $pageStr = '';
        foreach( $pages as $page ) {
