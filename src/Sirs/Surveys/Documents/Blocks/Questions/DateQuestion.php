@@ -20,8 +20,22 @@ class DateQuestion extends BoundedQuestion
   {
       if( is_string($boundary) ){
           return (boolean)(preg_match('/^\d\d\d\d-\d\d-\d\d?$/', $boundary));
+      }elseif($boundary === null){
+        return true;
       }
       return false;
+  }
+
+  protected function getValidationRules()
+  {
+    $validations = parent::getValidationRules();
+    if( $this->min ){
+      $validations[] = 'after:'.$this->min;
+    }
+    if( $this->max ){
+      $validations[] = 'before:'.$this->max;
+  }
+    return $validations;
   }
 
 }

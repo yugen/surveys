@@ -38,4 +38,20 @@ class TimeQuestionSpec extends ObjectBehavior
       $this->shouldThrow('\InvalidArgumentException')->duringSetMin('beans');
       $this->shouldThrow('\InvalidArgumentException')->duringSetMin([1,2,3]);
     }
+
+    function it_gets_its_validation_string()
+    {
+      $this->getValidationString()->shouldBe('');
+      
+      $this->setMin('12:00:00');
+      $this->getValidationString()->shouldBe('after:12:00:00');
+
+      $this->setMax('17:00:00');
+      $this->getValidationString()->shouldBe('after:12:00:00|before:17:00:00');
+
+      $this->setMin(null);
+      $this->getValidationString()->shouldBe('before:17:00:00');
+
+    }
+
 }
