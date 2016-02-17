@@ -19,7 +19,7 @@ abstract class XmlDocument
   {
       $doc = new \DOMDocument();
       $doc->loadXML($this->xmlElement->asXml());
-      return $doc->schemaValidate('schema/survey.xsd');
+      return $doc->schemaValidate(__DIR__.'/../survey.xsd');
   }
 
   public function getAttribute(\SimpleXMLElement $simpleXmlEl, $attribute)
