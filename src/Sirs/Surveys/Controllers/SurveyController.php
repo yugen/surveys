@@ -50,7 +50,7 @@ class SurveyController extends Controller
     	
     	// instatiating objects
     	$data = $request->all();
-    	$survey = $Survey::where('slug', $surveySlug)->firstOrFail();
+    	$survey = Survey::where('slug', $surveySlug)->firstOrFail();
     	$surveydoc = $survey->getSurveyDocument();
     	if ( is_null( $responseId ) ) {
     		$response = $survey->responses();
