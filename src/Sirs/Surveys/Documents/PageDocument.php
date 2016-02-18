@@ -82,7 +82,7 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
     $validation = array();
     $questions = $this->getQuestions();
     foreach ($questions as $question) {
-      $validation[$question->getName()] = "foo";
+      $validation[$question->getName()] = $question->getValidationString();
     }
     return $validation;
   }
