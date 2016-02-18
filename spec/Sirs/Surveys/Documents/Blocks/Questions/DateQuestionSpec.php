@@ -38,4 +38,19 @@ class DateQuestionSpec extends ObjectBehavior
       $this->shouldThrow('\InvalidArgumentException')->duringSetMin('beans');
       $this->shouldThrow('\InvalidArgumentException')->duringSetMin([1,2,3]);
     }
+
+    function it_gets_its_validation_string()
+    {
+      $this->getValidationString()->shouldBe('');
+      
+      $this->setMin('2000-01-01');
+      $this->getValidationString()->shouldBe('after:2000-01-01');
+
+      $this->setMax('2000-01-01');
+      $this->getValidationString()->shouldBe('after:2000-01-01|before:2000-01-01');
+
+      $this->setMin(null);
+      $this->getValidationString()->shouldBe('before:2000-01-01');
+
+    }
 }

@@ -70,4 +70,20 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
   {
     return $this->title;
   }
+
+  /**
+   * gets an array of key/value pairs for laravel validation
+   *
+   * @return Array
+   * @author SIRS
+   **/
+  public function getValidation()
+  {
+    $validation = array();
+    $questions = $this->getQuestions();
+    foreach ($questions as $question) {
+      $validation[$question->getName()] = $question->getValidationString();
+    }
+    return $validation;
+  }
 }
