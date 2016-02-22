@@ -76,7 +76,7 @@
 			  <xs:complexContent>
 			    <xs:extension base="question">
 			        <xs:attribute name="min" type="xs:date"/>
-							<xs:attribute name="max" type="xs:date"/>
+					<xs:attribute name="max" type="xs:date"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -125,11 +125,15 @@
 	<!-- others -->
 		<!-- likerts -->
 		<xs:complexType name="likert">
-			<xs:sequence>
-				<xs:element name="prompt" type="xs:string" />
-				<xs:element name="template" type="template" />
-				<xs:element name="question" type="question" maxOccurs="unbounded" />
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="container">
+					<xs:sequence>
+						<xs:element name="prompt" type="xs:string" />
+						<xs:element name="question" type="question" maxOccurs="unbounded" />
+						<xs:element name="options" type="options" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 
 		<!-- logic -->
