@@ -33,8 +33,15 @@ class SurveyController extends Controller
     		if ( is_null( $pageName ) ) { 
     			$pageName = $response->last_page;
     		}
+            
 			/** TO DO: Pass response into rendered survey **/
+
     		$pageName = $surveydoc->getPageIndexByName($pageName);
+            $rules = $surveySlug . "Rules";
+            $beforeShow = $pageName . "BeforeShow";
+            if ( method_exists( $rules, $beforeShow ) ) {
+                call_user_func($rules, $beforeShow);
+            }
     		$surveydoc->pages[$pageName]->render(); 
 
     	}
