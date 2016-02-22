@@ -136,44 +136,6 @@
 			</xs:complexContent>
 		</xs:complexType>
 
-		<!-- logic -->
-		<xs:complexType name="logic">
-			<xs:sequence>
-				<xs:element name="skip" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="trigger">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="condition" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:attribute name="id" type="xs:string" use="required"/>
-												<xs:attribute name="operator" type="xs:string" use="required"/>
-												<xs:attribute name="value" type="xs:string" use="required"/>
-												<xs:attribute name="condition-operator" type="xs:string"/>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="targets">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="target" maxOccurs="unbounded">
-											<xs:complexType>
-													<xs:attribute name="id" type="xs:string" use="required"/>
-													<xs:attribute name="action" type="xs:string" use="required"/>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-			</xs:sequence>
-		</xs:complexType>
-
 		<!-- template -->
 		<xs:complexType name="template">
 			<xs:attribute name="source" type="xs:string" />
@@ -235,5 +197,6 @@
 			<xs:attribute name="name" type="xs:string" />
 			<xs:attribute name="selected" type="xs:boolean"/>
 			<xs:attribute name="class" type="xs:string"/>
+			<xs:attribute name="show" type="xs:string" />
 		</xs:complexType>
 </xs:schema>
