@@ -1,94 +1,109 @@
-<survey>
-	<survey-name>Participant Intake Form</survey-name>
-	<page>
-		<html>
-			<![CDATA[
-				<h1>New Participant Intake Form</h1>
-				<img src="logo.png" />
-				<p>This is a form for entering a new participant for the PROJECT project.</p>
-			]]>
-		</html>
-		<question-group id="Name">
-			<template src="name.blade.php" />
-			<question name="FirstName"  required="1" data-format="varchar">
-				<question-text>First Name:</question-text>
-				<template src="text-plain.blade.php" />
+<survey name="ParticipantIntake" version="1" title="Participant Intake" response-limit="-1">
+	<page name="demographics">
+		<template source="IntakeStyle.blade.php" />
+		<question-group name="name">
+			<template source="3Names.blade.php" />
+			<question name="FirstName" required="1" placeholder="First" data-format="text">
+				<question-text>First Name</question-text>
 			</question>
-			<question name="LastName" required="1" data-format="varchar">
-				<question-text>Last Name:</question-text>
-				<template src="text-plain.blade.php" />
+			<question name="MiddleInitial" required="1" placeholder="MI" data-format="text">
+				<question-text>First Name</question-text>
+			</question>
+			<question name="LastName" required="1" placeholder="Last" data-format="text">
+				<question-text>Last Name</question-text>
 			</question>
 		</question-group>
-		<question name="Phone" required="1" data-format="varchar">
-			<question-text>Phone:</question-text>
-		</question>
-		<question-group id="Address">
-			<question name="Street1" required="1" data-format="varchar">
-				<question-text>Street 1:</question-text>
-			</question>
-			<question name="Street2" required="1" data-format="varchar">
-				<question-text>Street 2:</question-text>
-			</question>
-			<question name="City" required="1" data-format="varchar">
-				<question-text>City:</question-text>
-			</question>
-			<multiple-choice name="State" required="1" num-selectable="1" data-format="varchar">
-				<question-text>State:</question-text>
-				<template>
-					<src>select</src>
-				</template>
-				<option value="NY" label="New York" selected="1" />
-				<data-source class="StatesController" method='StatesList' />
-			</multiple-choice>
-			<question name="Zip" required="1" data-format="int">
-				<question-text>Zip:</question-text>
-			</question>
-		</question-group>
-		<!-- Is data-format redundant here? Can it be optional? -->
-		<date name="DOB" required="1" data-format="date">
-			<question-text>Date of Birth:</question-text>
+		<date name="DOB" required="1" placeholder="MM/DD/YYYY" data-format="date">
+			<question-text>Date of Birth</question-text>
 		</date>
-		<question-group id="insurance">
-			<!-- Choose a default template based on num-seleted -->
-			<multiple-choice name="insurance" num-selectable="all">
-				<template src="checkgroup-default.blade.php" />
+		<number name="Height" required="1" data-format="int">
+			<template source="Height_Inches.blade.php" />
+			<question-text>Height (inches)</question-text>
+		</number>
+		<number name="Weight" required="1" data-format="int">
+			<question-text>Weight (lbs)</question-text>
+		</number>
+	</page>
+	<page name="communications" title="Communications Information">
+		<question-group name="Address">
+			<template source="Address_group.blade.php" />
+			<question name="Street1" required="1" data-format="text">
+				<question-text>Street 1</question-text>
+			</question>
+			<question name="Street2" data-format="text">
+				<question-text>Street 2</question-text>
+			</question>
+			<question name="City" required="1" data-format="text">
+				<question-text>City</question-text>
+			</question>
+			<multiple-choice name="State" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+				<question-text>State</question-text>
 				<options>
-					<option id="medicare">
-						<label>Medicare</label>
-						<value>1</value>
-						<template src="checkbox-default.blade.php" />
-					</option>
-					<option id="medicaid">
-						<label>Medicaid</label>
-						<value>1</value>
-						<template src="checkbox-default.blade.php" />
+					<data-source URI="/statelist.php" />
+					<option name="DC">
+						<label>District of Columbia</label>
+						<value>DC</value>
 					</option>
 				</options>
 			</multiple-choice>
-			<question name="medicareNum" id="medicareNum" hidden="true">
-				<question-text>Medicare Number:</question-text>
-			</question>
-			<question name="medicaidNum" id="medicaidNum" hidden="true">
-				<question-text>Medicaid Number:</question-text>
+			<question name="Zip" required="1" data-format="text">
+				<question-text>Zip Code</question-text>
 			</question>
 		</question-group>
-		<logic>
-			<skip>
-				<trigger>
-					<condition id="medicare" operator="=" value="1" />
-				</trigger>
-				<targets>
-					<target id="medicareNumber" action="show" /> 
-				</targets>
-			</skip>
-			<skip>
-				<trigger>
-					<condition id="medicaid" operator="=" value="1" />
-				</trigger>
-				<targets>
-					<target id="medicaidNumber" action="show" /> 
-				</targets>
-			</skip>
-		</logic>
+		<question-group name="Phones">
+			<question name="PrimaryPhone" required="1" placeholder="(XXX) XXX-XXXX" data-format="text">
+				<question-text>Primary Phone Number</question-text>
+			</question>
+			<question name="OtherPhone" placeholder="(XXX) XXX-XXXX" data-format="text">
+				<question-text>Other Phone Number</question-text>
+			</question>
+		</question-group>
+		<question name="Email" required="1" placeholder="example@unc.edu" data-format="text">
+			<question-text>Email</question-text>
+		</question>
+	</page>
+	<page name="InsuranceInfo">
+		<likert name="InsuranceSatisfaction">
+			<template source="likert.blade.php" />
+			<prompt>Please rate your satisfaction with the following insurance providers on a scale of 1-5 </prompt>
+			<question name="Medicare" required="1">
+				<question-text>Medicare</question-text>
+			</question>
+			<question name="Medicaid" required="1">
+				<question-text>Medicaid</question-text>
+			</question>
+			<question name="Blue Cross/Blue Shield" required="1">
+				<question-text>BCBS</question-text>
+			</question>
+			<question name="Oxford" required="1">
+				<question-text>Oxford</question-text>
+			</question>
+			<question name="United" required="1">
+				<question-text>United</question-text>
+			</question>
+			<options>
+				<option name="1">
+					<label>1</label>
+					<value>1</value>
+				</option>
+				<option name="2">
+					<label>2</label>
+					<value>2</value>
+				</option>
+				<option name="3">
+					<label>3</label>
+					<value>3</value>
+				</option>
+				<option name="4">
+					<label>4</label>
+					<value>4</value>
+				</option>
+				<option name="5">
+					<label>5</label>
+					<value>5</value>
+				</option>
+			</options>
+			
+		</likert>
 	</page>
 </survey>
