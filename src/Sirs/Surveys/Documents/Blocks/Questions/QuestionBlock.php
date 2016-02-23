@@ -27,7 +27,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     parent::parse();
     $this->setName($this->getAttribute($this->xmlElement, 'name'));
-    $this->setQuestionText($this->xmlElement->{'question-text'}[0]);
+    $this->setQuestionText((string)$this->xmlElement->{'question-text'}[0]);
     $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
     $this->setRequired($this->getAttribute($this->xmlElement, 'required'));
     $this->setPlaceholder($this->getAttribute($this->xmlElement, 'placeholder'));

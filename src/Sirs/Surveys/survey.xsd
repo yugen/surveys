@@ -27,7 +27,6 @@
 				<xs:element name="upload" type="upload" />
 				<xs:element name="multiple-choice" type="multiple-choice" />
 				<xs:element name="likert" type="likert" />
-				<xs:element name="logic" type="logic" />
 				<xs:element name="html" type="xs:string" />
 				<xs:element name="question-group" type="question-group" />
 				<xs:element name="template" type="template" />				

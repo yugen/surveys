@@ -10,6 +10,12 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
 {
   use HasOptionsTrait;
 
+
+  public function parse(){
+    $this->setPrompt($this->xmlElement->prompt);
+    parent::parse();
+  }
+
   public function setPrompt($prompt)
   {
       $this->prompt = $prompt;

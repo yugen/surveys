@@ -41,8 +41,9 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   public function setTemplate($template = null){
     // print("\n----\n RenderableBlock::setTemplate \n---\n");
     // print('template: '. $template."\n");
-    $this->template = $template;
-    return $this;
+    // 
+      $this->template = $template;
+      return $this;
   }
 
   /**

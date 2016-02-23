@@ -1,13 +1,12 @@
 <survey name="ParticipantIntake" version="1" title="Participant Intake" response-limit="-1">
 	<page name="demographics">
-		<template source="IntakeStyle.blade.php" />
 		<question-group name="name">
-			<template source="3Names.blade.php" />
+			
 			<question name="FirstName" required="1" placeholder="First" data-format="text">
 				<question-text>First Name</question-text>
 			</question>
 			<question name="MiddleInitial" required="1" placeholder="MI" data-format="text">
-				<question-text>First Name</question-text>
+				<question-text>Middle Initial</question-text>
 			</question>
 			<question name="LastName" required="1" placeholder="Last" data-format="text">
 				<question-text>Last Name</question-text>
@@ -26,7 +25,7 @@
 	</page>
 	<page name="communications" title="Communications Information">
 		<question-group name="Address">
-			<template source="Address_group.blade.php" />
+			
 			<question name="Street1" required="1" data-format="text">
 				<question-text>Street 1</question-text>
 			</question>
@@ -64,7 +63,7 @@
 	</page>
 	<page name="InsuranceInfo">
 		<likert name="InsuranceSatisfaction">
-			<template source="likert.blade.php" />
+			
 			<prompt>Please rate your satisfaction with the following insurance providers on a scale of 1-5 </prompt>
 			<question name="Medicare" required="1">
 				<question-text>Medicare</question-text>
@@ -103,7 +102,6 @@
 					<value>5</value>
 				</option>
 			</options>
-			
 		</likert>
 	</page>
 </survey>

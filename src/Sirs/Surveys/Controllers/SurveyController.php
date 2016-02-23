@@ -27,14 +27,22 @@ class SurveyController extends Controller
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail(); 
     	$surveydoc = $survey->getSurveyDocument();
     	if ( is_null($responseId) ) { 
-    		$surveydoc->pages[0]->render();
+    		$view = $surveydoc->pages[0]->render();
+            return $view;
     	} else {
     		$response = $survey->responses()->findOrFail($responseId);
     		if ( is_null( $pageName ) ) { 
     			$pageName = $response->last_page;
     		}
+            
 			/** TO DO: Pass response into rendered survey **/
+
     		$pageName = $surveydoc->getPageIndexByName($pageName);
+            $rules = $surveySlug . "Rules";
+            $beforeShow = $pageName . "BeforeShow";
+            if ( method_exists( $rules, $beforeShow ) ) {
+                call_user_func($rules, $beforeShow);
+            }
     		$surveydoc->pages[$pageName]->render(); 
 
     	}
