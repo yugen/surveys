@@ -1,0 +1,5 @@
+<survey name="test-survey-1" version="1">
+  <page name="page 1">
+    <html>This is some text</html>
+  </page>
+</survey>
