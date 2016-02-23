@@ -53,7 +53,7 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function getSurveyDocument()
 	{
-		return SurveyDocument::initFromFile($this->file_name);
+		return SurveyDocument::initFromFile( base_path($this->file_name) );
 	}
 
 	/**
