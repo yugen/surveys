@@ -76,7 +76,7 @@
 			  <xs:complexContent>
 			    <xs:extension base="question">
 			        <xs:attribute name="min" type="xs:date"/>
-							<xs:attribute name="max" type="xs:date"/>
+					<xs:attribute name="max" type="xs:date"/>
 			    </xs:extension>
 			  </xs:complexContent>
 			</xs:complexType>
@@ -125,49 +125,15 @@
 	<!-- others -->
 		<!-- likerts -->
 		<xs:complexType name="likert">
-			<xs:sequence>
-				<xs:element name="prompt" type="xs:string" />
-				<xs:element name="template" type="template" />
-				<xs:element name="question" type="question" maxOccurs="unbounded" />
-			</xs:sequence>
-		</xs:complexType>
-
-		<!-- logic -->
-		<xs:complexType name="logic">
-			<xs:sequence>
-				<xs:element name="skip" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="trigger">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="condition" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:attribute name="id" type="xs:string" use="required"/>
-												<xs:attribute name="operator" type="xs:string" use="required"/>
-												<xs:attribute name="value" type="xs:string" use="required"/>
-												<xs:attribute name="condition-operator" type="xs:string"/>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="targets">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="target" maxOccurs="unbounded">
-											<xs:complexType>
-													<xs:attribute name="id" type="xs:string" use="required"/>
-													<xs:attribute name="action" type="xs:string" use="required"/>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
-								</xs:complexType>
-							</xs:element>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="container">
+					<xs:sequence>
+						<xs:element name="prompt" type="xs:string" />
+						<xs:element name="question" type="question" maxOccurs="unbounded" />
+						<xs:element name="options" type="options" />
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 
 		<!-- template -->
@@ -231,5 +197,6 @@
 			<xs:attribute name="name" type="xs:string" />
 			<xs:attribute name="selected" type="xs:boolean"/>
 			<xs:attribute name="class" type="xs:string"/>
+			<xs:attribute name="show" type="xs:string" />
 		</xs:complexType>
 </xs:schema>

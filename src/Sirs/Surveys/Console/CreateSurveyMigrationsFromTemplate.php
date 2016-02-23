@@ -76,6 +76,12 @@ class CreateSurveyMigrationsFromTemplate extends Command
 
         $str = str_replace('DummyClass', $this->formatClassName( $survey->getName(), $survey->getVersion() ), $str);
 
+        $str = str_replace('DummyName', $survey->getName(), $str);
+
+        $str = str_replace('DummyVersion',  $survey->getVersion(), $str);
+
+        $str = str_replace('DummyFileName', $this->templateFile.'.xml', $str);
+
         $strQuestions = '';
         foreach( $questions as $question ) {
             $strQuestions .= "\n" . '$table->'.$this->setMigrationDataType($question->dataFormat)
@@ -143,7 +149,7 @@ class DummyClass extends Migration
         Schema::create(\'DummyTable\', function (Blueprint $table) {
             $table->increments(\'id\')->unsigned();
             $table->morphs(\'respondent\');
-            $table->integer(\'survey_id\');
+            $table->integer(\'survey_id\')->unsigned();
             INSERTSURVEY
             $table->string(\'last_page\');
             $table->integer(\'duration\');
@@ -152,12 +158,14 @@ class DummyClass extends Migration
             $table->timestamps();
 
             $table->foreign(\'survey_id\')->references(\'id\')->on(\'surveys\')->onDelete(\'restrict\');
-            $table->index([\'respondent_type\', \'respondent_id\', \'survey_id\']);
+            //$table->index([\'respondent_type\', \'respondent_id\', \'survey_id\']);
             $table->index([\'respondent_type\', \'respondent_id\']);
             $table->index([\'respondent_type\']);
             $table->index([\'survey_id\']);
             $table->index([\'started_at\', \'finalized_at\', \'survey_id\']);
         });
+
+        \Sirs\Surveys\Models\Survey::firstOrCreate(["name"=>"DummyName", "version"=>"DummyVersion", "slug"=>"DummyClass", "file_name"=>"DummyFileName", "table"=>"DummyTable"]);
     }
 
     /**
@@ -167,6 +175,8 @@ class DummyClass extends Migration
      */
     public function down()
     {
+        $s = \Sirs\Surveys\Models\Survey::where(\'name\', \'DummyName\')->where(\'version\', \'DummyVersion\');
+        $s->delete();
         Schema::drop(\'DummyTable\');
     }
 }
