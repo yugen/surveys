@@ -19,6 +19,7 @@ class BlockFactory
         break;
       case 'likert':
         $block = new LikertBlock($element);
+        break;
       case 'date':
       case 'time':
       case 'upload':
@@ -36,5 +37,21 @@ class BlockFactory
         break;
     }
     return $block;
+  }
+
+  function getWhitelist(){
+    $whitelist = [
+    'container',
+    'question-group',
+    'likert',
+    'date',
+    'time',
+    'upload',
+    'multiple-choice',
+    'number',
+    'question',
+    'html'
+    ];
+    return $whitelist;
   }
 }

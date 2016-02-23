@@ -1,3 +1,4 @@
+
 <div 
   class="form-group question-block{{($renderable->class) ? ' '.$renderable->class : ''}}
   id="{{$renderable->id or ''}}"
@@ -11,7 +12,7 @@
     <input 
       type="text" 
       name="{{$renderable->name}}" 
-      placeholder="{{$renderable->placeholder or ''}}{{($renderable->required) ? ' required' : ''}}" 
+      placeholder="{{$renderable->placeholder or ''}}" {{($renderable->required) ? ' required' : ''}}
     />
   </div>
 </div>

@@ -1,1 +1,8 @@
-<div>{!!$renderable->content or ''!!}</div>
+<div>
+
+@foreach ($renderable->contents as $content)
+
+	{!! $content->render() !!}
+
+@endforeach
+</div>

@@ -27,7 +27,8 @@ class SurveyController extends Controller
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail(); 
     	$surveydoc = $survey->getSurveyDocument();
     	if ( is_null($responseId) ) { 
-    		$surveydoc->pages[0]->render();
+    		$view = $surveydoc->pages[0]->render();
+            return $view;
     	} else {
     		$response = $survey->responses()->findOrFail($responseId);
     		if ( is_null( $pageName ) ) { 

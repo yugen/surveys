@@ -9,7 +9,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 {
     use HasOptionsTrait;
     
-    protected $options;
+    // protected $options;
     protected $numSelectable;
     protected $defaultSingleTemplate;
     protected $defaultMultiTemplate;
