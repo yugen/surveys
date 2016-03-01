@@ -27,7 +27,7 @@
 				<xs:element name="upload" type="upload" />
 				<xs:element name="multiple-choice" type="multiple-choice" />
 				<xs:element name="likert" type="likert" />
-				<xs:element name="html" type="xs:string" />
+				<xs:element name="html" type="html" />
 				<xs:element name="question-group" type="question-group" />
 				<xs:element name="template" type="template" />				
 			</xs:choice>
@@ -197,5 +197,14 @@
 			<xs:attribute name="selected" type="xs:boolean"/>
 			<xs:attribute name="class" type="xs:string"/>
 			<xs:attribute name="show" type="xs:string" />
+		</xs:complexType>
+
+		<!-- HTML -->
+		<xs:complexType name="html">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="content" type="xs:string" />
+			</xs:choice>
+			<xs:attribute name="id"/>
+			<xs:attribute name="class"/>
 		</xs:complexType>
 </xs:schema>
