@@ -66,7 +66,7 @@
 				<xs:attribute name="required" type="xs:boolean" />
 				<xs:attribute name="class" type="xs:string" />
 				<xs:attribute name="placeholder" type="xs:string" />
-				<xs:attribute name="hide" type="xs:boolean" />
+				<xs:attribute name="hidden" type="xs:boolean" />
 				<xs:attribute name="data-format" type="data-format" />
 		</xs:complexType>
 
@@ -197,6 +197,7 @@
 			<xs:attribute name="selected" type="xs:boolean"/>
 			<xs:attribute name="class" type="xs:string"/>
 			<xs:attribute name="show" type="xs:string" />
+			<xs:attribute name="hide" type="xs:string" />
 		</xs:complexType>
 
 		<!-- HTML -->
