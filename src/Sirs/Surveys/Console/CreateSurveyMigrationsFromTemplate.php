@@ -102,6 +102,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
             case 'date':
                 $return = 'date';
                 break;
+            case 'int':
             case 'number':
                 $return = 'integer';
                 break;
