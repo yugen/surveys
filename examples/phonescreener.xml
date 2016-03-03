@@ -10,16 +10,16 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="available" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="available" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>Available</question-text>
 			<options>
 				<option name="No" show="available_no" hide="available_yes" >
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="available_yes" hide="available_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -37,16 +37,16 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="interested" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="interested" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>Are you interested in hearing more about the study?</question-text>
 			<options>
 				<option name="No" show="interested_no" hide="interested_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="interested_yes" hide="interested_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -74,16 +74,16 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="questions" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="questions" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>Do you have any questions about the study?</question-text>
 			<options>
 				<option name="No" show="question_no">
 					<label>No / not interested</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="question_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -104,16 +104,16 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="race_AA" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="race_AA" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>1. Do you consider your race to be Black or African American?</question-text>
 			<options>
 				<option name="No" show="race_AA_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="race_AA_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -124,30 +124,30 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="patient_unchc" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
-			<question-text>2. <i>For self/provider referral only:</i> Are you a patient of the UNC Health Care system?</question-text>
+		<multiple-choice name="patient_unchc" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>2. For self/provider referral only: Are you a patient of the UNC Health Care system?</question-text>
 			<options>
 				<option name="No" show="patient_unchc_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="patient_unchc_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
 		<question-group id="patient_unchc_no" name="patient_unchc_no">
-			<multiple-choice name="patient_durhamva" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+			<multiple-choice name="patient_durhamva" required="1" placeholder=""  data-format="int" num-selectable="1">
 				<question-text>Are you a patient of the Durham VA Medical Center? </question-text>
 				<options>
 					<option name="No" show="patient_durhamva_no" hide="patient_durhamva_yes">
 						<label>No</label>
-						<value>no</value>
+						<value>0</value>
 					</option>
 					<option name="Yes" show="patient_durhamva_yes" hide="patient_durhamva_no">
 						<label>Yes</label>
-						<value>yes</value>
+						<value>1</value>
 					</option>
 				</options>
 			</multiple-choice>
@@ -166,17 +166,17 @@
 				</content>
 			</html>
 		</question-group>
-		<multiple-choice name="have_oa" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="have_oa" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>3. Have you EVER been told by a doctor or other healthcare professional that you have osteoarthritis, degenerative arthritis or rheumatism in your knees or hips, or that your knee or hip cartilage or joints were "wearing out?"  
 </question-text>
 			<options>
 				<option name="No" show="have_oa_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="have_oa_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -187,16 +187,16 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="had_pain_12_months" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="had_pain_12_months" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>4. In the past 12 months, have you had pain, aching, stiffness, or swelling in or around your (joint(s) with OA)? </question-text>
 			<options>
 				<option name="No" show="had_pain_12_months_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="had_pain_12_months_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -207,17 +207,17 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="symptoms_present_past_month" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="symptoms_present_past_month" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>5. Were these symptoms present on most days for the past month? 
  </question-text>
 			<options>
 				<option name="No" show="symptoms_present_past_month_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="symptoms_present_past_month_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -228,18 +228,18 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="symptoms_began_6_months_ago" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="symptoms_began_6_months_ago" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>6. Did these symptoms begin over 6 months ago?
 
  </question-text>
 			<options>
 				<option name="No" show="symptoms_began_6_months_ago_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="symptoms_began_6_months_ago_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -250,17 +250,17 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="have_rheumatic_cond" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="have_rheumatic_cond" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>7. Do you have rheumatoid arthritis, lupus, or any other rheumatic condition?
  </question-text>
 			<options>
 				<option name="No" hide="have_rheumatic_cond_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="have_rheumatic_cond_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -271,7 +271,7 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="have_fibromyalgia" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="have_fibromyalgia" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>8. Do have severe fibromyalgia that you take specific medication for? (examples: Cymbalta, Lyrica, Savella, Elavil, or narcotics like Codeine, Demerol, Oxycodone, Percocet, Percodan, Ultram, Vicodin). 
 
 
@@ -279,11 +279,11 @@
 			<options>
 				<option name="No" hide="have_fibromyalgia_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="have_fibromyalgia_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -294,7 +294,7 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="have_gout" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="have_gout" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>9. Do you have gout in your knees or hips?
 
 
@@ -302,11 +302,11 @@
 			<options>
 				<option name="No" hide="have_gout_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="have_gout_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -317,7 +317,7 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="awaiting_joint_replacement" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="awaiting_joint_replacement" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>10. Are you scheduled for or on a waiting list for joint replacement surgery?
 
 
@@ -325,11 +325,11 @@
 			<options>
 				<option name="No" hide="awaiting_joint_replacement_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="awaiting_joint_replacement_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -340,7 +340,7 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="had_knee_surgery_6_months" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="had_knee_surgery_6_months" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>11. Have you had any total knee or hip replacement surgery, other knee surgery, a torn meniscus in your knee, or a torn ACL in your knee during the past 6 months?
 
 
@@ -348,11 +348,11 @@
 			<options>
 				<option name="No" hide="had_knee_surgery_6_months_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="had_knee_surgery_6_months_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -363,21 +363,21 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="other_studies_hip_knee" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="other_studies_hip_knee" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>12. Are you participating in any other studies related to knee or hip osteoarthritis?</question-text>
 			<options>
 				<option name="No" hide="other_studies_hip_knee_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="other_studies_hip_knee_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
 		<question-group id="other_studies_hip_knee_yes" name="other_studies_hip_knee_yes">
-			<question name="questions" required="1" placeholder="" data-format="text">
+			<question name="questions" required="1" placeholder="" data-format="int">
 				<question-text>Can you tell me what this study is about?  </question-text>
 		</question>
 			<html >
@@ -390,7 +390,7 @@
 				</content>
 			</html>
 		</question-group>
-		<multiple-choice name="other_disqualifying_conditions" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="other_disqualifying_conditions" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>13. Do you have any other health conditions that you think would make you unable to participate in the study I have described?  These may include but are not limited to:    significant memory loss, active substance abuse disorder, or a severe mental health condition. 
 
 
@@ -399,11 +399,11 @@
 			<options>
 				<option name="No" hide="other_disqualifying_conditions_yes">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" show="other_disqualifying_conditions_yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -416,75 +416,75 @@
 		</html>
 	</page>
 	<page name="conclusion">
-		<question-group name="meeting">
+		<question-group name="meeting" id="meeting">
 			<question name="meeting_time" required="1" placeholder="00:00:00" data-format="time">
 				<question-text>Meeting Time</question-text>
 			</question>
-			<multiple-choice name="meeting_place" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+			<multiple-choice name="meeting_place" required="1" placeholder=""  data-format="int" num-selectable="1">
 				<question-text>Meeting Place</question-text>
 				<options>
 					<data-source URI="/sitelist.php" />
 					<option name="DC">
 						<label>District of Columbia Site</label>
-						<value>DCS</value>
+						<value>0</value>
 					</option>
 				</options>
 			</multiple-choice>
 		</question-group>
-		<multiple-choice name="current_phone_number_best" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="current_phone_number_best" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>Is the number I called today the best phone number at which to reach you?</question-text>
 			<options>
 				<option name="No" show="current_phone_number_best_no">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes" hide="current_phone_number_best_no">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
-		<question-group id="current_phone_number_best_no">
+		<question-group id="current_phone_number_best_no" name="current_phone_number_best_no">
 			<question name="best_phone_number" required="1" placeholder="555-555-5555" data-format="text">
 					<question-text>Could you give me a better number?</question-text>
 			</question>
 		</question-group>
-		<multiple-choice name="have_cell_number" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="have_cell_number" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>Do you have a cell number in case we need to reach you on the day of your appointment?</question-text>
 			<options>
 				<option name="No">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
-		<multiple-choice name="other_contact_numbers" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="other_contact_numbers" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>Are there any other contact numbers we should have on file for you?</question-text>
 			<options>
 				<option name="No">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
-		<multiple-choice name="got_email_address" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="got_email_address" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>May I have your email address?</question-text>
 			<options>
 				<option name="No">
 					<label>No</label>
-					<value>no</value>
+					<value>0</value>
 				</option>
 				<option name="Yes">
 					<label>Yes</label>
-					<value>yes</value>
+					<value>1</value>
 				</option>
 			</options>
 		</multiple-choice>
@@ -495,33 +495,33 @@
 			]]>
 			</content>
 		</html>
-		<multiple-choice name="preferred_contact_method" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="preferred_contact_method" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>What is your preferred contact method?</question-text>
 			<options>
 				<option name="Phone">
 					<label>Phone</label>
-					<value>phone</value>
+					<value>1</value>
 				</option>
 				<option name="Email">
 					<label>Email</label>
-					<value>email</value>
+					<value>2</value>
 				</option>
 			</options>
 		</multiple-choice>
-		<multiple-choice name="confirmation_letter_method" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+		<multiple-choice name="confirmation_letter_method" required="1" placeholder=""  data-format="int" num-selectable="1">
 			<question-text>I'm going to send you a confirmation letter of your appointment, direcitons to the appointment, and a copy of the consent form to look over ahead of time.  Would you like this mailed or emailed to you (or both)?</question-text>
 			<options>
 				<option name="Phone">
 					<label>Phone</label>
-					<value>phone</value>
+					<value>1</value>
 				</option>
 				<option name="Email">
 					<label>Email</label>
-					<value>email</value>
+					<value>2</value>
 				</option>
 				<option name="Both">
 					<label>Both</label>
-					<value>both</value>
+					<value>3</value>
 				</option>
 			</options>
 		</multiple-choice>
