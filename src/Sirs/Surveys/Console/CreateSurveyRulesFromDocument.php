@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Sirs\Surveys\Documents\SurveyDocument;
 use File;
 
-class CreateSurveyRulesFromTemplate extends Command
+class CreateSurveyRulesFromDocument extends Command
 {
     /**
      * The name and signature of the console command.
@@ -14,21 +14,21 @@ class CreateSurveyRulesFromTemplate extends Command
      * @var string
      */
     protected $signature = 'survey:rules 
-                            {template : File location of survey template}';
+                            {document : File location of survey document}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create/update rules file from survey template';
+    protected $description = 'Create/update rules file from survey document';
 
     /**
-     * The console command option for template location
+     * The console command option for document location
      *
      * @var string
      */
-    protected $templateFile = null;
+    protected $documentFile = null;
 
      /**
      * The survey object
@@ -47,7 +47,7 @@ class CreateSurveyRulesFromTemplate extends Command
     public function handle()
     {
         
-        $this->templateFile =  $this->argument('template');
+        $this->documentFile =  $this->argument('document');
 
         $contents = $this->getMigrationText();
         $filename =  'app/Surveys/'
@@ -57,6 +57,8 @@ class CreateSurveyRulesFromTemplate extends Command
             if ($bytes_written === false)
             {
                 die("Error writing to file");
+            } else{
+                $this->info('Created ' . $filename);
             }
         
         
@@ -66,7 +68,7 @@ class CreateSurveyRulesFromTemplate extends Command
     {
         $str = $this->getDefaultText();
 
-        $this->survey =  SurveyDocument::initFromFile($this->templateFile.".xml");
+        $this->survey =  SurveyDocument::initFromFile($this->documentFile);
         
         $str = str_replace('DummyClass', $this->formatClassName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 

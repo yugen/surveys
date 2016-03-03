@@ -38,7 +38,7 @@ class ValidateSurveyDefinition extends Command
                 return false;
             }
         }catch(\Exception $e){
-            $this->error($e->getMessage());
+            throw $e;
             return false;
         }
     }

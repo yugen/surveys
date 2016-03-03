@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Sirs\Surveys\Documents\SurveyDocument;
 use File;
 
-class CreateSurveyMigrationsFromTemplate extends Command
+class CreateSurveyMigrationsFromDocument extends Command
 {
     /**
      * The name and signature of the console command.
@@ -14,21 +14,21 @@ class CreateSurveyMigrationsFromTemplate extends Command
      * @var string
      */
     protected $signature = 'survey:migration 
-                            {template : File location of survey template}';
+                            {document : File location of survey document}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create/update migrations from survey template';
+    protected $description = 'Create/update migrations from survey document';
 
     /**
-     * The console command option for template location
+     * The console command option for document location
      *
      * @var string
      */
-    protected $templateFile = null;
+    protected $documentFile = null;
 
      /**
      * The survey object
@@ -47,7 +47,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
     public function handle()
     {
         
-        $this->templateFile =  $this->argument('template');
+        $this->documentFile =  $this->argument('document');
 
         $contents = $this->getMigrationText();
         $filename =  'database/migrations/0000_00_00_000000_create_survey_rsp'
@@ -58,6 +58,8 @@ class CreateSurveyMigrationsFromTemplate extends Command
             if ($bytes_written === false)
             {
                 die("Error writing to file");
+            }else{
+                $this->info('Created ' . $filename);
             }
         
         
@@ -67,7 +69,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
     {
         $str = $this->getDefaultText();
 
-        $survey =  SurveyDocument::initFromFile($this->templateFile.".xml");
+        $survey =  SurveyDocument::initFromFile($this->documentFile);
 
         $this->survey = $survey;
         $questions = $survey->getQuestions();
@@ -80,7 +82,7 @@ class CreateSurveyMigrationsFromTemplate extends Command
 
         $str = str_replace('DummyVersion',  $survey->getVersion(), $str);
 
-        $str = str_replace('DummyFileName', $this->templateFile.'.xml', $str);
+        $str = str_replace('DummyFileName', $this->documentFile.'.xml', $str);
 
         $strQuestions = '';
         foreach( $questions as $question ) {

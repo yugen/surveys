@@ -2,9 +2,10 @@
 namespace Sirs\Surveys;
 
 use Illuminate\Support\ServiceProvider;
-use Sirs\Surveys\Console\CreateSurveyMigrationsFromTemplate;
-use Sirs\Surveys\Console\CreateSurveyRulesFromTemplate;
+use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
+use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
 use Sirs\Surveys\Console\ValidateSurveyDefinition;
+use Sirs\Surveys\Console\NewSurveyFromDocument;
 
 class SurveysServiceProvider extends ServiceProvider {
 
@@ -33,12 +34,12 @@ class SurveysServiceProvider extends ServiceProvider {
   public function register()
   {
     $this->app->singleton('command.survey.migration', function($app) {
-      return new CreateSurveyMigrationsFromTemplate();
+      return new CreateSurveyMigrationsFromDocument();
     });
     $this->commands('command.survey.migration');
 
     $this->app->singleton('command.survey.rules', function($app) {
-      return new CreateSurveyRulesFromTemplate();
+      return new CreateSurveyRulesFromDocument();
     });
     $this->commands('command.survey.rules');
 
@@ -46,6 +47,10 @@ class SurveysServiceProvider extends ServiceProvider {
       return new ValidateSurveyDefinition();
     });
     $this->commands('command.survey.validate');
+    $this->app->singleton('command.survey.new', function($app) {
+      return new NewSurveyFromDocument();
+    });
+    $this->commands('command.survey.new');
   }
 
   /**
