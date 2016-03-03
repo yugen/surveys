@@ -35,7 +35,7 @@
 			<question name="City" required="1" data-format="text">
 				<question-text>City</question-text>
 			</question>
-			<multiple-choice name="State" required="1" placeholder="" hide="1" data-format="text" num-selectable="1">
+			<multiple-choice name="State" required="1" placeholder="" data-format="text" num-selectable="1">
 				<question-text>State</question-text>
 				<options>
 					<data-source URI="/statelist.php" />
@@ -63,8 +63,6 @@
 	</page>
 	<page name="InsuranceInfo">
 		<likert name="InsuranceSatisfaction">
-			
-			<prompt>Please rate your satisfaction with the following insurance providers on a scale of 1-5 </prompt>
 			<question name="Medicare" required="1">
 				<question-text>Medicare</question-text>
 			</question>
@@ -102,6 +100,7 @@
 					<value>5</value>
 				</option>
 			</options>
+			<prompt>Please rate your satisfaction with the following insurance providers on a scale of 1-5 </prompt>
 		</likert>
 	</page>
 </survey>

@@ -126,11 +126,10 @@
 		<xs:complexType name="likert">
 			<xs:complexContent>
 				<xs:extension base="container">
-					<xs:sequence>
-						<xs:element name="prompt" type="xs:string" />
-						<xs:element name="question" type="question" maxOccurs="unbounded" />
-						<xs:element name="options" type="options" />
-					</xs:sequence>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="prompt" type="xs:string" maxOccurs="1"/>
+						<xs:element name="options" type="options"/>
+					</xs:choice>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
