@@ -37,6 +37,9 @@ class RenderableBlockSpec extends ObjectBehavior
 
     function it_should_set_and_get_its_id()
     {
+      $this->name = 'beans';
+      $this->getId()->shouldBe('beans');
+
       $this->setId('id');
       $this->getId()->shouldBe('id');
     }

@@ -30,9 +30,9 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
     }
 
-    public function setNumSelectable($number)
+    public function setNumSelectable($number = null)
     {
-        $this->numSelectable = $number;
+        $this->numSelectable = ($number) ? $number : 1;
         return $this;
     }
 

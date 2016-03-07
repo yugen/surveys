@@ -20,16 +20,16 @@ class SurveyDocumentSpec extends ObjectBehavior
   xsi:schemaLocation="sirs.unc.edu file://'.__DIR__.'/../../../../schema/survey.xsd"
 >
   <page name="page0">
-    <html>Beans!</html>
+    <html><content>Beans!</content></html>
   </page>
   <page name="page1">
-    <html>Beans!</html>
+    <html><content>Beans!</content></html>
     <question name="question1">
       <question-text>This is the first question</question-text>
     </question>
   </page>
   <page name="page2">
-    <html>Monkeys!</html>
+    <html><content>Monkeys!</content></html>
     <question-group name="group1">
       <multiple-choice name="question2" num-selectable="1">
         <question-text>What is your favorite color?</question-text>

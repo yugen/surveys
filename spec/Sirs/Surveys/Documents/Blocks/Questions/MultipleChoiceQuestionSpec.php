@@ -21,6 +21,9 @@ class MultipleChoiceQuestionSpec extends ObjectBehavior
 
     function it_should_set_and_get_its_num_selectable()
     {
+      $this->setNumSelectable();
+      $this->getNumSelectable()->shouldBe(1);
+
       $numSelectable = 3;
       $this->setNumSelectable($numSelectable);
       $this->getNumSelectable()->shouldBe($numSelectable);
