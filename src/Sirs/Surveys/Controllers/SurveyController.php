@@ -1,18 +1,18 @@
 <?php
+namespace Sirs\Surveys\Controllers;
 
-namespace App\Http\Controllers;
-
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Models\Survey;
 use Sirs\Surveys\Models\Response;
 use Validator;
 
-class SurveyController extends Controller
+class SurveyController extends BaseController
 {
+    use DispatchesJobs, ValidatesRequests;
 
 
 	/**
