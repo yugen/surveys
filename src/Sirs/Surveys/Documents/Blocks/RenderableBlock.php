@@ -60,7 +60,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     return $this;
   }
   public function getId(){
-    return $this->id;
+    return ($this->id) ? $this->id : $this->name;
   }
 
   public function setClass($class){
