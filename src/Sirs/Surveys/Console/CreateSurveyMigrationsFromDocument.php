@@ -50,7 +50,7 @@ class CreateSurveyMigrationsFromDocument extends Command
         $this->documentFile =  $this->argument('document');
 
         $contents = $this->getMigrationText();
-        $filename =  'database/migrations/0000_00_00_000000_create_survey_rsp'
+        $filename =  'database/migrations/0000_00_00_000001_create_survey_rsp'
             .'_'.$this->survey->getName()
             .'_'.str_replace('.', '', $this->survey->getVersion()).'.php';
 
