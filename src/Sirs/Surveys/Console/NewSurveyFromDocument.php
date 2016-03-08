@@ -52,11 +52,11 @@ class NewSurveyFromDocument extends Command
         try {
 
             $this->call('survey:validate', [
-            'survey' => $this->survey
+                'survey' => $this->survey
             ]);
 
             $this->call('survey:migration', [
-            'document' => $this->survey
+                'document' => $this->survey
             ]);
 
             $this->call('survey:rules', [

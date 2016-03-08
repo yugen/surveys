@@ -46,36 +46,35 @@ class CreateSurveyRulesFromDocument extends Command
      */
     public function handle()
     {
-        
         $this->documentFile =  $this->argument('document');
-
-        $contents = $this->getMigrationText();
-        $filename =  'app/Surveys/'
-            .$this->formatClassName( $this->survey->getName(), $this->survey->getVersion()) .'.php';
-
-            $bytes_written = File::put($filename, $contents);
-            if ($bytes_written === false)
-            {
-                die("Error writing to file");
-            } else{
-                $this->info('Created ' . $filename);
-            }
-        
-        
-        
-    }
-    public function getMigrationText() 
-    {
-        $str = $this->getDefaultText();
-
         $this->survey =  SurveyDocument::initFromFile($this->documentFile);
-        
-        $str = str_replace('DummyClass', $this->formatClassName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
-       $pages = $this->survey->getPages();
+        $dir = config('surveys.rulesPath');
+        $filename =  $dir.'/'.$this->formatClassName( $this->survey->name, $this->survey->version) .'.php';
+
+        if( !File::exists($dir) ){
+            File::makeDirectory($dir, 0775, true);
+        }
+        $bytes_written = File::put($filename, $this->getRulesText());
+
+        if ($bytes_written === false)
+        {
+            throw new Exception("Error writing to file");
+        }else{
+            $this->info('Created ' . $filename);
+        }
+    }
+
+    public function getRulesText() 
+    {        
+        $str = str_replace(
+            'DummyClass', 
+            $this->formatClassName( $this->survey->name, $this->survey->version ), 
+            $this->getDefaultText()
+        );
        
        $pageStr = '';
-       foreach( $pages as $page ) {
+       foreach( $this->survey->getPages() as $page ) {
             $pageStr .= $page->getTitle()."\n";
 
        }
