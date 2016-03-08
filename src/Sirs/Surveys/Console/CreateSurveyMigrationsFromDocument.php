@@ -38,7 +38,6 @@ class CreateSurveyMigrationsFromDocument extends Command
     protected $survey = null;
 
 
-
     /**
      * Execute the console command.
      *
@@ -48,16 +47,15 @@ class CreateSurveyMigrationsFromDocument extends Command
     {
         
         $this->documentFile =  $this->argument('document');
+        $this->survey = SurveyDocument::initFromFile($this->documentFile);
 
         $contents = $this->getMigrationText();
         $filename =  'database/migrations/0000_00_00_000001_create_survey_rsp'
-            .'_'.$this->survey->getName()
-            .'_'.str_replace('.', '', $this->survey->getVersion()).'.php';
+            .'_'.$this->survey->name
+            .'_'.str_replace('.', '', $this->survey->version).'.php';
 
-            $bytes_written = File::put($filename, $contents);
-            if ($bytes_written === false)
-            {
-                die("Error writing to file");
+            if (File::put($filename, $contents) === false){
+                throw new \Exception("Error writing to file");
             }else{
                 $this->info('Created ' . $filename);
             }
@@ -69,18 +67,15 @@ class CreateSurveyMigrationsFromDocument extends Command
     {
         $str = $this->getDefaultText();
 
-        $survey =  SurveyDocument::initFromFile($this->documentFile);
-
-        $this->survey = $survey;
-        $questions = $survey->getQuestions();
+        $questions = $this->survey->getQuestions();
         
-        $str = str_replace('DummyTable', $this->formatTableName( $survey->getName(), $survey->getVersion() ), $str);
+        $str = str_replace('DummyTable', $this->formatTableName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
-        $str = str_replace('DummyClass', $this->formatClassName( $survey->getName(), $survey->getVersion() ), $str);
+        $str = str_replace('DummyClass', $this->formatClassName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
-        $str = str_replace('DummyName', $survey->getName(), $str);
+        $str = str_replace('DummyName', $this->survey->getName(), $str);
 
-        $str = str_replace('DummyVersion',  $survey->getVersion(), $str);
+        $str = str_replace('DummyVersion',  $this->survey->getVersion(), $str);
 
         if( !preg_match('/\.xml$/', $this->documentFile) ){
             $this->documentFile .= '.xml';
