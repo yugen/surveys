@@ -82,7 +82,10 @@ class CreateSurveyMigrationsFromDocument extends Command
 
         $str = str_replace('DummyVersion',  $survey->getVersion(), $str);
 
-        $str = str_replace('DummyFileName', $this->documentFile.'.xml', $str);
+        if( !preg_match('/\.xml$/', $this->documentFile) ){
+            $this->documentFile .= '.xml';
+        }
+        $str = str_replace('DummyFileName', $this->documentFile, $str);
 
         $strQuestions = '';
         foreach( $questions as $question ) {
