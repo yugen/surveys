@@ -22,7 +22,7 @@ class SurveysServiceProvider extends ServiceProvider {
     $this->publishes([ __DIR__.'/Config/config.php' => config_path('surveys.php') ], 'config');
     $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');
 
-    // include __DIR__.'/routes.php';
+    require __DIR__.'/routes.php';
 
   }
 
@@ -61,7 +61,6 @@ class SurveysServiceProvider extends ServiceProvider {
     public function provides()
     {
         return [
-
             'command.survey.migration',
             'command.survey.rules'
         ];
