@@ -1,6 +1,6 @@
 @extends('chrome')
 
-<form>
+<form class="sirs-survey">
 @section('content')
   <div class="panel panel-default">
     <div class="panel-heading">
