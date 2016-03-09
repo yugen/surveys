@@ -17,7 +17,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function __construct($xml = null)
     {
         parent::__construct($xml);
-        $this->defaultSingleTemplate = 'questions/multiple_choice/radio_group.blade.php';
+        $this->defaultSingleTemplate = 'questions/multiple_choice/radio_group';
         $this->defaultMultiTemplate = 'questions/multiple_choice/checkbox_group.blade.php';
         $this->defaultTemplate = $this->defaultSingleTemplate;
         $this->defaultDataFormat = 'int';

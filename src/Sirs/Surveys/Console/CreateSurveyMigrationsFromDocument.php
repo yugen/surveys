@@ -75,6 +75,8 @@ class CreateSurveyMigrationsFromDocument extends Command
 
         $str = str_replace('DummyName', $this->survey->getName(), $str);
 
+        $str = str_replace('DummySlug', str_replace(' ', '_', $this->survey->getName()), $str);
+
         $str = str_replace('DummyVersion',  $this->survey->getVersion(), $str);
 
         if( !preg_match('/\.xml$/', $this->documentFile) ){
@@ -165,7 +167,7 @@ class DummyClass extends Migration
             $table->index([\'started_at\', \'finalized_at\', \'survey_id\']);
         });
 
-        \Sirs\Surveys\Models\Survey::firstOrCreate(["name"=>"DummyName", "version"=>"DummyVersion", "slug"=>"DummyClass", "file_name"=>"DummyFileName", "table"=>"DummyTable"]);
+        \Sirs\Surveys\Models\Survey::firstOrCreate(["name"=>"DummyName", "version"=>"DummyVersion", "slug"=>"DummySlug", "file_name"=>"DummyFileName", "table"=>"DummyTable"]);
     }
 
     /**

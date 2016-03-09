@@ -2,6 +2,8 @@
 
 namespace Sirs\Surveys\Contracts;
 
+use Illuminate\View\Compilers\BladeCompiler;
+
 /**
  * describes a renderable block
  *

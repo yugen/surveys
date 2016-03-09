@@ -73,7 +73,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     return $this->template;
   }
 
-  public function render()
+  public function render($context)
   {
     
   }

@@ -82,9 +82,8 @@ class OptionBlock extends RenderableBlock
     return ($this->id) ? $this->id : $this->name.'-'.$this->value ;
   }
 
-  public function render(){
-    $output = parent::render();
-    print($output);
+  public function render($context){
+    $output = parent::render($context);
     return $output;
   }
 

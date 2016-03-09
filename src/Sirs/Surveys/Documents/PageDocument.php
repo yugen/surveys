@@ -13,6 +13,7 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
 
   protected $source;
   protected $title;
+  protected $defaultTemplate = 'containers.page.page';
 
   function __construct($xml = null){
     parent::__construct($xml);

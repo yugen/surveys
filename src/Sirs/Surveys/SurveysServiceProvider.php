@@ -1,11 +1,12 @@
 <?php 
 namespace Sirs\Surveys;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
 use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
-use Sirs\Surveys\Console\ValidateSurveyDefinition;
 use Sirs\Surveys\Console\NewSurveyFromDocument;
+use Sirs\Surveys\Console\ValidateSurveyDefinition;
 
 class SurveysServiceProvider extends ServiceProvider {
 
@@ -16,7 +17,6 @@ class SurveysServiceProvider extends ServiceProvider {
    */
   public function boot()
   {
-    
     $this->loadViewsFrom(__DIR__.'/Views', 'surveys');
 
     $this->publishes([ __DIR__.'/Config/config.php' => config_path('surveys.php') ], 'config');

@@ -9,11 +9,18 @@ use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Models\Survey;
 use Sirs\Surveys\Models\Response;
 use Validator;
+use Auth;
 
 class SurveyController extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
+
+    protected function getRespondent($type, $id)
+    {
+        $className = str_replace(' ', '\\', ucwords(str_replace('-',' ',$type)));
+        return $className::findOrFail($id);
+    }
 
 	/**
 	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
@@ -22,30 +29,37 @@ class SurveyController extends BaseController
 	 * @author SIRS
 	 **/
     public function show( $respondentType, $respondentId, $surveySlug, $responseId = null, $pageName = null){
-
-    	
-    	$survey = Survey::where('slug',$surveySlug)->firstOrFail(); 
+    	   
+    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
     	$surveydoc = $survey->getSurveyDocument();
-    	if ( is_null($responseId) ) { 
-    		$view = $surveydoc->pages[0]->render();
-            return $view;
-    	} else {
-    		$response = $survey->responses()->findOrFail($responseId);
-    		if ( is_null( $pageName ) ) { 
-    			$pageName = $response->last_page;
-    		}
-            
-			/** TO DO: Pass response into rendered survey **/
+        $respondent = $this->getRespondent($respondentType, $respondentId);
+        $context = [
+            'survey'=>[
+                'name'=>$survey->name,
+                'version'=>$survey->version
+            ],
+            'respondent'=>$respondent,
+        ];
 
-    		$pageName = $surveydoc->getPageIndexByName($pageName);
-            $rules = $surveySlug . "Rules";
-            $beforeShow = $pageName . "BeforeShow";
-            if ( method_exists( $rules, $beforeShow ) ) {
-                call_user_func($rules, $beforeShow);
+        $pageIdx = 0;
+        $response = null;
+    	if ( !is_null($responseId) ) {
+            $response = $survey->responses()->findOrFail($responseId);
+            if ( is_null( $pageName ) ) { 
+                $pageName = $response->last_page;
             }
-    		$surveydoc->pages[$pageName]->render(); 
-
+            $pageIdx = $surveydoc->getPageIndexByName($pageName);
     	}
+        
+        $page = $surveydoc->pages[$pageIdx];
+        $rulesClassName = 'App\\Surveys\\'.$surveySlug."Rules";
+        $rules = new $rulesClassName();
+        $beforeShow = $page->name . "BeforeShow";
+        if ( method_exists( $rules, $beforeShow ) ) {
+            $context = array_merge($context, $rules->$beforeShow());
+        }
+
+        return  $surveydoc->pages[$pageIdx]->render($context); 
     }
 
 	/**
