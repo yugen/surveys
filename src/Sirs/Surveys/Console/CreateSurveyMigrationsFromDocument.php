@@ -127,7 +127,7 @@ class CreateSurveyMigrationsFromDocument extends Command
 
     public function formatClassName( $name, $version ) 
     {
-        return str_replace('-', '', str_replace('.', '', 'CreateSurveyRsp'.$name.$version ));
+        return str_replace('-', '', str_replace('.', '', 'CreateSurveyRsp'.ucfirst($name).$version ));
     }
 
     public function getDefaultText() 
@@ -167,7 +167,7 @@ class DummyClass extends Migration
             $table->index([\'started_at\', \'finalized_at\', \'survey_id\']);
         });
 
-        \Sirs\Surveys\Models\Survey::firstOrCreate(["name"=>"DummyName", "version"=>"DummyVersion", "slug"=>"DummySlug", "file_name"=>"DummyFileName", "table"=>"DummyTable"]);
+        \Sirs\Surveys\Models\Survey::firstOrCreate(["name"=>"DummyName", "version"=>"DummyVersion", "slug"=>"DummySlug", "file_name"=>"DummyFileName", "response_table"=>"DummyTable"]);
     }
 
     /**

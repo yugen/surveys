@@ -18,11 +18,19 @@ class Response extends Model {
    *
    * @return void
    */
-  public static function lookupTable($table = null) 
+  public static function lookupTable($table) 
+  {
+    // $instance = new static;
+    // $instance->setTable($table);
+    $instance = static::newResponse($table);
+    return $instance->newQuery();
+  }
+
+  public static function newResponse($table)
   {
     $instance = new static;
     $instance->setTable($table);
-    return $instance->newQuery();
+    return $instance;
   }
   
   /**
@@ -63,7 +71,7 @@ class Response extends Model {
     return $this->belongsTo('Sirs\Survey\Survey');
   }
 
-  public function respondant()
+  public function respondent()
   {
     return $this->morphTo();
   }

@@ -13,7 +13,10 @@ class Survey extends Model implements SluggableInterface {
 	use SluggableTrait;
 
 	protected $table = "surveys";
-	protected $fillable = ['name', 'version', 'file_name', 'table'];
+	protected $fillable = ['name', 'version', 'file_name', 'response_table'];
+	protected $sluggable = [
+		'build_from' => 'name_version'
+	];
 
 
 	/**
@@ -64,7 +67,7 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function responses()
 	{
-		return Response::lookupTable($this->table_name);
+		return Response::lookupTable($this->response_table);
 	}
 
 	/**
@@ -75,7 +78,12 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function getResponsesAttribute()
 	{
-		return Response::lookupTable($this->table_name)->get();
+		return Response::lookupTable($this->response_table)->get();
+	}
+
+	public function getNameVersionAttribute()
+	{
+		return $this->name.$this->version;
 	}
 
 	/**
@@ -88,6 +96,29 @@ class Survey extends Model implements SluggableInterface {
 	{
 		
 	}
+
+	public function getLatestResponse($respondentType, $respondentId, $responseId)
+	{
+      $response = null;
+      if ( !is_null($responseId) ) {
+          $response = $this->responses()->findOrFail($responseId);
+        	$response->setTable($this->response_table);
+      }elseif($this->responses->count() > 0){
+					$response = $this->responses()
+						->where('respondent_type', '=', $respondentType)
+						->where('respondent_id', '=', $respondentId)
+						->orderBy('updated_at', 'DESC')->first();
+        	$response->setTable($this->response_table);
+      }else{
+      	$response = null;
+	    }
+      return $response;
+	}
+
+	public function getRules(Response $response){
+	  $rulesClassName = 'App\\Surveys\\'.$this->slug."Rules";
+    return new $rulesClassName($this, $response);	
+ 	}
 
 }
   ?>

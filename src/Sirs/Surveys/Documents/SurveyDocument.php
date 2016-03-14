@@ -181,6 +181,17 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
       return ($this->responseLimit) ? $this->responseLimit : 1;
   }
 
-
+  public function getPage($pageKey){
+    if( $pageKey ){
+        if(ctype_digit($pageKey)){
+            $idx = ((int)$pageKey)-1;
+            return $this->pages[$idx];
+        }else{
+            return $this->getPageByName($pageKey);
+        }
+    }else{
+        return $this->pages[0];
+    }
+  }
 
 }

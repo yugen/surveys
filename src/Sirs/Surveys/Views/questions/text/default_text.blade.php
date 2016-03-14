@@ -12,7 +12,9 @@
     <input 
       type="text" 
       name="{{$renderable->name}}" 
+      class="form-control"
       placeholder="{{$renderable->placeholder or ''}}" {{($renderable->required) ? ' required' : ''}}
+      value="{{$context['response']->{$renderable->name} or ''}}"
     />
   </div>
 </div>

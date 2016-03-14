@@ -1,7 +1,8 @@
 @extends('chrome')
 
-<form class="sirs-survey">
 @section('content')
+<form class="sirs-survey" method="POST" name="{{$context['survey']['name']}}-{{$renderable->name}}">
+  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4>
@@ -23,18 +24,18 @@
     </div>
     <div class="panel-footer">
       @if(true)
-        <button type="submit" class="btn btn-default">Back</button>
+        <button type="submit" name="nav" value="prev" class="btn btn-default">Back</button>
       @endif
       @if(true)
-      <button type="submit" class="btn btn-primary">Next</button>
+      <button type="submit" name="nav" value="next" class="btn btn-primary">Next</button>
       @endif
       @if(true)
-        <button type="submit" class="btn btn-primary">Finish &amp; Finalize</button>
+        <button type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
       @endif
       @if(true)
-        <button type="submit" class="btn btn-default pull-right">Save</button>
+        <button type="submit" name="nav" value="save" class="btn btn-default pull-right">Save</button>
       @endif
     </div>
   </div>
-@endsection
 </form>
+@endsection
