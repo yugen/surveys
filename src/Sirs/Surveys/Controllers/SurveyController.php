@@ -29,15 +29,23 @@ class SurveyController extends BaseController
         $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
         $page = $survey->getSurveyDocument()->getPage($request->input('page'));
         $rules = $survey->getRules($response);
+        if( ctype_digit($request->input('page')) ){
+            $pageIdx = (int)$page-1;
+        }else{
+            $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($request->input('page'));
+        }
 
         $context = [
             'survey'=>[
                 'name'=>$survey->name,
-                'version'=>$survey->version
+                'version'=>$survey->version,
+                'totalPages'=>count($survey->getSurveyDocument()->pages),
+                'currentPageIdx'=>$pageIdx
             ],
             'respondent'=>$respondent,
             'response'=>$response
         ];
+        // dd($context);
 
         if( $ruleContext = $this->execRule($rules, $page->name, 'BeforeShow') ){
             $context = array_merge($context, $ruleContext);
@@ -95,6 +103,10 @@ class SurveyController extends BaseController
     	if ( $request->input('nav') == 'finalize' ) {
     		$response->finalize();
     	}
+        if( $request->input('nav') ){
+            $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$page->name;
+            return redirect($redirectUrl);
+        }
 
     	// passing all data to navigate function
     	return $this->navigate($request, $respondentType, $respondentId, $surveySlug, $response->id, $page->name, $survey, $surveydoc);

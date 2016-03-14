@@ -23,13 +23,13 @@
       @endif
     </div>
     <div class="panel-footer">
-      @if(true)
+      @if($context['survey']['currentPageIdx'] > 0)
         <button type="submit" name="nav" value="prev" class="btn btn-default">Back</button>
       @endif
-      @if(true)
+      @if($context['survey']['currentPageIdx'] < ($context['survey']['totalPages']-1))
       <button type="submit" name="nav" value="next" class="btn btn-primary">Next</button>
       @endif
-      @if(true)
+      @if($context['survey']['currentPageIdx'] == ($context['survey']['totalPages']-1))
         <button type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
       @endif
       @if(true)
