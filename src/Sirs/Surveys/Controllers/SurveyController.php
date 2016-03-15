@@ -17,24 +17,9 @@ class SurveyController extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
-	/**
-	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
-	 *
-	 * @return rendered page
-	 * @author SIRS
-	 **/
-    public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
-    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
-        $respondent = $this->getRespondent($respondentType, $respondentId);
-        $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
-        $response = ($response) ? $response : Response::newResponse($survey->response_table);
-        $page = $survey->getSurveyDocument()->getPage($request->input('page'));
+
+    protected function render($survey, $page, $pageIdx, $response, $respondent, $errors=null){
         $rules = $survey->getRules($response);
-        if( ctype_digit($request->input('page')) ){
-            $pageIdx = (int)$page-1;
-        }else{
-            $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($page->name);
-        }
 
         $context = [
             'survey'=>[
@@ -46,13 +31,39 @@ class SurveyController extends BaseController
             'respondent'=>$respondent,
             'response'=>$response
         ];
-        // dd($context);
+        if($errors){
+            $context['errors'] = $errors;   
+            // dd($context['errors']->has('interested'));
+        }
 
         if( $ruleContext = $this->execRule($rules, $page->name, 'BeforeShow') ){
             $context = array_merge($context, $ruleContext);
         }
 
         return  $page->render($context); 
+    }
+
+
+
+	/**
+	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
+	 *
+	 * @return rendered page
+	 * @author SIRS
+	 **/
+    public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
+    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
+        $respondent = $this->getRespondent($respondentType, $respondentId);
+        $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+        $page = $survey->getSurveyDocument()->getPage($request->input('page'));
+
+        if( ctype_digit($request->input('page')) ){
+            $pageIdx = (int)$page-1;
+        }else{
+            $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($page->name);
+        }
+
+        return $this->render($survey, $page, $pageIdx, $response, $respondent);
     }
 
 	/**
@@ -73,29 +84,42 @@ class SurveyController extends BaseController
             $response = Response::newResponse($survey->response_table);
         }
 
+        // get the rules object
+        $rules = $survey->getRules($response);
+
         $surveydoc = $survey->getSurveyDocument();
         $page = $surveydoc->getPage($request->input('page'));
+        if( ctype_digit($request->input('page')) ){
+            $pageIdx = (int)$page-1;
+        }else{
+            $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($page->name);
+        }
+
+
+        foreach ($data as $key => $value) {
+            $response->$key = $value;
+        }
+        $response->survey_id = $survey->id;
+        $response->respondent_type = get_class($respondent);
+        $response->respondent_id = $respondent->id;
+
     	// validating data
     	$validation = $page->getValidation();
-    	$validator = Validator::make( $request->all(), $validation);
-    	if ( $validator->fails() ) {
-               throw new InvalidSurveyResponseException($validator->errors());
+    	// $validator = ;
+        $validator = $this->execRule($rules, $page->name, 'GetValidator', ['validator'=>Validator::make( $request->all(), $validation)]);
+
+    	if ( in_array($request->input('nav'), ['next', 'finalize']) && $validator->fails() ) {
+               // throw new InvalidSurveyResponseException($validator->errors());
+            return $this->render($survey, $page, $pageIdx, $response, $respondent, $validator->errors());
     		/** TO DO: Return rendered page with errors  */
     	}
 
-    	// get the rules object
-    	$rules = $survey->getRules($response);
+
+    	// saving data
 
         // run the after save rule for the page (if any).
         $this->execRule($rules, $page->name, 'BeforeSave');
 
-    	// saving data
-    	foreach ($data as $key => $value) {
-    		$response->$key = $value;
-    	}
-        $response->survey_id = $survey->id;
-        $response->respondent_type = get_class($respondent);
-        $response->respondent_id = $respondent->id;
     	$response->save();
 
         // run the after save rule for the page (if any).
@@ -104,7 +128,7 @@ class SurveyController extends BaseController
     	if ( $request->input('nav') == 'finalize' ) {
     		$response->finalize();
     	}
-        if( $request->input('nav') ){
+        if( $request->input('nav') == 'save'){
             $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$page->name;
             return redirect($redirectUrl);
         }
@@ -171,10 +195,13 @@ class SurveyController extends BaseController
     	}
     }
 
-    protected function execRule($rulesObj, $pageName, $methodName)
+    protected function execRule($rulesObj, $pageName, $methodName, $params = null)
     {
        $method = $pageName . $methodName;
         if ( method_exists( $rulesObj, $method ) ) {
+            if( $params ){
+                return $rulesObj->$method($params);
+            }
             return $rulesObj->$method();
         }else{
             return;

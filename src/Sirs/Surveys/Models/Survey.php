@@ -99,19 +99,24 @@ class Survey extends Model implements SluggableInterface {
 
 	public function getLatestResponse($respondentType, $respondentId, $responseId)
 	{
+			$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
+			// dd($respondentType);
       $response = null;
       if ( !is_null($responseId) ) {
           $response = $this->responses()->findOrFail($responseId);
         	$response->setTable($this->response_table);
-      }elseif($this->responses->count() > 0){
-					$response = $this->responses()
+      }else{
+					$responseQuery = $this->responses()
 						->where('respondent_type', '=', $respondentType)
 						->where('respondent_id', '=', $respondentId)
-						->orderBy('updated_at', 'DESC')->first();
-        	$response->setTable($this->response_table);
-      }else{
-      	$response = null;
-	    }
+						->orderBy('updated_at', 'DESC');
+					$response = $responseQuery->get()->first();
+					if( $response ){
+	        	$response->setTable($this->response_table);
+					}else{
+		      	$response = Response::newResponse($this->response_table);
+			    }
+			}
       return $response;
 	}
 

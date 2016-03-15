@@ -11,18 +11,22 @@
   @endif
   <div class="row">
     <div class="question-answers col-sm-9">
-      <div class="btn-group" role="group" data-toggle="buttons">
+      <select name="{{$renderable->name}}" id="{{$renderable->id}}"
+        class=" form-control
+        @if($renderable->class)
+          {{$renderable->class}}
+        @endif
+        "
+        {{($renderable->required) ? ' required' : ''}}
+      >
             @foreach($renderable->options as $option)
-              <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif">
-               <input 
-                type="radio" 
-                name="{{$renderable->name}}" 
+              <option 
                 id="{{$renderable->name}}_{{$option->value}}" 
                 value="{{ $option->value }}"
-                {{($renderable->required) ? ' required' : ''}}
+                
                 autocomplete="off"
                 @if($context['response']->{$renderable->name} == $option->value)
-                  checked="checked"
+                  checked="selected"
                 @endif
                 @if($option->show)
                   data-skipTarget="{{$option->show}}"
@@ -32,10 +36,10 @@
                 @endif
                />
                {{$option->label}}
-             </label>
+             </option>
             @endforeach
-      </div>
+      </select> 
     </div>
-    <div class="col-sm-3">@include('error')</div>
+    <div class="col-sm-3">  @include('error')</div>
   </div>
 </div>  

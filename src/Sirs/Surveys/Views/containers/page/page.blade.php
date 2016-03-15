@@ -1,7 +1,7 @@
 @extends('chrome')
 
 @section('content')
-<form class="sirs-survey" method="POST" name="{{$context['survey']['name']}}-{{$renderable->name}}">
+<form class="sirs-survey" method="POST" name="{{$context['survey']['name']}}-{{$renderable->name}}" novalidate>
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -38,12 +38,11 @@
     </div>
   </div>
 </form>
-<div id="beans">beans</div>
 @endsection
 @push('scripts')
 <script>
   $(document).ready(function(){
-    $('[data-skipTarget').skipTrigger();
+    $('[data-skipTarget]').skipTrigger();
   })
 </script>
 @endpush

@@ -47,20 +47,19 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
       return parent::getTemplate();
     }
 
-      /**
-       * returns a data definition for this item
-       *
-       * @return void
-       * @author 
-       **/
-      public function getDataDefinition(){
-        return [
-          'variableName'=>$this->getName(),
-          'dataFormat'=>$this->getDataFormat(),
-          'questionText'=>$this->getQuestionText(),
-          'options'=>$this->getOptions(),
-        ];
-      }
-
+    /**
+     * returns a data definition for this item
+     *
+     * @return void
+     * @author 
+     **/
+    public function getDataDefinition(){
+      return [
+        'variableName'=>$this->getName(),
+        'dataFormat'=>$this->getDataFormat(),
+        'questionText'=>$this->getQuestionText(),
+        'options'=>$this->getOptions(),
+      ];
+    }
 
 }

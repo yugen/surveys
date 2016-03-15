@@ -53,7 +53,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
    * @return string
    **/
   public function getTemplate(){
-    return ($this->template) ? $this->template : $this->defaultTemplate;
+    return ($this->template) ? $this->template->__toString() : $this->defaultTemplate;
   }
 
   public function setId($id){

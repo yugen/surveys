@@ -12,6 +12,14 @@ trait HasOptionsTrait{
           foreach( $this->xmlElement->options->option as $option ){
             $this->appendOption(new OptionBlock($this->name, $option));
           }
+      }elseif( $this->xmlElement->options->{'data-source'} ){
+          $dataSourceEl = $this->xmlElement->options->{'data-source'};
+          // dd($dataSourceEl);
+          $dataSourceUri = $this->getAttribute($dataSourceEl, 'URI');
+          // dd($dataSourceUri);
+          $this->getOptionsFromDataSource($dataSourceUri);
+      }else{
+        throw new \Exception('No options or datasource found');
       }
   }
 
@@ -34,6 +42,22 @@ trait HasOptionsTrait{
   public function prependOption(OptionBlock $option)
   {
     array_unshift($this->options, $option);
+  }
+
+  protected function getOptionsFromDataSource($dataSourceUri)
+  {
+    $responseString = file_get_contents(url($dataSourceUri));
+    if( $responseString === false ){ throw new \Exception('Failed to got data from '.$dataSourceUir);}
+    $sourceData = json_decode($responseString);
+    // dd($sourceData);
+    // print('<pre>'.$dataSourceUri.": \n");print($responseString."\n");print_r($sourceData);print('</pre>');
+    // return;
+    foreach( $sourceData as $idx => $optionData ){
+      $optionBlock = new OptionBlock($this->name);
+      $optionBlock->setValue($optionData->id);
+      $optionBlock->setLabel($optionData->name);
+      $this->appendOption($optionBlock);
+    }
   }
 
 }
