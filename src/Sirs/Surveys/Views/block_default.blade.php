@@ -1,4 +1,4 @@
-<div>
+<div id="{{$renderable->id}}">
 @if($renderable->contents)
   @foreach ($renderable->contents as $content)
     <div>{!! $content->render($context) !!}</div>

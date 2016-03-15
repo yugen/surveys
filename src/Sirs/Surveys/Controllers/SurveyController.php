@@ -27,12 +27,13 @@ class SurveyController extends BaseController
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
         $respondent = $this->getRespondent($respondentType, $respondentId);
         $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+        $response = ($response) ? $response : Response::newResponse($survey->response_table);
         $page = $survey->getSurveyDocument()->getPage($request->input('page'));
         $rules = $survey->getRules($response);
         if( ctype_digit($request->input('page')) ){
             $pageIdx = (int)$page-1;
         }else{
-            $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($request->input('page'));
+            $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($page->name);
         }
 
         $context = [

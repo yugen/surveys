@@ -18,11 +18,16 @@
               @if($context['response']->{$renderable->name} == $option->value)
                 checked="checked"
               @endif
+              @if($option->show)
+                data-skipTarget="{{$option->show}}"
+              @endif
+              @if($option->hide)
+                data-hide="{{$option->hide}}"
+              @endif
              />
              {{$option->label}}
            </label>
           @endforeach
     </div> 
   </div>
-</div>
-<!-- <pre>answer: {{($context['response']->{$renderable->name})}}</pre> -->
+</div>  

@@ -38,4 +38,12 @@
     </div>
   </div>
 </form>
+<div id="beans">beans</div>
 @endsection
+@push('scripts')
+<script>
+  $(document).ready(function(){
+    $('[data-skipTarget').skipTrigger();
+  })
+</script>
+@endpush

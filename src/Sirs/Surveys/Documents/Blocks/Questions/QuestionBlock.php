@@ -14,6 +14,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $required = false;
   protected $placeholder;
   protected $validations = [];
+  protected $show = null;
+  protected $hide = null;
 
   public function __construct($xml = null)
   {
@@ -31,6 +33,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
     $this->setRequired($this->getAttribute($this->xmlElement, 'required'));
     $this->setPlaceholder($this->getAttribute($this->xmlElement, 'placeholder'));
+    $this->setShow($this->getAttribute($this->xmlElement, 'show'));
+    $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
   }
 
   /**
@@ -94,6 +98,27 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   {
     return $this->questionText;
   }
+
+  public function setShow($show)
+  {
+    $this->show = $show;
+    return $this;
+  }
+
+  public function getShow(){
+    return $this->show;
+  }
+
+  public function setHide($hide)
+  {
+    $this->Hide = $hide;
+    return $this;
+  }
+
+  public function getHide(){
+    return $this->hide;
+  }
+
 
   /**
    * returns a data definition for this item

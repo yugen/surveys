@@ -12,6 +12,8 @@ class OptionBlock extends RenderableBlock
   protected $label;
   protected $name;
   protected $variableName;
+  protected $show = null;
+  protected $hide = null;
 
   public function __construct($variableName, $xml = null )
   {
@@ -32,6 +34,8 @@ class OptionBlock extends RenderableBlock
       $this->setValue($this->xmlElement->value[0]->__toString());
       $this->setSelected($this->getAttribute($this->xmlElement, 'selected'));
       $this->setName($this->getAttribute($this->xmlElement, 'name'));
+      $this->setShow($this->getAttribute($this->xmlElement, 'show'));
+      $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
   }
 
   public function setLabel($label)
@@ -86,5 +90,27 @@ class OptionBlock extends RenderableBlock
     $output = parent::render($context);
     return $output;
   }
+
+  public function setShow($show)
+  {
+    $this->show = $show;
+    return $this;
+  }
+
+  public function getShow(){
+    return $this->show;
+  }
+
+  public function setHide($hide)
+  {
+    $this->hide = $hide;
+    return $this;
+  }
+
+  public function getHide(){
+    return $this->hide;
+  }
+
+
 
 }

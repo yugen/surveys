@@ -28,6 +28,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   public function parse()
   {
     $this->setClass($this->getAttribute($this->xmlElement, 'class'));
+    $this->setName($this->getAttribute($this->xmlElement, 'name'));
     $this->setId($this->getAttribute($this->xmlElement, 'id'));
     $this->setTemplate($this->xmlElement->template[0]);
   }
@@ -61,6 +62,14 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   }
   public function getId(){
     return ($this->id) ? $this->id : $this->name;
+  }
+
+  public function setName($name){
+    $this->name = $name;
+    return $this;
+  }
+  public function getName(){
+    return $this->name;
   }
 
   public function setClass($class){
