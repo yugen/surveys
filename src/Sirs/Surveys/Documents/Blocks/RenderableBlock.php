@@ -21,8 +21,17 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   public function __construct($xml = null)
   {
     parent::__construct($xml);
-    $this->defaultTemplatePath = (config('surveys.defaultTemplatePath')) ? config('surveys.defaultTemplatePath') : __DIR__.'/../../Views';
-    $this->renderer = new BladeRenderer([$this->defaultTemplatePath], [ 'cache_path' => config('surveys.rendererConfig.cache_path')]);
+    $customTemplatePath = config('surveys.customTemplatePath');
+    $paths = new \SplPriorityQueue;
+    $paths->insert(__DIR__.'/../../Views', 100);
+    if( $customTemplatePath ){
+      $paths->insert($customTemplatePath, 200);
+    }
+    // dd($paths);
+    $this->renderer = new BladeRenderer( $paths, [ 
+        'cache_path' => config('surveys.rendererConfig.cache_path')
+    ]);
+
   }
 
   public function parse()
@@ -89,7 +98,8 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
    * @return string
    **/
   public function render($context){
-    $view = $this->renderer->render($this->getTemplate(), ['context'=>$context, 'renderable'=>$this]);
+    $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
+    $view = $this->renderer->render($this->getTemplate(), ['chromeTemplate'=>$chromeTemplate,'context'=>$context, 'renderable'=>$this]);
     return $view;
   }
 

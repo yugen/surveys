@@ -9,6 +9,7 @@ return [
     'cache_path' => storage_path('storage/framework/views'),
   ],
   'routeGroup'=>['middleware' => 'auth'],
+  'chromeTemplate'=>'app',
 ];
 
 ?>

@@ -1,4 +1,4 @@
-@extends('chrome')
+@extends($chromeTemplate)
 
 @section('content')
 <form class="sirs-survey" method="POST" name="{{$context['survey']['name']}}-{{$renderable->name}}" novalidate>
