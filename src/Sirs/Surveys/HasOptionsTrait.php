@@ -49,9 +49,6 @@ trait HasOptionsTrait{
     $responseString = file_get_contents(url($dataSourceUri));
     if( $responseString === false ){ throw new \Exception('Failed to got data from '.$dataSourceUir);}
     $sourceData = json_decode($responseString);
-    // dd($sourceData);
-    // print('<pre>'.$dataSourceUri.": \n");print($responseString."\n");print_r($sourceData);print('</pre>');
-    // return;
     foreach( $sourceData as $idx => $optionData ){
       $optionBlock = new OptionBlock($this->name);
       $optionBlock->setValue($optionData->id);

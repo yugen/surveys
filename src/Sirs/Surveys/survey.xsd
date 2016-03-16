@@ -205,6 +205,7 @@
 				<xs:element name="content" type="xs:string" />
 			</xs:choice>
 			<xs:attribute name="id"/>
+			<xs:attribute name="name"/>
 			<xs:attribute name="class"/>
 		</xs:complexType>
 </xs:schema>
