@@ -17,6 +17,7 @@ class Survey extends Model implements SluggableInterface {
 	protected $sluggable = [
 		'build_from' => 'name_version'
 	];
+	protected $document = null;
 
 
 	/**
@@ -56,7 +57,10 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function getSurveyDocument()
 	{
-		return SurveyDocument::initFromFile( base_path($this->file_name) );
+		if( is_null($this->document) ){
+			$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
+		}
+		return $this->document;
 	}
 
 	/**

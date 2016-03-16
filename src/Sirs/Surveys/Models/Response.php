@@ -1,6 +1,8 @@
 <?php namespace Sirs\Surveys\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
 
 class Response extends Model {
 
@@ -45,35 +47,50 @@ class Response extends Model {
    *    
    *    $response = Response::surveyVersion('Baseline', 3)->findOrFail(4);
   */
-  public function finalizeResponse( $finalizeDate = null, $override = false ) 
+  public function finalizeResponse( Carbon $finalizeDate = null, $override = false ) 
   {
-    if( $this->finalized_at == null || $override == true ) 
-    {
-      if ( $finalizeDate ) 
-      {
-        $this->finalized_at = date( strtotime( $finalizeDate ));
-      } else 
-      {
-        $this->finalized_at = date();
+    if( $this->finalized_at == null || $override == true ){
+      if ( $finalizeDate )      {
+        $this->finalized_at = $finalizeDate;
+      }else{
+        $this->finalized_at = new Carbon();
       }
       
       $this->save();
-    } else if ( $override == false ) 
-    {
-      throw new \Sirs\Surveys\Exceptions\ResponseException("Tried to set finalized_at when it is already set");
+    }elseif( $override == false ){
+      // throw new ResponsePreviouslyFinalizedException($this);
     }
+  }
+
+  public function finalize(Carbon $finalizedDate = null, $override = false)
+  {
+    return $this->finalizeResponse($finalizedDate, $override);
   }
 
 
   public function survey()
   {
-      
-    return $this->belongsTo('Sirs\Survey\Survey');
+    return $this->belongsTo(Survey::class);
   }
 
   public function respondent()
   {
     return $this->morphTo();
+  }
+
+  public function getDataAttributes()
+  {
+    $data = [];
+    $data['id'] = $this->id;
+    $data['respondent'] = $this->respondent->full_name.' - id: '.$this->respondent->id;
+    foreach( $this->getAttributes() as $key => $value ){
+      if( in_array($key, ['respondent_id', 'respondent_type', 'survey_id', 'last_page']) ){
+        continue;
+      }
+      $data[$key] = $value;
+    }
+    return $data;
+
   }
 
 

@@ -10,6 +10,7 @@ Route::group($routeGroup, function(){
     'uses' => 'Sirs\Surveys\Controllers\SurveyController@store',
     'as' => 'survey_post'
   ]);
+  Route::resource('surveys/{surveySlug}/responses', 'Sirs\Surveys\Controllers\ResponseController');
 });
 
 ?>

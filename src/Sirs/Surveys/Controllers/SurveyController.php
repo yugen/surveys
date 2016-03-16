@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Log;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Exceptions\InvalidSurveyResponseException;
 use Sirs\Surveys\Exceptions\SurveyNavigationException;
@@ -33,7 +34,6 @@ class SurveyController extends BaseController
         ];
         if($errors){
             $context['errors'] = $errors;   
-            // dd($context['errors']->has('interested'));
         }
 
         if( $ruleContext = $this->execRule($rules, $page->name, 'BeforeShow') ){
@@ -56,6 +56,11 @@ class SurveyController extends BaseController
         $respondent = $this->getRespondent($respondentType, $respondentId);
         $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
         $page = $survey->getSurveyDocument()->getPage($request->input('page'));
+
+        if( $response->finalized_at ){
+            // return 'already finalized';
+            return redirect()->route('surveys.{surveySlug}.responses.show', [$survey->slug]);
+        }
 
         if( ctype_digit($request->input('page')) ){
             $pageIdx = (int)$page-1;
@@ -180,9 +185,18 @@ class SurveyController extends BaseController
 
     			case 2:
     				// we are finalizing
-    				$response->finalize();
+    				try{
+                        $response->finalize();
+                    }catch(ResponsePreviouslyFinalizedException $e){
+                        Log::notice($e->getMessage());
+                    }
+                    return redirect('home/'); //redirect to 
     				break;
 
+                case 3:
+                    return redirect('home/'); //redirect to 
+                    break;
+                    
     			default:
     				Throw new InvalidInputException("Invalid value returned in ".$target);
     				break;
