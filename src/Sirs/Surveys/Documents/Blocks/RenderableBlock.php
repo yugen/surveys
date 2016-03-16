@@ -30,7 +30,9 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     $this->setClass($this->getAttribute($this->xmlElement, 'class'));
     $this->setName($this->getAttribute($this->xmlElement, 'name'));
     $this->setId($this->getAttribute($this->xmlElement, 'id'));
-    $this->setTemplate($this->xmlElement->template[0]);
+    if( $this->xmlElement->template[0] ){
+      $this->setTemplate($this->getAttribute($this->xmlElement->template[0], 'source'));
+    }
   }
 
   /**
@@ -53,7 +55,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
    * @return string
    **/
   public function getTemplate(){
-    return ($this->template) ? $this->template->__toString() : $this->defaultTemplate;
+    return ($this->template) ? $this->template : $this->defaultTemplate;
   }
 
   public function setId($id){
