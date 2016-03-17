@@ -110,8 +110,9 @@ class SurveyController extends BaseController
 
     	// validating data
     	$validation = $page->getValidation();
-    	// $validator = ;
-        $validator = $this->execRule($rules, $page->name, 'GetValidator', ['validator'=>Validator::make( $request->all(), $validation)]);
+    	$validator = Validator::make( $request->all(), $validation);
+        $augmentedValidator = $this->execRule($rules, $page->name, 'GetValidator', ['validator'=>$validator]);
+        $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
 
     	if ( in_array($request->input('nav'), ['next', 'finalize']) && $validator->fails() ) {
                // throw new InvalidSurveyResponseException($validator->errors());
