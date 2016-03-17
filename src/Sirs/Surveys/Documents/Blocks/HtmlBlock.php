@@ -26,6 +26,16 @@ class HtmlBlock extends RenderableBlock implements HtmlBlockInterface
 
   function getHtml()
   {
-    return $this->bladeCompile($this->html);
+    return $this->html;
   }
+
+  function getCompiledHtml($context)
+  {
+    return $this->bladeCompile($this->html, $context);
+  }
+
+  // function render($context){
+  //   return $this->bladeCompile('<div id="'.$this->id.'">'..'</div>', $context);
+  // }
+
 }
