@@ -133,6 +133,7 @@ class SurveyController extends BaseController
 
     	if ( $request->input('nav') == 'finalize' ) {
     		$response->finalize();
+            return redirect('/home');
     	}
         if( $request->input('nav') == 'save'){
             $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$page->name;
