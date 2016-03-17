@@ -24,16 +24,16 @@
     </div>
     <div class="panel-footer">
       @if($context['survey']['currentPageIdx'] > 0)
-        <button type="submit" name="nav" value="prev" class="btn btn-default">Back</button>
+        <button id="nav-prev" type="submit" name="nav" value="prev" class="btn btn-default">Back</button>
       @endif
       @if($context['survey']['currentPageIdx'] < ($context['survey']['totalPages']-1))
-      <button type="submit" name="nav" value="next" class="btn btn-primary">Next</button>
+      <button id="nav-next" type="submit" name="nav" value="next" class="btn btn-primary">Next</button>
       @endif
       @if($context['survey']['currentPageIdx'] == ($context['survey']['totalPages']-1))
-        <button type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
+        <button id="nav-finalize" type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
       @endif
       @if(true)
-        <button type="submit" name="nav" value="save" class="btn btn-default pull-right">Save</button>
+        <button id="nav-save" type="submit" name="nav" value="save" class="btn btn-default pull-right">Save</button>
       @endif
     </div>
   </div>
