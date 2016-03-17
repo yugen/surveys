@@ -7,6 +7,7 @@ use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
 use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
 use Sirs\Surveys\Console\NewSurveyFromDocument;
 use Sirs\Surveys\Console\ValidateSurveyDefinition;
+use Sirs\Surveys\Models\Response;
 
 class SurveysServiceProvider extends ServiceProvider {
 
@@ -24,6 +25,9 @@ class SurveysServiceProvider extends ServiceProvider {
     $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');
     $this->publishes([ __DIR__.'/../../../assets/sass/'=> base_path('/resources/assets/sass')], 'sass');
     $this->publishes([ __DIR__.'/../../../assets/js/'=> public_path('/js')], 'js');
+
+    // register observers:
+    Response::observe(new SurveyResponseObserver);    
 
     require __DIR__.'/routes.php';
 
