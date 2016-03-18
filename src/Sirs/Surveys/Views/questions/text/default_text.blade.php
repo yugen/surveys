@@ -8,7 +8,7 @@
   <div class="question-text">{{$renderable->questionText}}</div>
   @endif
 
-  <div class="question-answers">
+  <div class="question-answers col-sm-9">
     <input 
       type="text" 
       name="{{$renderable->name}}" 
@@ -20,4 +20,5 @@
       value="{{$context['response']->{$renderable->name} or ''}}"
     />
   </div>
+  <div class="col-sm-3">  @include('error')</div>
 </div>
