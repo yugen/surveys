@@ -105,6 +105,7 @@ class DummyClass
     public function PAGETITLEBeforeSave() {}
     public function PAGETITLEAfterSave() {}
     public function PAGETITLESkip() {}
+    public function PAGAETITLEGetValidator() {}
 
    Known Page Titles:
     PAGES
