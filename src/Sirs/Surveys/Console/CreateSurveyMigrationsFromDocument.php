@@ -177,9 +177,9 @@ class DummyClass extends Migration
      */
     public function down()
     {
+        Schema::drop(\'DummyTable\');
         $s = \Sirs\Surveys\Models\Survey::where(\'name\', \'DummyName\')->where(\'version\', \'DummyVersion\');
         $s->delete();
-        Schema::drop(\'DummyTable\');
     }
 }
 ';

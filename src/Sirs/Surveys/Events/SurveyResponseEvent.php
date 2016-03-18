@@ -10,7 +10,7 @@ abstract class SurveyResponseEvent
 {
     use SerializesModels;
 
-    protected $surveyResponse;
+    public $surveyResponse;
 
     /**
      * Create a new event instance.
