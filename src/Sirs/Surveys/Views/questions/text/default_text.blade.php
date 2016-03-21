@@ -1,14 +1,14 @@
 <div 
-  class="form-group question-block{{($renderable->class) ? ' '.$renderable->class : ''}}"
+  class="form-group row question-block{{($renderable->class) ? ' '.$renderable->class : ''}}"
   @if($renderable->id)
   id="{{$renderable->id}}"
   @endif
 >
-  @if($renderable->questionText)
-  <div class="question-text">{{$renderable->questionText}}</div>
-  @endif
-
   <div class="question-answers col-sm-9">
+    @if($renderable->questionText)
+    <div class="question-text">{{$renderable->questionText}}</div>
+    @endif
+
     <input 
       type="text" 
       name="{{$renderable->name}}" 
