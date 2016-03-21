@@ -11,7 +11,9 @@
     type="text" 
     name="{{$renderable->name}}" 
     class="form-control"
-    placeholder="{{$renderable->placeholder or ''}}" {{($renderable->required) ? ' required' : ''}}
+    @if($renderable->placeholder)
+      placeholder="{{$renderable->placeholder}}" 
+    @endif
     value="{{$context['response']->{$renderable->name} or ''}}"
   />
 </div>
