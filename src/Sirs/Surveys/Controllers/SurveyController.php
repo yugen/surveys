@@ -7,6 +7,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Exceptions\InvalidSurveyResponseException;
 use Sirs\Surveys\Exceptions\SurveyNavigationException;
@@ -43,7 +44,28 @@ class SurveyController extends BaseController
         return  $page->render($context); 
     }
 
+    protected function setPreviousLocation(Request $request)
+    {
+        $previous = $request->session()->pull('survey_previous');
+        if( !preg_match('/\/survey\//', URL::previous()) ){
+            $previous = URL::previous();
+        }
+        $request->session()->put('survey_previous', $previous);
+    }
 
+    protected function redirect(Request $request, $rules)
+    {
+        // get the redirect url
+        $redirectUrl = null;
+        if( method_exists($rules, 'getRedirectUrl') ){
+            $redirectUrl = $rules->getRedirectUrl();
+        }
+        if(!$redirectUrl){
+            $redirectUrl = $request->session()->pull('survey_previous', '/');
+            $request->session()->forget('survey_previous');
+        }
+        return redirect($redirectUrl);
+    }
 
 	/**
 	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
@@ -52,6 +74,9 @@ class SurveyController extends BaseController
 	 * @author SIRS
 	 **/
     public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
+
+        $this->setPreviousLocation($request);
+
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
         $respondent = $this->getRespondent($respondentType, $respondentId);
         $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
@@ -133,7 +158,7 @@ class SurveyController extends BaseController
 
     	if ( $request->input('nav') == 'finalize' ) {
     		$response->finalize();
-            return redirect('/home');
+            return $this->redirect($request, $rules);
     	}
         if( $request->input('nav') == 'save'){
             $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$page->name;
@@ -192,11 +217,11 @@ class SurveyController extends BaseController
                     }catch(ResponsePreviouslyFinalizedException $e){
                         Log::notice($e->getMessage());
                     }
-                    return redirect('home/'); //redirect to 
+                    return $this->redirect($request, $rules); //redirect to 
     				break;
 
                 case 3:
-                    return redirect('home/'); //redirect to 
+                    return $this->redirect($request, $rules); //redirect to 
                     break;
                     
     			default:
