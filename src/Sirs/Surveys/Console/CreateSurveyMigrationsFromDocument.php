@@ -105,6 +105,7 @@ class CreateSurveyMigrationsFromDocument extends Command
                 $return = 'date';
                 break;
             case 'number':
+            case 'int':
                 $return = 'integer';
                 break;
             case 'text':
