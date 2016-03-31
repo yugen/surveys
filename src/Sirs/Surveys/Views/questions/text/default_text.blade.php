@@ -8,7 +8,6 @@
     @if($renderable->questionText)
     <div class="question-text">{{$renderable->questionText}}</div>
     @endif
-
     <input 
       type="text" 
       name="{{$renderable->name}}" 

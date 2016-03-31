@@ -1,17 +1,17 @@
 @extends('questions.question')
 
 @section('answers')
-      <div class="btn-group" role="group" data-toggle="buttons">
+      <!-- <div class="btn-group" role="group" data-toggle="buttons"> -->
             @foreach($renderable->options as $option)
-              <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif">
+              <!-- <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif"> -->
+              <div class="checkbox">
+              <label>
                <input 
-                type="radio" 
-                name="{{$renderable->name}}" 
-                id="{{$renderable->name}}_{{$option->value}}" 
-                value="{{ $option->value }}"
-                {{($renderable->required) ? ' required' : ''}}
+                type="checkbox" 
+                name="{{$option->name}}" 
+                id="{{$option->name}}_{{$option->value}}" 
                 autocomplete="off"
-                @if($context['response']->{$renderable->name} == $option->value)
+                @if($context['response']->{$option->name} == $option->value)
                   checked="checked"
                 @endif
                 @if($option->show)
@@ -23,6 +23,7 @@
                />
                {{$option->label}}
              </label>
+             </div>
             @endforeach
-      </div>
+      <!-- </div> -->
 @endsection
