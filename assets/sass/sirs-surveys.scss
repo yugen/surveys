@@ -1,13 +1,48 @@
 .sirs-survey{
-  font-size: 16px;
+  // font-size: 16px;
 }
+
 .question-block{
-  margin: .75em 0;
-  border-bottom: solid 1px #eee;
+  position: relative;
+  // background: #fafafa;
+  margin: 0 0 0;
+  border-top: solid 1px #eee;
   padding: .75em 0;
 }
-.question-text{
+
+.question-block.sub-question{
+  margin-top: 0;
+  padding-left: 1em;
+  border-top: none;
 }
+
+label{
+  font-weight: normal;
+}
+
+.question-block.has-errors{
+  // @extend .alert;
+  // @extend .alert-danger;
+}
+
 .question-answers{
   margin: .5em auto
+}
+
+.error-block{
+  @extend .alert;
+  @extend .alert-danger;
+  font-size: 12px;
+  padding: .5em
+}
+.error-block>.error-list{
+}
+
+.question-block.vertical .btn-group{
+  @extend .btn-group-vertical;
+}
+
+.likert-container .question-text
+{
+  width: 475px;
 }
