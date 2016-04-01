@@ -21,6 +21,7 @@
 		<xs:complexType name="container">
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="question" type="question" />
+				<xs:element name="duration" type="duration" />
 				<xs:element name="number" type="number" />
 				<xs:element name="numeric-scale" type="numeric-scale" />
 				<xs:element name="date" type="date" />
