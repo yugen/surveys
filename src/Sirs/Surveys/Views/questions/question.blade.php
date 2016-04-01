@@ -6,13 +6,19 @@
   "
   id="{{$renderable->id or ''}}"
 >
-  @if($renderable->questionText)
-    <div class="question-text">{{$renderable->questionText}}</div>
-  @endif
-  <div class="row">
-    <div class="question-answers col-sm-9">
-      @yield('answers')
+  @if(preg_match('/form-inline/', $renderable->class))
+    <label>{{$renderable->questionText}}</label>
+    @yield('answers')
+    @include('error', ['question'=>$renderable])
+  @else
+    @if($renderable->questionText)
+      <div class="question-text">{{$renderable->questionText}}</div>
+    @endif
+    <div class="row">
+      <div class="question-answers col-sm-9">
+        @yield('answers')
+      </div>
+      <div class="col-sm-3">@include('error', ['question'=>$renderable])</div>
     </div>
-    <div class="col-sm-3">@include('error', ['question'=>$renderable])</div>
-  </div>
+  @endif
 </div>  
