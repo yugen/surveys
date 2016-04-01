@@ -70,7 +70,7 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
    **/
   public function getTitle()
   {
-    return $this->title;
+    return ($this->title) ? $this->title : ucwords(str_replace('_', ' ', $this->name));
   }
 
   /**

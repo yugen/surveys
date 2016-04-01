@@ -10,9 +10,16 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
 {
   use HasOptionsTrait;
 
+  public function __construct($xml = null)
+  {
+    parent::__construct($xml);
+    $this->defaultTemplate = 'containers.likert.btn_group_likert';
+  }
+
 
   public function parse(){
     $this->setPrompt($this->xmlElement->prompt);
+    $this->parseOptions();
     parent::parse();
   }
 

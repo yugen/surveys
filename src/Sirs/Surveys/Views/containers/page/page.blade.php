@@ -8,7 +8,7 @@
       <h4>
         {{ucwords($context['survey']['name'])}}
         v.{{$context['survey']['version']}}
-        - {{$renderable->name}}
+        - {{$renderable->title}}
       </h4>
     </div>
     <div class="panel-body">

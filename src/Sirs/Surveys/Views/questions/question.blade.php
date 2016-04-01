@@ -13,6 +13,6 @@
     <div class="question-answers col-sm-9">
       @yield('answers')
     </div>
-    <div class="col-sm-3">@include('error')</div>
+    <div class="col-sm-3">@include('error', ['question'=>$renderable])</div>
   </div>
 </div>  

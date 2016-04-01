@@ -1,7 +1,7 @@
-@if ( isset($context['errors']) && $context['errors']->has( $renderable->name ) )
-  <div class="error-block alert alert-danger pull-right">
+@if ( isset($context['errors']) && $context['errors']->has( $question->name ) )
+  <div class="error-block">
 		<ul class="error-list list-unstyled">
-		@foreach( $context['errors']->get( $renderable->name ) as $error )
+		@foreach( $context['errors']->get( $question->name ) as $error )
 			<li>{{$error}}</li>
 		@endforeach
 		</ul>

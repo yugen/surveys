@@ -18,7 +18,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     {
         parent::__construct($xml);
         $this->defaultSingleTemplate = 'questions/multiple_choice/radio_group';
-        $this->defaultMultiTemplate = 'questions/multiple_choice/checkbox_group.blade.php';
+        $this->defaultMultiTemplate = 'questions/multiple_choice/checkbox_group';
         $this->defaultTemplate = $this->defaultSingleTemplate;
         $this->defaultDataFormat = 'int';
     }
@@ -61,5 +61,14 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         'options'=>$this->getOptions(),
       ];
     }
+
+    // protected function getValidationRules()
+    // {
+    //     $rules = parent::getValidationRules();
+    //     if(in_array('required', $rules) && $this->numSelectable > 1){
+               
+    //     }
+    // }
+
 
 }

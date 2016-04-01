@@ -46,7 +46,7 @@ class OptionBlock extends RenderableBlock
 
   public function getLabel()
   {
-    return $this->label;
+    return ($this->label != '') ? $this->label : $this->value;
   }
 
   public function setValue($value)

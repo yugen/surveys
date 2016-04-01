@@ -33,6 +33,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
     $this->setName($this->getAttribute($this->xmlElement, 'name'));
     // foreach children do the right thing
     $this->setContents($this->parseContents());
+    parent::parse();
     return $this;
   }
 
@@ -45,10 +46,6 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
       }
     }   
     return $children;
-  }
-
-  function getQuestions(){
-    return [];
   }
 
   /**
