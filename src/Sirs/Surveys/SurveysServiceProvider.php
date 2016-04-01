@@ -2,6 +2,7 @@
 namespace Sirs\Surveys;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
 use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
@@ -25,6 +26,27 @@ class SurveysServiceProvider extends ServiceProvider {
     $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');
     $this->publishes([ __DIR__.'/../../../assets/sass/'=> base_path('/resources/assets/sass')], 'sass');
     $this->publishes([ __DIR__.'/../../../assets/js/'=> public_path('/js')], 'js');
+
+
+    // custom validators for numbers
+    Validator::extend('intMin', function($attribute, $value, $parameters, $validator) {
+      return ((int)$value >= (int)$parameters[0]);
+    });
+    Validator::replacer('intMin', function($message, $attribute, $rule, $parameters) {
+      if($message == 'validation.int_min'){
+        $message = 'Must be at least :min';
+      }
+      return str_replace(':min', $parameters[0], 'Must be at least than :min');
+    });
+    Validator::extend('intMax', function($attribute, $value, $parameters, $validator) {
+      return ((int)$value <= (int)$parameters[0]);
+    });
+    Validator::replacer('intMax', function($message, $attribute, $rule, $parameters) {
+      if($message == 'validation.int_max'){
+        $message = 'Must be at less than or equal to :max';
+      }
+      return str_replace(':max', $parameters[0], $message);
+    });
 
     // register observers:
     Response::observe(new SurveyResponseObserver);    
