@@ -27,10 +27,10 @@ class NumberQuestion extends BoundedQuestion
     protected function getValidationRules()
     {   
         $validations = parent::getValidationRules();
-        if( (int)$this->min !== null){
+        if( $this->min !== null){
             $validations[] = 'intMin:'.$this->min;
         }
-        if( (int)$this->max !== null){
+        if( $this->max !== null){
             $validations[] = 'intMax:'.$this->max;
         }
 
