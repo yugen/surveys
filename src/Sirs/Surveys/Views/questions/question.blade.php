@@ -9,7 +9,7 @@
   @if(preg_match('/form-inline/', $renderable->class))
     <label>{{$renderable->questionText}}</label>
     @yield('answers')
-    @include('error', ['question'=>$renderable])
+    <div class="pull-left col-sm-3">@include('error', ['question'=>$renderable])</div>
   @else
     @if($renderable->questionText)
       <div class="question-text">{{$renderable->questionText}}</div>
