@@ -22,6 +22,7 @@
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="question" type="question" />
 				<xs:element name="number" type="number" />
+				<xs:element name="numeric-scale" type="numeric-scale" />
 				<xs:element name="date" type="date" />
 				<xs:element name="time" type="time" />
 				<xs:element name="upload" type="upload" />
@@ -111,6 +112,28 @@
 			  </xs:complexContent>
 			</xs:complexType>
 
+			<!-- numeric scale inputs -->
+			<xs:complexType name="numeric-scale">
+			  <xs:complexContent>
+			    <xs:extension base="number">
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="legend" type="legend" maxOccurs="1"/>
+							</xs:choice>
+							<xs:attribute name="interval" type="xs:decimal" />
+			    </xs:extension>
+			  </xs:complexContent>
+			</xs:complexType>
+
+			<!-- duration input -->
+			<xs:complexType name="duration">
+				<xs:complexContent>
+					<xs:extension base="number">
+						<xs:attribute name="unit" type="time-unit"></xs:attribute>
+						<xs:attribute name="precision" type="time-unit"></xs:attribute>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
 			<!-- time inputs -->
 			<xs:complexType name="time">
 			  <xs:complexContent>
@@ -137,6 +160,24 @@
 		<!-- template -->
 		<xs:complexType name="template">
 			<xs:attribute name="source" type="xs:string" />
+		</xs:complexType>
+
+		<!-- legend for a numeric-scale question -->
+		<xs:complexType name="legend">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="item" type="item"></xs:element>
+			</xs:choice>
+		</xs:complexType>
+
+		<!-- item for a legend -->
+		<xs:complexType name="item">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="label" type="xs:string" />
+				<xs:element name="value" type="xs:string" />
+			</xs:choice>
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="class" type="xs:string"/>
 		</xs:complexType>
 
 		<!-- data-format -->
@@ -169,6 +210,20 @@
 				<xs:enumeration value="time" />
 				<xs:enumeration value="timestamp" />
 				<xs:enumeration value="year" />
+			</xs:restriction>
+		</xs:simpleType>
+
+		<!-- time-unit -->
+		<xs:simpleType name="time-unit">
+			<xs:restriction base="xs:string">
+				<!-- <xs:enumeration value="millisecond" />
+				<xs:enumeration value="second" /> -->
+				<xs:enumeration value="minute" />
+				<xs:enumeration value="hour" />
+				<!-- <xs:enumeration value="day" />
+				<xs:enumeration value="week" />
+				<xs:enumeration value="month" />
+				<xs:enumeration value="year" /> -->
 			</xs:restriction>
 		</xs:simpleType>
 

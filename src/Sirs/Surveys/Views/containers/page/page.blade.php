@@ -1,3 +1,7 @@
+<!-- <?php 
+  print('<pre>');print_r($renderable->contents);print('</pre>');
+?>
+ -->
 @extends($chromeTemplate)
 
 @section('content')

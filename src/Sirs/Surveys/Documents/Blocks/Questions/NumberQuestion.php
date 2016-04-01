@@ -9,9 +9,9 @@ class NumberQuestion extends BoundedQuestion
 
     public function __construct($xml = null)
     {
-        $this->defaultTemplate = 'questions/number/default.blade.php';
-        $this->defaultDataFormat = 'int';
         parent::__construct($xml);
+        $this->defaultTemplate = 'questions.number.number';
+        $this->defaultDataFormat = 'int';
     }
 
     public function boundaryIsValid($bound)
@@ -21,7 +21,6 @@ class NumberQuestion extends BoundedQuestion
         }elseif(is_null($bound)){
             return true;
         }
-        dd($bound);
         return false;
     }
 

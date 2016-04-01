@@ -25,6 +25,8 @@ class BlockFactory
       case 'upload':
       case 'multiple-choice':
       case 'number':
+      case 'numeric-scale':
+      case 'duration':
       case 'question':
         $questionFactory = new QuestionFactory();
         $block = $questionFactory->create($element);
@@ -42,15 +44,17 @@ class BlockFactory
   function getWhitelist(){
     $whitelist = [
     'container',
-    'question-group',
-    'likert',
     'date',
-    'time',
-    'upload',
+    'duration',
+    'html',
+    'likert',
     'multiple-choice',
     'number',
+    'numeric-scale',
+    'question-group',
     'question',
-    'html'
+    'time',
+    'upload',
     ];
     return $whitelist;
   }

@@ -12,7 +12,7 @@ class DateQuestion extends BoundedQuestion
   public function __construct($xml = null)
   {
     parent::__construct($xml);
-    $this->defaultTemplate = 'questions/date/default.blade.php';
+    $this->defaultTemplate = 'questions.date.date';
     $this->defaultDataFormat = 'date';
   }
 
