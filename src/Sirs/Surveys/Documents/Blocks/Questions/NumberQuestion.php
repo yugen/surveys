@@ -17,7 +17,7 @@ class NumberQuestion extends BoundedQuestion
     public function boundaryIsValid($bound)
     {
         if( is_scalar($bound) ){
-            return (ctype_digit($bound) || preg_match('/^\d*\.?\d*$/'));
+            return (ctype_digit($bound) || preg_match('/^\d*\.?\d*$/', $bound));
         }elseif(is_null($bound)){
             return true;
         }
