@@ -11,7 +11,9 @@
   @if(method_exists($question, 'getMax') && $question->max)
   max="{{$question->max}}"
   @endif
-  
+  @if(isset($type) && $type == 'number')
+  step="any"
+  @endif
   {{($question->required) ? ' required' : ''}}
   value="{{$context['response']->{$question->name} or ''}}"
 />
