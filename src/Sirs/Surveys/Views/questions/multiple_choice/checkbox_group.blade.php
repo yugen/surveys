@@ -11,6 +11,7 @@
                 name="{{$option->name}}" 
                 id="{{$option->name}}_{{$option->value}}" 
                 autocomplete="off"
+                value="{{$option->value}}"
                 @if($context['response']->{$option->name} == $option->value)
                   checked="checked"
                 @endif
