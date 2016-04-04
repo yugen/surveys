@@ -26,7 +26,7 @@
                 
                 autocomplete="off"
                 @if($context['response']->{$renderable->name} == $option->value)
-                  checked="selected"
+                  selected="selected"
                 @endif
                 @if($option->show)
                   data-skipTarget="{{$option->show}}"
