@@ -101,7 +101,7 @@ class Survey extends Model implements SluggableInterface {
 		
 	}
 
-	public function getLatestResponse($respondentType, $respondentId, $responseId)
+	public function getLatestResponse($respondentType, $respondentId, $responseId = null)
 	{
 			$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
 
@@ -122,6 +122,7 @@ class Survey extends Model implements SluggableInterface {
 		      	$response->respondent_type = $respondentType;
 		      	$response->respondent_id = $respondentId;
 			    }
+			    $response->survey_id = $this->id;
 			}
       return $response;
 	}
