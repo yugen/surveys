@@ -3,7 +3,9 @@
   @if($renderable->id)id="{{$renderable->id}}"@endif
 >
   @if(preg_match('/form-inline/', $renderable->class))
-    <label>{{$renderable->questionText}}</label>
+    <label>  
+      {!! html_entity_decode($question->getCompiledQuestionText($context)); !!}
+    </label>
     @yield('answers')
     <div class="pull-right col-sm-3">@include('error', ['question'=>$renderable])</div>
   @else
