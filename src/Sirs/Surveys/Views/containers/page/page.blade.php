@@ -10,6 +10,10 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4>
+        <a href="{{route('participants.show', [$context['response']->respondent->id])}}">
+        {{$context['response']->respondent->full_name or 'Respondent:'.$context['response']->respondent->id}} 
+        </a>
+        - 
         {{ucwords($context['survey']['name'])}}
         v.{{$context['survey']['version']}}
         - {{$renderable->title}}
