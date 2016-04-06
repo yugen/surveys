@@ -15,7 +15,7 @@
         id="{{$question->id or ''}}"
       >
         <td class="question-col question-text">
-          {{$question->questionText}}
+          {!! html_entity_decode($question->getCompiledQuestionText($context)); !!}
           <div>@include('error', ['question'=>$question])</div>
         </td>
         <td class="option-col">
