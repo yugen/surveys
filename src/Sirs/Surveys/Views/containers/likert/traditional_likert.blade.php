@@ -11,7 +11,7 @@
       @foreach($renderable->questions as $question)
       <tr class="likert-question">
         <td class="question-col question-text">
-          {{$question->questionText}}
+          {!! html_entity_decode($question->getCompiledQuestionText()) !!}
         </td>
         @foreach($renderable->options as $option)
         <td class="option-col">
