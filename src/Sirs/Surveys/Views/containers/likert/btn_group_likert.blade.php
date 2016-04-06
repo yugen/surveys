@@ -4,7 +4,7 @@
   <table class="table table-striped">
     <thead>
       <th class="likert-prompt" colspan="3">
-        {!! html_entity_decode($renderable->prompt !!}
+        {!! html_entity_decode($renderable->prompt) !!}
       </th>
     </thead>
     <tbody>
