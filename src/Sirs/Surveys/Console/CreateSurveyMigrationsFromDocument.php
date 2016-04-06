@@ -96,29 +96,40 @@ class CreateSurveyMigrationsFromDocument extends Command
 
     public function setMigrationDataType( $dataFormat ) 
     {
-        
-        switch( $dataFormat ) {
-            case 'time':
-                $return = 'time';
-                break;
-            case 'date':
-                $return = 'date';
-                break;
-            case 'number':
-            case 'int':
-                $return = 'integer';
-                break;
-            case 'text':
-                $return = 'text';
-                break;
-            case 'varchar':
-            case 'char':
-            default:
-                $return = 'string';
-                break;
+        $mysqlToLaravelTypeMap = [
+            'tinyint'=>'tinyInteger',
+            'smallint'=>'smallInteger',
+            'mediumint'=>'mediumInteger',
+            'int'=>'integer',
+            'bigint'=>'bigInteger',
+            'float'=>'float',
+            'double'=>'double',
+            'decimal'=>'decimal',
+            'bit'=>'bit',
+            'char'=>'char',
+            'varchar'=>'string',
+            'tinytext'=>'string',
+            'text'=>'text',
+            'mediumtext'=>'mediumText',
+            'longtext'=>'longText',
+            'binary'=>'binary',
+            'varbinary'=>'binary',
+            'tinyblob'=>'text',
+            'blob'=>'text',
+            'longblob'=>'longText',
+            'enum'=>'enum',
+            'set'=>'enum',
+            'date'=>'date',
+            'datetime'=>'datetime',
+            'time'=>'time',
+            'timestamp'=>'timestamp',
+            'year'=>'date',
+        ];        
+        if( isset($mysqlToLaravelTypeMap[$dataFormat]) ){
+            return $mysqlToLaravelTypeMap[$dataFormat];
+        }else{
+            throw new \Exception($dataFormat.' not found in available data formats');
         }
-        return $return;
-
     }
 
     public function formatTableName( $name, $version ) 
