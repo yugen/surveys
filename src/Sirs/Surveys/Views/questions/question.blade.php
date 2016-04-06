@@ -4,7 +4,7 @@
 >
   @if(preg_match('/form-inline/', $renderable->class))
     <label>  
-      {!! html_entity_decode($renderable->getCompiledQuestionText()); !!}
+      {!! html_entity_decode($renderable->getCompiledQuestionText($context)); !!}
     </label>
     @yield('answers')
     <div class="pull-right col-sm-3">@include('error', ['question'=>$renderable])</div>
