@@ -5,7 +5,9 @@
   @endif
 >
   @if($renderable->questionText)
-  <label class="question-text">{{$renderable->questionText}}</label>
+  <label class="question-text">
+    {!! html_entity_decode($question->getCompiledQuestionText($context)); !!}
+  </label>
   @endif
   <input 
     type="text" 

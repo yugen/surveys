@@ -36,7 +36,7 @@ class SurveysServiceProvider extends ServiceProvider {
       if($message == 'validation.int_min'){
         $message = 'Must be at least :min';
       }
-      return str_replace(':min', $parameters[0], 'Must be at least than :min');
+      return str_replace(':min', $parameters[0], 'Must be greater than or equal to :min');
     });
     Validator::extend('intMax', function($attribute, $value, $parameters, $validator) {
       return ((int)$value <= (int)$parameters[0]);

@@ -99,6 +99,11 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     return $this->questionText;
   }
 
+  function getCompiledQuestionText($context)
+  {
+    return $this->bladeCompile($this->questionText, $context);
+  }
+
   public function setShow($show)
   {
     $this->show = $show;

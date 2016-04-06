@@ -8,7 +8,7 @@
     <div class="pull-right col-sm-3">@include('error', ['question'=>$renderable])</div>
   @else
     @if($renderable->questionText)
-      <div class="question-text">{{$renderable->questionText}}</div>
+      @include('questions.question_text', ['question'=>$renderable])
     @endif
     <div class="row">
       <div class="question-answers col-sm-9">
