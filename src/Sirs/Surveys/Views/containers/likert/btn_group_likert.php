@@ -5,7 +5,7 @@
       @foreach($renderable->questions as $question)
       <tr class="likert-question">
         <td class="question-col question-text">
-          {!! html_entity_decode($question->getCompiledQuestionText()) !!}
+          {!! html_entity_decode($question->getCompiledQuestionText($context)) !!}
         </td>
         <td class="option-col">
         <div class="btn-group" role="group">
