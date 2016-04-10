@@ -47,8 +47,22 @@
 <script>
   $(document).ready(function(){
     $('[data-skipTarget]').skipTrigger();
-    $('.mutually-exclusive').mutuallyExclusive().on('mutuallyExclusive:changed', function(evt, excl, others){
-    })
+    $('.mutually-exclusive').mutuallyExclusive();
+    $('.datepicker').datepicker({
+      format: {
+          toDisplay: function (date, format, language) {
+              return moment(date).format('MM/DD/YYYY');
+          },
+          toValue: function (date, format, language) {
+            return new Date(date);
+          }
+      },
+      autoclose: true
+    });
+    $('.timepicker').timepicker({
+      minTime: '5:00am',
+      maxTime: '7:00pm'
+    });
 
   })
 </script>
