@@ -11,9 +11,9 @@ class TimeQuestion extends BoundedQuestion
 
     public function __construct($xml = null)
     {
-        $this->defaultTemplate = 'questions/time/default.blade.php';
-        $this->defaultDataFormat = 'time';
         parent::__construct($xml);
+        $this->defaultTemplate = 'questions.time.time';
+        $this->defaultDataFormat = 'time';
     }
 
       public function boundaryIsValid($boundary)
