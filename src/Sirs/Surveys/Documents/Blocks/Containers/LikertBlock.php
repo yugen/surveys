@@ -4,11 +4,14 @@ namespace Sirs\Surveys\Documents\Blocks\Containers;
 
 use Sirs\Surveys\Contracts\HasOptionsInterface;
 use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
+use Sirs\Surveys\Documents\Blocks\OptionBlock;
 use Sirs\Surveys\HasOptionsTrait;
 
 class LikertBlock extends ContainerBlock implements HasOptionsInterface
 {
   use HasOptionsTrait;
+
+  protected $refusable;
 
   public function __construct($xml = null)
   {
@@ -20,6 +23,7 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
   public function parse(){
     $this->setPrompt($this->xmlElement->prompt);
     $this->parseOptions();
+    $this->setRefusable($this->getAttribute($this->xmlElement, 'refusable'));
     parent::parse();
   }
 
@@ -32,6 +36,23 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
   public function getPrompt()
   {
       return $this->prompt;
+  }
+
+  public function setRefusable($value)
+  {
+    $this->refusable = ($value) ? true : false;
+    if( $this->refusable ){
+      $refusedOption = new OptionBlock('refused');
+      $refusedOption->setValue(-77);
+      $refusedOption->setLabel('Refused');
+      $this->appendOption($refusedOption);
+    }
+    return $this;
+  }
+
+  public function getRefusable()
+  {
+    return ($this->refusable) ? true : false;
   }
 
 }

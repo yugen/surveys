@@ -47,6 +47,9 @@
 <script>
   $(document).ready(function(){
     $('[data-skipTarget]').skipTrigger();
+    $('.mutually-exclusive').mutuallyExclusive().on('mutuallyExclusive:changed', function(evt, excl, others){
+    })
+
   })
 </script>
 @endpush

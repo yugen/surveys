@@ -1,3 +1,6 @@
+@if($question->refusable)
+@include('questions.refusable_input', ['question'=>$question])
+@else
 <input 
   type="{{$type or 'text'}}" 
   name="{{$question->name}}" 
@@ -17,3 +20,4 @@
   {{($question->required) ? ' required' : ''}}
   value="{{$context['response']->{$question->name} or ''}}"
 />
+@endif

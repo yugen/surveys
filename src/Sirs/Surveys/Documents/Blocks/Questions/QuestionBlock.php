@@ -16,6 +16,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $validations = [];
   protected $show = null;
   protected $hide = null;
+  protected $refusable = null;
 
   public function __construct($xml = null)
   {
@@ -35,6 +36,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setPlaceholder($this->getAttribute($this->xmlElement, 'placeholder'));
     $this->setShow($this->getAttribute($this->xmlElement, 'show'));
     $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
+    $this->setRefusable($this->getAttribute($this->xmlElement, 'refusable'));
   }
 
   /**
@@ -159,6 +161,17 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getPlaceholder()
     {
       return $this->placeholder;
+    }
+
+    public function setRefusable($value)
+    {
+      $this->refusable = ($value) ? true : false;
+      return $this;
+    }
+
+    public function getRefusable()
+    {
+      return ($this->refusable) ? true : false;
     }
 
     protected function getValidationRules()

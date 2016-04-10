@@ -3,6 +3,7 @@
 namespace Sirs\Surveys\Documents\Blocks\Questions;
 
 use Sirs\Surveys\Contracts\HasOptionsInterface;
+use Sirs\Surveys\Documents\Blocks\OptionBlock;
 use Sirs\Surveys\HasOptionsTrait;
 
 class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterface
@@ -25,9 +26,9 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 
     public function parse()
     {
-        parent::parse();
         $this->parseOptions();
         $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
+        parent::parse();
     }
 
     public function setNumSelectable($number = null)
@@ -62,13 +63,15 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
       ];
     }
 
-    // protected function getValidationRules()
-    // {
-    //     $rules = parent::getValidationRules();
-    //     if(in_array('required', $rules) && $this->numSelectable > 1){
-               
-    //     }
-    // }
-
-
+    public function setRefusable($value)
+    {
+      $this->refusable = ($value) ? true : false;
+      if( $this->refusable ){
+        $refusedOption = new OptionBlock('refused');
+        $refusedOption->setValue(-77);
+        $refusedOption->setLabel('Refused');
+        $this->appendOption($refusedOption);
+      }
+      return $this;
+    }
 }

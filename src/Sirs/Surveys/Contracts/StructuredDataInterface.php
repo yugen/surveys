@@ -70,4 +70,7 @@ interface StructuredDataInterface
    * @author 
    **/
   public function getValidationString();
+
+  public function setRefusable($value);
+  public function getRefusable();
 } // END interface StructuredData

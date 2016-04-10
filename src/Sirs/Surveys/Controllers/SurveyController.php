@@ -119,6 +119,11 @@ class SurveyController extends BaseController
 
         $surveydoc = $survey->getSurveyDocument();
         $page = $surveydoc->getPage($request->input('page'));
+        $pageQuestions = collect($page->getQuestions());
+        $questionNames = [];
+        foreach( $pageQuestions as $q ){
+            $questionNames[] = $q->name;
+        }
         if( ctype_digit($request->input('page')) ){
             $pageIdx = (int)$page-1;
         }else{
@@ -127,7 +132,9 @@ class SurveyController extends BaseController
 
 
         foreach ($data as $key => $value) {
-            $response->$key = $value;
+            if( in_array($key, $questionNames) ){
+                $response->$key = $value;
+            }
         }
         $response->survey_id = $survey->id;
         $response->respondent_type = get_class($respondent);

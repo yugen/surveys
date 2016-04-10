@@ -69,6 +69,7 @@
 				<xs:attribute name="class" type="xs:string" />
 				<xs:attribute name="placeholder" type="xs:string" />
 				<xs:attribute name="hidden" type="xs:boolean" />
+				<xs:attribute name="refusable" type="xs:boolean" />
 				<xs:attribute name="data-format" type="data-format" />
 		</xs:complexType>
 
@@ -154,6 +155,7 @@
 						<xs:element name="prompt" type="xs:string" maxOccurs="1"/>
 						<xs:element name="options" type="options"/>
 					</xs:choice>
+					<xs:attribute name="refusable" type="xs:boolean" />
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
