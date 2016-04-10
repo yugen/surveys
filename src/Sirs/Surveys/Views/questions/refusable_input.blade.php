@@ -17,11 +17,17 @@
       step="any"
       @endif
       {{($question->required) ? ' required' : ''}}
+      @if($context['response']->{$question->name} && $context['response']->{$question->name} != -77)
       value="{{$context['response']->{$question->name} or ''}}"
+      @else
+      value=""
+      @endif
     />
     <div class="checkbox">
         <label>
-            <input id="beans" type="checkbox" name="{{$question->name}}_refused" class="exclusive" />
+            <input id="beans" type="checkbox" name="{{$question->name}}_refused" class="exclusive" 
+              @if($context['response']->{$question->name} == -77) checked @endif
+            />
             Refused
         </label>
     </div>
