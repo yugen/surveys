@@ -33,6 +33,13 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
             $option->setValue($num);
             $this->appendOption($option);
       }
+      // if( $this->refusable ){
+      //   $refusable = new OptionBlock('refused');
+      //   $refusable->setLabel('Refused');
+      //   $refusable->setValue(-77);
+      //   $refusable->setClass('hidden');
+      //   $this->appendOption($refusable);
+      // }
     }
 
     public function setInterval($interval)

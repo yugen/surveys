@@ -1,7 +1,10 @@
 <div class="btn-group" role="group" data-toggle="buttons">
   @foreach($question->options as $option)
     <label 
-      class="btn btn-default @if(!is_null($context['response']->{$question->name}) && $context['response']->{$question->name} == $option->value)active @endif"
+      id="{{$question->name}}-{{$option->name}}-label"
+      class="btn btn-default @if(!is_null($context['response']->{$question->name}) && $context['response']->{$question->name} == $option->value)active @endif
+        @if($option->class){{$option->class}}@endif
+      "
       @if(isset($fixedWidth))
         style="min-width: {{$fixedWidth/count($question->options)}}px"
       @endif

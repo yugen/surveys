@@ -34,7 +34,6 @@
     <script>
       document.querySelector('[name="{{$question->name}}_field"]').addEventListener('change', function(evt){
         document.querySelector('[name={{$question->name}}]').value = event.target.value;
-        console.log(document.querySelector('[name={{$question->name}}]').value);
       });
       document.querySelector('[name="{{$question->name}}_refused"]').addEventListener('change', function(evt){
         if(event.target.checked){
@@ -42,10 +41,6 @@
         }else{
           document.querySelector('[name={{$question->name}}]').value = null;  
         }
-        console.log(document.querySelector('[name={{$question->name}}]').value);
       });
-      document.querySelector('[name={{$question->name}}]').addEventListener('change', function(evt){
-        console.log('hidden value: '+evt.target.value);
-      })
     </script>
 </div>
