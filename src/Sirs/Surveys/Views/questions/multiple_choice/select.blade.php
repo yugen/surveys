@@ -11,34 +11,7 @@
   @endif
   <div class="row">
     <div class="question-answers col-sm-9">
-      <select name="{{$renderable->name}}" id="{{$renderable->id}}"
-        class=" form-control
-        @if($renderable->class)
-          {{$renderable->class}}
-        @endif
-        "
-        {{($renderable->required) ? ' required' : ''}}
-      >
-            @foreach($renderable->options as $option)
-              <option 
-                id="{{$renderable->name}}_{{$option->value}}" 
-                value="{{ $option->value }}"
-                
-                autocomplete="off"
-                @if($context['response']->{$renderable->name} == $option->value)
-                  selected="selected"
-                @endif
-                @if($option->show)
-                  data-skipTarget="{{$option->show}}"
-                @endif
-                @if($option->hide)
-                  data-hide="{{$option->hide}}"
-                @endif
-               />
-               {{$option->label}}
-             </option>
-            @endforeach
-      </select> 
+      @include('questions.multiple_choice.select_input', ['question'=>$renderable, 'context'=>$context])
     </div>
     <div class="col-sm-3">@include('error', ['question'=>$renderable])</div>
   </div>
