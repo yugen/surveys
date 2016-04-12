@@ -63,4 +63,10 @@ interface ContainerInterface extends RenderableInterface
    **/
   public function getQuestions();
 
+  /**
+   * gets all variable names for questions in a container
+   * @return array
+   */
+  public function getVariables();
+
 } // END interface Container extends RenderableBlock

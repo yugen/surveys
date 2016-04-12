@@ -71,6 +71,16 @@ interface StructuredDataInterface
    **/
   public function getValidationString();
 
+  /**
+   * gets the name of variabls for the structured data implementation.
+   * Should typically return an array with the question name.
+   * For multi-select multiple-choice questions it will return the name for each option.
+   * 
+   * @return array list of variable names.
+   */
+  public function getVariables();
+
   public function setRefusable($value);
+
   public function getRefusable();
 } // END interface StructuredData

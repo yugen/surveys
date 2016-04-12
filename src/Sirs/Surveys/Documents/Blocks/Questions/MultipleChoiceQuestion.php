@@ -5,6 +5,7 @@ namespace Sirs\Surveys\Documents\Blocks\Questions;
 use Sirs\Surveys\Contracts\HasOptionsInterface;
 use Sirs\Surveys\Documents\Blocks\OptionBlock;
 use Sirs\Surveys\HasOptionsTrait;
+use Sirs\Surveys\Variable;
 
 class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterface
 {
@@ -18,8 +19,8 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function __construct($xml = null)
     {
         parent::__construct($xml);
-        $this->defaultSingleTemplate = 'questions/multiple_choice/radio_group';
-        $this->defaultMultiTemplate = 'questions/multiple_choice/checkbox_group';
+        $this->defaultSingleTemplate = 'questions.multiple_choice.radio_group';
+        $this->defaultMultiTemplate = 'questions.multiple_choice.checkbox_group';
         $this->defaultTemplate = $this->defaultSingleTemplate;
         $this->defaultDataFormat = 'int';
     }
@@ -73,5 +74,21 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         $this->appendOption($refusedOption);
       }
       return $this;
+    }
+
+    /**
+     * overrides parent if numSelectable !== 1 to return all option names.
+     * @return array
+     */
+    public function getVariables()
+    {
+      if( $this->numSelectable == 1 ){
+        return parent::getVariables();
+      }
+      $varNames = [];
+      foreach( $this->getOptions() as $idx => $option ){
+        $varNames[] = new Variable($option->getName(), 'tinyint');
+      }
+      return $varNames;
     }
 }

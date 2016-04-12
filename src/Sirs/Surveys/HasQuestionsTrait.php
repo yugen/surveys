@@ -16,4 +16,20 @@ trait HasQuestionsTrait{
     return $questions;
   }
 
+  /**
+   * gets variable names for all questions in this container
+   *
+   * @return array
+   **/
+  public function getVariables()
+  {
+    $varNames = [];
+    foreach( $this->getQuestions() as $question ){
+      $varNames = array_merge($varNames, $question->getVariables());
+    }
+    return $varNames;
+  }
+
+
+
 }

@@ -67,7 +67,7 @@ class CreateSurveyMigrationsFromDocument extends Command
     {
         $str = $this->getDefaultText();
 
-        $questions = $this->survey->getQuestions();
+        $questions = $this->survey->getVariables();
         
         $str = str_replace('DummyTable', $this->formatTableName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
@@ -87,7 +87,7 @@ class CreateSurveyMigrationsFromDocument extends Command
         $strQuestions = '';
         foreach( $questions as $question ) {
             $strQuestions .= "\n" . '$table->'.$this->setMigrationDataType($question->dataFormat)
-                ."('".$question->variableName."')->nullable();";
+                ."('".$question->name."')->nullable();";
         }
         $str = str_replace('INSERTSURVEY', $strQuestions, $str);
         

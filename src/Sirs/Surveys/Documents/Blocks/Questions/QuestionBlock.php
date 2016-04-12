@@ -4,6 +4,7 @@ namespace Sirs\Surveys\Documents\Blocks\Questions;
 
 use Sirs\Surveys\Contracts\StructuredDataInterface;
 use Sirs\Surveys\Documents\Blocks\RenderableBlock;
+use Sirs\Surveys\Variable;
 
 class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 {
@@ -208,4 +209,11 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     {
       return implode('|', $this->getValidationRules());
     }
+
+    public function getVariables()
+    {
+      return [new Variable($this->variableName, $this->getDataFormat())];
+    }
+
+
 }
