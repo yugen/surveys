@@ -27,6 +27,7 @@ class NumberQuestion extends BoundedQuestion
     protected function getValidationRules()
     {   
         $validations = parent::getValidationRules();
+        $validations[] = 'numeric';
         if( $this->min !== null){
             if( $this->refusable ){
                 $validations[] = 'refusableIntMin:'.$this->min;

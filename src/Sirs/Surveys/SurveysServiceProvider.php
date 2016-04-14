@@ -2,6 +2,7 @@
 namespace Sirs\Surveys;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
@@ -29,6 +30,12 @@ class SurveysServiceProvider extends ServiceProvider {
 
 
     // custom validators for numbers
+    Validator::replacer('intMin', function($message, $attribute, $rule, $parameters) {
+      if($message == 'validation.int_min'){
+        $message = 'Must be at least :min';
+      }
+      return str_replace(':min', $parameters[0], 'Must be greater than or equal to :min');
+    });
     Validator::extend('intMin', function($attribute, $value, $parameters, $validator) {
       return ((int)$value >= (int)$parameters[0]);
     });
