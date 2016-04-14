@@ -18,6 +18,6 @@
   step="any"
   @endif
   {{($question->required) ? ' required' : ''}}
-  value="{{$context['response']->{$question->name} or ''}}"
+  value="{{($context['response']->{$question->name} !== null) ? (string)$context['response']->{$question->name} : ''}}"
 />
 @endif

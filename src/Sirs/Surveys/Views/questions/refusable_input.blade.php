@@ -17,8 +17,8 @@
       step="any"
       @endif
       {{($question->required) ? ' required' : ''}}
-      @if($context['response']->{$question->name} && $context['response']->{$question->name} != -77)
-      value="{{$context['response']->{$question->name} or ''}}"
+      @if($context['response']->{$question->name} !== null && $context['response']->{$question->name} != -77)
+      value="{{($context['response']->{$question->name} !== null) ? (string)$context['response']->{$question->name} : ''}}"
       @else
       value=""
       @endif
