@@ -2,7 +2,7 @@
 @section('answers')
   <div class="input-group">
       
-    <input type="number" id="{{$renderable->name}}_hours" 
+    <input type="text" id="{{$renderable->name}}_hours" 
       class="form-control"
       @if(method_exists($renderable, 'getMin') && $renderable->min)
       min="{{$renderable->min / 60}}"
@@ -11,12 +11,12 @@
       max="{{floor($renderable->max / 60)}}"
     @endif
     {{($renderable->required) ? ' required' : ''}}
-     @if($context['response']->{$renderable->name} != -77 )
+     @if($context['response']->{$renderable->name} != -77 && !empty($context['response']->{$renderable->name}) )
         value="{{  isset($context['response']->{$renderable->name}) ? (floor($context['response']->{$renderable->name}/60)) : '' }}"
       @endif
     />
     <span class="input-group-addon" >hours</span>
-    <input type="number"  id="{{$renderable->name}}_minutes" 
+    <input type="text"  id="{{$renderable->name}}_minutes" 
       class="form-control"
       @if(method_exists($renderable, 'getMin') && $renderable->min)
       min="{{$renderable->min % 60}}"
@@ -25,7 +25,7 @@
       max="{{59}}"
       @endif
       {{($renderable->required) ? ' required' : ''}}
-       @if($context['response']->{$renderable->name} != -77 )
+       @if($context['response']->{$renderable->name} != -77 && !empty($context['response']->{$renderable->name}) )
           value="{{ isset($context['response']->{$renderable->name}) ? ($context['response']->{$renderable->name} % 60) : '' }}"
         @endif
     />
