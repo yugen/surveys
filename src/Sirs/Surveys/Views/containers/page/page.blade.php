@@ -48,18 +48,6 @@
   $(document).ready(function(){
     $('[data-skipTarget]').skipTrigger();
     $('.mutually-exclusive').mutuallyExclusive();
-    // $('.datepicker').datepicker({
-    //   format: {
-    //       toDisplay: function (date, format, language) {
-    //           return moment(date).format('MM/DD/YYYY');
-    //       },
-    //       toValue: function (date, format, language) {
-    //         return new Date(date);
-    //       }
-    //   },
-    //   autoclose: true
-    // });
-
     $('.sm_datepicker').datepicker({
         format: "mm/dd/yyyy"
     });
