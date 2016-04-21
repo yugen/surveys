@@ -25,19 +25,20 @@ class SurveyResponseObserver
 
   public function saving(Response $surveyResponse){
     // set the started_at
-    $surveyResponse->started_at = new Carbon();
+    if( is_null($surveyResponse->started_at) ){
+      $surveyResponse->started_at = new Carbon();
+    }
     
   }
 
   public function saved(Response $surveyResponse){
     Event::fire(new SurveyResponseSaved($surveyResponse));
-  }
 
-  public function updated(Response $surveyResponse){
     // fire started at event
     if( $surveyResponse->isDirty('started_at') && !is_null($surveyResponse->started_at) ){
       Event::fire(new SurveyResponseStarted($surveyResponse));
     }
+
     // fire finalized event or reopened event
     if( $surveyResponse->isDirty('finalized_at')){
       if( !is_null($surveyResponse->finalized_at) ){
@@ -46,6 +47,9 @@ class SurveyResponseObserver
         Event::fire(new SurveyResponseReopened($surveyResponse));
       }
     }
+  }
+
+  public function updated(Response $surveyResponse){
   }
 } // END class ParticipantObserver
 
