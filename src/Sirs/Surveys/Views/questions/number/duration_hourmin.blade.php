@@ -10,8 +10,8 @@
         max="{{floor($renderable->max / 60)}}"
       @endif
       {{($renderable->required) ? ' required' : ''}}
-      @if($context['response']->{$renderable->name} != -77 && !empty($context['response']->{$renderable->name}))
-        value="{{  isset($context['response']->{$renderable->name}) ? (floor($context['response']->{$renderable->name}/60)) : '' }}"
+      @if($context['response']->{$renderable->name} != -77 && $context['response']->{$renderable->name} !== null)
+        value="{{($context['response']->{$renderable->name} !== null) ? (floor($context['response']->{$renderable->name}/60)) : '' }}"
       @endif
     />
     <span class="input-group-addon">hours</span>
@@ -24,8 +24,8 @@
       max="{{59}}"
       @endif
       {{($renderable->required) ? ' required' : ''}}
-       @if($context['response']->{$renderable->name} != -77 && !empty($context['response']->{$renderable->name}) )
-          value="{{ isset($context['response']->{$renderable->name}) ? ($context['response']->{$renderable->name} % 60) : '' }}"
+       @if($context['response']->{$renderable->name} != -77 && $context['response']->{$renderable->name} !== null) )
+          value="{{ ($context['response']->{$renderable->name} !== null) ? ($context['response']->{$renderable->name} % 60) : '' }}"
         @endif
     />
     <span class="input-group-addon">minutes</span>

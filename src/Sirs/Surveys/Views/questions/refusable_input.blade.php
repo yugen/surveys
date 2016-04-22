@@ -1,5 +1,5 @@
 <input type="hidden" name="{{$question->name}}" value="{{$context['response']->{$question->name} or ''}}"></input>
-<div class="mutually-exclusive">
+<span class="mutually-exclusive">
     <input 
       type="{{$type or 'text'}}" 
       name="{{$question->name}}_field" 
@@ -43,4 +43,4 @@
         }
       });
     </script>
-</div>
+</span>
