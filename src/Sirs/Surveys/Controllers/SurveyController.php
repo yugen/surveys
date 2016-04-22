@@ -104,6 +104,7 @@ class SurveyController extends BaseController
 	 **/
     public function store(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
 
+
     	// instatiating objects
     	$data = $request->except(['_token', 'nav', 'page']);
         $respondent = $this->getRespondent($respondentType, $respondentId);
@@ -119,11 +120,7 @@ class SurveyController extends BaseController
 
         $surveydoc = $survey->getSurveyDocument();
         $page = $surveydoc->getPage($request->input('page'));
-        $pageVariables = collect($page->getVariables());
-
-        $pageVarNames = collect($page->getVariables())->transform(function($item){
-            return $item->name;
-        })->toArray();
+        $pageVariables = collect($page->getVariables())->keyBy('name');
 
         if( ctype_digit($request->input('page')) ){
             $pageIdx = (int)$page-1;
@@ -132,10 +129,11 @@ class SurveyController extends BaseController
         }
 
         foreach ($data as $key => $value) {
-            if( in_array($key, $pageVarNames) ){
-                $response->$key = $value;
+            if( in_array($key, $pageVariables->keys()->all()) ){
+                $response->$key = ($value == '') ? null : $value;
             }
         }
+
         $dataKeys = array_keys($data);
         foreach( $pageVariables as $idx => $pageVar ){
             if(!in_array($pageVar->name, $dataKeys) && $pageVar->dataFormat == 'tinyint'){

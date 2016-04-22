@@ -36,14 +36,27 @@
   </div>
   @include('questions.input', ['question'=>$renderable, 'context'=>$context, 'type'=>'hidden'])
   <script>
-    document.getElementById('{{$renderable->name}}_hours').addEventListener('change', function(evt){
-      elem = document.getElementsByName('{{$renderable->name}}')[0];
-      elem.value = ((parseInt(document.getElementById('{{$renderable->name}}_hours').value) * 60) || 0) + (parseInt(document.getElementById('{{$renderable->name}}_minutes').value) ||0);
+    var hiddenInput = document.getElementsByName('{{$renderable->name}}')[0],
+        hoursInput = document.getElementById('{{$renderable->name}}_hours'),
+        minInput = document.getElementById('{{$renderable->name}}_minutes');
+    var setInput = function(){
+      console.log('duration: '+hoursInput.value+':'+minInput.value);
+      if (hoursInput.value != '' || minInput.value != '') {
+        console.log('calc hiddenInput value');
+        hiddenInput.value = ((parseInt(hoursInput.value) * 60) || 0) + (parseInt(minInput.value) || 0);
+      }else{
+        hiddenInput.value = null;
+      }
+      console.log('hiddenInput.value: '+hiddenInput.value);
+    }
+    hoursInput.addEventListener('change', function(evt){
+      console.log('hoursInput changed');
+      setInput();
     });
 
-    document.getElementById('{{$renderable->name}}_minutes').addEventListener('change', function(evt){
-        elem = document.getElementsByName('{{$renderable->name}}')[0];
-        elem.value = ((parseInt(document.getElementById('{{$renderable->name}}_hours').value) * 60) || 0) + (parseInt(document.getElementById('{{$renderable->name}}_minutes').value) ||0);
+    minInput.addEventListener('change', function(evt){
+      console.log('minInput changed');
+      setInput();
     });
   </script>
  @endsection
