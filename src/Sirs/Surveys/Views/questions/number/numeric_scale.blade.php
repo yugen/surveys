@@ -35,9 +35,11 @@
     </div>
   </div>
   <script>
-    document.getElementById('{{$renderable->name}}-refused').addEventListener('change', function(evt){
-      var label = document.querySelector('#{{$renderable->name}}-buttons label.active').classList.remove('active');
-    })
+    (function(){
+      document.getElementById('{{$renderable->name}}-refused').addEventListener('change', function(evt){
+        var label = document.querySelector('#{{$renderable->name}}-buttons label.active').classList.remove('active');
+      })
+    })()
   </script>
   @endif
 @endsection

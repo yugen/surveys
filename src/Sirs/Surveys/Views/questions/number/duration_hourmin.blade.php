@@ -36,27 +36,25 @@
   </div>
   @include('questions.input', ['question'=>$renderable, 'context'=>$context, 'type'=>'hidden'])
   <script>
-    var hiddenInput = document.getElementsByName('{{$renderable->name}}')[0],
-        hoursInput = document.getElementById('{{$renderable->name}}_hours'),
-        minInput = document.getElementById('{{$renderable->name}}_minutes');
-    var setInput = function(){
-      console.log('duration: '+hoursInput.value+':'+minInput.value);
-      if (hoursInput.value != '' || minInput.value != '') {
-        console.log('calc hiddenInput value');
-        hiddenInput.value = ((parseInt(hoursInput.value) * 60) || 0) + (parseInt(minInput.value) || 0);
-      }else{
-        hiddenInput.value = null;
+    // in a self-invoking function to constrain scope
+    (function(){
+      var hiddenInput = document.getElementsByName('{{$renderable->name}}')[0],
+          hoursInput = document.getElementById('{{$renderable->name}}_hours'),
+          minInput = document.getElementById('{{$renderable->name}}_minutes');
+      var setInput = function(){
+        if (hoursInput.value != '' || minInput.value != '') {
+          hiddenInput.value = ((parseInt(hoursInput.value) * 60) || 0) + (parseInt(minInput.value) || 0);
+        }else{
+          hiddenInput.value = null;
+        }
       }
-      console.log('hiddenInput.value: '+hiddenInput.value);
-    }
-    hoursInput.addEventListener('change', function(evt){
-      console.log('hoursInput changed');
-      setInput();
-    });
+      hoursInput.addEventListener('change', function(evt){
+        setInput();
+      });
 
-    minInput.addEventListener('change', function(evt){
-      console.log('minInput changed');
-      setInput();
-    });
+      minInput.addEventListener('change', function(evt){
+        setInput();
+      });
+    })()
   </script>
  @endsection

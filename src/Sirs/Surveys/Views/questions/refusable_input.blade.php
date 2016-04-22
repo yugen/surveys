@@ -32,15 +32,17 @@
         </label>
     </div>
     <script>
-      document.querySelector('[name="{{$question->name}}_field"]').addEventListener('change', function(evt){
-        document.querySelector('[name={{$question->name}}]').value = evt.target.value;
-      });
-      document.querySelector('[name="{{$question->name}}_refused"]').addEventListener('change', function(evt){
-        if(evt.target.checked){
-          document.querySelector('[name={{$question->name}}]').value = -77;  
-        }else{
-          document.querySelector('[name={{$question->name}}]').value = null;  
-        }
-      });
+      (function(){
+        document.querySelector('[name="{{$question->name}}_field"]').addEventListener('change', function(evt){
+          document.querySelector('[name={{$question->name}}]').value = evt.target.value;
+        });
+        document.querySelector('[name="{{$question->name}}_refused"]').addEventListener('change', function(evt){
+          if(evt.target.checked){
+            document.querySelector('[name={{$question->name}}]').value = -77;  
+          }else{
+            document.querySelector('[name={{$question->name}}]').value = null;  
+          }
+        });
+      })()
     </script>
 </span>
