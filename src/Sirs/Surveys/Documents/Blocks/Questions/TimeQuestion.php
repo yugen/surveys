@@ -26,7 +26,7 @@ class TimeQuestion extends BoundedQuestion
           return false;
       }
 
-    protected function getValidationRules()
+    public function getValidationRules()
     {
       $validations = parent::getValidationRules();
       if( $this->min ){

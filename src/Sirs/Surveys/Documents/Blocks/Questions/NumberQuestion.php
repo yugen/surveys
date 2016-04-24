@@ -24,7 +24,7 @@ class NumberQuestion extends BoundedQuestion
         return false;
     }
 
-    protected function getValidationRules()
+    public function getValidationRules()
     {   
         $validations = parent::getValidationRules();
         $validations[] = 'numeric';

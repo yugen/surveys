@@ -83,4 +83,8 @@ interface StructuredDataInterface
   public function setRefusable($value);
 
   public function getRefusable();
+
+  public function setValidationRules($value);
+  public function getValidationRules();
+
 } // END interface StructuredData

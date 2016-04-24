@@ -14,7 +14,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $defaultDataFormat;
   protected $required = false;
   protected $placeholder;
-  protected $validations = [];
+  protected $validationRules = [];
   protected $show = null;
   protected $hide = null;
   protected $refusable = null;
@@ -38,6 +38,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setShow($this->getAttribute($this->xmlElement, 'show'));
     $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
     $this->setRefusable($this->getAttribute($this->xmlElement, 'refusable'));
+    $this->setValidationRules($this->getAttribute($this->xmlElement, 'validation-rules'));
   }
 
   /**
@@ -175,34 +176,42 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       return ($this->refusable) ? true : false;
     }
 
-    protected function getValidationRules()
+    public function getValidationRules()
     {
-      $validations = [];
       if( $this->required ){
-        $validations[] = 'required';
+        $this->validationRules[] = 'required';
       }
       switch ($this->dataFormat) {
         case 'int':
         case 'tinyint':
         case 'mediumint':
         case 'bigint':
-          $validations[] = 'integer';
+          $this->validationRules[] = 'integer';
           break;
         case 'float':
         case 'double':
         case 'decimal':
-          $validations[] = 'numeric';
+          $this->validationRules[] = 'numeric';
           break;
         case 'date':
         case 'time':
-          $validations[] = 'date';
+          $this->validationRules[] = 'date';
           break;
         case 'year':
-          $validations[] = 'regex:\d\d\d\d';
+          $this->validationRules[] = 'regex:\d\d\d\d';
         default:
           break;
       }
-      return $validations;
+      return $this->validationRules;
+    }
+
+    public function setValidationRules($value)
+    {
+      if(is_null($value)) return;
+      if( is_string($value) ){
+        $value = explode('|', $value);
+      }
+      $this->validationRules = array_merge($this->validationRules, $value);
     }
 
     public function getValidationString()
