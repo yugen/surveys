@@ -24,7 +24,23 @@ A package for building surveys using xml and rendering them to html in Laravel p
 Sirs\Surveys\SurveysServiceProvider::class,
 ```
 
+3. add the service provider to your app config:
+```
+  Sirs\Surveys\SurveysServiceProvider::class,
+```
 
+4. Publish the stylesheets and config file
+```
+$ php artisan vendor:publish
+```
+
+### Quick Start Guide ###
+# Configure: update /config/surveys.php
+# Create Survey definition directory: /resources/surveys
+# Create custom template directory: /resources/views/surveys
+# write your first survey and save in /resources/surveys
+#* See survey definition schema docs in the wiki
+# run ```php artisan survey:new <path_to_survey>```
 
 ### Contribution guidelines ###
 
