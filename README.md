@@ -36,11 +36,11 @@ $ php artisan vendor:publish
 
 ### Quick Start Guide ###
 1. Configure: update /config/surveys.php
-1. Create Survey definition directory: /resources/surveys
-1. Create custom template directory: /resources/views/surveys
-1. write your first survey and save in /resources/surveys
+2. Create Survey definition directory: /resources/surveys
+3. Create custom template directory: /resources/views/surveys
+4. write your first survey and save in /resources/surveys
 ** See survey definition schema docs in the wiki
-1. run ```php artisan survey:new <path_to_survey>```
+5. run ```php artisan survey:new <path_to_survey>```
 
 ### Contribution guidelines ###
 
