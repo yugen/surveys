@@ -40,7 +40,8 @@ $ php artisan vendor:publish
 3. Create custom template directory: /resources/views/surveys
 4. write your first survey and save in /resources/surveys
 ** See survey definition schema docs in the wiki
-5. run ```php artisan survey:new <path_to_survey>```
+5. Run ```php artisan survey:new <path_to_survey>``` to create a migration and rules file
+6. To replace the migration run ```php artisan survey:migration <path_to_survey>```
 
 ### Contribution guidelines ###
 
