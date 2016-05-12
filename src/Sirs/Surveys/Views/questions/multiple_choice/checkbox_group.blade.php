@@ -18,6 +18,9 @@
       @if($option->hide)
         data-hide="{{$option->hide}}"
       @endif
+      @if($option->class)
+        class="{{$option->class}}"
+      @endif
      />
      {{$option->label}}
    </label>
