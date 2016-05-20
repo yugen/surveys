@@ -84,7 +84,7 @@ class SurveyController extends BaseController
 
         if( $response->finalized_at ){
             // return 'already finalized';
-            return redirect()->route('surveys.{surveySlug}.responses.show', [$survey->slug]);
+            return redirect()->route('surveys.{surveySlug}.responses.show', [$survey->slug, $responseId]);
         }
 
         if( ctype_digit($request->input('page')) ){
