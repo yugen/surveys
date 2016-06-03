@@ -2,6 +2,8 @@
 
 namespace Sirs\Surveys\Documents;
 
+use Sirs\Surveys\XmlValidator;
+
 abstract class XmlDocument
 {
   protected $xmlElement;
@@ -17,9 +19,10 @@ abstract class XmlDocument
 
   public function validate()
   {
-      $doc = new \DOMDocument();
-      $doc->loadXML($this->xmlElement->asXml());
-      return $doc->schemaValidate(__DIR__.'/../survey.xsd');
+      $validator = new XmlValidator(__DIR__.'/../survey.xsd');
+      $validator->validate($this->xmlElement->asXml());
+      // if we get this far it's valid.
+      return true;
   }
 
   public function getAttribute(\SimpleXMLElement $simpleXmlEl, $attribute)
