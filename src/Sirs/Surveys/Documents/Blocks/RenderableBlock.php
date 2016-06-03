@@ -27,7 +27,6 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     if( $customTemplatePath ){
       $paths->insert($customTemplatePath, 200);
     }
-    // dd($paths);
     $this->renderer = new BladeRenderer( $paths, [ 
         'cache_path' => config('surveys.rendererConfig.cache_path')
     ]);
