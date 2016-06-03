@@ -78,6 +78,9 @@ class SurveyController extends BaseController
         $this->setPreviousLocation($request);
 
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
+        
+        $survey->getSurveyDocument()->validate();
+
         $respondent = $this->getRespondent($respondentType, $respondentId);
         $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
         $page = $survey->getSurveyDocument()->getPage($request->input('page'));
@@ -136,7 +139,7 @@ class SurveyController extends BaseController
 
         $dataKeys = array_keys($data);
         foreach( $pageVariables as $idx => $pageVar ){
-            if(!in_array($pageVar->name, $dataKeys) && $pageVar->dataFormat == 'tinyint'){
+            if(!in_array($pageVar->name, $dataKeys) ){
                 $response->{$pageVar->name} = null;
             }
         }
