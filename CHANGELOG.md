@@ -1,4 +1,7 @@
 # Change Log
+## 1.0.3 - 2016-06-06
+* survey.xsd - Added minOccurs="0" to question schema to allow text questions without template or question-text.
+
 ## 1.0.2 - 2016-06-03
 * Added questions.text.large_text question template for text areas.
 * SurveyController@store is now setting any response attributes that are not received in the HTTP Request to null.  This resolves an error in which which fields hidden due to skip triggers were still submitting values in some cases.

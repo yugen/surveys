@@ -59,7 +59,7 @@
 	<!-- question and children -->
 		<!-- question -->
 		<xs:complexType name="question">
-				<xs:choice maxOccurs="2">
+				<xs:choice maxOccurs="2" minOccurs="0">
 					<xs:element name="question-text" type="xs:string"/>
 					<xs:element name="template" type="template"/>
 				</xs:choice>
