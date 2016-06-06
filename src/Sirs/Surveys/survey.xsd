@@ -120,7 +120,7 @@
 			  <xs:complexContent>
 			    <xs:extension base="number">
 							<xs:choice maxOccurs="unbounded">
-								<xs:element name="legend" type="legend" maxOccurs="1"/>
+								<xs:element name="legend" type="legend" maxOccurs="1"  minOccurs="0"/>
 							</xs:choice>
 							<xs:attribute name="interval" type="xs:decimal" />
 			    </xs:extension>

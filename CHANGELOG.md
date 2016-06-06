@@ -1,6 +1,7 @@
 # Change Log
 ## 1.0.3 - 2016-06-06
 * survey.xsd - Added minOccurs="0" to question schema to allow text questions without template or question-text.
+* survey.xsd - Added minOccurs="0" to numeric-range legend child to allow for no legend.
 
 ## 1.0.2 - 2016-06-03
 * Added questions.text.large_text question template for text areas.

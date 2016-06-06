@@ -53,7 +53,7 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
     }
 
   public function parseLegend(){
-      if( $this->xmlElement->legend->item ){
+      if( $this->xmlElement->legend && $this->xmlElement->legend->item ){
           foreach( $this->xmlElement->legend->item as $i ){
             $item = [
                 'label'=>$i->label[0]->__toString(),

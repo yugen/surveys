@@ -6,18 +6,20 @@
     <div class="clearfix">
   @endif
   <div class="pull-left" id="{{$renderable->name}}-buttons">
-    <table width="100%" class="text-muted">
-      <tr>
-        @foreach($renderable->legend as $idx => $item)
-          <td class="
-            @if($idx == 0) text-left @elseif($idx == count($renderable->legend)-1) text-right @else text-center @endif"
-            style="width: {{((1/count($renderable->legend))*100)}}%"
-          >
-            {{$item['label']}}
-          </td>
-        @endforeach
-      </tr>
-    </table>
+    @if($renderable->legend)
+      <table width="100%" class="text-muted">
+        <tr>
+          @foreach($renderable->legend as $idx => $item)
+            <td class="
+              @if($idx == 0) text-left @elseif($idx == count($renderable->legend)-1) text-right @else text-center @endif"
+              style="width: {{((1/count($renderable->legend))*100)}}%"
+            >
+              {{$item['label']}}
+            </td>
+          @endforeach
+        </tr>
+      </table>
+    @endif
     @include('questions.multiple_choice.btn_group_radio', ['question'=>$renderable, 'context'=>$context, 'fixedWidth'=>600])
   </div>
   @if($renderable->refusable)
