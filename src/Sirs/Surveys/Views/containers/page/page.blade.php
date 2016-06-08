@@ -10,9 +10,9 @@
         {{$context['response']->respondent->full_name or 'Respondent:'.$context['response']->respondent->id}} 
         </a>
         - 
-        {{ucwords($context['survey']['name'])}}
-        v.{{$context['survey']['version']}}
+        {{ $context['survey']['title'] or ucwords($context['survey']['name'])}}        
         - {{$renderable->title}}
+        <small class="pull-right">v.{{$context['survey']['version']}}</small>
       </h4>
     </div>
     <div class="panel-body">
