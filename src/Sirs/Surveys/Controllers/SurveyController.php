@@ -22,10 +22,10 @@ class SurveyController extends BaseController
 
     protected function render($survey, $page, $pageIdx, $response, $respondent, $errors=null){
         $rules = $survey->getRules($response);
-
         $context = [
             'survey'=>[
                 'name'=>$survey->name,
+                'title'=>$survey->getSurveyDocument()->title,
                 'version'=>$survey->version,
                 'totalPages'=>count($survey->getSurveyDocument()->pages),
                 'currentPageIdx'=>$pageIdx

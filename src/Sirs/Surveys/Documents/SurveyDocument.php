@@ -13,6 +13,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
   use HasQuestionsTrait;
 
   protected $name;
+  protected $title;
   protected $version;
   protected $pages;
   protected $xmlElement;
@@ -58,6 +59,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
       foreach( $this->xmlElement->page as $pageElement ){
           $this->appendPage(new PageDocument($pageElement));
       }
+      $this->setTitle($this->getAttribute($this->xmlElement, 'title'));
       $this->setName($this->getAttribute($this->xmlElement, 'name'));
       $this->setVersion($this->getAttribute($this->xmlElement, 'version'));
   }
@@ -71,6 +73,29 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
   public function getTemplate()
   {
     return $this->template;
+  }
+
+  /**
+   * set the title for the page
+   *
+   * @param string $title
+   * @return $this
+   **/
+  public function setTitle($title)
+  {
+    $this->title = $title;
+    return $this;
+  }
+
+  /**
+   * get the title of the page
+   *
+   * @return string
+   * @author 
+   **/
+  public function getTitle()
+  {
+    return ($this->title) ? $this->title : ucwords(str_replace('_', ' ', $this->name));
   }
 
   public function render($context)
