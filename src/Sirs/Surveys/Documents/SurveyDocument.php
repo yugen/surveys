@@ -219,4 +219,9 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     }
   }
 
+  public function getRulesClassName() 
+    {
+        return str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules' ));
+    }
+
 }
