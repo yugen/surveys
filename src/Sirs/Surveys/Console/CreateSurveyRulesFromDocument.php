@@ -50,7 +50,7 @@ class CreateSurveyRulesFromDocument extends Command
         $this->survey =  SurveyDocument::initFromFile($this->documentFile);
 
         $dir = config('surveys.rulesPath');
-        $filename =  $dir.'/'.$this->formatClassName( $this->survey->name, $this->survey->version) .'.php';
+        $filename =  $dir.'/'.$this->survey->getRulesClassName() .'.php';
 
         if( !File::exists($dir) ){
             File::makeDirectory($dir, 0775, true);
@@ -69,7 +69,7 @@ class CreateSurveyRulesFromDocument extends Command
     {        
         $str = str_replace(
             'DummyClass', 
-            $this->formatClassName( $this->survey->name, $this->survey->version ), 
+            $this->survey->getRulesClassName() ,
             $this->getDefaultText()
         );
        
@@ -80,13 +80,6 @@ class CreateSurveyRulesFromDocument extends Command
        }
         $str = str_replace('PAGES', $pageStr, $str);
        return $str;
-    }
-
-
-
-    public function formatClassName( $name, $version ) 
-    {
-        return str_replace('-', '', str_replace('.', '', $name.$version.'Rules' ));
     }
 
     public function getDefaultText() 

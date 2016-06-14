@@ -128,9 +128,15 @@ class Survey extends Model implements SluggableInterface {
 	}
 
 	public function getRules(Response $response){
-	  $rulesClassName = 'App\\Surveys\\'.$this->slug."Rules";
+
+	  $rulesClassName = 'App\\Surveys\\'.$this->getRulesClassName();
     return new $rulesClassName($this, $response);	
  	}
+
+ 	public function getRulesClassName() 
+    {
+        return str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules' ));
+    }
 
 }
   ?>
