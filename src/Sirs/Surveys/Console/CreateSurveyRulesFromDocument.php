@@ -105,6 +105,12 @@ class DummyClass
     PAGES
 
    */
+
+    public function __construct($survey, $response){
+        $this->survey = $survey;
+        $this->response = $response;
+    }
+
 }
 ';
 
