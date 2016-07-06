@@ -5,11 +5,12 @@
     <div class="checkbox">
     <label>
      <input type="checkbox" 
-      name="{{$option->name}}"
-      id="{{$option->name}}_checkbox" 
+      name="{{$renderable->name}}_{{snake_case($option->label)}}"
+      id="{{$renderable->name}}_{{snake_case($option->label)}}_checkbox" 
       autocomplete="off"
       value="1"
-      @if(isset($context['response']->{$option->name}))
+  }
+      @if(isset($context['response']->{snake_case($option->label)}))
         checked="checked"
       @endif
       @if($option->show)
@@ -21,7 +22,7 @@
       @if($option->class)
         class="{{$option->class}}"
       @endif
-     />
+      />
      {{$option->label}}
    </label>
    </div>
