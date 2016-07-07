@@ -15,7 +15,7 @@ class Survey extends Model implements SluggableInterface {
 	protected $table = "surveys";
 	protected $fillable = ['name', 'version', 'file_name', 'response_table'];
 	protected $sluggable = [
-		'build_from' => 'name_version'
+	'build_from' => 'name_version'
 	];
 	protected $document = null;
 
@@ -103,40 +103,40 @@ class Survey extends Model implements SluggableInterface {
 
 	public function getLatestResponse($respondentType, $respondentId, $responseId = null)
 	{
-			$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
+		$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
 
-      $response = null;
-      if ( !is_null($responseId) ) {
-          $response = $this->responses()->findOrFail($responseId);
-        	$response->setTable($this->response_table);
-      }else{
-					$responseQuery = $this->responses()
-						->where('respondent_type', '=', $respondentType)
-						->where('respondent_id', '=', $respondentId)
-						->orderBy('updated_at', 'DESC');
-					$response = $responseQuery->get()->first();
-					if( $response ){
-	        	$response->setTable($this->response_table);
-					}else{
-		      	$response = Response::newResponse($this->response_table);
-		      	$response->respondent_type = $respondentType;
-		      	$response->respondent_id = $respondentId;
-			    }
-			    $response->survey_id = $this->id;
+		$response = null;
+		if ( !is_null($responseId) ) {
+			$response = $this->responses()->findOrFail($responseId);
+			$response->setTable($this->response_table);
+		}else{
+			$responseQuery = $this->responses()
+				->where('respondent_type', '=', $respondentType)
+				->where('respondent_id', '=', $respondentId)
+				->orderBy('updated_at', 'DESC');
+			$response = $responseQuery->get()->first();
+			if( $response ){
+				$response->setTable($this->response_table);
+			}else{
+				$response = Response::newResponse($this->response_table);
+				$response->respondent_type = $respondentType;
+				$response->respondent_id = $respondentId;
 			}
-      return $response;
+			$response->survey_id = $this->id;
+		}
+		return $response;
 	}
 
-	public function getRules(Response $response){
+	public function getRules(Response $response)
+	{
+		$rulesClassName = 'App\\Surveys\\'.$this->getRulesClassName();
+		return new $rulesClassName($this, $response);	
+	}
 
-	  $rulesClassName = 'App\\Surveys\\'.$this->getRulesClassName();
-    return new $rulesClassName($this, $response);	
- 	}
-
- 	public function getRulesClassName() 
-    {
-        return str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules' ));
-    }
+	public function getRulesClassName() 
+	{
+		return preg_replace('/[ _-]/', '', str_replace('.', '', $this->name.$this->version.'Rules' ));
+	}
 
 }
-  ?>
+?>
