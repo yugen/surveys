@@ -15,6 +15,11 @@
 	</xs:element>
 
 <!-- element declarations  -->
+
+	<!-- include tag -->
+		<xs:complexType name="include">
+			<xs:attribute name="source" type="xs:string" />
+		</xs:complexType>
 	
 	<!-- container and children -->
 		<!-- container -->
@@ -32,6 +37,7 @@
 				<xs:element name="html" type="html" />
 				<xs:element name="question-group" type="question-group" />
 				<xs:element name="template" type="template" />				
+				<xs:element name="include" type="include" />				
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="id" type="xs:string" />

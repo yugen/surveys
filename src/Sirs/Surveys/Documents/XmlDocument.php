@@ -11,8 +11,37 @@ abstract class XmlDocument
   public function __construct($xml = null)
   {
     if($xml){
-      $this->setXmlElement($xml);
+      $compiledXml = $this->compile($xml);
+      $this->setXmlElement($compiledXml);
     }
+  }
+
+  protected function compile($xml){
+    if( is_string($xml) ){
+      $doc = new \SimpleXMLElement($xml);
+    }elseif($xml instanceof \SimpleXMLElement){
+      $doc = $xml;
+    }else{
+      throw new \Exception('XML String of SimpleXMLElement expected.');
+    } 
+
+    // $i = 0;
+    $docDom = dom_import_simplexml($doc);
+    $includes = $docDom->getElementsByTagName('include');
+    foreach ($includes as $include) {
+      // print('<pre>include Element: ');print_r($include);print('</pre>');
+      $source = config('surveys.surveysPath').'/'.$include->getAttribute('source');
+      // print('<pre>source attr: ');print_r($source);print('</pre>');
+      $includeDom = dom_import_simplexml(simplexml_load_file($source));
+      // print('<pre>sourceDom: ');print_r($includeDom);print('</pre>');
+      $nodeImport = $include->ownerDocument->importNode($includeDom, TRUE);
+
+      $include->parentNode->replaceChild($nodeImport, $include);
+    }
+
+    $compiled = $doc->asXML();
+    return $compiled;
+
   }
 
   abstract public function parse();
@@ -45,7 +74,7 @@ abstract class XmlDocument
     }elseif($xml instanceof \SimpleXMLElement){
       $this->xmlElement = $xml;
     }else{
-      throw Exception('String of SimpleXMLElement expected.');
+      throw new \Exception('String or SimpleXMLElement expected.');
     } 
     $this->parse();
     return $this;

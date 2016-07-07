@@ -44,7 +44,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
       if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
         $children[] = $blockFactory->create($child);
       }
-    }   
+    }
     return $children;
   }
 
