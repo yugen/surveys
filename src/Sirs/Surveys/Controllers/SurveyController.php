@@ -180,6 +180,10 @@ class SurveyController extends BaseController
             return redirect($redirectUrl);
         }
 
+        if ($request->destination_page) {
+            # code...
+        }
+
     	// passing all data to navigate function
     	return $this->navigate($request, $respondentType, $respondentId, $surveySlug, $response->id, $page->name, $survey, $surveydoc);
     }
