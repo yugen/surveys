@@ -171,17 +171,28 @@ class SurveyController extends BaseController
         // run the after save rule for the page (if any).
         $this->execRule($rules, $page->name, 'AfterSave');
 
-    	if ( $request->input('nav') == 'finalize' ) {
-    		$response->finalize();
-            return $this->redirect($request, $rules);
-    	}
-        if( $request->input('nav') == 'save'){
-            $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$page->name;
-            return redirect($redirectUrl);
+        // we have a destination_page specified in the request go there.
+
+        switch ($request->input('nav')) {
+            case 'finalize':
+                $response->finalize();
+                $response = $this->redirect($request, $rules);
+                break;
+            case 'save':
+                if ($request->destination_page) {
+                    $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$request->destination_page;
+                }else{
+                    $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$page->name;
+                }
+                $response = redirect($redirectUrl);
+                break;
+            default:
+                // passing all data to navigate function
+                $response = $this->navigate($request, $respondentType, $respondentId, $surveySlug, $response->id, $page->name, $survey, $surveydoc);
+                break;
         }
 
-    	// passing all data to navigate function
-    	return $this->navigate($request, $respondentType, $respondentId, $surveySlug, $response->id, $page->name, $survey, $surveydoc);
+        return $response;
     }
 
 
