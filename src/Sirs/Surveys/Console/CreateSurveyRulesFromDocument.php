@@ -70,49 +70,17 @@ class CreateSurveyRulesFromDocument extends Command
         $str = str_replace(
             'DummyClass', 
             $this->survey->getRulesClassName() ,
-            $this->getDefaultText()
+            file_get_contents(__DIR__.'/stubs/rules.stub')
         );
        
        $pageStr = '';
+       $pageTitles = [];
        foreach( $this->survey->getPages() as $page ) {
-            $pageStr .= $page->getTitle()."\n";
-
+            $pageTitles[] = $page->getTitle();
        }
+       $pageStr = implode("\n\t\t", $pageTitles);
         $str = str_replace('PAGES', $pageStr, $str);
        return $str;
     }
 
-    public function getDefaultText() 
-    {
-
-        return '<?php 
-namespace App\Surveys;
-
-class DummyClass 
-{
-   /*
-   Rules stub.  Will add more as we flesh this out
-
-   format:
-    public function PAGETITLEBeforeShow() {}
-    public function PAGETITLEBeforeSave() {}
-    public function PAGETITLEAfterSave() {}
-    public function PAGETITLESkip() {}
-    public function PAGAETITLEGetValidator() {}
-    public function getRedirectUrl() {}
-
-   Known Page Titles:
-    PAGES
-
-   */
-
-    public function __construct($survey, $response){
-        $this->survey = $survey;
-        $this->response = $response;
-    }
-
-}
-';
-
-    }
 }
