@@ -37,7 +37,7 @@ class SurveyController extends BaseController
             $context['errors'] = $errors;   
         }
 
-        if( $ruleContext = $this->execRule($rules, $page->name, 'BeforeShow') ){
+        if( $ruleContext = $this->execRule($rules, $page->name, 'beforeShow') ){
             $context = array_merge($context, $ruleContext);
         }
 
@@ -253,12 +253,19 @@ class SurveyController extends BaseController
 
     protected function execRule($rulesObj, $pageName, $methodName, $params = null)
     {
-       $method = $pageName . $methodName;
-        if ( method_exists( $rulesObj, $method ) ) {
-            if( $params ){
-                return $rulesObj->$method($params);
-            }
-            return $rulesObj->$method();
+        $pageMethod = $pageName . ucfirst($methodName);
+        $method = lcfirst($methodName);
+
+        if ( method_exists( $rulesObj, $pageMethod ) ) {
+            // run the page-specific method if we find it.
+            return ( $params ) 
+                        ? $rulesObj->$pageMethod($params) 
+                        :  $rulesObj->$pageMethod();
+        }elseif( method_exists( $rulesObj, $method)){
+            // run the survey-wide method if we find it.
+            return ( $params ) 
+                        ? $rulesObj->$method($params) 
+                        : $rulesObj->$method();
         }else{
             return;
         }

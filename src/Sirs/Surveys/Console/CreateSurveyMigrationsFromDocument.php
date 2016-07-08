@@ -84,12 +84,14 @@ class CreateSurveyMigrationsFromDocument extends Command
         }
         $str = str_replace('DummyFileName', $this->documentFile, $str);
 
-        $strQuestions = '';
+        $questionStrings = [];
         foreach( $questions as $question ) {
-            $strQuestions .= "\n" . '$table->'.$this->setMigrationDataType($question->dataFormat)
+            $questionStrings[] = '$table->'.$this->setMigrationDataType($question->dataFormat)
                 ."('".$question->name."')->nullable();";
         }
-        $str = str_replace('INSERTSURVEY', $strQuestions, $str);
+
+        $questionsStr = implode("\n\t\t\t", $questionStrings);
+        $str = str_replace('INSERTSURVEY', $questionsStr, $str);
         
         return $str;
     }
@@ -145,56 +147,7 @@ class CreateSurveyMigrationsFromDocument extends Command
     public function getDefaultText() 
     {
 
-        return '<?php
-
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
-
-class DummyClass extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        
-        Schema::create(\'DummyTable\', function (Blueprint $table) {
-            $table->increments(\'id\')->unsigned();
-            $table->morphs(\'respondent\');
-            $table->integer(\'survey_id\')->unsigned();
-            INSERTSURVEY
-            $table->string(\'last_page\');
-            $table->integer(\'duration\');
-            $table->timestamp(\'started_at\')->nullable();
-            $table->timestamp(\'finalized_at\')->nullable();
-            $table->timestamps();
-
-            $table->foreign(\'survey_id\')->references(\'id\')->on(\'surveys\')->onDelete(\'restrict\');
-            //$table->index([\'respondent_type\', \'respondent_id\', \'survey_id\']);
-            $table->index([\'respondent_type\', \'respondent_id\']);
-            $table->index([\'respondent_type\']);
-            $table->index([\'survey_id\']);
-            $table->index([\'started_at\', \'finalized_at\', \'survey_id\']);
-        });
-
-        \Sirs\Surveys\Models\Survey::firstOrCreate(["name"=>"DummyName", "version"=>"DummyVersion", "slug"=>"DummySlug", "file_name"=>"DummyFileName", "response_table"=>"DummyTable"]);
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop(\'DummyTable\');
-        $s = \Sirs\Surveys\Models\Survey::where(\'name\', \'DummyName\')->where(\'version\', \'DummyVersion\');
-        $s->delete();
-    }
-}
-';
+        return file_get_contents(__DIR__.'/stubs/migration.stub');
 
     }
 }
