@@ -1,8 +1,11 @@
 # Change Log
 ## 1.1.0 - 2016-07-08
-* survey.xsd - Added include tag definition with attribute source and made it a possible child of <survey> or <container>
-* Documents/XmlDocument.php - added compile method to replace includes with referenced source files.
-* Documents/SurveyDocument.php - added xml validation before parent::__construct() to validate pre-compiled xml.
+* Include tag that allows the inclusion of partial xml files in a survey
+    * survey.xsd - Added include tag definition with attribute source and made it a possible child of <survey> or <container>
+    * Documents/XmlDocument.php - added compile method to replace includes with referenced source files.
+    * Documents/SurveyDocument.php - added xml validation before parent::__construct() to validate pre-compiled xml.
+* Support for survey-wide beforeShow, beforeSave, afterSave.
+* Added support for destination_page to SurveyController on save navigation to allow random access navigation after save.
 
 ## 1.0.3 - 2016-06-06
 * survey.xsd - Added minOccurs="0" to question schema to allow text questions without template or question-text.
