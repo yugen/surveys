@@ -4,9 +4,10 @@
 <!-- validator -->
 	<xs:element name="survey">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="page" type="page" maxOccurs="unbounded" />
-			</xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="include" type="include" />				
+				<xs:element name="page" type="page" />
+			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="version" type="xs:string" use="required" />
 			<xs:attribute name="title" type="xs:string" />
@@ -15,6 +16,11 @@
 	</xs:element>
 
 <!-- element declarations  -->
+
+	<!-- include tag -->
+		<xs:complexType name="include">
+			<xs:attribute name="source" type="xs:string" />
+		</xs:complexType>
 	
 	<!-- container and children -->
 		<!-- container -->
@@ -32,6 +38,7 @@
 				<xs:element name="html" type="html" />
 				<xs:element name="question-group" type="question-group" />
 				<xs:element name="template" type="template" />				
+				<xs:element name="include" type="include" />				
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="id" type="xs:string" />

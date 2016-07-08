@@ -4,7 +4,7 @@ A package for building surveys using xml and rendering them to html in Laravel p
 
 ### Installing this package ###
 
-1. Add the following to your composer.json: 
+Add the following to your composer.json: 
 ```
 "repositories": [
     {
@@ -19,17 +19,17 @@ A package for building surveys using xml and rendering them to html in Laravel p
     ...
 }
 ```
-2. Add the service provider to config/app.php: 
+Add the service provider to config/app.php: 
 ```
 Sirs\Surveys\SurveysServiceProvider::class,
 ```
 
-3. add the service provider to your app config:
+add the service provider to your app config:
 ```
-  Sirs\Surveys\SurveysServiceProvider::class,
+Sirs\Surveys\SurveysServiceProvider::class,
 ```
 
-4. Publish the stylesheets and config file
+Publish the stylesheets and config file
 ```
 $ php artisan vendor:publish
 ```
@@ -43,11 +43,8 @@ $ php artisan vendor:publish
 5. Run ```php artisan survey:new <path_to_survey>``` to create a migration and rules file
 6. To replace the migration run ```php artisan survey:migration <path_to_survey>```
 
-### Contribution guidelines ###
+### [Full Package Documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/) ###
 
-* Writing tests
-* Code review
-* Other guidelines
 
 ### Who do I talk to? ###
 
