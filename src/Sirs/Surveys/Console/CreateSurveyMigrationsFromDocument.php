@@ -54,11 +54,11 @@ class CreateSurveyMigrationsFromDocument extends Command
             .'_'.$this->survey->name
             .'_'.str_replace('.', '', $this->survey->version).'.php';
 
-            if (File::put($filename, $contents) === false){
-                throw new \Exception("Error writing to file");
-            }else{
-                $this->info('Created ' . $filename);
-            }
+        if (File::put($filename, $contents) === false){
+            throw new \Exception("Error writing to file");
+        }else{
+            $this->info('Created ' . $filename);
+        }
         
         
         
@@ -141,7 +141,8 @@ class CreateSurveyMigrationsFromDocument extends Command
 
     public function formatClassName( $name, $version ) 
     {
-        return str_replace('-', '', str_replace('.', '', 'CreateSurveyRsp'.ucfirst($name).$version ));
+        $string = preg_replace('/\./', '', 'CreateSurveyRsp'.ucfirst($name).$version );
+        return camel_case($string);
     }
 
     public function getDefaultText() 

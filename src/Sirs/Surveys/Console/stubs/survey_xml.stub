@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<survey name="DUMMY_NAME" title="DUMMY_TITLE" version="DUMMY_VERSION">
+    <page name="" title="">
+        <!-- Your first page content -->
+    </page>
+</survey>

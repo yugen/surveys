@@ -34,7 +34,6 @@ class DummyClass extends Migration
         \Sirs\Surveys\Models\Survey::firstOrCreate([
             "name"=>"DummyName", 
             "version"=>"DummyVersion", 
-            "slug"=>"DummySlug", 
             "file_name"=>"DummyFileName", 
             "response_table"=>"DummyTable"
         ]);
