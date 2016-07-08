@@ -4,9 +4,10 @@
 <!-- validator -->
 	<xs:element name="survey">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="page" type="page" maxOccurs="unbounded" />
-			</xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="include" type="include" />				
+				<xs:element name="page" type="page" />
+			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="version" type="xs:string" use="required" />
 			<xs:attribute name="title" type="xs:string" />

@@ -7,6 +7,7 @@ use Sirs\Surveys\Contracts\SurveyDocumentInterface;
 use Sirs\Surveys\Documents\PageDocument;
 use Sirs\Surveys\Documents\XmlDocument;
 use Sirs\Surveys\HasQuestionsTrait;
+use Sirs\Surveys\XmlValidator;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 {
@@ -22,8 +23,12 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
   public function __construct($xml = null)
   {
+
+    $validator = new XmlValidator(__DIR__.'/../survey.xsd');
+    $validator->validate($xml);
     $this->pages = [];
     parent::__construct($xml);
+    $this->validate();
   }
 
   static public function initFromFile($filePath){
