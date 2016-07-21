@@ -142,7 +142,7 @@ class CreateSurveyMigrationsFromDocument extends Command
     public function formatClassName( $name, $version ) 
     {
         $string = preg_replace('/\./', '', 'CreateSurveyRsp'.ucfirst($name).$version );
-        return camel_case($string);
+        return ucfirst(camel_case($string));
     }
 
     public function getDefaultText() 
