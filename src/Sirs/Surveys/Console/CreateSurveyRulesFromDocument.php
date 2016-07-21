@@ -2,9 +2,10 @@
 
 namespace Sirs\Surveys\Console;
 
-use Illuminate\Console\Command;
-use Sirs\Surveys\Documents\SurveyDocument;
 use File;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use Sirs\Surveys\Documents\SurveyDocument;
 
 class CreateSurveyRulesFromDocument extends Command
 {
@@ -47,13 +48,16 @@ class CreateSurveyRulesFromDocument extends Command
     public function handle()
     {
         $this->documentFile =  $this->argument('document');
-        $this->survey =  SurveyDocument::initFromFile($this->documentFile);
+        $this->surveyDoc =  SurveyDocument::initFromFile($this->documentFile);
 
         $dir = config('surveys.rulesPath');
-        $filename =  $dir.'/'.$this->survey->getRulesClassName() .'.php';
+        $filename =  $dir.'/'.$this->surveyDoc->getRulesClassName() .'.php';
 
         if( !File::exists($dir) ){
             File::makeDirectory($dir, 0775, true);
+        }
+        if (File::exists($filename)) {
+            $this->info('Cannot create the rules class '.$this->surveyDoc->getRulesClassName().'. File '.$filename.' already exists.');
         }
         $bytes_written = File::put($filename, $this->getRulesText());
 
@@ -61,7 +65,10 @@ class CreateSurveyRulesFromDocument extends Command
         {
             throw new Exception("Error writing to file");
         }else{
+            $testName = 'Surveys/'.$this->surveyDoc->getRulesClassName().'Test';
+            Artisan::call('make:test', ['name'=>$testName]);
             $this->info('Created ' . $filename);
+            $this->info(' and test, tests/'.$testName);
         }
     }
 
@@ -69,13 +76,13 @@ class CreateSurveyRulesFromDocument extends Command
     {        
         $str = str_replace(
             'DummyClass', 
-            $this->survey->getRulesClassName() ,
+            $this->surveyDoc->getRulesClassName() ,
             file_get_contents(__DIR__.'/stubs/rules.stub')
         );
        
        $pageStr = '';
        $pageTitles = [];
-       foreach( $this->survey->getPages() as $page ) {
+       foreach( $this->surveyDoc->getPages() as $page ) {
             $pageTitles[] = $page->getTitle();
        }
        $pageStr = implode("\n\t\t", $pageTitles);
