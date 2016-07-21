@@ -76,10 +76,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     }
 
     public function getRulesClass(){
-        $defaultRulesClass = config('surveys.rulesNamespace', 'App\\Surveys\\');
-        $defaultRulesClass .= str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules' ));
-
-        return ($this->rulesClass) ? $this->rulesClass : $defaultRulesClass;
+        return ($this->rulesClass) ? $this->rulesClass : config('surveys.rulesNamespace', 'App\\Surveys\\').$this->getRulesClassName();
     }
 
     public function setTemplate($template = null)
@@ -239,7 +236,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getRulesClassName() 
     {   
-        return $this->getRulesClass();
+        return ucfirst( str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules' ) ) );
     }
 
 }

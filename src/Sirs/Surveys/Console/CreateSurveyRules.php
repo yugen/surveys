@@ -2,9 +2,10 @@
 
 namespace Sirs\Surveys\Console;
 
-use Illuminate\Console\Command;
-use Sirs\Surveys\Documents\SurveyDocument;
 use File;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use Sirs\Surveys\Documents\SurveyDocument;
 
 class CreateSurveyRules extends Command
 {
@@ -44,13 +45,20 @@ class CreateSurveyRules extends Command
         if( !File::exists($dir) ){
             File::makeDirectory($dir, 0775, true);
         }
+
+        if(File::exists($filename)){
+            $this->info('Cannot create the rules class '.$this->className.'. File '.$filename.' already exists.');
+        }
+
         $bytes_written = File::put($filename, $this->getRulesText());
 
         if ($bytes_written === false)
         {
             throw new Exception("Error writing to file");
         }else{
-            $this->info('Created ' . $filename);
+            $testName = 'Surveys/'.$this->className.'Test';
+            Artisan::call('make:test', ['name'=>$testName]);
+            $this->info('Created ' . $filename.' and test, tests/'.$testName);
         }
     }
 
