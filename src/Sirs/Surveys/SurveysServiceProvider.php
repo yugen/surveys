@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
+use Sirs\Surveys\Console\CreateSurveyRules;
 use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
 use Sirs\Surveys\Console\CreateSurveyXml;
 use Sirs\Surveys\Console\NewSurveyFromDocument;
@@ -98,6 +99,12 @@ class SurveysServiceProvider extends ServiceProvider {
       return new NewSurveyFromDocument();
     });
     $this->commands('command.survey.new');
+
+    $this->app->singleton('command.make.survey-rules', function($app) {
+      return new CreateSurveyRules();
+    });
+    $this->commands('command.make.survey-rules');
+
 
     $this->commands([
         CreateSurveyXml::class,
