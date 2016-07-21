@@ -1,4 +1,10 @@
 # Change Log
+## 1.2.0 - 2016-07-21
+* Added support for *rules-class* attribute on survey tag to allow users to specify a rules class for the survey.  If no rules-class is specified then original rules-class is used.
+* Added console command to create new rules *make:survey-rules <RulesClassName>*.  Creates rules file and test in tests/Surveys.
+* survey:rules command now creates a test in tests/Surveys when run.
+* Fixed bug related to naming migration classes that led to failures when runing migrate:refresh.
+
 ## 1.1.1 - 2016-07-08
 * Include tag that allows the inclusion of partial xml files in a survey
     * survey.xsd - Added include tag definition with attribute source and made it a possible child of <survey> or <container>
