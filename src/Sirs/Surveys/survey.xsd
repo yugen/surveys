@@ -7,6 +7,7 @@
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="include" type="include" />				
 				<xs:element name="page" type="page" />
+				<xs:element name="parameter" type="parameter" />
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="version" type="xs:string" use="required" />
@@ -38,8 +39,9 @@
 				<xs:element name="likert" type="likert" />
 				<xs:element name="html" type="html" />
 				<xs:element name="question-group" type="question-group" />
-				<xs:element name="template" type="template" />				
-				<xs:element name="include" type="include" />				
+				<xs:element name="template" type="template" />
+				<xs:element name="include" type="include" />
+				<xs:element name="parameter" type="parameter" />
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="id" type="xs:string" />
@@ -275,5 +277,11 @@
 			<xs:attribute name="id"/>
 			<xs:attribute name="name"/>
 			<xs:attribute name="class"/>
+		</xs:complexType>
+
+		<!-- Parameter -->
+		<xs:complexType name="parameter">
+			<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="value" type="xs:string" use="required"></xs:attribute>
 		</xs:complexType>
 </xs:schema>

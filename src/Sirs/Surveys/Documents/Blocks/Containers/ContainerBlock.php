@@ -31,9 +31,9 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
   function parse()
   {
     $this->setName($this->getAttribute($this->xmlElement, 'name'));
+    parent::parse();
     // foreach children do the right thing
     $this->setContents($this->parseContents());
-    parent::parse();
     return $this;
   }
 
@@ -42,7 +42,9 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
     $children = [];
     foreach($this->xmlElement->children() as $child){
       if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
-        $children[] = $blockFactory->create($child);
+        $childClass = $blockFactory->getBlockClass($child);
+        $childBlock = $childClass::createWithParameters($child, $this->getParameters());
+        $children[] = $childBlock;
       }
     }
     return $children;

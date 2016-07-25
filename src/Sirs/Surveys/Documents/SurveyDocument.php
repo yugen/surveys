@@ -6,12 +6,14 @@ use Sirs\Surveys\Contracts\RenderableInterface;
 use Sirs\Surveys\Contracts\SurveyDocumentInterface;
 use Sirs\Surveys\Documents\PageDocument;
 use Sirs\Surveys\Documents\XmlDocument;
+use Sirs\Surveys\HasParametersTrait;
 use Sirs\Surveys\HasQuestionsTrait;
 use Sirs\Surveys\XmlValidator;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 {
     use HasQuestionsTrait;
+    use HasParametersTrait;
 
     protected $name;
     protected $title;
@@ -21,6 +23,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     protected $template;
     protected $responseLimit;
     protected $rulesClass;
+    protected $parameters;
 
     public function __construct($xml = null)
     {
@@ -62,13 +65,15 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function parse()
     {
-        foreach( $this->xmlElement->page as $pageElement ){
-            $this->appendPage(new PageDocument($pageElement));
-        }
         $this->setTitle($this->getAttribute($this->xmlElement, 'title'));
         $this->setName($this->getAttribute($this->xmlElement, 'name'));
         $this->setVersion($this->getAttribute($this->xmlElement, 'version'));
         $this->setRulesClass($this->getAttribute($this->xmlElement, 'rules-class'));
+        $this->parseParameters();
+        foreach( $this->xmlElement->page as $pageElement ){
+            $page = PageDocument::createWithParameters($pageElement, $this->getParameters());
+            $this->appendPage($page);
+        }
     }
 
     public function setRulesClass($class){

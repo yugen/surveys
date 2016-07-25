@@ -32,7 +32,12 @@ class QuestionFactory
 
     public function create($xmlElement)
     {
-      $questionClass = $this->tagToClassMap[$xmlElement->getName()];
+      $questionClass = $this->getQuestionClass($xmlElement->getName());
       return new $questionClass($xmlElement);
+    }
+
+    public function getQuestionClass($xmlElement)
+    {
+      return $this->tagToClassMap[$xmlElement->getName()];
     }
 }
