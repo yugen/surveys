@@ -24,6 +24,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     protected $responseLimit;
     protected $rulesClass;
     protected $parameters;
+    protected $contents;
 
     public function __construct($xml = null)
     {
@@ -188,6 +189,16 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function getPages()
     {
         return $this->pages;
+    }
+
+    public function setContents($contents)
+    {
+        $this->setPages($contents);
+    }
+
+    public function getContents()
+    {
+        return $this->getPages();
     }
 
     /**

@@ -11,7 +11,6 @@ trait HasOptionsTrait{
       if( !$this->xmlElement->options->option && !$this->xmlElement->options->{'data-source'} ){
         throw new \Exception('No options or data-source found');
       }
-
       if( $this->xmlElement->options->{'data-source'} ){
           $dataSourceEl = $this->xmlElement->options->{'data-source'};
           $dataSourceUri = $this->getAttribute($dataSourceEl, 'URI');
@@ -62,7 +61,16 @@ trait HasOptionsTrait{
     if( $responseString === false ){ throw new \Exception('Failed to got data from '.$dataSourceUri);}
     $sourceData = json_decode($responseString);
     foreach( $sourceData as $idx => $optionData ){
-      $optionBlock = new OptionBlock($this->name);
+      if ($this->numSelectable > 1) {
+        if ($optionData->slug) {
+          $name = $this->name.'_'.$optionData->slug;
+        }else{
+          $name = $this->name.'_'.preg_replace('/ /', '_', $optionData->name);
+        }
+      }else{
+        $name = $this->name;
+      }
+      $optionBlock = new OptionBlock($name);
       $optionBlock->setValue($optionData->id);
       $optionBlock->setLabel($optionData->name);
       $this->appendOption($optionBlock);

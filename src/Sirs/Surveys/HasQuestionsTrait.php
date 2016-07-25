@@ -1,17 +1,21 @@
 <?php
 
 namespace Sirs\Surveys;
+use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
+use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
 use Sirs\Surveys\Factories\QuestionFactory;
 
 trait HasQuestionsTrait{
 
   public function getQuestions()
   {
-    $questionFactory = new QuestionFactory();
     $questions = [];
-    $questionNodes = $this->xmlElement->xpath('.//question|.//date|.//time|.//number|.//text|.//upload|.//multiple-choice|.//numeric-scale|.//duration');
-    foreach( $questionNodes as $el ){
-      $questions[] = $questionFactory->create($el);
+    foreach ($this->getContents() as $idx => $block) {
+      if ($block instanceof QuestionBlock) {
+        $questions[] = $block;
+      }elseif($block instanceof ContainerBlock) {
+        $questions = array_merge($questions, $block->getQuestions());
+      }
     }
     return $questions;
   }

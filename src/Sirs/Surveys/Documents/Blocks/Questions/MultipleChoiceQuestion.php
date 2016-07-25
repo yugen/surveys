@@ -27,9 +27,9 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 
     public function parse()
     {
-        $this->parseOptions();
-        $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
         parent::parse();
+        $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
+        $this->parseOptions();
     }
 
     public function setNumSelectable($number = null)
@@ -82,6 +82,8 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
      */
     public function getVariables()
     {
+      print("MultipleChoiceQuestion::getVariables\n");
+      print("\t numSelectable: ".$this->numSelectable."\n");
       if( $this->numSelectable == 1 ){
         return parent::getVariables();
       }

@@ -67,7 +67,7 @@ class CreateSurveyMigrationsFromDocument extends Command
     {
         $str = $this->getDefaultText();
 
-        $questions = $this->survey->getVariables();
+        $questions = $this->survey->getQuestions();
         
         $str = str_replace('DummyTable', $this->formatTableName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
@@ -86,8 +86,14 @@ class CreateSurveyMigrationsFromDocument extends Command
 
         $questionStrings = [];
         foreach( $questions as $question ) {
-            $questionStrings[] = '$table->'.$this->setMigrationDataType($question->dataFormat)
-                ."('".$question->name."')->nullable();";
+            $variables = $question->getVariables();
+            print("$question->name vars: ".count($variables)."\n");
+
+            foreach ($variables as $idx => $var) {
+                print_r('var: '.$var->name."\n");
+                $questionStrings[] = '$table->'.$this->setMigrationDataType($var->dataFormat)
+                   ."('".$var->name."')->nullable();";
+            }
         }
 
         $questionsStr = implode("\n\t\t\t", $questionStrings);
