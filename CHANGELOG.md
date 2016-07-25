@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.2.1 - 2016-07-21
+## 1.2.1 - 2016-07-25
 * Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.
 * Options tag now uses both data-source and option tags to populate options for a multiple-choice question.
 
