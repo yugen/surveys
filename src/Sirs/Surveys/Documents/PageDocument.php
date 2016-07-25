@@ -5,6 +5,7 @@ namespace Sirs\Surveys\Documents;
 use Sirs\Surveys\Contracts\PageDocumentInterface;
 use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
 use Sirs\Surveys\Factories\QuestionFactory;
+use Sirs\Surveys\HasParametersTrait;
 use Sirs\Surveys\HasQuestionsTrait;
 
 // class PageDocument implements PageDocumentInterface

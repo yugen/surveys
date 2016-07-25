@@ -5,10 +5,13 @@ namespace Sirs\Surveys\Documents\Blocks;
 use Illuminate\Support\Facades\Blade;
 use Sirs\Surveys\Contracts\RenderableInterface;
 use Sirs\Surveys\Documents\XmlDocument;
+use Sirs\Surveys\HasParametersTrait;
 use Windwalker\Renderer\BladeRenderer;
 
 class RenderableBlock extends XmlDocument implements RenderableInterface
 {
+  use HasParametersTrait;
+
   protected $class;
   protected $id;
   protected $template;
@@ -16,6 +19,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   protected $documentFactory;
   protected $defaultTemplate = 'block_default';
   protected $renderer;
+  protected $parameters;
   public $content;
 
   public function __construct($xml = null)
@@ -41,6 +45,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     if( $this->xmlElement->template[0] ){
       $this->setTemplate($this->getAttribute($this->xmlElement->template[0], 'source'));
     }
+    $this->parseParameters();
   }
 
   /**

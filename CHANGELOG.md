@@ -1,4 +1,9 @@
 # Change Log
+
+## 1.2.1 - 2016-07-21
+* Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.
+* Options tag now uses both data-source and option tags to populate options for a multiple-choice question.
+
 ## 1.2.0 - 2016-07-21
 * Added support for *rules-class* attribute on survey tag to allow users to specify a rules class for the survey.  If no rules-class is specified then original rules-class is used.
 * Added console command to create new rules *make:survey-rules <RulesClassName>*.  Creates rules file and test in tests/Surveys.
