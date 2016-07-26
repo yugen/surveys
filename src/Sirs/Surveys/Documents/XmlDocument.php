@@ -12,8 +12,6 @@ abstract class XmlDocument
     {
         if($xml){
             $compiledXml = $this->compile($xml);
-            // $compiledXml = $this->compile($compiledXml);
-            dd($compiledXml);
             $this->setXmlElement($compiledXml);
         }
     }
