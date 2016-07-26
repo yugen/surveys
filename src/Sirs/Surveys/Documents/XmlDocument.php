@@ -12,6 +12,8 @@ abstract class XmlDocument
     {
         if($xml){
             $compiledXml = $this->compile($xml);
+            // $compiledXml = $this->compile($compiledXml);
+            dd($compiledXml);
             $this->setXmlElement($compiledXml);
         }
     }
@@ -28,12 +30,15 @@ abstract class XmlDocument
 
         $docDom = dom_import_simplexml($doc);
         $includes = $docDom->getElementsByTagName('include');
-        foreach ($includes as $include) {
+        while($includes->length > 0){
+            $include = $includes->item(0);
             $source = config('surveys.surveysPath').'/'.$include->getAttribute('source');
             $includeDom = dom_import_simplexml(simplexml_load_file($source));
             $nodeImport = $include->ownerDocument->importNode($includeDom, TRUE);
 
-            $include->parentNode->replaceChild($nodeImport, $include);
+            if(!$include->parentNode->replaceChild($nodeImport, $include)){
+                throw \Exception('wtf');
+            }
         }
 
         $compiled = $doc->asXML();
@@ -90,6 +95,11 @@ abstract class XmlDocument
     public function getXmlElement()
     {
         return $this->xmlElement;
+    }
+
+    public function toXml()
+    {
+        return $this->xmlElement->asXML();
     }
 
     public function __get($property)
