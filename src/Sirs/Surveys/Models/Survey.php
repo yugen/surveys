@@ -101,9 +101,15 @@ class Survey extends Model implements SluggableInterface {
 		
 	}
 
-	public function getLatestResponse($respondentType, $respondentId, $responseId = null)
+	public function getLatestResponse($respondentType, $respondentId = null, $responseId = null)
 	{
-		$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
+		if ($respondentType instanceOf \Illuminate\Database\Eloquent\Model) {
+			$respondent = $respondentType;
+		}else{
+			if(!$respondentId) throw new \Exception('You must provide a respondent id to get the latest response.');
+			$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
+			$respondent = $respondentType::findOrFail($respondentId);
+		}
 
 		$response = null;
 		if ( !is_null($responseId) ) {
@@ -111,16 +117,16 @@ class Survey extends Model implements SluggableInterface {
 			$response->setTable($this->response_table);
 		}else{
 			$responseQuery = $this->responses()
-				->where('respondent_type', '=', $respondentType)
-				->where('respondent_id', '=', $respondentId)
+				->where('respondent_type', '=', get_class($respondent))
+				->where('respondent_id', '=', $respondent->id)
 				->orderBy('updated_at', 'DESC');
 			$response = $responseQuery->get()->first();
 			if( $response ){
 				$response->setTable($this->response_table);
 			}else{
 				$response = Response::newResponse($this->response_table);
-				$response->respondent_type = $respondentType;
-				$response->respondent_id = $respondentId;
+				$response->respondent_type = get_class($respondent);
+				$response->respondent_id = $respondent->id;
 			}
 			$response->survey_id = $this->id;
 		}
@@ -130,7 +136,7 @@ class Survey extends Model implements SluggableInterface {
 	public function getRules(Response $response)
 	{
 		$rulesClassName = $this->getSurveyDocument()->getRulesClass();
-		return new $rulesClassName($this, $response);	
+		return new $rulesClassName($response);	
 	}
 
 }

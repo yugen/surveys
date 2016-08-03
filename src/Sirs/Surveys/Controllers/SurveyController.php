@@ -20,8 +20,7 @@ class SurveyController extends BaseController
     use DispatchesJobs, ValidatesRequests;
 
 
-    protected function render($survey, $page, $pageIdx, $response, $respondent, $errors=null){
-        $rules = $survey->getRules($response);
+    protected function render($survey, $page, $pageIdx, $rules, $errors=null){
         $context = [
             'survey'=>[
                 'name'=>$survey->name,
@@ -30,8 +29,8 @@ class SurveyController extends BaseController
                 'totalPages'=>count($survey->getSurveyDocument()->pages),
                 'currentPageIdx'=>$pageIdx
             ],
-            'respondent'=>$respondent,
-            'response'=>$response
+            'respondent'=>$rules->response->respondent,
+            'response'=>$rules->response
         ];
         if($errors){
             $context['errors'] = $errors;   
@@ -78,11 +77,13 @@ class SurveyController extends BaseController
         $this->setPreviousLocation($request);
 
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
+        $respondent = $this->getRespondent($respondentType, $respondentId);
         
         $survey->getSurveyDocument()->validate();
 
-        $respondent = $this->getRespondent($respondentType, $respondentId);
-        $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+        $response = $survey->getLatestResponse($respondent, null, $responseId);
+
+        // can extract all of this to SurveyControlService
         $page = $survey->getSurveyDocument()->getPage($request->input('page'));
 
         if( $response->finalized_at ){
@@ -96,7 +97,10 @@ class SurveyController extends BaseController
             $pageIdx = $survey->getSurveyDocument()->getPageIndexByName($page->name);
         }
 
-        return $this->render($survey, $page, $pageIdx, $response, $respondent);
+        $rules = $survey->getRules($response);
+        $rules->setPretext($request->all());
+
+        return $this->render($survey, $page, $pageIdx, $rules);
     }
 
 	/**
@@ -106,20 +110,22 @@ class SurveyController extends BaseController
 	 * @author SIRS
 	 **/
     public function store(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
-
-
     	// instatiating objects
     	$data = $request->except(['_token', 'nav', 'page']);
         $respondent = $this->getRespondent($respondentType, $respondentId);
     	$survey = Survey::where('slug', $surveySlug)->firstOrFail();
+        $survey->getSurveyDocument()->validate();
 
-        $response = $survey->getLatestResponse($respondentType, $respondentId, $responseId);
+        $response = $survey->getLatestResponse($respondent, null, $responseId);
         if( !$response ){
             $response = Response::newResponse($survey->response_table);
         }
 
+        // can extract all of this to SurveyControlService
+
         // get the rules object
         $rules = $survey->getRules($response);
+        $rules->setPretext($request->all());
 
         $surveydoc = $survey->getSurveyDocument();
         $page = $surveydoc->getPage($request->input('page'));
@@ -154,9 +160,11 @@ class SurveyController extends BaseController
         $augmentedValidator = $this->execRule($rules, $page->name, 'GetValidator', ['validator'=>$validator]);
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
 
+
+
     	if ( in_array($request->input('nav'), ['next', 'finalize']) && $validator->fails() ) {
                // throw new InvalidSurveyResponseException($validator->errors());
-            return $this->render($survey, $page, $pageIdx, $response, $respondent, $validator->errors());
+            return $this->render($survey, $page, $pageIdx, $rules, $validator->errors());
     		/** TO DO: Return rendered page with errors  */
     	}
 
@@ -216,6 +224,8 @@ class SurveyController extends BaseController
         $response = $survey->getLatestResponse($respondentType, $respondentId, $responseId);
     	$target = $surveydoc->pages[$pageIndex]->name;
     	$rules = $survey->getRules($response);
+        $rules->setPretext($request->all());
+
         $skip = $this->execRule($rules, $target, 'Skip');
 
     	// looking for custom skip method, deciding what to do with response
@@ -225,7 +235,14 @@ class SurveyController extends BaseController
     			case 0:
     				// we are not skipping page
     				$pageName = $target;
-    				return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveySlug, $responseId, $pageName ] ) );
+                    $url  = action( 'SurveyController@show',[ $respondentType, $respondentId, $surveySlug, $responseId, $pageName ] );
+                    $queryStringParams = [];
+                    foreach ($rules->pretext as $key => $value) {
+                        $queryStringParams[] = $key.'='.$value;
+                    }
+                    $url .= (count($queryStringParams) > 0) ? '?'.implode('&', $queryStringParams) : '';
+                    dd($url);
+    				return redirect( $url );
     				break;
 
     			case 1:
@@ -258,6 +275,11 @@ class SurveyController extends BaseController
     	} else{
     		// no custom method
             $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$target;
+            $queryStringParams = [];
+            foreach ($rules->pretext as $key => $value) {
+                $queryStringParams[] = $key.'='.$value;
+            }
+            $redirectUrl .= (count($queryStringParams) > 0) ? '&'.implode('&', $queryStringParams) : '';
             return redirect($redirectUrl);
     	}
     }
