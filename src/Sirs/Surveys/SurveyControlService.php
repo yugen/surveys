@@ -37,19 +37,15 @@ class SurveyControlService
         $this->response = $response;
         $this->survey = $response->survey;
         
-        Dbg::startMeasure('getSurveyRules');
         $this->rules = $this->survey->getRules($response);
-        Dbg::endMeasure('getSurveyRules');
-
-        Dbg::startMeasure('getPage');
+        $this->rules->setPretext($request);
+ 
         $this->page = $this->survey->getSurveyDocument()->getPage($request->input('page'));
-        Dbg::endMeasure('getPage');
 
         // parse the request into various parts.
         if ($request->getMethod() == 'POST') {
             $this->response->setDataValues($request->all(), $this->page);
         }
-        $this->rules->setPretext($request->all());
     }
 
     /**
@@ -74,9 +70,6 @@ class SurveyControlService
      */
     public function storeResponseData()
     {
-        if ($errors = $this->getValidationErrors()) {
-            return $this->render($errors);
-        }else{
             // run the after save rule for the page (if any).
             $this->execRule($this->rules, $this->page->name, 'BeforeSave');
 
@@ -84,7 +77,6 @@ class SurveyControlService
 
             // run the after save rule for the page (if any).
             $this->execRule($this->rules, $this->page->name, 'AfterSave');
-        }
     }
 
     public function followNav()
@@ -94,7 +86,6 @@ class SurveyControlService
                 $this->response->finalize();
 
                 $httpResponse = $this->redirect($this->request, $rules);
-                // $this->request->session()->forget('pretext');
                 break;
             case 'save':
                 $destinationPage = ($this->request->destination_page) ? $this->request->destination_page : $this->page->name;
@@ -111,8 +102,12 @@ class SurveyControlService
 
     public function saveAndContinue()
     {
-        $this->storeResponseData();
-        return $this->followNav();
+        if ($errors = $this->getValidationErrors()) {
+            return $this->render($errors);
+        }else{
+            $this->storeResponseData();
+            return $this->followNav();
+        }
     }
 
     public function navigate()
@@ -146,7 +141,6 @@ class SurveyControlService
                 case 1: // we are skipping this page
                     $this->page = $target;
                     $httpResponse = $this->navigate();
-                    // $this->navigate($this->request, $this->response->respondent_type, $this->response->respondent_id, $this->survey->slug, $this->response_id, $target->name, $survey, $surveydoc);
                     break;
 
                 case 2: // we are finalizing
@@ -199,12 +193,14 @@ class SurveyControlService
         if(!$redirectUrl){
             $redirectUrl = $this->request->session()->pull('survey_previous', '/');
         }
+        $this->rules->forgetPretext();
         return redirect($redirectUrl);
     }
 
     public function getValidationErrors()
     {
         // Validate
+        // dd($this->page->getValidation());
         $validator = Validator::make( $this->request->all(), $this->page->getValidation());
         $augmentedValidator = $this->execRule($this->rules, $this->page->name, 'GetValidator', ['validator'=>$validator]);
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;

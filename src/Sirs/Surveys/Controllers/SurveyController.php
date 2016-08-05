@@ -33,27 +33,13 @@ class SurveyController extends BaseController
     public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
         $this->setPreviousLocation($request);
 
-        Debugbar::startMeasure('getSurvey');
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
-        Debugbar::stopMeasure('getSurvey');
-
-        Debugbar::startMeasure('validateSurvey');
-        // $survey->getSurveyDocument()->validate();
-        Debugbar::stopMeasure('validateSurvey');
-
-        Debugbar::startMeasure('getRespondent');
         $respondent = $this->getRespondent($respondentType, $respondentId);
-        Debugbar::stopMeasure('getRespondent');
-
-        Debugbar::startMeasure('getResponse');
         $response = $survey->getLatestResponse($respondent, null, $responseId);
-        Debugbar::stopMeasure('getResponse');
 
-        Debugbar::startMeasure('getservice');
         $control = new SurveyControlService($request, $response);
-        Debugbar::stopMeasure('getservice');
-        return $control->showPage();
 
+        return $control->showPage();
     }
 
 	/**

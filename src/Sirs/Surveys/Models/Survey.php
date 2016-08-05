@@ -59,16 +59,18 @@ class Survey extends Model implements SluggableInterface {
 	public function getSurveyDocument()
 	{
 		if( is_null($this->document) ){
-			if(Cache::has('survey-'.$this->slug)){
-				print('<pre>');print_r('in the cache.  get it from there');print('</pre>');
-				$this->document = Cache::get('survey-'.$this->slug);
-			}else{
-				print('<pre>');print_r('not in the cache.  load from file and cache it.');print('</pre>');
+			if (env('APP_DEBUG')) {
+				\Debugbar::info('skipping survey document cache');
 				$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
-				Cache::put('survey-'.$this->slug, $this->document, 60);
+			}else{
+				if(Cache::has('survey-'.$this->slug)){
+					$this->document = Cache::get('survey-'.$this->slug);
+				}else{
+					$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
+					Cache::forever('survey-'.$this->slug, $this->document, 60);
+				}
 			}
 		}
-		// dd($this->document);
 		return $this->document;
 	}
 
