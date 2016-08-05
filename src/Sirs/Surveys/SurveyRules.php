@@ -31,7 +31,6 @@ class SurveyRules
             if(in_array($key, array_keys($this->response->getDataAttributes()))) continue;
             if(in_array(preg_replace('/(_refused)|(_field)/', '', $key), array_keys($this->response->getDataAttributes()))) continue;
 
-
             $this->pretext[$key] = $value;
         }
     }

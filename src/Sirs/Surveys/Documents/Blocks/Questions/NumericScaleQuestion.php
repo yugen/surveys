@@ -21,11 +21,11 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
         $this->defaultDataFormat = 'int';
     }
 
-    public function parse()
+    public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-      parent::parse();
-      $this->setInterval($this->getAttribute($this->xmlElement, 'interval'));
-      $this->parseLegend();
+      parent::parse($simpleXmlElement);
+      $this->setInterval($this->getAttribute($simpleXmlElement, 'interval'));
+      $this->parseLegend($simpleXmlElement);
 
       foreach( range($this->min, $this->max, $this->getInterval()) as $num ){
             $option = new OptionBlock($num);
@@ -52,9 +52,9 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
         return ($this->interval) ? $this->interval : 1;
     }
 
-  public function parseLegend(){
-      if( $this->xmlElement->legend && $this->xmlElement->legend->item ){
-          foreach( $this->xmlElement->legend->item as $i ){
+  public function parseLegend(\SimpleXMLElement $simpleXmlElement){
+      if( $simpleXmlElement->legend && $simpleXmlElement->legend->item ){
+          foreach( $simpleXmlElement->legend->item as $i ){
             $item = [
                 'label'=>$i->label[0]->__toString(),
                 'value'=>$i->value[0]->__toString(),

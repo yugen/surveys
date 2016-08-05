@@ -33,7 +33,6 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         $validator->validate($xml);
         $this->pages = [];
         parent::__construct($xml);
-        $this->validate();
     }
 
     static public function initFromFile($filePath){
@@ -64,15 +63,18 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
 
 
-    public function parse()
+    public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-        $this->setTitle($this->getAttribute($this->xmlElement, 'title'));
-        $this->setName($this->getAttribute($this->xmlElement, 'name'));
-        $this->setVersion($this->getAttribute($this->xmlElement, 'version'));
-        $this->setRulesClass($this->getAttribute($this->xmlElement, 'rules-class'));
-        $this->parseParameters();
-        foreach( $this->xmlElement->page as $pageElement ){
+        $this->setTitle($this->getAttribute($simpleXmlElement, 'title'));
+        $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+        $this->setVersion($this->getAttribute($simpleXmlElement, 'version'));
+        $this->setRulesClass($this->getAttribute($simpleXmlElement, 'rules-class'));
+        $this->parseParameters($simpleXmlElement);
+        $pageNum = 0;
+        foreach( $simpleXmlElement->page as $idx => $pageElement ){
+            $pageNum++;
             $page = PageDocument::createWithParameters($pageElement, $this->getParameters());
+            $page->setPageNumber($pageNum);
             $this->appendPage($page);
         }
     }
@@ -240,6 +242,9 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function getPage($pageKey){
         if( $pageKey ){
             if(ctype_digit($pageKey)){
+                if((int)$pageKey >= count($this->pages)) {
+                    return end($this->pages);
+                }
                 $idx = ((int)$pageKey)-1;
                 return $this->pages[$idx];
             }else{

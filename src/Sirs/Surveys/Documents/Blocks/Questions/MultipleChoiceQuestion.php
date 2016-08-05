@@ -25,11 +25,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         $this->defaultDataFormat = 'int';
     }
 
-    public function parse()
+    public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-        parent::parse();
-        $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
-        $this->parseOptions();
+        parent::parse($simpleXmlElement);
+        $this->setNumSelectable($this->getAttribute($simpleXmlElement, 'num-selectable'));
+        $this->parseOptions($simpleXmlElement);
     }
 
     public function setNumSelectable($number = null)

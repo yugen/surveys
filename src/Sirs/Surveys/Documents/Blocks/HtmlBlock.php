@@ -12,10 +12,10 @@ class HtmlBlock extends RenderableBlock implements HtmlBlockInterface
   protected $html;
   protected $defaultTemplate = 'html_default';
 
-  function parse()
+  function parse(\SimpleXMLElement $simpleXmlElement)
   {
-    parent::parse();
-    $this->setHtml($this->xmlElement->content->__toString());
+    parent::parse($simpleXmlElement);
+    $this->setHtml($simpleXmlElement->content->__toString());
   }
 
   function setHtml($html)

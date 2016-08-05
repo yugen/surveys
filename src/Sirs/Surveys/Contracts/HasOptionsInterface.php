@@ -10,7 +10,7 @@ namespace Sirs\Surveys\Contracts;
 interface HasOptionsInterface
 {
 
-  public function parseOptions();
+  public function parseOptions(\SimpleXmlElement $simpleXmlElement);
 
   /**
    * Sets options for possible values

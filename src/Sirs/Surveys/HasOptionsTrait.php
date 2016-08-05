@@ -7,12 +7,12 @@ use Sirs\Surveys\Documents\Blocks\OptionBlock;
 trait HasOptionsTrait{
   protected $options;
 
-  public function parseOptions(){
-      if( !$this->xmlElement->options->option && !$this->xmlElement->options->{'data-source'} ){
+  public function parseOptions(\SimpleXMLElement $simpleXmlElement){
+      if( !$simpleXmlElement->options->option && !$simpleXmlElement->options->{'data-source'} ){
         throw new \Exception('No options or data-source found');
       }
-      if( $this->xmlElement->options->{'data-source'} ){
-          $dataSourceEl = $this->xmlElement->options->{'data-source'};
+      if( $simpleXmlElement->options->{'data-source'} ){
+          $dataSourceEl = $simpleXmlElement->options->{'data-source'};
           $dataSourceUri = $this->getAttribute($dataSourceEl, 'URI');
 
           $pattern = '/\[PARAM:(\w+)\]/';
@@ -27,8 +27,8 @@ trait HasOptionsTrait{
           }, $dataSourceUri);
           $this->getOptionsFromDataSource($dataSourceUri);
       }
-      if( $this->xmlElement->options->option ){
-          foreach( $this->xmlElement->options->option as $option ){
+      if( $simpleXmlElement->options->option ){
+          foreach( $simpleXmlElement->options->option as $option ){
             $this->appendOption(new OptionBlock($this->name, $option));
           }
       }

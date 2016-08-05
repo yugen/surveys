@@ -98,21 +98,21 @@ class Response extends Model {
      * @return void
      * @param Array $data Associative array of data field=>value
      **/
-    function setDataValues($data)
+    function setDataValues($data, $page)
     {
-        $page = $surveydoc->getPage($this->request->input('page'));
+        // $page = $this->survey->survey_document->getPage($page);
         $pageVariables = collect($page->getVariables())->keyBy('name');
 
         foreach ($data as $key => $value) {
             if( in_array($key, $pageVariables->keys()->all()) ){
-                $response->$key = ($value == '') ? null : $value;
+                $this->$key = ($value == '') ? null : $value;
             }
         }
 
         $dataKeys = array_keys($data);
         foreach( $pageVariables as $idx => $pageVar ){
             if(!in_array($pageVar->name, $dataKeys) ){
-                $this->response->{$pageVar->name} = null;
+                $this->{$pageVar->name} = null;
             }
         }
     }

@@ -2,9 +2,10 @@
 
 namespace Sirs\Surveys\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Models\Response;
 
@@ -58,8 +59,16 @@ class Survey extends Model implements SluggableInterface {
 	public function getSurveyDocument()
 	{
 		if( is_null($this->document) ){
-			$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
+			if(Cache::has('survey-'.$this->slug)){
+				print('<pre>');print_r('in the cache.  get it from there');print('</pre>');
+				$this->document = Cache::get('survey-'.$this->slug);
+			}else{
+				print('<pre>');print_r('not in the cache.  load from file and cache it.');print('</pre>');
+				$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
+				Cache::put('survey-'.$this->slug, $this->document, 60);
+			}
 		}
+		// dd($this->document);
 		return $this->document;
 	}
 
@@ -88,6 +97,37 @@ class Survey extends Model implements SluggableInterface {
 	public function getNameVersionAttribute()
 	{
 		return $this->name.$this->version;
+	}
+
+	/**
+	 * Get the title attribute from the survey document
+	 *
+	 * @return string
+	 **/
+	public function getTitleAttribute()
+	{
+		return $this->getSurveyDocument()->title;
+	}
+
+	/**
+	 * Get the title attribute from the survey document
+	 *
+	 * @return string
+	 **/
+	public function getPagesAttribute()
+	{
+		return $this->getSurveyDocument()->pages;
+	}
+
+	/**
+	 * Get the survey document as an attribute
+	 *
+	 * @return Sirs\Surveys\Documents\SurveyDocument
+	 * @author 
+	 **/
+	public function getSurveyDocumentAttribute()
+	{
+		return $this->getSurveyDocument();
 	}
 
 	/**

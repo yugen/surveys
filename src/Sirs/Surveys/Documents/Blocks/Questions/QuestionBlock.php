@@ -26,19 +26,19 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->defaultTemplate = 'questions.text.default_text';
   }
 
-  public function parse()
+  public function parse(\SimpleXMLElement $simpleXmlElement)
   {
 
-    parent::parse();
-    $this->setName($this->getAttribute($this->xmlElement, 'name'));
-    $this->setQuestionText((string)$this->xmlElement->{'question-text'}[0]);
-    $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
-    $this->setRequired($this->getAttribute($this->xmlElement, 'required'));
-    $this->setPlaceholder($this->getAttribute($this->xmlElement, 'placeholder'));
-    $this->setShow($this->getAttribute($this->xmlElement, 'show'));
-    $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
-    $this->setRefusable($this->getAttribute($this->xmlElement, 'refusable'));
-    $this->setValidationRules($this->getAttribute($this->xmlElement, 'validation-rules'));
+    parent::parse($simpleXmlElement);
+    $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+    $this->setQuestionText((string)$simpleXmlElement->{'question-text'}[0]);
+    $this->setDataFormat($this->getAttribute($simpleXmlElement, 'data-format'));
+    $this->setRequired($this->getAttribute($simpleXmlElement, 'required'));
+    $this->setPlaceholder($this->getAttribute($simpleXmlElement, 'placeholder'));
+    $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
+    $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
+    $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
+    $this->setValidationRules($this->getAttribute($simpleXmlElement, 'validation-rules'));
   }
 
   /**
