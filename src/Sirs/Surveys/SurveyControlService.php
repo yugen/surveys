@@ -70,13 +70,13 @@ class SurveyControlService
      */
     public function storeResponseData()
     {
-            // run the after save rule for the page (if any).
-            $this->execRule($this->rules, $this->page->name, 'BeforeSave');
+        // run the after save rule for the page (if any).
+        $this->execRule($this->rules, $this->page->name, 'BeforeSave');
 
-            $this->response->save();
+        $this->response->save();
 
-            // run the after save rule for the page (if any).
-            $this->execRule($this->rules, $this->page->name, 'AfterSave');
+        // run the after save rule for the page (if any).
+        $this->execRule($this->rules, $this->page->name, 'AfterSave');
     }
 
     public function followNav()
