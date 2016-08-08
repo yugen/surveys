@@ -219,6 +219,15 @@ class SurveyControlService
      */
     protected function render($errors = null)
     {
+        $context = $this->buildBaseContext();
+        if( $ruleContext = $this->execRule($this->rules, $this->page->name, 'beforeShow') ){
+            $context = array_merge($context, $ruleContext);
+        }
+        return  $this->page->render($context); 
+    }
+
+    public function buildBaseContext($errors = null)
+    {
         $context = [
             'survey'=>[
                 'name'=>$this->survey->name,
@@ -228,18 +237,14 @@ class SurveyControlService
                 'currentPageIdx'=> $this->page->pageNumber - 1
             ],
             'respondent'=>$this->response->respondent,
-            'response'=>$this->response
+            'response'=>$this->response,
+            'pretext'=>$this->rules->pretext
         ];
 
         if($errors){
             $context['errors'] = $errors;   
         }
-
-        if( $ruleContext = $this->execRule($this->rules, $this->page->name, 'beforeShow') ){
-            $context = array_merge($context, $ruleContext);
-        }
-
-        return  $this->page->render($context); 
+        return $context;
     }
 
 
