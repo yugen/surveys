@@ -84,8 +84,8 @@ class SurveyControlService
         switch ($this->request->input('nav')) {
             case 'finalize':
                 $this->response->finalize();
-
-                $httpResponse = $this->redirect($this->request, $rules);
+            case 'save_exit':
+                $httpResponse = $this->redirect();
                 break;
             case 'save':
                 $destinationPage = ($this->request->destination_page) ? $this->request->destination_page : $this->page->name;
@@ -149,12 +149,12 @@ class SurveyControlService
                     }catch(ResponsePreviouslyFinalizedException $e){
                         Log::notice($e->getMessage());
                     }
-                    $httpResponse = $this->redirect($this->request, $this->rules); //redirect to 
+                    $httpResponse = $this->redirect(); //redirect to 
                     // $request->session()->forget('pretext');
                     break;
 
                 case 3: // 
-                    $httpResponse = $this->redirect($this->request, $this->rules); //redirect to 
+                    $httpResponse = $this->redirect(); //redirect to 
                     // $request->session()->forget('pretext');
                     break;
                     

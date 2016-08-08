@@ -36,9 +36,14 @@
       @if($context['survey']['currentPageIdx'] == ($context['survey']['totalPages']-1))
         <button id="nav-finalize" type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
       @endif
-      @if(true)
-        <button id="nav-save" type="submit" name="nav" value="save" class="btn btn-default pull-right">Save</button>
-      @endif
+      <div id="save-buttons" class="pull-right">
+        @if(!isset($context['hideSave']) || !$context['hideSave'])
+        <button id="nav-save" type="submit" name="nav" value="save" class="btn btn-default">Save</button>
+        @endif
+        @if(!isset($context['hideSaveExit']) || !$context['hideSaveExit'])
+        <button id="nav-save-exit" type="submit" name="nav" value="save_exit" class="btn btn-default">Save &amp; exit</button>
+        @endif
+      </div>
     </div>
   </div>
 </form>
