@@ -39,7 +39,7 @@ class SurveyControlService
         
         $this->rules = $this->survey->getRules($response);
         $this->rules->setPretext($request);
- 
+
         $this->page = $this->survey->getSurveyDocument()->getPage($request->input('page'));
 
         // parse the request into various parts.
@@ -58,7 +58,7 @@ class SurveyControlService
     {
         if( $this->response->finalized_at ){
             // return 'already finalized';
-            return redirect()->route('surveys.{surveySlug}.responses.show', [$survey->slug, $responseId]);
+            return redirect()->route('surveys.{surveySlug}.responses.show', [$this->survey->slug, $responseId]);
         }
         return $this->render();
     }
