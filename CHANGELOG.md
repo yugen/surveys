@@ -1,5 +1,13 @@
 # Change Log
 
+## 2.0.0 - XXXX-XX-XX
+* Added support for save_and_exit button.
+* 'Save' and 'Save and Exit' can be hidden by passing `$hideSave = 1` and `$hideSaveExit = 1` respectively
+* Added support for survey-id attribute on the survey tag.  If present it will be used to set the survey's id in the surveys table.
+* Extracted survey control logic to SurveyControlService.
+* Added SurveyRules base class that all survey rules should inherit from.
+* Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
+
 ## 1.2.1 - 2016-07-25
 * Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.
 * Options tag now uses both data-source and option tags to populate options for a multiple-choice question.

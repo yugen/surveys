@@ -14,6 +14,7 @@
 			<xs:attribute name="title" type="xs:string" />
 			<xs:attribute name="response-limit" type="xs:integer" />
 			<xs:attribute name="rules-class" type="xs:string" />
+			<xs:attribute name="survey-id" type="xs:integer" />
 		</xs:complexType>
 	</xs:element>
 

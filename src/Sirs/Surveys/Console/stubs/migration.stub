@@ -31,7 +31,9 @@ class DummyClass extends Migration
             $table->index(['started_at', 'finalized_at', 'survey_id']);
         });
 
+        Illuminate\Database\Eloquent\Model::unguard();
         \Sirs\Surveys\Models\Survey::firstOrCreate([
+            "id"=>DummySurveyId,
             "name"=>"DummyName", 
             "version"=>"DummyVersion", 
             "file_name"=>"DummyFileName", 

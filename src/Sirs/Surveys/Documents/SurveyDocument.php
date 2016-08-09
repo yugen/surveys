@@ -25,6 +25,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     protected $rulesClass;
     protected $parameters;
     protected $contents;
+    protected $id;
 
     public function __construct($xml = null)
     {
@@ -69,6 +70,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         $this->setName($this->getAttribute($simpleXmlElement, 'name'));
         $this->setVersion($this->getAttribute($simpleXmlElement, 'version'));
         $this->setRulesClass($this->getAttribute($simpleXmlElement, 'rules-class'));
+        $this->setSurveyId($this->getAttribute($simpleXmlElement, 'survey-id'));
         $this->parseParameters($simpleXmlElement);
         $pageNum = 0;
         foreach( $simpleXmlElement->page as $idx => $pageElement ){
@@ -79,8 +81,25 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         }
     }
 
+    public function setSurveyId($id)
+    {
+        $this->id = ($id) ? $id : null;
+        return $this;
+    }
+
+    public function getSurveyId()
+    {
+        return $this->id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function setRulesClass($class){
         $this->rulesClass = $class;
+        return $this;
     }
 
     public function getRulesClass(){
