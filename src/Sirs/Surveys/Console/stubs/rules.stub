@@ -1,7 +1,9 @@
 <?php 
 namespace App\Surveys;
 
-class DummyClass 
+use Sirs\Surveys\SurveyRules;
+
+class DummyClass extends SurveyRules
 {
     /** 
     Rules stub.  Will add more as we flesh this out
@@ -18,9 +20,8 @@ class DummyClass
         PAGES
     */
 
-    public function __construct($survey, $response)
+    public function __construct($response)
     {
-        $this->survey = $survey;
         $this->response = $response;
     }
 
