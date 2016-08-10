@@ -219,7 +219,7 @@ class SurveyControlService
      */
     protected function render($errors = null)
     {
-        $context = $this->buildBaseContext();
+        $context = $this->buildBaseContext($errors);
         if( $ruleContext = $this->execRule($this->rules, $this->page->name, 'beforeShow') ){
             $context = array_merge($context, $ruleContext);
         }
