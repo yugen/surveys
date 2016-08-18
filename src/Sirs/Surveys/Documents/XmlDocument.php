@@ -30,7 +30,14 @@ abstract class XmlDocument
         while($includes->length > 0){
             $include = $includes->item(0);
             $source = config('surveys.surveysPath').'/'.$include->getAttribute('source');
-            $includeDom = dom_import_simplexml(simplexml_load_file($source));
+            if (!file_exists($source)) {
+                throw new \Exception('file '.$source.' not found.', 404);
+            }
+            $simpleXmlFile = simplexml_load_file($source);
+            if (!$simpleXmlFile) {
+                throw new \Exception('Error when parsing '.$source);
+            }
+            $includeDom = dom_import_simplexml($simpleXmlFile);
             $nodeImport = $include->ownerDocument->importNode($includeDom, TRUE);
 
             if(!$include->parentNode->replaceChild($nodeImport, $include)){
