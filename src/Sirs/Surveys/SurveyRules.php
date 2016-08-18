@@ -26,14 +26,14 @@ class SurveyRules
         $this->response = $response;
     }
 
-    public function setPretext(Request $request){
-        $pretext = $request->session()->get('pretext', []);
+    public function setPretext($requestData){
+        $pretext = request()->session()->get('pretext', []);
 
         $this->pretext = (isset($pretext[$this->response->survey->slug][$this->response->respondent_id])) 
                             ? $pretext[$this->response->survey->slug][$this->response->respondent_id]
                             : new RulesPretext([]);
 
-        foreach ($request->all() as $key => $value) {
+        foreach ($requestData as $key => $value) {
             if(in_array($key, ['_token'])) continue;
             if(in_array($key, array_keys($this->response->getDataAttributes()))) continue;
             if(in_array(preg_replace('/(_refused)|(_field)/', '', $key), array_keys($this->response->getDataAttributes()))) continue;
@@ -48,7 +48,7 @@ class SurveyRules
             $pretext[$this->response->survey->slug][$this->response->respondent_id] = $this->pretext;
         }
 
-        $request->session()->put('pretext', $pretext);
+        request()->session()->put('pretext', $pretext);
     }
 
     public function forgetPretext()

@@ -38,7 +38,7 @@ class SurveyControlService
         $this->survey = $response->survey;
         
         $this->rules = $this->survey->getRules($response);
-        $this->rules->setPretext($request);
+        $this->rules->setPretext($request->all());
 
         $this->page = $this->survey->getSurveyDocument()->getPage($request->input('page'));
 
