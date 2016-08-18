@@ -88,7 +88,7 @@ class SurveyControlService
                 $httpResponse = $this->redirect();
                 break;
             case 'save':
-                $destinationPage = ($this->request->destination_page) ? $this->request->destination_page : $this->page->name;
+                $destinationPage = ($this->rules->pretext->destination_page) ? $this->rules->pretext->destination_page : $this->page->name;
                 $httpResponse = redirect($this->survey_url.'?page='.$destinationPage);
                 break;
             default:
