@@ -58,7 +58,7 @@ class SurveyControlService
     {
         if( $this->response->finalized_at ){
             // return 'already finalized';
-            return redirect()->route('surveys.{surveySlug}.responses.show', [$this->survey->slug, $responseId]);
+            return redirect()->route('surveys.{surveySlug}.responses.show', [$this->survey->slug, $this->response->id]);
         }
         return $this->render();
     }
