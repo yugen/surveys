@@ -113,12 +113,15 @@ class SurveyControlService
     public function navigate()
     {
         // getting page index and incrementing it to match the navigation button
-        if ($this->request->input('nav') == 'next') {
-            $pageNumber = $this->page->pageNumber + 1;
-        } elseif ($this->request->input('nav') == 'prev') {
-            $pageNumber = $this->page->pageNumber - 1;
-        }else{
-            throw new SurveyNavigationException($this->request->input('nav'));
+        $pageNumber = $this->execRule($this->rules, $this->page->name, 'navigate', ['page'=>$this->page->name, 'nav'=>$this->request->input('nav')]);
+        if (!$pageNumber) {
+            if ($this->request->input('nav') == 'next') {
+                $pageNumber = $this->page->pageNumber + 1;
+            } elseif ($this->request->input('nav') == 'prev') {
+                $pageNumber = $this->page->pageNumber - 1;
+            }else{
+                throw new SurveyNavigationException($this->request->input('nav'));
+            }
         }
 
         $target = $this->survey->survey_document->pages[($pageNumber - 1)];

@@ -69,6 +69,10 @@ class SurveyRules
     public function __get($attr)
     {
         switch ($attr) {
+            case 'surveyDocument':
+            case 'surveyDoc':
+                return $this->response->survey->getSurveyDocument();
+                break;
             case 'survey':
                 return $this->response->survey;
                 break;
