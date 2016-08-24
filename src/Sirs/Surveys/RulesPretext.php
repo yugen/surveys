@@ -16,6 +16,11 @@ class RulesPretext
         $this->data = $data;
     }
 
+    public function save()
+    {
+        request()->session()->put('pretext', $this);        
+    }
+
     public function __set($attr, $val)
     {
         if(property_exists(get_class($this), $attr)){

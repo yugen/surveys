@@ -145,7 +145,7 @@ class SurveyControlService
 
                 case 2: // we are finalizing
                     try{
-                        $response->finalize();
+                        $this->response->finalize();
                     }catch(ResponsePreviouslyFinalizedException $e){
                         Log::notice($e->getMessage());
                     }
