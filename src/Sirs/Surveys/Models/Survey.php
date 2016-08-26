@@ -59,7 +59,7 @@ class Survey extends Model implements SluggableInterface {
 	public function getSurveyDocument()
 	{
 		if( is_null($this->document) ){
-			if (env('APP_DEBUG')) {
+			if (!config('surveys.cacheDocuments')) {
 				\Debugbar::info('skipping survey document cache');
 				$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
 			}else{

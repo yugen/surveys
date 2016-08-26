@@ -7,6 +7,8 @@
 * Extracted survey control logic to SurveyControlService.
 * Added SurveyRules base class that all survey rules should inherit from.
 * Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
+* Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true surey docs are cached. 
+
 
 ## 1.2.1 - 2016-07-25
 * Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.
