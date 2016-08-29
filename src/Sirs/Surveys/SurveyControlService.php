@@ -83,6 +83,8 @@ class SurveyControlService
     {
         switch ($this->request->input('nav')) {
             case 'finalize':
+                $this->rules->pretext->nav_dir = null;
+                $this->rules->setPretext($this->rules->pretext->getData());
                 $this->response->finalize();
             case 'save_exit':
                 $httpResponse = $this->redirect();

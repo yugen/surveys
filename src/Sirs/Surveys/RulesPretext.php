@@ -12,13 +12,19 @@ class RulesPretext
 {
     protected $data;
 
-    public function __construct($data){
+    public function __construct($data)
+    {
         $this->data = $data;
     }
 
     public function save()
     {
-        request()->session()->put('pretext', $this);        
+        request()->session()->put('pretext', $this->getData());        
+    }
+
+    public function getData()
+    {
+        return $this->data;
     }
 
     public function __set($attr, $val)
