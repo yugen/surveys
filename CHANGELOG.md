@@ -1,13 +1,17 @@
 # Change Log
 
 ## 2.0.0 - XXXX-XX-XX
+#### Breaking Changes
+* Responses are now soft-deleted.  That means that you will have to add a deleted_at timestamp field to your existing response tables.
+* Added SurveyRules base class that all survey rules should inherit from.
+
+#### Non-breaking changes
 * Added support for save_and_exit button.
 * 'Save' and 'Save and Exit' can be hidden by passing `$hideSave = 1` and `$hideSaveExit = 1` respectively
 * Added support for survey-id attribute on the survey tag.  If present it will be used to set the survey's id in the surveys table.
 * Extracted survey control logic to SurveyControlService.
-* Added SurveyRules base class that all survey rules should inherit from.
 * Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
-* Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true surey docs are cached. 
+* Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true survey docs are cached.
 
 
 ## 1.2.1 - 2016-07-25
