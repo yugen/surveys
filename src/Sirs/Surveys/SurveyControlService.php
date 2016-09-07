@@ -205,15 +205,24 @@ class SurveyControlService
     public function getValidationErrors()
     {
         // Validate
-        // dd($this->page->getValidation());
         $validator = Validator::make( $this->request->all(), $this->page->getValidation());
         $augmentedValidator = $this->execRule($this->rules, $this->page->name, 'GetValidator', ['validator'=>$validator]);
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
         
-        if ( $validator->fails() && in_array($this->request->input('nav'), ['next', 'finalize']) ) {
+        if ( $validator->fails() && $this->shouldValidate() ) {
             return $validator->errors();
         }
         return null;
+    }
+
+    public function shouldValidate()
+    {
+        if (in_array($this->request->nav, ['next', 'finalize'])){
+            return true;
+        }elseif($this->request->nav == 'save_exit' && $this->request->nav_dir == 'next'){
+            return true;
+        }
+        return false;
     }
 
     /**

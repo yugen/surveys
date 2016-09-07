@@ -13,6 +13,11 @@
 * Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
 * Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true survey docs are cached.
 
+## 1.2.2 - 1.2.5 - 2016-07-26
+* Fixed bug in QuestionFactory
+* Fixed bad option rendering bug
+* Fixed include bug that resulted in only every other included being pulled into the survey
+* Removed errant dd() statement
 
 ## 1.2.1 - 2016-07-25
 * Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.
