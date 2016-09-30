@@ -27,9 +27,10 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
+        // do this first so refused option is last
+        $this->parseOptions($simpleXmlElement);
         parent::parse($simpleXmlElement);
         $this->setNumSelectable($this->getAttribute($simpleXmlElement, 'num-selectable'));
-        $this->parseOptions($simpleXmlElement);
     }
 
     public function setNumSelectable($number = null)
@@ -69,8 +70,10 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
       $this->refusable = ($value) ? true : false;
       if( $this->refusable ){
         $refusedOption = new OptionBlock('refused');
+        $refusedOption->setName('refused');
         $refusedOption->setValue(-77);
-        $refusedOption->setLabel('Refused');
+        $refusedOption->setLabel($this->refuseLabel);
+        $refusedOption->setClass('exclusive');
         $this->appendOption($refusedOption);
       }
       return $this;

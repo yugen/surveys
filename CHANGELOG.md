@@ -3,7 +3,7 @@
 ## 2.0.0 - XXXX-XX-XX
 #### Breaking Changes
 * Responses are now soft-deleted.  That means that you will have to add a deleted_at timestamp field to your existing response tables.
-* Added SurveyRules base class that all survey rules should inherit from.
+* Added SurveyRules base class that all survey rules should inherit from.  Your rules classes should now extend SurveyRules to take advantage of rules pretext.
 
 #### Non-breaking changes
 * Added support for save_and_exit button.

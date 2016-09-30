@@ -11,6 +11,8 @@ return [
   'routeGroup'=>['middleware' => 'auth'],
   'chromeTemplate'=>'app',
   'cacheDocuments'=>( env('APP_DEBUG') ) ? false : true,
+  'refusedLabel'=>'Refused'
+
 ];
 
 ?>

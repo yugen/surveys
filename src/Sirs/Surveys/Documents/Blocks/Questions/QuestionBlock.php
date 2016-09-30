@@ -18,6 +18,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $show = null;
   protected $hide = null;
   protected $refusable = null;
+  protected $refuseLabel = null;
 
   public function __construct($xml = null)
   {
@@ -37,6 +38,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setPlaceholder($this->getAttribute($simpleXmlElement, 'placeholder'));
     $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
     $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
+    $this->setRefuseLabel($this->getAttribute($simpleXmlElement, 'refuse-label'));
     $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
     $this->setValidationRules($this->getAttribute($simpleXmlElement, 'validation-rules'));
   }
@@ -174,6 +176,17 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getRefusable()
     {
       return ($this->refusable) ? true : false;
+    }
+
+    public function setRefuseLabel($value)
+    {
+      $this->refuseLabel = ($value) ? $value : config('surveys.refuseLabel', 'Refuse');
+      return $this;
+    }
+
+    public function getRefuseLabel()
+    {
+      return ($this->refuseLabel) ? $this->refuseLabel : congif('surveys.refuseLabel', 'Refuse');
     }
 
     public function getValidationRules()

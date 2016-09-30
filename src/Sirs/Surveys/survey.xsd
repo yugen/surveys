@@ -81,6 +81,7 @@
 				<xs:attribute name="placeholder" type="xs:string" />
 				<xs:attribute name="hidden" type="xs:boolean" />
 				<xs:attribute name="refusable" type="xs:boolean" />
+				<xs:attribute name="refuse-label" type="xs:string" />
 				<xs:attribute name="data-format" type="data-format" />
 				<xs:attribute name="validation-rules" type="xs:string" />
 		</xs:complexType>
