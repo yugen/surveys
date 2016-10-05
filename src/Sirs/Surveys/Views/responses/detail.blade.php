@@ -5,6 +5,9 @@
 @push('scripts')
     <script>
         $('body').scrollspy({ target: '#page-nav' }).css({'position':'relative'})
+        $('#page-nav-dropdown').on('hide.bs.dropdown', function(){
+          console.log($(this).find('a.active'));
+        })
     </script>
 @endpush
 
@@ -13,18 +16,24 @@
 <div class="alert alert-info">
     This survey response has been finalized.
 </div>
-<div class="row">
+{{-- <div class="row">
     <div class="col-sm-2">
         <nav id="page-nav" data-spy="affix" data-offset-top="200">
-            <ul class="nav" role="tablist">
+            <div class="dropdown" id="page-nav-dropdown">
+                <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-default">
+                    Dropdown trigger
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
                 @foreach($response->survey->surveyDocument->pages as $page)
                     <li><a href="#{{snake_case($page->name)}}"><strong>{{$page->title}}</strong></a></li>
                 @endforeach    
-            </ul>
+                </ul>
+            </div>
         </nav>
     </div>
     <div class="col-sm-10">
-    @foreach($response->survey->surveyDocument->pages as $page)
+ --}}    @foreach($response->survey->surveyDocument->pages as $page)
         <div class="page-container" id="{{snake_case($page->name)}}">
             <h3>{{$page->title}}</h3>
             @if(count($page->getQuestions()) > 0)
@@ -73,7 +82,7 @@
             @else
             <div class="well">This page does not have any questions.</div>
             @endif
-        </div> 
+        {{-- </div>  --}}
     @endforeach
-    </div>
+    {{-- </div> --}}
 @endsection
