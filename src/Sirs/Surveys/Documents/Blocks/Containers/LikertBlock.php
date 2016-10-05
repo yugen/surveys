@@ -29,10 +29,10 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
     parent::parse($simpleXmlElement);
   }
 
-  public function parseContents(){
+  public function parseContents(\SimpleXMLElement $simpleXmlElement){
     $children = [];
     $blockFactory = new BlockFactory();
-    foreach($this->xmlElement->children() as $child){
+    foreach($simpleXmlElement->children() as $child){
       if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
         $childClass = MultipleChoiceQuestion::class;
         $childBlock = $childClass::createWithParameters($child, $this->getParameters());

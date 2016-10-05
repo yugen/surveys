@@ -46,3 +46,11 @@ label{
 {
   width: 475px;
 }
+
+// response data view
+  #page-nav.affix {
+    top: 10px;
+  }
+  .nav li.active {
+    border-bottom: 3px solid #f0f;
+  }

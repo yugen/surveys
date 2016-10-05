@@ -237,5 +237,21 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       return [new Variable($this->variableName, $this->getDataFormat())];
     }
 
+    public function hasOptions()
+    {
+      return false;
+    }
+
+    public function __get($property){
+      switch ($property) {
+        case 'hasOptions':
+          return $this->hasOptions;
+          break;
+        
+        default:
+          return parent::__get($property);
+          break;
+      }
+    }
 
 }

@@ -120,14 +120,14 @@ class Response extends Model {
     }
 
     /**
-     * gets the field names for data attributes
+     * Gets the field names for data attributes
      *
      * @return void
      * @author 
      **/
     public function getDataAttributeNames()
     {
-        $cols = DB::getSchemaBuilder()->getColumnListing($this->table);
+        $cols = [];
         foreach ($cols as $idx => $column) {
             if( in_array($column, ['id','respondent_id', 'respondent_type', 'survey_id', 'last_page', 'created_at', 'updated_at']) ){
                 unset($cols[$idx]);
