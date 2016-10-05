@@ -9,7 +9,7 @@ trait HasOptionsTrait{
 
   public function parseOptions(){
       if( !$this->xmlElement->options->option && !$this->xmlElement->options->{'data-source'} ){
-        throw new \Exception('No options or data-source found');
+        // throw new \Exception('No options or data-source found');
       }
       if( $this->xmlElement->options->{'data-source'} ){
           $dataSourceEl = $this->xmlElement->options->{'data-source'};
