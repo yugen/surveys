@@ -54,12 +54,16 @@
                             @if(isset($question->numSelectable) && $question->numSelectable > 1)
                                 @foreach($question->getVariables() as $var)
                                     @if($response->{$var->name})
-                                        <li>{{ $var->name }}</li>
+                                        @foreach($question->options as $option)
+                                            @if($option->option->name = $var->name)
+                                            <li>{{ $option->label }}</li>
+                                            @else
+                                        @endforeach
                                     @endif
                                 @endforeach
                             @else
                                 @foreach($question->getOptionsForResponseValue($response->{$question->name}) as $option)
-                                    <li>{{$option->name}}</li>
+                                    <li>{{$option->label}}</li>
                                 @endforeach
                             @endif
                             </ul>

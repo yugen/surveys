@@ -186,7 +186,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     public function getRefuseLabel()
     {
-      return ($this->refuseLabel) ? $this->refuseLabel : congif('surveys.refuseLabel', 'Refused');
+      return ($this->refuseLabel) ? $this->refuseLabel : config('surveys.refuseLabel', 'Refused');
     }
 
     public function getValidationRules()
