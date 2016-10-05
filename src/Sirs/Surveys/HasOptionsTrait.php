@@ -9,7 +9,7 @@ trait HasOptionsTrait{
 
   public function parseOptions(\SimpleXMLElement $simpleXmlElement){
       if( !$simpleXmlElement->options->option && !$simpleXmlElement->options->{'data-source'} ){
-        throw new \Exception('No options or data-source found');
+        // throw new \Exception('No options or data-source found');
       }
       if( $simpleXmlElement->options->{'data-source'} ){
           $dataSourceEl = $simpleXmlElement->options->{'data-source'};

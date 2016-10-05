@@ -5,6 +5,8 @@ namespace Sirs\Surveys\Documents\Blocks\Containers;
 use Sirs\Surveys\Contracts\HasOptionsInterface;
 use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
 use Sirs\Surveys\Documents\Blocks\OptionBlock;
+use Sirs\Surveys\Factories\BlockFactory;
+use Sirs\Surveys\Documents\Blocks\Questions\MultipleChoiceQuestion;
 use Sirs\Surveys\HasOptionsTrait;
 
 class LikertBlock extends ContainerBlock implements HasOptionsInterface
@@ -25,6 +27,20 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
     $this->parseOptions($simpleXmlElement);
     $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
     parent::parse($simpleXmlElement);
+  }
+
+  public function parseContents(){
+    $children = [];
+    $blockFactory = new BlockFactory();
+    foreach($this->xmlElement->children() as $child){
+      if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
+        $childClass = MultipleChoiceQuestion::class;
+        $childBlock = $childClass::createWithParameters($child, $this->getParameters());
+        $childBlock->setOptions( $this->options );
+        $children[] = $childBlock;
+      }
+    }
+    return $children;
   }
 
   public function setPrompt($prompt)
