@@ -70,7 +70,7 @@
                             </ul>
                         @else
                             @if($response->{$question->name})
-                                {{($response->{$question->name} == -77) ? config('surveys.refuseLabel') : $response->{$question->name}; }}
+                                {{($response->{$question->name} == -77) ? config('surveys.refuseLabel', 'Refused') : $response->{$question->name} }}
                             @endif 
                         @endif
                     </td>
