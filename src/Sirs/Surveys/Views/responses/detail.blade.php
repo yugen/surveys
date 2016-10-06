@@ -12,10 +12,18 @@
 @endpush
 
 @section('content')
-<h1>{{ucwords($response->survey->name)}} response for {{$response->respondent->full_name}}</h1>
-<div class="alert alert-info">
-    This survey response has been finalized.
-</div>
+<h1>
+    {{ucwords($response->survey->name)}} response for {{$response->respondent->full_name}}
+</h1>
+<dl class="dl-horizontal">
+    <dt>Started:</dt><dd>{{$response->started_at}}</dd>
+    <dt>Updated:</dt><dd>{{$response->updated_at}}</dd>
+    @if($response->finalized_at)
+        <dt>Finalized:</dt><dd>{{$response->started_at}}</dd>
+    @endif
+    <dt>Duration:</dt><dd>{{$response->duration}}</dd>
+    <dt>Status:</dt><dd>{{($response->finalized_at) ? 'Finalized' : 'Open'}}</dd>
+</dl>
 {{-- <div class="row">
     <div class="col-sm-2">
         <nav id="page-nav" data-spy="affix" data-offset-top="200">
