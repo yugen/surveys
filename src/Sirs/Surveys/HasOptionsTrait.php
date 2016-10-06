@@ -63,9 +63,9 @@ trait HasOptionsTrait{
         foreach( $sourceData as $idx => $optionData ){
             if ($this->numSelectable > 1) {
                 if ($optionData->slug) {
-                    $name = $this->name.'_'.$optionData->slug;
+                    $name = $optionData->slug;
                 }else{
-                    $name = $this->name.'_'.preg_replace('/ /', '_', $optionData->name);
+                    $name = preg_replace('/ /', '_', $optionData->name);
                 }
             }else{
                 $name = $this->name;
