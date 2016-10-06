@@ -74,7 +74,7 @@
                     </td>
                     <td>
                         @if(!$question->hasOptions())
-                            
+                            {{$response->{$question->name} or 'null'}}
                         @elseif( $question->hasOptions())
                             {{$response->{$question->name} or 'null'}}
                         @else
