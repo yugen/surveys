@@ -239,7 +239,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     public function hasOptions()
     {
-      return false;
+      return (isset($this->options));
     }
 
     public function __get($property){

@@ -51,13 +51,14 @@
                     <td>
                         @if($question->hasOptions())
                             <ul class="list-unstyled">
-                            @if(isset($question->numSelectable) && $question->numSelectable > 1)
+                            @if($question->numSelectable > 1)
                                 @foreach($question->getVariables() as $var)
-                                    @if($response->{$var->name})
+                                    @if($response->{$var->name} == 1)
                                         @foreach($question->options as $option)
-                                            @if($option->option->name = $var->name)
-                                            <li>{{ $option->label }}</li>
-                                            @else
+                                            {{-- option: {{$option->name}}<br /> --}}
+                                            @if($option->name == $var->name)
+                                                <li>{{ $option->label }}</li>
+                                            @endif
                                         @endforeach
                                     @endif
                                 @endforeach

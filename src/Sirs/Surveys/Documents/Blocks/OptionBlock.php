@@ -78,7 +78,7 @@ class OptionBlock extends RenderableBlock
 
   public function getName()
   {
-    return ($this->name) ? $this->name : $this->variableName;
+    return ($this->name) ? $this->name : $this->label;
   }
 
   public function getId()

@@ -13,6 +13,7 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
 
     protected $interval;
     protected $legend = [];
+    public $numSelectable = 1;
 
     public function __construct($xml = null)
     {

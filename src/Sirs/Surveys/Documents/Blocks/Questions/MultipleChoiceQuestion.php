@@ -112,9 +112,4 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
       return $varNames;
     }
 
-    public function hasOptions()
-    {
-        return true;
-    }    
-
 }
