@@ -29,8 +29,9 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     {
         // do this first so refused option is last
         parent::parse($simpleXmlElement);
-        $this->parseOptions($simpleXmlElement);
         $this->setNumSelectable($this->getAttribute($simpleXmlElement, 'num-selectable'));
+
+        $this->parseOptions($simpleXmlElement);
         $this->orderOptions();
     }
 

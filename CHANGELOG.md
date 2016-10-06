@@ -12,6 +12,7 @@
 * Extracted survey control logic to SurveyControlService.
 * Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
 * Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true survey docs are cached.
+* Improved response view now includes question text and human-readable selected values (for question that have options).
 
 ## 1.2.2 - 1.2.5 - 2016-07-26
 * Fixed bug in QuestionFactory
