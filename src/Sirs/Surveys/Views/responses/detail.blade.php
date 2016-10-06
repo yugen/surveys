@@ -69,7 +69,9 @@
                             @endif
                             </ul>
                         @else
-                            {{$response->{$question->name} or 'null'}}
+                            @if($response->{$question->name})
+                                {{($response->{$question->name} == -77) ? config('surveys.refuseLabel') : $response->{$question->name}; }}
+                            @endif 
                         @endif
                     </td>
                     <td>
