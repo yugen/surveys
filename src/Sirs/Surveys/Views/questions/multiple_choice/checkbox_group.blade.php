@@ -28,3 +28,15 @@
    </div>
   @endforeach
 @endsection
+
+@section('errors')
+  <?php pprint($context['errors']->getMessages()) ?>
+  @if ( isset($context['errors']) 
+        && count(array_intersect( array_keys($context['errors']->getMessages()), $renderable->getOptionNames() )) > 0 )
+    <div class="error-block">
+      <ul class="error-list list-unstyled">
+        <li>A response is required for this question</li>
+      </ul>
+    </div>
+  @endif
+@endsection

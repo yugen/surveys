@@ -7,16 +7,24 @@
       {!! html_entity_decode($renderable->getCompiledQuestionText($context)); !!}
     </label>
     @yield('answers')
-    <div class="pull-right col-sm-3">@include('error', ['question'=>$renderable])</div>
+    <div class="pull-right col-sm-3">
+      @include('error', ['question'=>$renderable])
+    </div>
   @else
     @if($renderable->questionText)
       @include('questions.question_text', ['question'=>$renderable])
     @endif
+
     <div class="row">
       <div class="question-answers col-sm-9">
         @yield('answers')
       </div>
-      <div class="col-sm-3">@include('error', ['question'=>$renderable])</div>
+    
+      <div class="col-sm-3">
+        @yield('errors', View::make('surveys::error', ['question'=>$renderable]))
+      </div>
+    
     </div>
+
   @endif
 </div>  

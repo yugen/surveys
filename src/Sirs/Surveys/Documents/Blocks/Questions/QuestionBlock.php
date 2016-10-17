@@ -191,6 +191,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     public function getValidationRules()
     {
+      // set rules baded datatype and required attribute
       if( $this->required ){
         $this->validationRules[] = 'required';
       }
@@ -215,11 +216,18 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         default:
           break;
       }
+      
       return $this->validationRules;
+    }
+
+    public function getLaravelValidationArray()
+    {
+      return [$this->name=>$this->getValidationString()];
     }
 
     public function setValidationRules($value)
     {
+      // set based on validation-rules attribute
       if(is_null($value)) return;
       if( is_string($value) ){
         $value = explode('|', $value);

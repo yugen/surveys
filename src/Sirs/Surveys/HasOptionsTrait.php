@@ -5,7 +5,7 @@ namespace Sirs\Surveys;
 use Sirs\Surveys\Documents\Blocks\OptionBlock;
 
 trait HasOptionsTrait{
-    protected $options;
+    protected $options = [];
 
     public function parseOptions(\SimpleXMLElement $simpleXmlElement){
             if( !$simpleXmlElement->options->option && !$simpleXmlElement->options->{'data-source'} ){
@@ -89,6 +89,15 @@ trait HasOptionsTrait{
             }
         }
         return $options;
-    }  
+    } 
+
+    public function getOptionNames()
+    {
+        $names = [];
+        foreach ($this->options as $option) {
+            $names[] = $option->name;
+        }
+        return $names;
+    } 
 
 }
