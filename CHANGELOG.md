@@ -6,6 +6,7 @@
 * Added SurveyRules base class that all survey rules should inherit from.  Your rules classes should now extend SurveyRules to take advantage of rules pretext.
 
 #### Non-breaking changes
+* Added support for required attribute on multi-select multipleChoice questions.  Note that checkbox_group template is responsible for displaying errors correctly.
 * Added support for save_and_exit button.
 * 'Save' and 'Save and Exit' can be hidden by passing `$hideSave = 1` and `$hideSaveExit = 1` respectively
 * Added support for survey-id attribute on the survey tag.  If present it will be used to set the survey's id in the surveys table.
