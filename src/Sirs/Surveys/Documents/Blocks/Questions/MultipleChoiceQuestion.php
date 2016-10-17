@@ -116,7 +116,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function setValidationRules($value){
 
       if($this->numSelectable == 1 ){
-        return parent::setValidationRules($value);
+        return parent::getValidationRules($value);
       }else{
         // set based on validation-rules attribute
         if(is_null($value)) return;
@@ -149,7 +149,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function getValidationRules()
     {
       if ($this->numSelectable == 1) {
-        parent::setValidationRules();
+        parent::getValidationRules();
       }else{
         $optionNames = $this->getOptionNames();
         foreach($this->options as $option)
