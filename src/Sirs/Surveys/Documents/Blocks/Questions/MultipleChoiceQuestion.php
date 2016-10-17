@@ -82,8 +82,8 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
      */
     public function getVariables()
     {
-      print("MultipleChoiceQuestion::getVariables\n");
-      print("\t numSelectable: ".$this->numSelectable."\n");
+      // print("MultipleChoiceQuestion::getVariables\n");
+      // print("\t numSelectable: ".$this->numSelectable."\n");
       if( $this->numSelectable == 1 ){
         return parent::getVariables();
       }
