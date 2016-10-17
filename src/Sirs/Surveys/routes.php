@@ -11,6 +11,8 @@ Route::group($routeGroup, function(){
     'as' => 'survey_post'
   ]);
   Route::resource('surveys/{surveySlug}/responses', 'Sirs\Surveys\Controllers\ResponseController');
+
+  Route::any('surveys/{surveySlug}/report', 'Sirs\Surveys\Controllers\ReportController@show');
 });
 
 ?>
