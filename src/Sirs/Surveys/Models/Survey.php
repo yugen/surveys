@@ -133,5 +133,35 @@ class Survey extends Model implements SluggableInterface {
 		return new $rulesClassName($this, $response);	
 	}
 
+
+	/**
+	 * returns an array of questions
+	 *
+	 * @return array
+	 * @author SIRS
+	 **/
+	public function getQuestions()
+	{
+		$doc = $this->getSurveyDocument();
+		return $doc->getQuestions();
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function getReports()
+	{
+		$rsp = $this->responses;
+		$questions = $this->getQuestions();
+		$report = array();
+		foreach ($questions as $q) {
+			$report[$q->variableName] = $q->getReport($rsp);
+		}
+		return collect($report);
+	}
+
 }
 ?>
