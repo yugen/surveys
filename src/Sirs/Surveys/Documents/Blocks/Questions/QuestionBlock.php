@@ -143,86 +143,293 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     ];
   }
 
-    public function setRequired($required)
-    {
-        $this->required = ($required !== null) ? $required : false;
-        return $this;
-    }
-
-    public function getRequired()
-    {
-        return $this->required;
-    }
-
-    public function setPlaceholder($placeholder)
-    {
-      $this->placeholder = ($placeholder !== null) ? $placeholder : null;
+  public function setRequired($required)
+  {
+      $this->required = ($required !== null) ? $required : false;
       return $this;
+  }
+
+  public function getRequired()
+  {
+      return $this->required;
+  }
+
+  public function setPlaceholder($placeholder)
+  {
+    $this->placeholder = ($placeholder !== null) ? $placeholder : null;
+    return $this;
+  }
+
+  public function getPlaceholder()
+  {
+    return $this->placeholder;
+  }
+
+  public function setRefusable($value)
+  {
+    $this->refusable = ($value) ? true : false;
+    return $this;
+  }
+
+  public function getRefusable()
+  {
+    return ($this->refusable) ? true : false;
+  }
+
+  public function getValidationRules()
+  {
+    if( $this->required ){
+      $this->validationRules[] = 'required';
+    }
+    switch ($this->dataFormat) {
+      case 'int':
+      case 'tinyint':
+      case 'mediumint':
+      case 'bigint':
+        $this->validationRules[] = 'integer';
+        break;
+      case 'float':
+      case 'double':
+      case 'decimal':
+        $this->validationRules[] = 'numeric';
+        break;
+      case 'date':
+      case 'time':
+        $this->validationRules[] = 'date';
+        break;
+      case 'year':
+        $this->validationRules[] = 'regex:\d\d\d\d';
+      default:
+        break;
+    }
+    return $this->validationRules;
+  }
+
+  public function setValidationRules($value)
+  {
+    if(is_null($value)) return;
+    if( is_string($value) ){
+      $value = explode('|', $value);
+    }
+    $this->validationRules = array_merge($this->validationRules, $value);
+  }
+
+  public function getValidationString()
+  {
+    return implode('|', $this->getValidationRules());
+  }
+
+  public function getVariables()
+  {
+    return [new Variable($this->variableName, $this->getDataFormat())];
+  }
+
+  /**
+   * gets reporting data for a given question's responses
+   *
+   * @return collection
+   * @author SIRS
+   **/
+  public function getReport($responses)
+  {
+
+    // getting report Types based on data format
+    $reportTypes = array();
+
+    switch ($this->dataFormat) {
+      case 'int':
+      case 'tinyint':
+      case 'mediumint':
+      case 'bigint':
+      case 'float':
+      case 'double':
+      case 'decimal':
+      case 'date':
+      case 'time':
+      case 'year':
+        $reportTypes[] = 'mean';
+        $reportTypes[] = 'median';
+        $reportTypes[] = 'mode';
+        $reportTypes[] = 'range';
+        break;
+      default:
+        break;
     }
 
-    public function getPlaceholder()
-    {
-      return $this->placeholder;
+    // gathering raw data for this question, getting counts
+    $raw = $this->getRawData($responses);
+    $counts = $this->getDataCounts($raw);
+    $answered = $counts['answered'];
+
+    // setting up report
+    $report = array();
+    $report['total'] = $counts['totalCount'];
+    $report['answered'] = $counts['answeredCount'];
+    $report['unanswered'] = $counts['unansweredCount'];
+
+    // if question has options, getting extra data for options
+    if( isset( $this->options ) ){
+      $report['options'] = $this->getOptionsData($answered);
     }
 
-    public function setRefusable($value)
-    {
-      $this->refusable = ($value) ? true : false;
-      return $this;
-    }
+    // getting reports
+    if( $counts['answeredCount'] > 0 ){
 
-    public function getRefusable()
-    {
-      return ($this->refusable) ? true : false;
-    }
+      foreach ( $reportTypes as $type ) {
+        $method = 'get'.ucfirst($type);
+        $report[$type] = $this->$method($answered);
 
-    public function getValidationRules()
-    {
-      if( $this->required ){
-        $this->validationRules[] = 'required';
       }
-      switch ($this->dataFormat) {
-        case 'int':
-        case 'tinyint':
-        case 'mediumint':
-        case 'bigint':
-          $this->validationRules[] = 'integer';
-          break;
-        case 'float':
-        case 'double':
-        case 'decimal':
-          $this->validationRules[] = 'numeric';
-          break;
-        case 'date':
-        case 'time':
-          $this->validationRules[] = 'date';
-          break;
-        case 'year':
-          $this->validationRules[] = 'regex:\d\d\d\d';
-        default:
-          break;
+    }
+    return collect($report);
+  }
+
+  /**
+   * gets the mean for a given set of data
+   *
+   * @return float
+   * @author SIRS
+   **/
+  public function getMean($data)
+  {
+    $sum = array_sum( $data );
+    $count = count( $data );
+    $mean = $sum / $count;
+    return $mean;
+  }
+
+  /**
+   * gets the median for a given set of data
+   *
+   * @return number
+   * @author SIRS
+   **/
+  public function getMedian($data)
+  {
+    sort( $data );
+    $a = array_values( $data );
+    $count = count( $a ); 
+    $middle = floor( ( $count - 1 ) / 2 ); 
+    if( $count % 2 ) { 
+        $median = $a[ $middle ];
+    } else { 
+        $low = $a[$middle];
+        $high = $a[$middle + 1];
+        $median = ( ( $low + $high ) / 2 );
+    }
+    return $median;
+  }
+
+  /**
+   * gets the mode for a given set of data
+   *
+   * @return number
+   * @author SIRS
+   **/
+  public function getMode($data)
+  {
+    $values = array();
+    foreach( $data as $a ){
+      if( !array_key_exists( $a, $values ) ){
+        $values[$a] = 0;
       }
-      return $this->validationRules;
+      $values[$a] += 1;
     }
+    arsort($values);
+    reset($values);
+    $mode = key($values);
+    return $mode;
+  }
 
-    public function setValidationRules($value)
-    {
-      if(is_null($value)) return;
-      if( is_string($value) ){
-        $value = explode('|', $value);
+  /**
+   * gets the range for a given set of data
+   *
+   * @return array
+   * @author SIRS
+   **/
+  public function getRange($data)
+  {
+    asort( $data );
+    $min = array_values( $data )[0];
+    arsort( $data );
+    $max = array_values( $data )[0];
+    return ["min" => $min, "max" => $max];
+  }
+
+  /**
+   * returns an array of the raw data of all responses for a given question
+   *
+   * @return array
+   * @author SIRS
+   **/
+  public function getRawData($responses)
+  {
+    $raw = array();
+    foreach( $responses as $response ){
+        foreach ($this->getVariables() as $var) {
+          $raw[] = $response->{$var->name};
+        }
+      
+    }
+    return $raw;
+  }
+
+  /**
+   * gets the data counts for raw data
+   *
+   * @return array
+   * @author SIRS
+   **/
+  public function getDataCounts($raw)
+  {
+    $answered = array();
+    $totalCount = 0;
+    $answeredCount = 0;
+    $unansweredCount = 0;
+
+    foreach ($raw as $data) {
+      if( is_null( $data ) ){
+        $unansweredCount += 1;
+      }else{
+        $answeredCount += 1;
+        $answered[] = $data;
       }
-      $this->validationRules = array_merge($this->validationRules, $value);
+      $totalCount += 1;
     }
 
-    public function getValidationString()
-    {
-      return implode('|', $this->getValidationRules());
+    $arr = [
+      'answered' => $answered,
+      'totalCount' => $totalCount,
+      'answeredCount' => $answeredCount,
+      'unansweredCount' => $unansweredCount,
+    ];
+    return $arr;
+  }
+
+  /**
+   * gets data per option for questions with option
+   *
+   * @return collection
+   * @author sirs
+   **/
+  public function getOptionsData($data)
+  {
+    $options = array();
+    foreach ($this->options as $option) {
+      if( !array_key_exists( $option->value, $options ) ){
+        $options[$option->value] = array();
+        $options[$option->value]['value'] = $option->value;
+        $options[$option->value]['label'] = $option->label;
+        $options[$option->value]['count'] = 0;
+      }
     }
 
-    public function getVariables()
-    {
-      return [new Variable($this->variableName, $this->getDataFormat())];
+    foreach( $data as $ans ){
+      if( array_key_exists( $ans, $options ) ){
+        $options[$ans]['count'] +=1;
+      }
     }
 
-
+  return collect( $options );
+  }
 }
