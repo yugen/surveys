@@ -109,7 +109,7 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
     $validation = array();
     $questions = $this->getQuestions();
     foreach ($questions as $question) {
-      $validation[$question->getName()] = $question->getValidationString();
+      $validation = array_merge($validation, $question->getLaravelValidationArray());
     }
     return $validation;
   }
