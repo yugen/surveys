@@ -270,6 +270,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     // if question has options, getting extra data for options
     if( isset( $this->options ) ){
       $report['options'] = $this->getOptionsData($answered);
+      $report['vis'] = $this->getJSONForVis( $report['options'] );
     }
 
     // getting reports
@@ -431,5 +432,26 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     }
 
   return collect( $options );
+  }
+
+   /**
+   * returns a JSON obect of option data for nvd3 visualizations
+   *
+   * @return object
+   * @author sirs
+   **/
+  public function getJSONForVis($options){
+
+    $jsonArray = array();
+    $jsonArray['key'] = $this->variableName;
+    $jsonArray['values'] = array();
+    foreach ( $options as $option ) {
+      $val = array();
+      $val['value'] = $option['count'];
+      $val['label'] = $option['value'];
+      $jsonArray['values'][] = $val;
+    }
+
+    return collect($jsonArray)->toJSON();
   }
 }
