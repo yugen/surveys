@@ -21,7 +21,8 @@
       </div>
     
       <div class="col-sm-3">
-        @yield('errors', View::make('surveys::error', ['question'=>$renderable]))
+        @yield('errors')
+        @include('error', ['question'=>$renderable])
       </div>
     
     </div>
