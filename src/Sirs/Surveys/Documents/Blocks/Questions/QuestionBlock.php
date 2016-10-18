@@ -244,10 +244,14 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       case 'float':
       case 'double':
       case 'decimal':
+        $reportTypes[] = 'mean';
+        $reportTypes[] = 'median';
+        $reportTypes[] = 'mode';
+        $reportTypes[] = 'range';
+        break;
       case 'date':
       case 'time':
       case 'year':
-        $reportTypes[] = 'mean';
         $reportTypes[] = 'median';
         $reportTypes[] = 'mode';
         $reportTypes[] = 'range';
