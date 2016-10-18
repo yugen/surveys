@@ -12,7 +12,8 @@ Route::group($routeGroup, function(){
   ]);
   Route::resource('surveys/{surveySlug}/responses', 'Sirs\Surveys\Controllers\ResponseController');
 
-  Route::any('surveys/{surveySlug}/report', 'Sirs\Surveys\Controllers\ReportController@show');
+  Route::any('surveys/{surveySlug}/report/detail/{pageName?}/{variableName?}', 'Sirs\Surveys\Controllers\ReportController@detail');
+  Route::any('surveys/{surveySlug}/report', 'Sirs\Surveys\Controllers\ReportController@overview');
 });
 
 ?>

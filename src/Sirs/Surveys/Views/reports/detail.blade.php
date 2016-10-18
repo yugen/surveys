@@ -4,30 +4,48 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">{{ $survey->name }}</h3>
+				<h3 class="panel-title">{{ $survey->name }} Response Report</h3>
 			</div>
 			<div class="panel-body">
 				<ul class="nav nav-tabs" role="tablist">
-					<?php $navCounter = 0; ?>
+					<?php 
+					if( !is_null($pageName) ){
+						$navTabCounter = 1;
+					}else{
+						$navTabCounter = 0; 	
+					}
+					?>
 					@foreach( $survey->getPages() as $page  )
 						@if( count($page->getQuestions()) > 0 )
-							<li role="presentation" @if( $navCounter == 0 ) class="active" @endif>
+							<li role="presentation" @if( $navTabCounter == 0 || $pageName == $page->name ) class="active" @endif>
 							<a data-target="#{{ $page->name }}" aria-controls="{{ $page->name }}" role="tab" data-toggle="tab">{{ $page->title }} </a></li>
-							<?php $navCounter += 1 ?>
+							<?php $navTabCounter += 1 ?>
 						@endif
 					@endforeach
 			    </ul>
 			    <div class="tab-content row">
 			    	<br />
-			    	<?php $tcCounter = 0; ?>
+			    	<?php 
+			    		if( !is_null($pageName) ){
+							$navTabContentCounter = 1;
+						}else{
+							$navTabContentCounter = 0; 	
+						}
+					?>
 			        @foreach( $survey->getPages() as $page )
 			        	@if( count($page->getQuestions()) > 0 )
-				        <div role="tabpanel" class="tab-pane @if( $tcCounter == 0 ) active @endif" id="{{ $page->name }}">
+				        <div role="tabpanel" class="tab-pane @if( $navTabContentCounter == 0 || $pageName == $page->name ) active @endif" id="{{ $page->name }}">
 				        	<div class="col-xs-3">
 								<ul class="nav nav-pills nav-stacked" role="tablist" id="{{$page->name}}_pills">
-									<?php $pillCounter = 0; ?>
+									<?php 
+									if( !is_null($variableName) ){
+										$pillCounter = 1;
+									}else{
+										$pillCounter = 0; 	
+									}
+									 ?>
 									@foreach( $page->getQuestions() as $question )
-										<li role="presentation" @if ( $pillCounter == 0 ) class="active" @endif >
+										<li role="presentation" @if ( $pillCounter == 0 || $variableName == $question->variableName) class="active" @endif >
 										<a data-target="#{{$question->variableName}}" aria-controls="{{$question->variableName}}" role="tab" data-toggle="tab">{{$question->variableName}}</a></li>
 										<?php $pillCounter +=1 ?>
 									@endforeach
@@ -35,10 +53,16 @@
 							</div>
 							<div class="col-xs-9">
 								<div class="tab-content" id="tab-content">
-									<?php $tc2Counter = 0; ?>
+									<?php 
+									if( !is_null($variableName) ){
+										$pillTabContentCounter = 1;
+									}else{
+										$pillTabContentCounter = 0; 	
+									}
+									 ?>
 									@foreach( $page->getQuestions() as $question)
 										<?php $report = $reports[$question->variableName]; ?>
-										<div role="tabpanel" class="tab-pane @if ($tc2Counter == 0 ) active @endif" id="{{$question->variableName}}">
+										<div role="tabpanel" class="tab-pane @if ($pillTabContentCounter == 0 || $variableName == $question->variableName ) active @endif" id="{{$question->variableName}}">
 
 											<h4>Question Metadata</h4>
 											<dl class="dl-horizontal"">
@@ -49,6 +73,7 @@
 												<dt style="margin-left:0; text-align:left;">Question Text</dt>
 												<dd >{{ $question->questionText }}</dd>
 											</dl>
+											<hr />
 											<h4>Answer Frequency</h4>
 											<table class="table table-default table-bordered">
 												<tr>
@@ -61,6 +86,7 @@
 													<td>{{ $report['unanswered'] }}</td>
 													<td>{{ $report['total'] }}</td>
 											</table>
+											<hr />
 											@if(
 												$report->has('mean') ||
 												$report->has('median') ||
@@ -99,6 +125,7 @@
 														@if( $report->has('range') ) <td>{{$report["range"]['max']}}</th> @endif
 													</tbody>
 												</table>
+												<hr />
 											@endif
 											@if( $report->has('options') )
 												<h4>Options</h4>
@@ -121,6 +148,7 @@
 														@endforeach
 													</tbody>
 												</table>
+												<hr />
 												
 												<script type="text/javascript">
 													<?php $vFormatted = str_replace( '_', '', $question->variableName ); ?> 
@@ -149,12 +177,12 @@
 												</script>
 											@endif
 									    </div>
-									    <?php $tc2Counter += 1 ?>
+									    <?php $pillTabContentCounter += 1 ?>
 								    @endforeach
 								</div>
 							</div>
 				        </div>
-				    	<?php $tcCounter += 1; ?>
+				    	<?php $navTabContentCounter += 1; ?>
 				    @endif
 			        @endforeach
 			    </div>

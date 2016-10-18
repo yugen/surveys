@@ -18,11 +18,18 @@ class ReportController extends BaseController
       
     }
 
-    public function show($surveySlug)
+    public function detail($surveySlug, $pageName = null, $variableName = null)
     {
       $surveyModel = Survey::findBySlug($surveySlug);
       $reports = $surveyModel->getReports();
       $surveyDocument = $surveyModel->getSurveyDocument();
-      return response()->view('surveys::reports.detail', ['reports'=>$reports, 'survey'=>$surveyDocument]);
+      return response()->view('surveys::reports.detail', ['reports'=>$reports, 'survey'=>$surveyDocument, 'model' => $surveyModel, "pageName" => $pageName, "variableName" => $variableName]);
+    }
+
+    public function overview($surveySlug){
+      $surveyModel = Survey::findBySlug($surveySlug);
+      $reports = $surveyModel->getReports();
+      $surveyDocument = $surveyModel->getSurveyDocument();
+      return response()->view('surveys::reports.overview', ['reports'=>$reports, 'survey'=>$surveyDocument, 'model' => $surveyModel]);
     }
 }
