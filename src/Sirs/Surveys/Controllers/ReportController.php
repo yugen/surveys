@@ -13,9 +13,10 @@ class ReportController extends BaseController
 {
     // use DispatchesJobs, ValidatesRequests;
 
-    public function index(Request $request, $surveySlug)
+    public function index(Request $request)
     {
-      
+      $surveys = Survey::all();
+      return response()->view('surveys::reports.list', ['surveys'=>$surveys]);
     }
 
     public function detail($surveySlug, $pageName = null, $variableName = null)
