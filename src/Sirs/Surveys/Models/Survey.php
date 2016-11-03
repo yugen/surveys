@@ -82,7 +82,11 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function getResponsesAttribute()
 	{
-		return Response::lookupTable($this->response_table)->get();
+		$responses =  Response::lookupTable($this->response_table)->get();
+		foreach ($responses as $response) {
+			$response->setTable($this->response_table);
+		}
+		return $responses;
 	}
 
 	public function getNameVersionAttribute()
@@ -106,6 +110,27 @@ class Survey extends Model implements SluggableInterface {
 		$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
 
 		$response = null;
+
+
+		if ( !is_null( $responseId ) ) {
+			# code...
+		}else{
+			$responseQuery = $this->responses()
+				->where('respondent_type', '=', $respondentType)
+				->where('respondent_id', '=', $respondentId)
+				->orderBy('updated_at', 'DESC');
+			$response = $responseQuery->get()->first();
+			if( $response ){
+				$response->setTable($this->response_table);
+			}else{
+				$response = Response::newResponse($this->response_table);
+				$response->respondent_type = $respondentType;
+				$response->respondent_id = $respondentId;
+			}
+			$response->survey_id = $this->id;
+		}
+
+
 		if ( !is_null($responseId) ) {
 			$response = $this->responses()->findOrFail($responseId);
 			$response->setTable($this->response_table);
