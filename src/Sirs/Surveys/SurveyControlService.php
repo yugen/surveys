@@ -40,11 +40,23 @@ class SurveyControlService
         $this->rules = $this->survey->getRules($response);
         $this->rules->setPretext($request->all());
 
-        $this->page = $this->survey->getSurveyDocument()->getPage($request->input('page'));
+       
+        $this->page = $this->survey->getSurveyDocument()->getPage($this->resolveCurrentPageName());
 
         // parse the request into various parts.
         if ($request->getMethod() == 'POST') {
             $this->response->setDataValues($request->all(), $this->page);
+        }
+    }
+
+    public function resolveCurrentPageName()
+    {
+        if($this->request->input('page')){
+            return $this->request->input('page');
+        }elseif($this->response->last_page){
+            return $this->response->last_page;
+        }else{
+            return null;
         }
     }
 
@@ -60,6 +72,8 @@ class SurveyControlService
             // return 'already finalized';
             return redirect()->route('surveys.{surveySlug}.responses.show', [$this->survey->slug, $this->response->id]);
         }
+        // set the last page to the newly displayed page so the user will alwyas return to where they left off.
+        $this->response->update(['last_page' => $this->page->name]);
         return $this->render();
     }
 
@@ -73,6 +87,7 @@ class SurveyControlService
         // run the after save rule for the page (if any).
         $this->execRule($this->rules, $this->page->name, 'BeforeSave');
 
+        $this->response->last_page = $this->page->name;
         $this->response->save();
 
         // run the after save rule for the page (if any).
