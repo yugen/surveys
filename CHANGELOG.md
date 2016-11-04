@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.4.0 - 2016-11-04
+* Now storing last_page in survey response on SurveyContoller@show and SurveyContoller@store.  When no page query param is supplied the response.last_page is checked before resorting to the first page.
+
 ## 1.2.1 - 2016-07-25
 * Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.
 * Options tag now uses both data-source and option tags to populate options for a multiple-choice question.
