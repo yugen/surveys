@@ -53,6 +53,17 @@ class SurveyController extends BaseController
         $request->session()->put('survey_previous', $previous);
     }
 
+    protected function resolveCurrentPage($request, $response)
+    {
+        if ($request->page) {
+            return $request->page;
+        }elseif($response->last_page){
+            return $response->last_page;
+        }else{
+            return null;
+        }
+    }
+
     protected function redirect(Request $request, $rules)
     {
         // get the redirect url
@@ -83,7 +94,8 @@ class SurveyController extends BaseController
 
         $respondent = $this->getRespondent($respondentType, $respondentId);
         $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
-        $page = $survey->getSurveyDocument()->getPage($request->input('page'));
+        $page = $survey->getSurveyDocument()->getPage($this->resolveCurrentPage($request, $response));
+        $response->update(['last_page'=>$page->name]);
 
         if( $response->finalized_at ){
             // return 'already finalized';
@@ -118,12 +130,16 @@ class SurveyController extends BaseController
             $response = Response::newResponse($survey->response_table);
         }
 
+
         // get the rules object
         $rules = $survey->getRules($response);
 
         $surveydoc = $survey->getSurveyDocument();
-        $page = $surveydoc->getPage($request->input('page'));
+        $page = $surveydoc->getPage($this->resolveCurrentPage($request, $response));
+
         $pageVariables = collect($page->getVariables())->keyBy('name');
+
+        $response->last_page = $page->name;
 
         if( ctype_digit($request->input('page')) ){
             $pageIdx = (int)$page-1;
