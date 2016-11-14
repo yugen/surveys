@@ -1,6 +1,7 @@
 <?php
 
 return [
+  'editAfterFinalized'=>true,
   'surveysPath' => base_path('resources/surveys'),
   'rulesPath' => app_path('Surveys'),
   'rulesNamespace' => 'App\\Surveys\\',
