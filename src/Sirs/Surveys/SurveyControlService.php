@@ -68,10 +68,10 @@ class SurveyControlService
      **/
     public function showPage()
     {
-        if( $this->response->finalized_at ){
-            // return 'already finalized';
+        if( $this->response->finalized_at && !(config('surveys.editAfterFinalized') && $this->request->edit_final == 1)){
             return redirect()->route('surveys.{surveySlug}.responses.show', [$this->survey->slug, $this->response->id]);
         }
+     
         // set the last page to the newly displayed page so the user will alwyas return to where they left off.
         $this->response->update(['last_page' => $this->page->name]);
         return $this->render();
