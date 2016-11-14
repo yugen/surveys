@@ -11,6 +11,7 @@ class Response extends Model {
 
     protected $table = null;
     protected $guarded = ['id', 'finalized_at', 'survey_id'];
+    protected $dates = ['created_at', 'updated_at', 'started_at', 'finalized_at', 'deleted_at'];
 
     protected $name = null;
     protected $version = null;
