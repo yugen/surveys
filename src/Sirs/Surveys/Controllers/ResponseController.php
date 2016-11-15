@@ -28,6 +28,12 @@ class ResponseController extends BaseController
     public function show($surveySlug, $id)
     {
       $response = Survey::findBySlug($surveySlug)->responses()->findOrFail($id);
-      return response()->view('surveys::responses.detail', ['response'=>$response]);
+      $surveyRoute = route('survey_get', [
+        get_class($response->respondent), 
+        $response->respondent->id, 
+        $surveySlug,
+        $response->id 
+      ]);
+      return response()->view('surveys::responses.detail', ['response'=>$response, 'surveyRoute'=>$surveyRoute]);
     }
 }
