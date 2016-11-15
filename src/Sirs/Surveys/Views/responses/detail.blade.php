@@ -31,37 +31,44 @@
     </div>
 </h1>
 
-<div class="row">
-    <div class="col-sm-1">
-        <strong>Started:</strong>
-        <div>{{$response->started_at}}</div>
-    </div>
-    <div class="col-sm-1">
-        <strong>Updated:</strong>
-        <br>
-        {{$response->updated_at}}
-    </div>
-    @if($response->finalized_at)
-        <div class="col-sm-1">
+<div>
+    <div id="lifecycle" class="flexbox-container">
+        <div>
+            <strong>Started:</strong>
+            <br>
+            {{$response->started_at->format('m/d/Y h:i a')}}
+        </div>
+        <div>
+            <strong>Updated:</strong>
+            <br>
+            {{$response->updated_at->format('m/d/Y h:i a')}}
+        </div>
+        <div>
             <strong>Finalized:</strong>
             <br>
-            {{$response->started_at}}
+            @if($response->finalized_at)
+                {{$response->finalized_at->format('m/d/Y h:i a')}}
+            @endif
         </div>
-    @endif
-    {{-- <div class="col-sm-1">
-        <strong>Duration:</strong>
-        <br>
-        {{$response->duration}}
-    </div> --}}
-    <div class="col-sm-2">
-        <strong>Status:</strong>
-        <br>
-        @if($response->finalized_at)
-            Finalized
-            {{-- <button class="btn btn-xs btn-default">Re-open</button> --}}
-        @else
-            Open
-        @endif
+        {{-- <div>
+            <strong>Duration:</strong>
+            <br>
+            {{$response->duration}}
+        </div> --}}
+        <div>
+            <strong>Status:</strong>
+            <br>
+            @if($response->finalized_at)
+                Finalized
+            @elseif($response->started_at)
+                In progress
+            @else
+                Untouched
+            @endif
+        </div>
+        <div>
+            <a href="{{$surveyRoute}}" class="btn btn-sm btn-default">Edit Response Data</a>
+        </div>
     </div>
 </div>
 
