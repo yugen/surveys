@@ -4,10 +4,10 @@
 <form class="sirs-survey" method="POST" name="{{$context['survey']['name']}}-{{$renderable->name}}" novalidate>
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
   <div class="panel panel-default">
-    <div class="pull-right" style="margin-top: 4px;">
-      <a href="{{route('surveys.{surveySlug}.responses.show', [$context['survey']['object']->slug, $context['response']->id])}}" class="btn btn-sm btn-default">View Data</a>
-    </div>
     <div class="panel-heading">
+      <div class="pull-right" style="margin-top: 4px;">
+        <a href="{{route('surveys.{surveySlug}.responses.show', [$context['survey']['object']->slug, $context['response']->id])}}" class="btn btn-sm btn-default">View Data</a>
+      </div>
       <h4>
         <a href="{{route('participants.show', [$context['response']->respondent->id])}}">
         {{$context['response']->respondent->full_name or 'Respondent:'.$context['response']->respondent->id}} 
