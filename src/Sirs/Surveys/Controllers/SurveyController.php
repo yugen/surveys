@@ -93,7 +93,18 @@ class SurveyController extends BaseController
         $survey->getSurveyDocument()->validate();
 
         $respondent = $this->getRespondent($respondentType, $respondentId);
-        $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+        switch ( $responseId ) {
+            case 'new':
+                $response = $survey->getNewResponse( get_class($respondent), $respondentId);
+                $response->save();
+                return redirect($respondentType."/".$respondentId."/survey/".$surveySlug."/".$response->id);
+                break;
+            case 'latest':
+            default:
+                $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+                break;
+        }
+        
         $page = $survey->getSurveyDocument()->getPage($this->resolveCurrentPage($request, $response));
         $response->update(['last_page'=>$page->name]);
 
