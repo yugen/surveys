@@ -143,12 +143,18 @@ class Survey extends Model implements SluggableInterface {
 			if( $response ){
 				$response->setTable($this->response_table);
 			}else{
-				$response = Response::newResponse($this->response_table);
-				$response->respondent_type = $respondentType;
-				$response->respondent_id = $respondentId;
+				$response = $this->getNewResponse($respondentType, $respondentId);
 			}
 			$response->survey_id = $this->id;
 		}
+		return $response;
+	}
+
+	public function getNewResponse($respondentType, $respondentId){
+		$response = Response::newResponse($this->response_table);
+		$response->respondent_type = $respondentType;
+		$response->respondent_id = $respondentId;
+		$response->survey_id = $this->id;
 		return $response;
 	}
 

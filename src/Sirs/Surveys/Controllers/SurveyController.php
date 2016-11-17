@@ -67,22 +67,35 @@ class SurveyController extends BaseController
         return redirect($redirectUrl);
     }
 
-	/**
-	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
-	 *
-	 * @return rendered page
-	 * @author SIRS
-	 **/
+    /**
+     * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
+     *
+     * @return rendered page
+     * @author SIRS
+     **/
     public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
 
         $this->setPreviousLocation($request);
 
-    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
+        $survey = Survey::where('slug',$surveySlug)->firstOrFail();
         
         $survey->getSurveyDocument()->validate();
 
         $respondent = $this->getRespondent($respondentType, $respondentId);
-        $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+
+        switch ( $responseId ) {
+            case 'new':
+                $response = $survey->getNewResponse( get_class($respondent), $respondentId);
+                $response->save();
+                return redirect($respondentType."/".$respondentId."/survey/".$surveySlug."/".$response->id);
+                break;
+            case 'latest':
+            default:
+                $response = $survey->getLatestResponse(get_class($respondent), $respondentId, $responseId);
+                break;
+        }
+        
+        
         $page = $survey->getSurveyDocument()->getPage($request->input('page'));
 
         if( $response->finalized_at ){
@@ -99,19 +112,19 @@ class SurveyController extends BaseController
         return $this->render($survey, $page, $pageIdx, $response, $respondent);
     }
 
-	/**
-	 * Instatiates or creates response object, validates input, checks for/runs beforeSave method from rules doc, saves input, checks for/runs afterSave method on rules doc, runs navigate function
-	 *
-	 * @return 
-	 * @author SIRS
-	 **/
+    /**
+     * Instatiates or creates response object, validates input, checks for/runs beforeSave method from rules doc, saves input, checks for/runs afterSave method on rules doc, runs navigate function
+     *
+     * @return 
+     * @author SIRS
+     **/
     public function store(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
 
 
-    	// instatiating objects
-    	$data = $request->except(['_token', 'nav', 'page']);
+        // instatiating objects
+        $data = $request->except(['_token', 'nav', 'page']);
         $respondent = $this->getRespondent($respondentType, $respondentId);
-    	$survey = Survey::where('slug', $surveySlug)->firstOrFail();
+        $survey = Survey::where('slug', $surveySlug)->firstOrFail();
 
         $response = $survey->getLatestResponse($respondentType, $respondentId, $responseId);
         if( !$response ){
@@ -148,25 +161,25 @@ class SurveyController extends BaseController
         $response->respondent_type = get_class($respondent);
         $response->respondent_id = $respondent->id;
 
-    	// validating data
-    	$validation = $page->getValidation();
-    	$validator = Validator::make( $request->all(), $validation);
+        // validating data
+        $validation = $page->getValidation();
+        $validator = Validator::make( $request->all(), $validation);
         $augmentedValidator = $this->execRule($rules, $page->name, 'GetValidator', ['validator'=>$validator]);
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
 
-    	if ( in_array($request->input('nav'), ['next', 'finalize']) && $validator->fails() ) {
+        if ( in_array($request->input('nav'), ['next', 'finalize']) && $validator->fails() ) {
                // throw new InvalidSurveyResponseException($validator->errors());
             return $this->render($survey, $page, $pageIdx, $response, $respondent, $validator->errors());
-    		/** TO DO: Return rendered page with errors  */
-    	}
+            /** TO DO: Return rendered page with errors  */
+        }
 
 
-    	// saving data
+        // saving data
 
         // run the after save rule for the page (if any).
         $this->execRule($rules, $page->name, 'BeforeSave');
 
-    	$response->save();
+        $response->save();
 
         // run the after save rule for the page (if any).
         $this->execRule($rules, $page->name, 'AfterSave');
@@ -197,69 +210,69 @@ class SurveyController extends BaseController
 
 
     /**
-	 * checks if any custom page logic has been created, moves to next page in direction if not
-	 *
-	 * @return redirect
-	 * @author SIRS
-	 **/
+     * checks if any custom page logic has been created, moves to next page in direction if not
+     *
+     * @return redirect
+     * @author SIRS
+     **/
     public function navigate(Request $request, $respondentType, $respondentId, $surveySlug, $responseId, $pageName, $survey, $surveydoc){
 
-		// getting page index and incrementing it to match the navigation button
-    	if ($request->input('nav') == 'next') {
-    		$pageIndex = $surveydoc->getPageIndexByName($pageName) + 1;
-    	} elseif ($request->input('nav') == 'prev') {
-    		$pageIndex = $surveydoc->getPageIndexByName($pageName) - 1;
-    	}else{
+        // getting page index and incrementing it to match the navigation button
+        if ($request->input('nav') == 'next') {
+            $pageIndex = $surveydoc->getPageIndexByName($pageName) + 1;
+        } elseif ($request->input('nav') == 'prev') {
+            $pageIndex = $surveydoc->getPageIndexByName($pageName) - 1;
+        }else{
             throw new SurveyNavigationException($request->input('nav'));
         }
 
         $response = $survey->getLatestResponse($respondentType, $respondentId, $responseId);
-    	$target = $surveydoc->pages[$pageIndex]->name;
-    	$rules = $survey->getRules($response);
+        $target = $surveydoc->pages[$pageIndex]->name;
+        $rules = $survey->getRules($response);
         $skip = $this->execRule($rules, $target, 'Skip');
 
-    	// looking for custom skip method, deciding what to do with response
-    	if ( $skip ) {
-    		switch ($skip) {
+        // looking for custom skip method, deciding what to do with response
+        if ( $skip ) {
+            switch ($skip) {
 
-    			case 0:
-    				// we are not skipping page
-    				$pageName = $target;
-    				return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveySlug, $responseId, $pageName ] ) );
-    				break;
+                case 0:
+                    // we are not skipping page
+                    $pageName = $target;
+                    return redirect( action( 'SurveyController@show',[ $respondentType, $respondentId, $surveySlug, $responseId, $pageName ] ) );
+                    break;
 
-    			case 1:
-    				// we are skipping this page
-    				$pageIndex = $survey->getPageIndexByName($target);
-    				$pageIndex += $nav;
-    				$pageName = $survey->pages[$pageIndex]->name;
-    				$this->navigate($request, $respondentType, $respondentId, $surveySlug, $responseId, $pageName, $data, $survey, $surveydoc);
-    				break;
+                case 1:
+                    // we are skipping this page
+                    $pageIndex = $survey->getPageIndexByName($target);
+                    $pageIndex += $nav;
+                    $pageName = $survey->pages[$pageIndex]->name;
+                    $this->navigate($request, $respondentType, $respondentId, $surveySlug, $responseId, $pageName, $data, $survey, $surveydoc);
+                    break;
 
-    			case 2:
-    				// we are finalizing
-    				try{
+                case 2:
+                    // we are finalizing
+                    try{
                         $response->finalize();
                     }catch(ResponsePreviouslyFinalizedException $e){
                         Log::notice($e->getMessage());
                     }
                     return $this->redirect($request, $rules); //redirect to 
-    				break;
+                    break;
 
                 case 3:
                     return $this->redirect($request, $rules); //redirect to 
                     break;
                     
-    			default:
-    				Throw new InvalidInputException("Invalid value returned in ".$target);
-    				break;
-    		}
+                default:
+                    Throw new InvalidInputException("Invalid value returned in ".$target);
+                    break;
+            }
 
-    	} else{
-    		// no custom method
+        } else{
+            // no custom method
             $redirectUrl = $respondentType.'/'.$respondentId.'/survey/'.$surveySlug.'/'.$responseId.'?page='.$target;
             return redirect($redirectUrl);
-    	}
+        }
     }
 
     protected function execRule($rulesObj, $pageName, $methodName, $params = null)
@@ -287,7 +300,4 @@ class SurveyController extends BaseController
         $className = str_replace(' ', '\\', ucwords(str_replace('-',' ',$type)));
         return $className::findOrFail($id);
     }
-
-
-
 }
