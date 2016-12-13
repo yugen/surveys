@@ -21,20 +21,23 @@
             <td>
                 @if($question->hasOptions())
                     @if($question->numSelectable > 1)
+                        <ul class="list-no-indent">
                         @foreach($question->getVariables() as $var)
-                            @if($response->{$var->name} == 1)
+                            @if($response->{$var->name})
                                 @foreach($question->options as $option)
-                                    {{-- option: {{$option->name}}<br /> --}}
                                     @if($option->name == $var->name)
                                         <li>{{ $option->label }}</li>
                                     @endif
                                 @endforeach
                             @endif
                         @endforeach
+                        </ul>
                     @else
+                        <ul class="list-unstyled">
                         @foreach($question->getOptionsForResponseValue($response->{$question->name}) as $option)
-                            {{$option->label}}
+                            <li>{{$option->label}}</li>
                         @endforeach
+                        </ul>
                     @endif
                 @else
                     @if($response->{$question->name})
@@ -46,7 +49,25 @@
                 @if(!$question->hasOptions())
                     {{$response->{$question->name} or 'null'}}
                 @elseif( $question->hasOptions())
-                    {{$response->{$question->name} or 'null'}}
+                    @if($question->numSelectable > 1)
+                        <ul class="list-no-indent">
+                        @foreach($question->getVariables() as $var)
+                            @if($response->{$var->name})
+                                @foreach($question->options as $option)
+                                    @if($option->name == $var->name)
+                                        <li>{{ $option->value }}</li>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                        </ul>
+                    @else
+                        <ul class="list-unstyled">
+                        @foreach($question->getOptionsForResponseValue($response->{$question->name}) as $option)
+                            <li>{{$option->value}}</li>
+                        @endforeach
+                        </ul>
+                    @endif
                 @else
                     --
                 @endif
