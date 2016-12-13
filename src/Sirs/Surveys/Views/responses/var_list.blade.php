@@ -20,7 +20,6 @@
             <td>{!! $question->questionText !!}</td>
             <td>
                 @if($question->hasOptions())
-                    <ul class="list-unstyled">
                     @if($question->numSelectable > 1)
                         @foreach($question->getVariables() as $var)
                             @if($response->{$var->name} == 1)
@@ -34,10 +33,9 @@
                         @endforeach
                     @else
                         @foreach($question->getOptionsForResponseValue($response->{$question->name}) as $option)
-                            <li>{{$option->label}}</li>
+                            {{$option->label}}
                         @endforeach
                     @endif
-                    </ul>
                 @else
                     @if($response->{$question->name})
                         {{($response->{$question->name} == -77) ? config('surveys.refuseLabel', 'Refused') : $response->{$question->name} }}
