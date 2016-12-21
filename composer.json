@@ -1,5 +1,12 @@
 {
     "name": "sirs/surveys",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "ssh://git@github.com:yugen/revisionable.git"
+        },
+
+    ],
     "authors": [
         {
             "name": "TJ Ward",
@@ -11,7 +18,7 @@
         "windwalker/renderer": "~2.0",
         "laravel/framework": "5.1.*",
         "cviebrock/eloquent-sluggable": "^3.0",
-        "venturecraft/revisionable": "1.*"
+        "yugen/response_revisions": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
