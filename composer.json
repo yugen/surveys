@@ -17,7 +17,7 @@
         "windwalker/renderer": "~2.0",
         "laravel/framework": "5.1.*",
         "cviebrock/eloquent-sluggable": "^3.0",
-        "yugen/response_revisions": "1.*"
+        "yugen/response_revisions": "2.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
