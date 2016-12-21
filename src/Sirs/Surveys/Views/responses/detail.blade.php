@@ -69,11 +69,15 @@
         <div>
             <a href="{{$surveyRoute}}" class="btn btn-sm btn-default">Edit Response Data</a>
         </div>
+        <div>
+            <a href="#showHistory" data-toggle="modal" data-target="#revision-history-modal">Show Revision History</a>
+        </div>
     </div>
 </div>
 
-<hr>
-<div style="height: 500px; overflow-y: scroll;">
+<div style="height: 500px; overflow-y: scroll; padding-top: 1em; border-top: 1px solid #aaa; margin-top: 1em;">
     @include('surveys::responses.var_list', ['response'=>$response])
 </div>
+
+@include('surveys::responses.revisions');
 @endsection

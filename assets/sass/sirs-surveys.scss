@@ -58,3 +58,9 @@ label{
 .list-no-indent{
   padding-left: 1em;
 }
+
+.separator-bottom{
+  margin-bottom: 1em;
+  border-bottom: solid 1px $gray-lighter;
+  padding-bottom: 1em;
+}

@@ -1,13 +1,16 @@
-<?php namespace Sirs\Surveys\Models;
+<?php 
+namespace Sirs\Surveys\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
+use Yugen\ResponseRevisions\RevisionableTrait;
 
 class Response extends Model {
     use SoftDeletes;
+    use RevisionableTrait;
 
     protected $table = null;
     protected $guarded = ['id', 'finalized_at', 'survey_id'];
@@ -15,6 +18,11 @@ class Response extends Model {
 
     protected $name = null;
     protected $version = null;
+
+    protected $dontKeepRevisionOf = array(
+        'last_page'
+    );
+    protected $revisionCreationsEnabled = true;
 
 
  /**
@@ -38,6 +46,20 @@ class Response extends Model {
         $instance->setTable($table);
         return $instance;
     }
+
+    /**
+     * override getTable to return correct table if not set.
+     *
+     * @return string
+     **/
+    public function getTable()
+    {
+       if (isset($this->table)) {
+            return $this->table;
+        }
+
+        return $this->survey->response_table;
+     }
     
     /**
      * finalize survey if it has not already been finalized
