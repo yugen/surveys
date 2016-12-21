@@ -4,8 +4,7 @@
         {
             "type": "vcs",
             "url": "ssh://git@github.com:yugen/revisionable.git"
-        },
-
+        }
     ],
     "authors": [
         {
