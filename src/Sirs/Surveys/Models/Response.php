@@ -6,11 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
-use Yugen\ResponseRevisions\RevisionableTrait;
+use Sirs\Surveys\Revisions\ResponseRevisionableTrait;
+// use Venturecraft\Revisionable\RevisionableTrait as VenturecraftRevisionableTrait;
 
 class Response extends Model {
     use SoftDeletes;
-    use RevisionableTrait;
+    use ResponseRevisionableTrait;
+    // use VenturecraftRevisionableTrait, RevisionableTrait {
+    //     RevisionableTrait::revisionHistory insteadof VenturecraftRevisionableTrait;
+    //     RevisionableTrait::classRevisionHistory insteadof VenturecraftRevisionableTrait;
+    //     RevisionableTrait::postSave insteadof VenturecraftRevisionableTrait;
+    //     RevisionableTrait::postCreate insteadof VenturecraftRevisionableTrait;
+    //     RevisionableTrait::postDelete insteadof VenturecraftRevisionableTrait;
+    // }
 
     protected $table = null;
     protected $guarded = ['id', 'finalized_at', 'survey_id'];
