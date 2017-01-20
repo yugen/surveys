@@ -188,12 +188,17 @@ class SurveyControlService
 
     protected function getSurveyUrlAttribute()
     {
+        return self::generateSurveyUrl($this->survey, $this->response);
+    }
+
+    static public function generateSurveyUrl(Survey $survey, Response $response)
+    {
         $urlParts = [
-            strtolower(preg_replace('/\\\/', '-',$this->response->respondent_type)),
-            $this->response->respondent_id,
+            strtolower(preg_replace('/\\\/', '-',$response->respondent_type)),
+            $response->respondent_id,
             'survey',
-            $this->survey->slug,
-            $this->response->id
+            $survey->slug,
+            $response->id
         ];
         return implode('/', $urlParts);
     }

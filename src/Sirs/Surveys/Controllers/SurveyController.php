@@ -37,7 +37,8 @@ class SurveyController extends BaseController
         $respondent = $this->getRespondent($respondentType, $respondentId);
         if ($responseId == 'new') {
             $response = $survey->getNewResponse($respondent);
-            return redirect()
+            $response->save();
+            return redirect(SurveyControlService::generateSurveyUrl($survey, $response));
         }else{
             $response = $survey->getLatestResponse($respondent, null, $responseId);
         }
