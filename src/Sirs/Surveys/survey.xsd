@@ -14,6 +14,7 @@
 			<xs:attribute name="title" type="xs:string" />
 			<xs:attribute name="response-limit" type="xs:integer" />
 			<xs:attribute name="rules-class" type="xs:string" />
+			<xs:attribute name="survey-id" type="xs:integer" />
 		</xs:complexType>
 	</xs:element>
 
@@ -80,6 +81,7 @@
 				<xs:attribute name="placeholder" type="xs:string" />
 				<xs:attribute name="hidden" type="xs:boolean" />
 				<xs:attribute name="refusable" type="xs:boolean" />
+				<xs:attribute name="refuse-label" type="xs:string" />
 				<xs:attribute name="data-format" type="data-format" />
 				<xs:attribute name="validation-rules" type="xs:string" />
 		</xs:complexType>

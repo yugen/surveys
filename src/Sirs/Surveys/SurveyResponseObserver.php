@@ -41,9 +41,9 @@ class SurveyResponseObserver
 
     // fire finalized event or reopened event
     if( $surveyResponse->isDirty('finalized_at')){
-      if( !is_null($surveyResponse->finalized_at) ){
+      if( !is_null($surveyResponse->finalized_at) && is_null($surveyResponse->getOriginal('finalize_at')) ){
         Event::fire(new SurveyResponseFinalized($surveyResponse));
-      }else{
+      }elseif( is_null($surveyResponse->finalized_at) ){
         Event::fire(new SurveyResponseReopened($surveyResponse));
       }
     }

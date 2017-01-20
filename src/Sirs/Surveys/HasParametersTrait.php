@@ -5,9 +5,9 @@ namespace Sirs\Surveys;
 trait HasParametersTrait
 {
 
-  public function parseParameters(){
-      if( $this->xmlElement->parameter ){
-          foreach( $this->xmlElement->parameter as $param ){
+  public function parseParameters(\SimpleXMLElement $simpleXmlElement){
+      if( $simpleXmlElement->parameter ){
+          foreach( $simpleXmlElement->parameter as $param ){
             $this->addParameter($this->getAttribute($param, 'name'), $this->getAttribute($param, 'value'));
           }
       }
@@ -46,7 +46,7 @@ trait HasParametersTrait
     $class = get_called_class();
     $obj = new $class();
     $obj->setParameters($parameters);
-    $obj->setXmlElement($xmlElement); // calls the parse method
+    $obj->parse($xmlElement); // calls the parse method
     return $obj;
   }
 

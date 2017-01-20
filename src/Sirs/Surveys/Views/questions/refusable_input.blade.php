@@ -28,7 +28,7 @@
             <input id="beans" type="checkbox" name="{{$question->name}}_refused" class="exclusive" 
               @if($context['response']->{$question->name} == -77) checked @endif
             />
-            Refused
+            {{$question->refuseLabel}}
         </label>
     </div>
     <script>

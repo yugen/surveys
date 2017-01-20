@@ -28,19 +28,19 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
     parent::__construct($xml);
   }
 
-  function parse()
+  function parse(\SimpleXMLElement $simpleXmlElement)
   {
-    $this->setName($this->getAttribute($this->xmlElement, 'name'));
-    parent::parse();
+    $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+    parent::parse($simpleXmlElement);
     // foreach children do the right thing
-    $this->setContents($this->parseContents());
+    $this->setContents($this->parseContents($simpleXmlElement));
     return $this;
   }
 
-  function parseContents(){
+  function parseContents(\SimpleXMLElement $simpleXmlElement){
     $blockFactory = new BlockFactory();
     $children = [];
-    foreach($this->xmlElement->children() as $child){
+    foreach($simpleXmlElement->children() as $child){
       if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
         $childClass = $blockFactory->getBlockClass($child);
         $childBlock = $childClass::createWithParameters($child, $this->getParameters());

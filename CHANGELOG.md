@@ -1,7 +1,28 @@
 # Change Log
 
+## 2.0.0 - XXXX-XX-XX
+#### Breaking Changes
+* Responses are now soft-deleted.  That means that you will have to add a deleted_at timestamp field to your existing response tables.
+* Added SurveyRules base class that all survey rules should inherit from.  Your rules classes should now extend SurveyRules to take advantage of rules pretext.
+
+#### Non-breaking changes
+* Added support for required attribute on multi-select multipleChoice questions.  Note that checkbox_group template is responsible for displaying errors correctly.
+* Added support for save_and_exit button.
+* 'Save' and 'Save and Exit' can be hidden by passing `$hideSave = 1` and `$hideSaveExit = 1` respectively
+* Added support for survey-id attribute on the survey tag.  If present it will be used to set the survey's id in the surveys table.
+* Extracted survey control logic to SurveyControlService.
+* Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
+* Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true survey docs are cached.
+* Improved response view now includes question text and human-readable selected values (for question that have options).
+
 ## 1.4.0 - 2016-11-04
 * Now storing last_page in survey response on SurveyContoller@show and SurveyContoller@store.  When no page query param is supplied the response.last_page is checked before resorting to the first page.
+
+## 1.2.2 - 1.2.5 - 2016-07-26
+* Fixed bug in QuestionFactory
+* Fixed bad option rendering bug
+* Fixed include bug that resulted in only every other included being pulled into the survey
+* Removed errant dd() statement
 
 ## 1.2.1 - 2016-07-25
 * Added support for *parameter* elements on survey tag and containers.  See [data-source documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/data-source) for usage.

@@ -1,7 +1,9 @@
 <?php 
 namespace App\Surveys;
 
-class DummyClass 
+use Sirs\Surveys\SurveyRules;
+
+class DummyClass extends SurveyRules
 {
     /** 
     Rules stub.  Will add more as we flesh this out
@@ -13,16 +15,11 @@ class DummyClass
         public function PAGETITLESkip() {}
         public function PAGAETITLEGetValidator() {}
         public function getRedirectUrl() {}
+        public function navigate() {} // should return page number;
 
     Known Page Titles:
         PAGES
     */
-
-    public function __construct($survey, $response)
-    {
-        $this->survey = $survey;
-        $this->response = $response;
-    }
 
     /**
      * lifecycle hook called before any page in the survey is shown.
@@ -50,6 +47,16 @@ class DummyClass
     public function afterSave()
     {
         # logic to run after save
+    }
+
+    /**
+     * do custom navigation
+     * @param  array $params ['page'=>'pageName', 'nav'=>'navType']
+     * @return mixed int page number to navigate to or null for derfault navigation.
+     */
+    public function navigate($params)
+    {
+        return null;
     }
 
 }
