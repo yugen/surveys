@@ -35,7 +35,12 @@ class SurveyController extends BaseController
 
     	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
         $respondent = $this->getRespondent($respondentType, $respondentId);
-        $response = $survey->getLatestResponse($respondent, null, $responseId);
+        if ($responseId == 'new') {
+            $response = $survey->getNewResponse($respondent);
+            return redirect()
+        }else{
+            $response = $survey->getLatestResponse($respondent, null, $responseId);
+        }
 
         $control = new SurveyControlService($request, $response);
 
