@@ -129,7 +129,7 @@
 											@if( $report->has('options') )
 												<h4>Options</h4>
 												<div id="{{$question->variableName}}_chart">
-													  <svg style="min-width:500px; min-height:150px;"></svg>
+													  <svg style="width: 100%; min-width:500px; min-height:150px;"></svg>
 												</div>
 												<table id="{{ $question->variableName }}_options" class="table table-default table-bordered table-striped">
 													<thead>
