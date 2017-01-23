@@ -262,8 +262,6 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       }
     }
 
-}
-
   /**
    * gets reporting data for a given question's responses
    *
@@ -461,7 +459,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   {
     $options = array();
     foreach ($this->options as $option) {
-      if( !array_key_exists( $option->value, $options ) ){
+      if( !array_key_exists( (string)$option->value, $options ) ){
         $options[$option->value] = array();
         $options[$option->value]['value'] = $option->value;
         $options[$option->value]['label'] = $option->label;
@@ -498,3 +496,4 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     return collect($jsonArray)->toJSON();
   }
+}

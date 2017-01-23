@@ -40,7 +40,7 @@ class SurveyController extends BaseController
             $response->save();
             return redirect(SurveyControlService::generateSurveyUrl($survey, $response));
         }else{
-            $response = $survey->getLatestResponse($respondent, null, $responseId);
+            $response = $survey->getLatestResponse($respondent, $responseId);
         }
 
         $control = new SurveyControlService($request, $response);
