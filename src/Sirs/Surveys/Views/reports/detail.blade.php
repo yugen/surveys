@@ -115,10 +115,9 @@
 														@if( $report->has('mode') ) 
 															@if( $report->has('options') )
 																<td>{{ $report['options'][$report['mode']]['label']  }}</td>
-															@else{
+															@else
 																<td>{{$report['mode']}}</td>
-															}
-															 @endif
+															@endif
 														@endif
 														@if( $report->has('range') ) <td>{{$report["range"]['min']}}</td> @endif
 														@if( $report->has('range') ) <td>{{$report["range"]['max']}}</th> @endif
