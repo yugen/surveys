@@ -25,27 +25,18 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
   public function __construct($xml = null)
   {
     parent::__construct($xml);
-    $customTemplatePath = config('surveys.customTemplatePath');
-    $paths = new \SplPriorityQueue;
-    $paths->insert(__DIR__.'/../../Views', 100);
-    if( $customTemplatePath ){
-      $paths->insert($customTemplatePath, 200);
-    }
-    $this->renderer = new BladeRenderer( $paths, [ 
-        'cache_path' => config('surveys.rendererConfig.cache_path')
-    ]);
 
   }
 
-  public function parse()
+  public function parse(\SimpleXMLElement $simpleXmlElement)
   {
-    $this->setClass($this->getAttribute($this->xmlElement, 'class'));
-    $this->setName($this->getAttribute($this->xmlElement, 'name'));
-    $this->setId($this->getAttribute($this->xmlElement, 'id'));
-    if( $this->xmlElement->template[0] ){
-      $this->setTemplate($this->getAttribute($this->xmlElement->template[0], 'source'));
+    $this->setClass($this->getAttribute($simpleXmlElement, 'class'));
+    $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+    $this->setId($this->getAttribute($simpleXmlElement, 'id'));
+    if( $simpleXmlElement->template[0] ){
+      $this->setTemplate($this->getAttribute($simpleXmlElement->template[0], 'source'));
     }
-    $this->parseParameters();
+    $this->parseParameters($simpleXmlElement);
   }
 
   /**
@@ -102,6 +93,17 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
    * @return string
    **/
   public function render($context){
+    $customTemplatePath = config('surveys.customTemplatePath');
+    $paths = new \SplPriorityQueue;
+    $paths->insert(__DIR__.'/../../Views', 100);
+    if( $customTemplatePath ){
+      $paths->insert($customTemplatePath, 200);
+    }
+    $this->renderer = new BladeRenderer( $paths, [ 
+        'cache_path' => config('surveys.rendererConfig.cache_path')
+    ]);
+
+
     $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
     $view = $this->renderer->render($this->getTemplate(), ['chromeTemplate'=>$chromeTemplate,'context'=>$context, 'renderable'=>$this]);
     return $view;

@@ -25,11 +25,30 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         $this->defaultDataFormat = 'int';
     }
 
-    public function parse()
+    public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-        parent::parse();
-        $this->setNumSelectable($this->getAttribute($this->xmlElement, 'num-selectable'));
-        $this->parseOptions();
+        // do this first so refused option is last
+        parent::parse($simpleXmlElement);
+        $this->setNumSelectable($this->getAttribute($simpleXmlElement, 'num-selectable'));
+
+        $this->parseOptions($simpleXmlElement);
+        $this->orderOptions();
+    }
+
+    /**
+     * Make sure refused option is last if option 
+     * @return void
+     */
+    public function orderOptions()
+    {
+      if ($this->refusable) {
+        $refusedIdx = 0;
+        foreach($this->options as $idx => $option){
+          if ($option->value == -77) { $refusedIdx = $idx; }
+        }
+        $refusedOption = array_splice($this->options, $refusedIdx, 1)[0];
+        $this->appendOption($refusedOption);
+      }
     }
 
     public function setNumSelectable($number = null)
@@ -69,8 +88,10 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
       $this->refusable = ($value) ? true : false;
       if( $this->refusable ){
         $refusedOption = new OptionBlock('refused');
+        $refusedOption->setName('refused');
         $refusedOption->setValue(-77);
-        $refusedOption->setLabel('Refused');
+        $refusedOption->setLabel($this->refuseLabel);
+        $refusedOption->setClass('exclusive');
         $this->appendOption($refusedOption);
       }
       return $this;
@@ -82,8 +103,6 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
      */
     public function getVariables()
     {
-      // print("MultipleChoiceQuestion::getVariables\n");
-      // print("\t numSelectable: ".$this->numSelectable."\n");
       if( $this->numSelectable == 1 ){
         return parent::getVariables();
       }
@@ -93,4 +112,78 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
       }
       return $varNames;
     }
+
+    public function setValidationRules($value){
+
+      if($this->numSelectable == 1 ){
+        return parent::getValidationRules($value);
+      }else{
+        // set based on validation-rules attribute
+        if(is_null($value)) return;
+        if( is_string($value) ){
+          $value = explode('|', $value);
+        }
+        foreach($this->options as $option){
+          if(!isset($this->validationRules[$option->name])){
+            $this->validationRules[$option->name] = [];
+          }
+          $this->validationRules[$option->name][] = $value;
+        }
+      }
+    }
+
+    public function getLaravelValidationArray(){
+
+      if ($this->numSelectable == 1) {
+        return parent::getLaravelValidationArray();
+      }else{
+        $valRules = ($this->getValidationRules()) ? $this->getValidationRules() : [];
+        $rules = [];
+        foreach($valRules as $optionName => $optionRules){
+          $rules[$optionName] = implode('|', $optionRules);
+        }
+        return $rules;
+      }
+    }
+
+    public function getValidationRules()
+    {
+      if ($this->numSelectable == 1) {
+        parent::getValidationRules();
+      }else{
+        $optionNames = $this->getOptionNames();
+        foreach($this->options as $option)
+        {
+          $this->validationRules[$option->name] = [];
+          if( $this->required ){
+            $others = $optionNames;
+            array_splice($others, array_search($option->name, $others), 1);
+            $this->validationRules[$option->name][] = 'required_without_all:'.implode(',',$others);
+          }
+          switch ($this->dataFormat) {
+            case 'int':
+            case 'tinyint':
+            case 'mediumint':
+            case 'bigint':
+              $this->validationRules[$option->name][] = 'integer';
+              break;
+            case 'float':
+            case 'double':
+            case 'decimal':
+              $this->validationRules[$option->name][] = 'numeric';
+              break;
+            case 'date':
+            case 'time':
+              $this->validationRules[$option->name][] = 'date';
+              break;
+            case 'year':
+              $this->validationRules[$option->name][] = 'regex:\d\d\d\d';
+            default:
+              break;
+          }
+        }
+      }
+      return $this->validationRules;
+    }
+
 }

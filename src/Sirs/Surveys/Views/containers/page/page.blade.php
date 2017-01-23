@@ -5,6 +5,9 @@
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
   <div class="panel panel-default">
     <div class="panel-heading">
+      <div class="pull-right" style="margin-top: 4px;">
+        <a href="{{route('surveys.{surveySlug}.responses.show', [$context['survey']['object']->slug, $context['response']->id])}}" class="btn btn-sm btn-default">View Data</a>
+      </div>
       <h4>
         <a href="{{route('participants.show', [$context['response']->respondent->id])}}">
         {{$context['response']->respondent->full_name or 'Respondent:'.$context['response']->respondent->id}} 
@@ -36,9 +39,14 @@
       @if($context['survey']['currentPageIdx'] == ($context['survey']['totalPages']-1))
         <button id="nav-finalize" type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
       @endif
-      @if(true)
-        <button id="nav-save" type="submit" name="nav" value="save" class="btn btn-default pull-right">Save</button>
-      @endif
+      <div id="save-buttons" class="pull-right">
+        @if(!isset($context['hideSave']) || !$context['hideSave'])
+        <button id="nav-save" type="submit" name="nav" value="save" class="btn btn-default">Save</button>
+        @endif
+        @if(!isset($context['hideSaveExit']) || !$context['hideSaveExit'])
+        <button id="nav-save-exit" type="submit" name="nav" value="save_exit" class="btn btn-default">Save &amp; exit</button>
+        @endif
+      </div>
     </div>
   </div>
 </form>
@@ -55,6 +63,14 @@
     $('.timepicker').timepicker({
       minTime: '5:00am',
       maxTime: '7:00pm'
+    }).on('keydown', function(evt){
+      if([13,38,40].indexOf(evt.keyCode) < 0) {
+        $(this).timepicker('hide');
+      }
+    }).on('changeTime', function(){
+      $(this).removeClass('input-error');
+    }).on('timeFormatError', function(){
+      $(this).addClass('input-error');
     });
 
   })

@@ -16,16 +16,40 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
   protected $source;
   protected $title;
   protected $defaultTemplate = 'containers.page.page';
+  protected $pageNumber;
 
   function __construct($xml = null){
     parent::__construct($xml);
   }
 
-  public function parse()
+  public function parse(\SimpleXMLElement $simpleXmlElement)
   {
-    $this->setTitle($this->getAttribute($this->xmlElement, 'title'));
-    $this->setSource($this->getAttribute($this->xmlElement, 'source'));
-    parent::parse();
+    $this->setTitle($this->getAttribute($simpleXmlElement, 'title'));
+    $this->setSource($this->getAttribute($simpleXmlElement, 'source'));
+    parent::parse($simpleXmlElement);
+  }
+
+  /**
+   * set the source path for the page
+   *
+   * @param string $source
+   * @return $this
+   **/
+  public function setPageNumber($pageNumber)
+  {
+    $this->pageNumber = $pageNumber;
+    return $this;
+  }
+
+  /**
+   * get the pageNumber path of the page
+   *
+   * @return string
+   * @author 
+   **/
+  public function getPageNumber()
+  {
+    return $this->pageNumber;
   }
 
   /**
@@ -85,7 +109,7 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
     $validation = array();
     $questions = $this->getQuestions();
     foreach ($questions as $question) {
-      $validation[$question->getName()] = $question->getValidationString();
+      $validation = array_merge($validation, $question->getLaravelValidationArray());
     }
     return $validation;
   }

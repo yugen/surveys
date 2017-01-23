@@ -16,11 +16,11 @@ class DurationQuestion extends NumberQuestion
         $this->defaultDataFormat = 'int';
     }
 
-    public function parse()
+    public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-      parent::parse();
-      $this->setUnit($this->getAttribute($this->xmlElement, 'unit'));
-      $this->setPrecision($this->getAttribute($this->xmlElement, 'precision'));
+      parent::parse($simpleXmlElement);
+      $this->setUnit($this->getAttribute($simpleXmlElement, 'unit'));
+      $this->setPrecision($this->getAttribute($simpleXmlElement, 'precision'));
     }
 
     public function setUnit($unit)

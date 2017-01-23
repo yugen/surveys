@@ -5,12 +5,12 @@
     <div class="checkbox">
     <label>
      <input type="checkbox" 
-      name="{{$renderable->name}}_{{snake_case($option->label)}}"
-      id="{{$renderable->name}}_{{snake_case($option->label)}}_checkbox" 
+      name="{{ $option->name }}"
+      id="{{ $option->name }}_checkbox" 
       autocomplete="off"
       value="1"
   }
-      @if(isset($context['response']->{snake_case($option->label)}))
+      @if( isset($context['response']->{$option->name}) )
         checked="checked"
       @endif
       @if($option->show)
@@ -27,4 +27,15 @@
    </label>
    </div>
   @endforeach
+@endsection
+
+@section('errors')
+  @if ( isset($context['errors']) 
+        && count(array_intersect( array_keys($context['errors']->getMessages()), $renderable->getOptionNames() )) > 0 )
+    <div class="error-block">
+      <ul class="error-list list-unstyled">
+        <li>A response is required for this question</li>
+      </ul>
+    </div>
+  @endif
 @endsection

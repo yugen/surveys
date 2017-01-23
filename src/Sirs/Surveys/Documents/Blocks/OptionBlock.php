@@ -24,18 +24,18 @@ class OptionBlock extends RenderableBlock
 
 
 
-  public function parse()
+  public function parse(\SimpleXMLElement $simpleXmlElement)
   {
-      parent::parse();
-      if( $this->getAttribute($this->xmlElement, 'name') ){
-        $this->setName($this->getAttribute($this->xmlElement, 'name'));
+      parent::parse($simpleXmlElement);
+      if( $this->getAttribute($simpleXmlElement, 'name') ){
+        $this->setName($this->getAttribute($simpleXmlElement, 'name'));
       }
-      $this->setLabel($this->xmlElement->label[0]->__toString());
-      $this->setValue($this->xmlElement->value[0]->__toString());
-      $this->setSelected($this->getAttribute($this->xmlElement, 'selected'));
-      $this->setName($this->getAttribute($this->xmlElement, 'name'));
-      $this->setShow($this->getAttribute($this->xmlElement, 'show'));
-      $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
+      $this->setLabel($simpleXmlElement->label[0]->__toString());
+      $this->setValue($simpleXmlElement->value[0]->__toString());
+      $this->setSelected($this->getAttribute($simpleXmlElement, 'selected'));
+      $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+      $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
+      $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
   }
 
   public function setLabel($label)

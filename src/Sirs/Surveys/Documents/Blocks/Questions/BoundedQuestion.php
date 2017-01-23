@@ -10,11 +10,11 @@ abstract class BoundedQuestion extends QuestionBlock
     protected $min;
     protected $max;
 
-    public function parse()
+    public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-      parent::parse();
-      $this->setMin($this->getAttribute($this->xmlElement, 'min'));
-      $this->setMax($this->getAttribute($this->xmlElement, 'max'));
+      parent::parse($simpleXmlElement);
+      $this->setMin($this->getAttribute($simpleXmlElement, 'min'));
+      $this->setMax($this->getAttribute($simpleXmlElement, 'max'));
     }
 
     public function setMin($min)

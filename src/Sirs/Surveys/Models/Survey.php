@@ -63,6 +63,16 @@ class Survey extends Model implements SluggableInterface {
 		return $this->document;
 	}
 
+	public function getSurveyDocumentAttribute()
+	{
+		return $this->getSurveyDocument();
+	}
+
+	public function getDocumentAttribute()
+	{
+		return $this->getSurveyDocument();
+	}
+
 	/**
 	 * get response object for a given survey
 	 *
@@ -105,63 +115,46 @@ class Survey extends Model implements SluggableInterface {
 		
 	}
 
-	public function getLatestResponse($respondentType, $respondentId, $responseId = null)
+	public function getLatestResponse($respondent, $responseId = null)
 	{
-		$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
-
 		$response = null;
-
-
-		if ( !is_null( $responseId ) ) {
-			# code...
-		}else{
-			$responseQuery = $this->responses()
-				->where('respondent_type', '=', $respondentType)
-				->where('respondent_id', '=', $respondentId)
-				->orderBy('updated_at', 'DESC');
-			$response = $responseQuery->get()->first();
-			if( $response ){
-				$response->setTable($this->response_table);
-			}else{
-				$response = Response::newResponse($this->response_table);
-				$response->respondent_type = $respondentType;
-				$response->respondent_id = $respondentId;
-			}
-			$response->survey_id = $this->id;
-		}
-
 
 		if ( !is_null($responseId) ) {
 			$response = $this->responses()->findOrFail($responseId);
 			$response->setTable($this->response_table);
 		}else{
 			$responseQuery = $this->responses()
-				->where('respondent_type', '=', $respondentType)
-				->where('respondent_id', '=', $respondentId)
+				->where('respondent_type', '=', get_class($respondent))
+				->where('respondent_id', '=', $respondent->id)
 				->orderBy('updated_at', 'DESC');
 			$response = $responseQuery->get()->first();
 			if( $response ){
 				$response->setTable($this->response_table);
 			}else{
-				$response = $this->getNewResponse($respondentType, $respondentId);
+				$response = $this->getNewResponse($respondent);
 			}
 			$response->survey_id = $this->id;
 		}
 		return $response;
 	}
 
-	public function getNewResponse($respondentType, $respondentId){
+	public function getNewResponse($respondent){
 		$response = Response::newResponse($this->response_table);
-		$response->respondent_type = $respondentType;
-		$response->respondent_id = $respondentId;
+		$response->respondent_type = get_class($respondent);
+		$response->respondent_id = $respondent->id;
 		$response->survey_id = $this->id;
 		return $response;
+	}
+
+	public function getPagesAttribute()
+	{
+		return $this->document->pages;
 	}
 
 	public function getRules(Response $response)
 	{
 		$rulesClassName = $this->getSurveyDocument()->getRulesClass();
-		return new $rulesClassName($this, $response);	
+		return new $rulesClassName($response);	
 	}
 
 

@@ -1,6 +1,11 @@
 @extends('app')
 @section('content')
-<h3>Data Overview for {{ $survey->name }} Survey</h3>
+<h3>
+	Data Overview for {{ $survey->name }} Survey
+	<div class="pull-right">
+		<a href="/surveys/data-dictionary#{{ $model->slug }}" class="btn btn-info btn-xs">Data Dictionary</a>
+	</div>
+</h3>
 <p><a href="/surveys/{{ $model->slug }}/report/detail" class="btn btn-default">Show detail view</a></p>
 <table class="table table-default table-striped table-bordered" id="{{$survey->name}}_tbl">
 	<thead>
@@ -31,27 +36,27 @@
 					@if( $report->has('mean') )
 						<td>{{ $report['mean'] }}</td>
 					@else
-						<td>N/A</td>
+						<td class="text-muted">n/a</td>
 					@endif
 					@if( $report->has('median') )
 						<td>{{ $report['median'] }}</td>
 					@else
-						<td>N/A</td>
+						<td class="text-muted">n/a</td>
 					@endif
 					@if( $report->has('mode') )
 						<td>{{ $report['mode'] }}</td>
 					@else
-						<td>N/A</td>
+						<td class="text-muted">n/a</td>
 					@endif
 					@if( $report->has('range') )
 						<td>{{ $report['range']['min'] }}</td>
 					@else
-						<td>N/A</td>
+						<td class="text-muted">n/a</td>
 					@endif
 					@if( $report->has('range') )
 						<td>{{ $report['range']['max'] }}</td>
 					@else
-						<td>N/A</td>
+						<td class="text-muted">n/a</td>
 					@endif
 					<td><a href="/surveys/{{$model->slug}}/report/detail/{{$page->name}}/{{$question->variableName}}" class="btn btn-default">See detailed view</a></td>
 				</tr>

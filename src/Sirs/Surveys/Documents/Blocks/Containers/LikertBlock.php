@@ -22,17 +22,17 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
   }
 
 
-  public function parse(){
-    $this->setPrompt($this->xmlElement->prompt);
-    $this->parseOptions();
-    $this->setRefusable($this->getAttribute($this->xmlElement, 'refusable'));
-    parent::parse();
+  public function parse(\SimpleXMLElement $simpleXmlElement){
+    $this->setPrompt((string)$simpleXmlElement->prompt[0]);
+    $this->parseOptions($simpleXmlElement);
+    $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
+    parent::parse($simpleXmlElement);
   }
 
-  public function parseContents(){
+  public function parseContents(\SimpleXMLElement $simpleXmlElement){
     $children = [];
     $blockFactory = new BlockFactory();
-    foreach($this->xmlElement->children() as $child){
+    foreach($simpleXmlElement->children() as $child){
       if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
         $childClass = MultipleChoiceQuestion::class;
         $childBlock = $childClass::createWithParameters($child, $this->getParameters());

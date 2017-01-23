@@ -1,40 +1,39 @@
 @extends('app')
 @section('content')
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">{{ $survey->name }} Response Report</h3>
-			</div>
-			<div class="panel-body">
-				<ul class="nav nav-tabs" role="tablist">
-					<?php 
-					if( !is_null($pageName) ){
-						$navTabCounter = 1;
-					}else{
-						$navTabCounter = 0; 	
-					}
-					?>
-					@foreach( $survey->getPages() as $page  )
-						@if( count($page->getQuestions()) > 0 )
-							<li role="presentation" @if( $navTabCounter == 0 || $pageName == $page->name ) class="active" @endif>
-							<a data-target="#{{ $page->name }}" aria-controls="{{ $page->name }}" role="tab" data-toggle="tab">{{ $page->title }} </a></li>
-							<?php $navTabCounter += 1 ?>
-						@endif
-					@endforeach
-			    </ul>
-			    <div class="tab-content row">
-			    	<br />
-			    	<?php 
-			    		if( !is_null($pageName) ){
-							$navTabContentCounter = 1;
-						}else{
-							$navTabContentCounter = 0; 	
-						}
-					?>
-			        @foreach( $survey->getPages() as $page )
-			        	@if( count($page->getQuestions()) > 0 )
-				        <div role="tabpanel" class="tab-pane @if( $navTabContentCounter == 0 || $pageName == $page->name ) active @endif" id="{{ $page->name }}">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				{{ $survey->name }} Response Report
+				<div class="pull-right">
+					<a href="/surveys/{{$model->slug}}/report" class="btn btn-xs btn-default">Back to Overview</a>
+				</div>
+			</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="nav nav-tabs" role="tablist">
+				<?php 
+				if( !is_null($pageName) ){
+					$navTabCounter = 1;
+				}else{
+					$navTabCounter = 0; 	
+				}
+				?>
+				@foreach( $survey->getPages() as $page  )
+					@if( count($page->getQuestions()) > 0 )
+						<li role="presentation" @if( $navTabCounter == 0 || $pageName == $page->name ) class="active" @endif>
+						<a data-target="#{{ $page->name }}-tab" aria-controls="{{ $page->name }}" role="tab" data-toggle="tab">{{ $page->title }} </a></li>
+						<?php $navTabCounter += 1 ?>
+					@endif
+				@endforeach
+		    </ul>
+		    <div class="tab-content">
+		    	<?php 
+		    		$navTabContentCounter = (!is_null($pageName)) ? 1 : 0;
+				?>
+		        @foreach( $survey->getPages() as $page )
+		        	@if( count($page->getQuestions()) > 0 )
+			        <div role="tabpanel" class="tab-pane @if( $navTabContentCounter == 0 || $pageName == $page->name ) active @endif" id="{{ $page->name }}-tab">
+			        	<div class="row">
 				        	<div class="col-xs-3">
 								<ul class="nav nav-pills nav-stacked" role="tablist" id="{{$page->name}}_pills">
 									<?php 
@@ -85,6 +84,7 @@
 													<td>{{ $report['answered'] }}</td>
 													<td>{{ $report['unanswered'] }}</td>
 													<td>{{ $report['total'] }}</td>
+												</tr>
 											</table>
 											<hr />
 											@if(
@@ -93,7 +93,7 @@
 												$report->has('mode') ||
 												$report->has('range')
 											)
-											<h4>Statistics</h4>
+												<h4>Statistics</h4>
 												<table class="table table-default table-bordered">
 													<thead>
 														@if( $report->has('mean') ) <th>Mean</th> @endif
@@ -104,13 +104,12 @@
 													<thead>
 													<tbody>
 														@if( $report->has('mean') ) <td>{{$report['mean']}}</td> @endif
-														@if( $report->has('median') ) 
-															@if( $report->has('options') )
-																<td>{{ $report['options'][$report['median']]['label']  }}</td>
-															@else{
-																<td>{{$report['median']}}</td>
-															}
-															 @endif
+														@if( $report->has('median') )
+															<td>
+																{{ ($report->has('options')) 
+																		? $report['options'][$report['median']]['label'] 
+																		: $report['median'] }}
+															</td> 
 														@endif
 														
 														@if( $report->has('mode') ) 
@@ -181,13 +180,12 @@
 								    @endforeach
 								</div>
 							</div>
-				        </div>
-				    	<?php $navTabContentCounter += 1; ?>
-				    @endif
-			        @endforeach
-			    </div>
-			</div>
+						</div>
+			        </div>
+			    	<?php $navTabContentCounter += 1; ?>
+			    @endif
+		        @endforeach
+		    </div>
 		</div>
 	</div>
-</div>
 @endsection

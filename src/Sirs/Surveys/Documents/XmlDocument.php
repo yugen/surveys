@@ -6,13 +6,12 @@ use Sirs\Surveys\XmlValidator;
 
 abstract class XmlDocument
 {
-    protected $xmlElement;
-
     public function __construct($xml = null)
     {
         if($xml){
             $compiledXml = $this->compile($xml);
-            $this->setXmlElement($compiledXml);
+            $simpleXmlElement = $this->getSimpleXmlElement($compiledXml);
+            $this->parse($simpleXmlElement);
         }
     }
 
@@ -31,7 +30,14 @@ abstract class XmlDocument
         while($includes->length > 0){
             $include = $includes->item(0);
             $source = config('surveys.surveysPath').'/'.$include->getAttribute('source');
-            $includeDom = dom_import_simplexml(simplexml_load_file($source));
+            if (!file_exists($source)) {
+                throw new \Exception('file '.$source.' not found.', 404);
+            }
+            $simpleXmlFile = simplexml_load_file($source);
+            if (!$simpleXmlFile) {
+                throw new \Exception('Error when parsing '.$source);
+            }
+            $includeDom = dom_import_simplexml($simpleXmlFile);
             $nodeImport = $include->ownerDocument->importNode($includeDom, TRUE);
 
             if(!$include->parentNode->replaceChild($nodeImport, $include)){
@@ -44,12 +50,17 @@ abstract class XmlDocument
 
     }
 
-    abstract public function parse();
+    abstract public function parse(\SimpleXMLElement $simpleXmlElement);
 
     public function validate()
     {
-        return $this->validateXmlElement($this->xmlElement);
+        return true;
     }
+
+    // public function validate(\SimpleXMLElement $simpleXmlElement)
+    // {
+    //     return $this->validateXmlElement($simpleXmlElement);
+    // }
 
     public function validateXmlElement(\SimpleXMLElement $element)
     {
@@ -72,32 +83,16 @@ abstract class XmlDocument
      * @return $this
      * @param mixed $surveyXMl
      **/
-    function setXmlElement($xml)
+    function getSimpleXmlElement($xml)
     {
         if( is_string($xml) ){
-            $this->xmlElement = new \SimpleXMLElement($xml);
+            $simpleXmlElement = new \SimpleXMLElement($xml);
         }elseif($xml instanceof \SimpleXMLElement){
-            $this->xmlElement = $xml;
+            $simpleXmlElement = $xml;
         }else{
             throw new \Exception('String or SimpleXMLElement expected.');
         } 
-        $this->parse();
-        return $this;
-    }
-
-    /**
-     * gets survey XMLElement
-     *
-     * @return string
-     **/
-    public function getXmlElement()
-    {
-        return $this->xmlElement;
-    }
-
-    public function toXml()
-    {
-        return $this->xmlElement->asXML();
+        return $simpleXmlElement;
     }
 
     public function __get($property)

@@ -18,6 +18,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   protected $show = null;
   protected $hide = null;
   protected $refusable = null;
+  protected $refuseLabel = null;
 
   public function __construct($xml = null)
   {
@@ -26,19 +27,20 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->defaultTemplate = 'questions.text.default_text';
   }
 
-  public function parse()
+  public function parse(\SimpleXMLElement $simpleXmlElement)
   {
 
-    parent::parse();
-    $this->setName($this->getAttribute($this->xmlElement, 'name'));
-    $this->setQuestionText((string)$this->xmlElement->{'question-text'}[0]);
-    $this->setDataFormat($this->getAttribute($this->xmlElement, 'data-format'));
-    $this->setRequired($this->getAttribute($this->xmlElement, 'required'));
-    $this->setPlaceholder($this->getAttribute($this->xmlElement, 'placeholder'));
-    $this->setShow($this->getAttribute($this->xmlElement, 'show'));
-    $this->setHide($this->getAttribute($this->xmlElement, 'hide'));
-    $this->setRefusable($this->getAttribute($this->xmlElement, 'refusable'));
-    $this->setValidationRules($this->getAttribute($this->xmlElement, 'validation-rules'));
+    parent::parse($simpleXmlElement);
+    $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+    $this->setQuestionText((string)$simpleXmlElement->{'question-text'}[0]);
+    $this->setDataFormat($this->getAttribute($simpleXmlElement, 'data-format'));
+    $this->setRequired($this->getAttribute($simpleXmlElement, 'required'));
+    $this->setPlaceholder($this->getAttribute($simpleXmlElement, 'placeholder'));
+    $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
+    $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
+    $this->setRefuseLabel($this->getAttribute($simpleXmlElement, 'refuse-label'));
+    $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
+    $this->setValidationRules($this->getAttribute($simpleXmlElement, 'validation-rules'));
   }
 
   /**
@@ -176,53 +178,89 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     return ($this->refusable) ? true : false;
   }
 
-  public function getValidationRules()
-  {
-    if( $this->required ){
-      $this->validationRules[] = 'required';
+    public function setRefuseLabel($value)
+    {
+      $this->refuseLabel = ($value) ? $value : config('surveys.refuseLabel', 'Refused');
+      return $this;
     }
-    switch ($this->dataFormat) {
-      case 'int':
-      case 'tinyint':
-      case 'mediumint':
-      case 'bigint':
-        $this->validationRules[] = 'integer';
-        break;
-      case 'float':
-      case 'double':
-      case 'decimal':
-        $this->validationRules[] = 'numeric';
-        break;
-      case 'date':
-      case 'time':
-        $this->validationRules[] = 'date';
-        break;
-      case 'year':
-        $this->validationRules[] = 'regex:\d\d\d\d';
-      default:
-        break;
+
+    public function getRefuseLabel()
+    {
+      return ($this->refuseLabel) ? $this->refuseLabel : config('surveys.refuseLabel', 'Refused');
     }
-    return $this->validationRules;
-  }
 
-  public function setValidationRules($value)
-  {
-    if(is_null($value)) return;
-    if( is_string($value) ){
-      $value = explode('|', $value);
+    public function getValidationRules()
+    {
+      // set rules baded datatype and required attribute
+      if( $this->required ){
+        $this->validationRules[] = 'required';
+      }
+      switch ($this->dataFormat) {
+        case 'int':
+        case 'tinyint':
+        case 'mediumint':
+        case 'bigint':
+          $this->validationRules[] = 'integer';
+          break;
+        case 'float':
+        case 'double':
+        case 'decimal':
+          $this->validationRules[] = 'numeric';
+          break;
+        case 'date':
+        case 'time':
+          $this->validationRules[] = 'date';
+          break;
+        case 'year':
+          $this->validationRules[] = 'regex:\d\d\d\d';
+        default:
+          break;
+      }
+      
+      return $this->validationRules;
     }
-    $this->validationRules = array_merge($this->validationRules, $value);
-  }
 
-  public function getValidationString()
-  {
-    return implode('|', $this->getValidationRules());
-  }
+    public function getLaravelValidationArray()
+    {
+      return [$this->name=>$this->getValidationString()];
+    }
 
-  public function getVariables()
-  {
-    return [new Variable($this->variableName, $this->getDataFormat())];
-  }
+    public function setValidationRules($value)
+    {
+      // set based on validation-rules attribute
+      if(is_null($value)) return;
+      if( is_string($value) ){
+        $value = explode('|', $value);
+      }
+      $this->validationRules = array_merge($this->validationRules, $value);
+    }
+
+    public function getValidationString()
+    {
+      return implode('|', $this->getValidationRules());
+    }
+
+    public function getVariables()
+    {
+      return [new Variable($this->variableName, $this->getDataFormat())];
+    }
+
+    public function hasOptions()
+    {
+      return (isset($this->options));
+    }
+
+    public function __get($property){
+      switch ($property) {
+        case 'hasOptions':
+          return $this->hasOptions;
+          break;
+        
+        default:
+          return parent::__get($property);
+          break;
+      }
+    }
 
   /**
    * gets reporting data for a given question's responses
@@ -421,7 +459,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
   {
     $options = array();
     foreach ($this->options as $option) {
-      if( !array_key_exists( $option->value, $options ) ){
+      if( !array_key_exists( (string)$option->value, $options ) ){
         $options[$option->value] = array();
         $options[$option->value]['value'] = $option->value;
         $options[$option->value]['label'] = $option->label;
