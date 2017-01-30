@@ -160,7 +160,7 @@ trait ResponseRevisionableTrait
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             );
-            $revision = new \Venturecraft\Revisionable\Revision;
+            $revision = new Revision;
             \DB::table($revision->getTable())->insert($revisions);
             \Event::fire('revisionable.deleted', array('model' => $this, 'revisions' => $revisions));
         }
