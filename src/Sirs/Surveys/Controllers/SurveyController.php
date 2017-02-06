@@ -60,12 +60,23 @@ class SurveyController extends BaseController
 
         $survey = Survey::where('slug', $surveySlug)->firstOrFail();
         $survey->getSurveyDocument()->validate();
-        $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), null, $responseId);
+        $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
 
         $control = new SurveyControlService($request, $response);
         return $control->saveAndContinue();
     }
 
+    public function autoSave(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
+        $survey = Survey::where('slug', $surveySlug)->firstOrFail();
+        $survey->getSurveyDocument()->validate();
+        $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
+        $response->setTable($survey->response_table);
+
+        $svc = new SurveyControlService($request, $response);
+        $svc->storeResponseData();
+
+        return $svc->response->toJson();
+    }
 
     protected function getRespondent($type, $id)
     {

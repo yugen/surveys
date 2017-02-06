@@ -6,6 +6,10 @@ Route::group($routeGroup, function(){
     'uses' => 'Sirs\Surveys\Controllers\SurveyController@show',
     'as' => 'survey_get'
   ]);
+  Route::put('api/{respondentType}/{respondentId}/survey/{surveySlug}/{responseId?}', [
+    'uses' => 'Sirs\Surveys\Controllers\SurveyController@autosave',
+    'as'=>'surveys.autosave'
+  ]);
   Route::post('{respondentType}/{respondentId}/survey/{surveySlug}/{responseId?}', [
     'uses' => 'Sirs\Surveys\Controllers\SurveyController@store',
     'as' => 'survey_post'

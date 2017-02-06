@@ -50,9 +50,25 @@
     </div>
   </div>
 </form>
+<div class="alert alert-info notification" id="flast-notification">Auto-saved at <span id="notification-time"></span>.</div>
 @endsection
+
+@push('styles')
+  <style>
+    .notification{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: none;
+      margin: auto;
+    }
+  </style>
+@endpush
+
 @push('scripts')
 <script>
+
+  // Plugins
   $(document).ready(function(){
     $('[data-skipTarget]').skipTrigger();
     $('.mutually-exclusive').mutuallyExclusive();
@@ -72,7 +88,38 @@
     }).on('timeFormatError', function(){
       $(this).addClass('input-error');
     });
+  });
 
-  })
+  // autosave
+  $(document).ready(function(){
+
+    var activeRequest = false;
+
+    var formIsDirty = false;
+    $('form.sirs-survey').on('change', function(){ formIsDirty = true; });
+
+    var autosave = function(){
+      console.log('try autosave');
+      if(!activeRequest && formIsDirty){
+        activeRequest = true;
+        $.ajax({
+          url: '{{route('surveys.autosave', [ get_class($context['respondent']),  $context['respondent']->id,  $context['survey']['object']->slug,  $context['response']->id ])}}',
+          method: 'PUT',
+          data: $('form.sirs-survey').serializeArray(),
+          success: function(){
+            activeRequest = formIsDirty = false;
+            $('#notification-time').text(moment().format('hh:mm:ss'))
+            $('#flast-notification').fadeIn();
+            setTimeout(function(){$('#flast-notification').fadeOut()}, 2500);
+          },
+          error: function(xhr, error){
+            activeRequest = formIsDirty = false;
+          }
+        })    
+      }
+    };
+
+    setInterval(autosave, 10000);
+  });
 </script>
 @endpush
