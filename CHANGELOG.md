@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.1.1 - 2017-02-06
+* Added autosave functionality.
+
 ## 2.1.0 - 2017-02-2
 * Update windwalker/renderer to ~3.0 to support Laravel 5.2.
 * Update laravel/framework dependency to >=5.1.0
