@@ -44,7 +44,7 @@ class SurveyControlService
         $this->page = $this->survey->getSurveyDocument()->getPage($this->resolveCurrentPageName());
 
         // parse the request into various parts.
-        if ($request->getMethod() == 'POST') {
+        if ( in_array($request->getMethod(), ['POST', 'PUT']) ) {
             $this->response->setDataValues($request->all(), $this->page);
         }
     }
