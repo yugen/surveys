@@ -90,6 +90,7 @@
     });
   });
 
+  @if(config('surveys.autosave.enabled'))
   // autosave
   $(document).ready(function(){
 
@@ -98,8 +99,13 @@
     var formIsDirty = false;
     $('form.sirs-survey').on('change', function(){ formIsDirty = true; });
 
+    var notify = function(){
+      $('#notification-time').text(moment().format('hh:mm:ss'))
+      $('#flast-notification').fadeIn();
+      setTimeout( function(){$('#flast-notification').fadeOut()}, {{config('surveys.autosave.notify_time', 2500) }});
+    }
+
     var autosave = function(){
-      console.log('try autosave');
       if(!activeRequest && formIsDirty){
         activeRequest = true;
         $.ajax({
@@ -108,9 +114,9 @@
           data: $('form.sirs-survey').serializeArray(),
           success: function(){
             activeRequest = formIsDirty = false;
-            $('#notification-time').text(moment().format('hh:mm:ss'))
-            $('#flast-notification').fadeIn();
-            setTimeout(function(){$('#flast-notification').fadeOut()}, 2500);
+            @if(config('surveys.autosave.notify'))
+            notify();
+            @endif
           },
           error: function(xhr, error){
             activeRequest = formIsDirty = false;
@@ -119,7 +125,8 @@
       }
     };
 
-    setInterval(autosave, 10000);
+    setInterval(autosave, {{config('surveys.autosave.frequency', 10000)}});
   });
+  @endif
 </script>
 @endpush
