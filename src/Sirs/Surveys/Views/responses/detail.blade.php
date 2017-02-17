@@ -66,9 +66,11 @@
                 Untouched
             @endif
         </div>
+        @if(config('surveys.editAfterFinalized', true))
         <div>
             <a href="{{$surveyRoute}}" class="btn btn-sm btn-default">Edit Response Data</a>
         </div>
+        @endif
         <div>
             <a href="#showHistory" data-toggle="modal" data-target="#revision-history-modal">Show Revision History</a>
         </div>

@@ -2,7 +2,7 @@
 <div class="page-container" id="{{snake_case($page->name)}}">
     <h3>
         {{$page->title}}
-        @if(count($page->getQuestions()) > 0)
+        @if(count($page->getQuestions()) > 0 && config('surveys.editAfterFinalized', true))
             <a href="{{route('survey_get', [get_class($response->respondent), $response->respondent->id, $response->survey->slug, $response->id])}}?page={{$page->name}}" class="btn btn-xs btn-default pull-right">Edit Page</a>
         @endif
     </h3>
