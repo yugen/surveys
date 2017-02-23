@@ -18,28 +18,30 @@ class SurveyController extends BaseController
     protected function setPreviousLocation(Request $request)
     {
         $previous = $request->session()->pull('survey_previous');
-        if( !preg_match('/\/survey\//', URL::previous()) ){
+        if (!preg_match('/\/survey\//', URL::previous())) {
             $previous = URL::previous();
         }
         $request->session()->put('survey_previous', $previous);
     }
 
-	/**
-	 * Takes in a group of variables from the URL and either finds the in-progress response and displays the current page, or if no response is specified displays the first page of a given survey
-	 *
-	 * @return rendered page
-	 * @author SIRS
-	 **/
-    public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
+    /**
+     * Takes in a group of variables from the URL and finds the in-progress response and displays the current page,
+     * or if no response is specified displays the first page of a given survey
+     *
+     * @return rendered page
+     * @author SIRS
+     **/
+    public function show(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
+    {
         $this->setPreviousLocation($request);
 
-    	$survey = Survey::where('slug',$surveySlug)->firstOrFail();
+        $survey = Survey::where('slug', $surveySlug)->firstOrFail();
         $respondent = $this->getRespondent($respondentType, $respondentId);
         if ($responseId == 'new') {
             $response = $survey->getNewResponse($respondent);
             $response->save();
             return redirect(SurveyControlService::generateSurveyUrl($survey, $response));
-        }else{
+        } else {
             $response = $survey->getLatestResponse($respondent, $responseId);
         }
 
@@ -48,13 +50,16 @@ class SurveyController extends BaseController
         return $control->showPage();
     }
 
-	/**
-	 * Instatiates or creates response object, validates input, checks for/runs beforeSave method from rules doc, saves input, checks for/runs afterSave method on rules doc, runs navigate function
-	 *
-	 * @return 
-	 * @author SIRS
-	 **/
-    public function store(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
+    /**
+     * Instatiates or creates response object, validates input,
+     * checks for/runs beforeSave method from rules doc, saves
+     * input, checks for/runs afterSave method on rules doc, runs navigate function
+     *
+     * @return
+     * @author SIRS
+     **/
+    public function store(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
+    {
 
         // $this->assemblePretext($request);
 
@@ -66,7 +71,8 @@ class SurveyController extends BaseController
         return $control->saveAndContinue();
     }
 
-    public function autoSave(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null){
+    public function autoSave(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
+    {
         $survey = Survey::where('slug', $surveySlug)->firstOrFail();
         $survey->getSurveyDocument()->validate();
         $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
@@ -80,7 +86,7 @@ class SurveyController extends BaseController
 
     protected function getRespondent($type, $id)
     {
-        $className = str_replace(' ', '\\', ucwords(str_replace('-',' ',$type)));
+        $className = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $type)));
         return $className::findOrFail($id);
     }
 
@@ -93,6 +99,4 @@ class SurveyController extends BaseController
         $pretext['nav'] = $request->nav;
         $request->session()->put('pretext', $pretext);
     }
-
-
 }
