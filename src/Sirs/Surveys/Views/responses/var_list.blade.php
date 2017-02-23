@@ -41,7 +41,18 @@
                     @endif
                 @else
                     @if($response->{$question->name})
-                        {{($response->{$question->name} == -77) ? config('surveys.refuseLabel', 'Refused') : $response->{$question->name} }}
+                        @if($question->dataFormat == 'time')
+                            {{
+                                \Carbon\Carbon::parse( $response->{$question->name} )->format('g:i:s a')
+                            }}
+                        @else
+                            {{
+                                ($response->{$question->name} == -77) 
+                                    ? config('surveys.refuseLabel', 'Refused') 
+                                    : $response->{$question->name} 
+                            }}
+                        @endif
+
                     @endif 
                 @endif
             </td>
