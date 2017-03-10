@@ -1,5 +1,6 @@
 <h3>
     {{$survey->document->title}}
+    <small class="text-muted">(table: {{$survey->response_table}})</small>
     <div class="pull-right">
         <a href="/surveys/{{$survey->slug}}/report/" class="btn btn-info btn-xs">Data Summary</a>
     </div>
