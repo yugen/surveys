@@ -4,18 +4,17 @@ namespace Sirs\Surveys\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Models\Response;
 
 class Survey extends Model
 {
     use Sluggable;
+    use SluggableScopeHelpers;
 
     protected $table = "surveys";
     protected $fillable = ['name', 'version', 'file_name', 'response_table'];
-    protected $sluggable = [
-    'build_from' => 'name_version'
-    ];
     protected $document = null;
 
     public function sluggable()
