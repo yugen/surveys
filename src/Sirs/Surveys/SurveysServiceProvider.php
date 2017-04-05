@@ -29,6 +29,7 @@ class SurveysServiceProvider extends ServiceProvider {
     $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');
     $this->publishes([ __DIR__.'/../../../assets/sass/'=> base_path('/resources/assets/sass')], 'sass');
     $this->publishes([ __DIR__.'/../../../assets/js/'=> public_path('/js')], 'js');
+    $this->publishes([ __DIR__.'/Policies/'=> app_path('Policies')], 'policies');
 
 
     // custom validators for numbers
