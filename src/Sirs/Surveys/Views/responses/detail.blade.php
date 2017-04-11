@@ -1,4 +1,4 @@
-@extends('app')
+@extends(config('surveys.chromeTemplate'))
 
 @push('styles')@endpush
 

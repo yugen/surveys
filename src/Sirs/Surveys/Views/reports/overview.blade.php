@@ -1,4 +1,4 @@
-@extends('app')
+@extends(config('surveys.chromeTemplate'))
 @section('content')
 <h3>
 	Data Overview for {{ $survey->name }} Survey

@@ -1,4 +1,4 @@
-@extends('app')
+@extends(config('surveys.chromeTemplate'))
 @section('content')
 <h3>Survey Reports</h3>
 <table class="table table-default table-bordered table-striped">
