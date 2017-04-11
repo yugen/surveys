@@ -1,4 +1,4 @@
-@extends('app');
+@extends(config('surveys.chromeTemplate'))
 
 @section('content')
   <h1>{{ucwords($survey->name)}} Responses</h1>
