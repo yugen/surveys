@@ -4,6 +4,7 @@ namespace Sirs\Surveys;
 
 use Sirs\Surveys\Documents\Blocks\Containers\ContainerBlock;
 use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
+use Sirs\Surveys\Exceptions\QuestionNotFoundException;
 use Sirs\Surveys\Factories\QuestionFactory;
 
 trait HasQuestionsTrait
@@ -19,7 +20,7 @@ trait HasQuestionsTrait
         $questions = [];
         foreach ($this->getContents() as $idx => $block) {
             if ($block instanceof QuestionBlock) {
-                $questions[] = $block;
+                $questions[$idx] = $block;
             } elseif ($block instanceof ContainerBlock) {
                 $questions = array_merge($questions, $block->getQuestions());
             }
@@ -49,12 +50,8 @@ trait HasQuestionsTrait
      **/
     public function hasQuestion($name)
     {
-        foreach ($this->getQuestions() as $question) {
-            if ($question->name  == $name) {
-                return true;
-            }
-        }
-        return false;
+        $questions = $this->getQuestions();
+        return isset($questions[$name]);
     }
 
     /**
@@ -62,14 +59,15 @@ trait HasQuestionsTrait
      *
      * @param  string $name
      * @return Sirs\Surveys\Documents\Blocks\Questions\Question
+     * @throws Exception Exception thrown when 
      **/
     public function getQuestionByName($name)
     {
-        foreach ($this->getQuestions() as $question) {
-            if ($question->name == $name) {
-                return $question;
-            }
+        $questions = $this->getQuestions();
+        if ($this->hasQuestion($name)) {
+            return $questions[$name];
+        } else {
+            throw new QuestionNotFoundException('Question '.$name.' not found in the container '.$this->name);
         }
-        return null;
     }
 }

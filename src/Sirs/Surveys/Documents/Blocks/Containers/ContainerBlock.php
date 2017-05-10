@@ -44,7 +44,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
       if ( in_array( $child->getName(), $blockFactory->getWhitelist() ) ) {
         $childClass = $blockFactory->getBlockClass($child);
         $childBlock = $childClass::createWithParameters($child, $this->getParameters());
-        $children[] = $childBlock;
+        $children[$childBlock->name] = $childBlock;
       }
     }
     return $children;
