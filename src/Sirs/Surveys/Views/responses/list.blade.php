@@ -16,9 +16,9 @@
       <td>{{$response->finalized_at or 'pending'}}</td>
       <td>
         @if($response->finalized_at)
-        <a href="{{route('surveys.{surveySlug}.responses.show', [$survey->slug, $response->id])}}">View response</a>
+        <a href="{{route('responses.show', [$survey->slug, $response->id])}}">View response</a>
         @else
-        <a href="{{route('surveys.{surveySlug}.responses.show', [$survey->slug, $response->id])}}" class="btn btn-default">Continue survey</a>
+        <a href="{{route('responses.show', [$survey->slug, $response->id])}}" class="btn btn-default">Continue survey</a>
         @endif
       </td>
     </tr>
