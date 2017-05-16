@@ -1,4 +1,11 @@
 @extends(config('surveys.chromeTemplate'))
+
+@push('styles')
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"></link>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
+@endpush
+
 @section('content')
 	<div class="panel panel-default">
 		<div class="panel-heading">
