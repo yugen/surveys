@@ -126,6 +126,7 @@ class CreateSurveyMigrationsFromDocument extends Command
             'text'=>'text',
             'mediumtext'=>'mediumText',
             'longtext'=>'longText',
+            'json' => 'json',
             'binary'=>'binary',
             'varbinary'=>'binary',
             'tinyblob'=>'text',
