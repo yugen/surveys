@@ -30,7 +30,7 @@ class RunWorkflow {
   {
     $response = $event->surveyResponse;
 
-    $workflowClassName = 'App\\Surveys\\'.ucfirst(camel_case($response->survey->slug).'WorkflowStrategy');
+    $workflowClassName = 'App\\Surveys\\Workflows\\'.ucfirst(camel_case($response->survey->slug).'WorkflowStrategy');
     if (class_exists($workflowClassName)) {
       $workflow = new $workflowClassName($response, $event);
       $workflow->run();
