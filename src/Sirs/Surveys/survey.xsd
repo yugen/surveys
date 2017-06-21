@@ -214,6 +214,7 @@
 				<xs:enumeration value="text" />
 				<xs:enumeration value="mediumtext" />
 				<xs:enumeration value="longtext" />
+                <xs:enumeration value="json" />
 				<xs:enumeration value="binary" />
 				<xs:enumeration value="varbinary" />
 				<xs:enumeration value="tinyblob" />
