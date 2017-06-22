@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Surveys;
+namespace App\Surveys\Workflows;
 
-use Sirs\Surveys\SurveyResponseTypeWorkflowStrategy;
+use Sirs\Surveys\SurveyResponseWorkflowStrategy;
 
 /**
  * Extends SurveyResponseWorkflowStrategy (implements SurveyTypeWorkflowStrategyInterface).  
@@ -17,7 +17,7 @@ use Sirs\Surveys\SurveyResponseTypeWorkflowStrategy;
  * Instance vars include $this->response and $this->event.
  * 
  **/
-class {DummyType}WorkflowStrategy extends SurveyResponseTypeWorkflowStrategy
+class {DummyType}WorkflowStrategy extends SurveyResponseWorkflowStrategy
 {
     public function finalized()
     {
