@@ -11,7 +11,7 @@ use Sirs\Surveys\Models\Response;
  *
  * @package Sirs\Surveys
  **/
-class SurveyResponseTypeWorkflowStrategy implements WorkflowStrategy
+class SurveyResponseWorkflowStrategy implements WorkflowStrategy
 {
 
     protected $response;
