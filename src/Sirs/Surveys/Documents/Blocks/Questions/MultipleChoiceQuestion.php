@@ -28,8 +28,8 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
         // do this first so refused option is last
-        parent::parse($simpleXmlElement);
         $this->setNumSelectable($this->getAttribute($simpleXmlElement, 'num-selectable'));
+        parent::parse($simpleXmlElement);
 
         $this->parseOptions($simpleXmlElement);
         $this->orderOptions();
@@ -116,7 +116,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function setValidationRules($value){
 
       if($this->numSelectable == 1 ){
-        return parent::getValidationRules($value);
+        return parent::setValidationRules($value);
       }else{
         // set based on validation-rules attribute
         if(is_null($value)) return;
