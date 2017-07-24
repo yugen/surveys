@@ -2,9 +2,11 @@
 <div class="page-container" id="{{snake_case($page->name)}}">
     <h3>
         {{$page->title}}
-        @if(count($page->getQuestions()) > 0)
-            <a href="{{route('survey_get', [get_class($response->respondent), $response->respondent->id, $response->survey->slug, $response->id])}}?page={{$page->name}}" class="btn btn-xs btn-default pull-right">Edit Page</a>
-        @endif
+        @can('editFinalized', $response)
+            @if(count($page->getQuestions()) > 0)
+                <a href="{{route('survey_get', [get_class($response->respondent), $response->respondent->id, $response->survey->slug, $response->id])}}?page={{$page->name}}" class="btn btn-xs btn-default pull-right">Edit Page</a>
+            @endif
+        @endcan
     </h3>
     @if(count($page->getQuestions()) > 0)
     <table class="table table-striped table-bordered">
@@ -41,7 +43,18 @@
                     @endif
                 @else
                     @if($response->{$question->name})
-                        {{($response->{$question->name} == -77) ? config('surveys.refuseLabel', 'Refused') : $response->{$question->name} }}
+                        @if($question->dataFormat == 'time')
+                            {{
+                                \Carbon\Carbon::parse( $response->{$question->name} )->format('g:i:s a')
+                            }}
+                        @else
+                            {{
+                                ($response->{$question->name} == -77) 
+                                    ? config('surveys.refuseLabel', 'Refused') 
+                                    : $response->{$question->name} 
+                            }}
+                        @endif
+
                     @endif 
                 @endif
             </td>

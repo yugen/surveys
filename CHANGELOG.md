@@ -1,6 +1,13 @@
 # Change Log
 
-## 2.0.0 - XXXX-XX-XX
+## 2.1.1 - 2017-02-06
+* Added autosave functionality.
+
+## 2.1.0 - 2017-02-2
+* Update windwalker/renderer to ~3.0 to support Laravel 5.2.
+* Update laravel/framework dependency to >=5.1.0
+
+## 2.0.0 - 2017-01-20
 #### Breaking Changes
 * Responses are now soft-deleted.  That means that you will have to add a deleted_at timestamp field to your existing response tables.
 * Added SurveyRules base class that all survey rules should inherit from.  Your rules classes should now extend SurveyRules to take advantage of rules pretext.
@@ -14,6 +21,9 @@
 * Added instance var $pretext to SurveyRules and method that sets SurveyRules::pretext from request.
 * Added survey document caching to speed up load times. config('surveys.cacheDocuments') controls caching.  If true survey docs are cached.
 * Improved response view now includes question text and human-readable selected values (for question that have options).
+
+## 1.4.0 - 2016-11-04
+* Now storing last_page in survey response on SurveyContoller@show and SurveyContoller@store.  When no page query param is supplied the response.last_page is checked before resorting to the first page.
 
 ## 1.2.2 - 1.2.5 - 2016-07-26
 * Fixed bug in QuestionFactory

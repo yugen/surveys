@@ -87,4 +87,12 @@ interface StructuredDataInterface
   public function setValidationRules($value);
   public function getValidationRules();
 
+  /**
+   * gets reporting data for a given question's responses
+   *
+   * @return collection
+   * @author SIRS
+   **/
+  public function getReport($responses);
+
 } // END interface StructuredData

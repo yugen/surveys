@@ -12,7 +12,14 @@ return [
   'routeGroup'=>['middleware' => 'auth'],
   'chromeTemplate'=>'app',
   'cacheDocuments'=>( env('APP_DEBUG') ) ? false : true,
-  'refusedLabel'=>'Refused'
+  'refusedLabel'=>'Refused',
+  'autosave'=>[
+    'enabled' => true,
+    'frequency' => 10000, // time in miliseconds
+    'notify' => true,
+    'notify_time' => 2500
+  ],
+  
 
 ];
 

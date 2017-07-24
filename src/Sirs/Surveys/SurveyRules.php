@@ -33,6 +33,9 @@ class SurveyRules
                             ? $pretext[$this->response->survey->slug][$this->response->respondent_id]
                             : new RulesPretext([]);
 
+        // set the pretext->page to the response->last_page in case it's not coming in on the request
+        $this->pretext->page = $this->response->last_page;
+
         foreach ($requestData as $key => $value) {
             if(in_array($key, ['_token'])) continue;
             if(in_array($key, array_keys($this->response->getDataAttributes()))) continue;

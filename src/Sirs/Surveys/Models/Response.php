@@ -101,7 +101,6 @@ class Response extends Model {
         return $this->finalizeResponse($finalizedDate, $override);
     }
 
-
     public function survey()
     {
         return $this->belongsTo(Survey::class);
@@ -166,4 +165,5 @@ class Response extends Model {
         }
         return $cols;
     }
+
 }

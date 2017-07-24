@@ -145,38 +145,38 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     ];
   }
 
-    public function setRequired($required)
-    {
-        $this->required = ($required !== null) ? $required : false;
-        return $this;
-    }
-
-    public function getRequired()
-    {
-        return $this->required;
-    }
-
-    public function setPlaceholder($placeholder)
-    {
-      $this->placeholder = ($placeholder !== null) ? $placeholder : null;
+  public function setRequired($required)
+  {
+      $this->required = ($required !== null) ? $required : false;
       return $this;
-    }
+  }
 
-    public function getPlaceholder()
-    {
-      return $this->placeholder;
-    }
+  public function getRequired()
+  {
+      return $this->required;
+  }
 
-    public function setRefusable($value)
-    {
-      $this->refusable = ($value) ? true : false;
-      return $this;
-    }
+  public function setPlaceholder($placeholder)
+  {
+    $this->placeholder = ($placeholder !== null) ? $placeholder : null;
+    return $this;
+  }
 
-    public function getRefusable()
-    {
-      return ($this->refusable) ? true : false;
-    }
+  public function getPlaceholder()
+  {
+    return $this->placeholder;
+  }
+
+  public function setRefusable($value)
+  {
+    $this->refusable = ($value) ? true : false;
+    return $this;
+  }
+
+  public function getRefusable()
+  {
+    return ($this->refusable) ? true : false;
+  }
 
     public function setRefuseLabel($value)
     {
@@ -262,4 +262,238 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       }
     }
 
+  /**
+   * gets reporting data for a given question's responses
+   *
+   * @return collection
+   * @author SIRS
+   **/
+  public function getReport($responses)
+  {
+
+    // getting report Types based on data format
+    $reportTypes = array();
+
+    switch ($this->dataFormat) {
+      case 'int':
+      case 'tinyint':
+      case 'mediumint':
+      case 'bigint':
+      case 'float':
+      case 'double':
+      case 'decimal':
+        $reportTypes[] = 'mean';
+        $reportTypes[] = 'median';
+        $reportTypes[] = 'mode';
+        $reportTypes[] = 'range';
+        break;
+      case 'date':
+      case 'time':
+      case 'year':
+        $reportTypes[] = 'median';
+        $reportTypes[] = 'mode';
+        $reportTypes[] = 'range';
+        break;
+      default:
+        break;
+    }
+
+    // gathering raw data for this question, getting counts
+    $raw = $this->getRawData($responses);
+    $counts = $this->getDataCounts($raw);
+    $answered = $counts['answered'];
+
+    // setting up report
+    $report = array();
+    $report['total'] = $counts['totalCount'];
+    $report['answered'] = $counts['answeredCount'];
+    $report['unanswered'] = $counts['unansweredCount'];
+
+    // if question has options, getting extra data for options
+    if( isset( $this->options ) ){
+      $report['options'] = $this->getOptionsData($answered);
+      $report['vis'] = $this->getJSONForVis( $report['options'] );
+    }
+
+    // getting reports
+    if( $counts['answeredCount'] > 0 ){
+
+      foreach ( $reportTypes as $type ) {
+        $method = 'get'.ucfirst($type);
+        $report[$type] = $this->$method($answered);
+
+      }
+    }
+    return collect($report);
+  }
+
+  /**
+   * gets the mean for a given set of data
+   *
+   * @return float
+   * @author SIRS
+   **/
+  public function getMean($data)
+  {
+    $sum = array_sum( $data );
+    $count = count( $data );
+    $mean = $sum / $count;
+    return $mean;
+  }
+
+  /**
+   * gets the median for a given set of data
+   *
+   * @return number
+   * @author SIRS
+   **/
+  public function getMedian($data)
+  {
+    sort( $data );
+    $a = array_values( $data );
+    $count = count( $a ); 
+    $middle = floor( ( $count - 1 ) / 2 ); 
+    if( $count % 2 ) { 
+        $median = $a[ $middle ];
+    } else { 
+        $low = $a[$middle];
+        $high = $a[$middle + 1];
+        $median = ( ( $low + $high ) / 2 );
+    }
+    return $median;
+  }
+
+  /**
+   * gets the mode for a given set of data
+   *
+   * @return number
+   * @author SIRS
+   **/
+  public function getMode($data)
+  {
+    $values = array();
+    foreach( $data as $a ){
+      if( !array_key_exists( $a, $values ) ){
+        $values[$a] = 0;
+      }
+      $values[$a] += 1;
+    }
+    arsort($values);
+    reset($values);
+    $mode = key($values);
+    return $mode;
+  }
+
+  /**
+   * gets the range for a given set of data
+   *
+   * @return array
+   * @author SIRS
+   **/
+  public function getRange($data)
+  {
+    asort( $data );
+    $min = array_values( $data )[0];
+    arsort( $data );
+    $max = array_values( $data )[0];
+    return ["min" => $min, "max" => $max];
+  }
+
+  /**
+   * returns an array of the raw data of all responses for a given question
+   *
+   * @return array
+   * @author SIRS
+   **/
+  public function getRawData($responses)
+  {
+    $raw = array();
+    foreach( $responses as $response ){
+        foreach ($this->getVariables() as $var) {
+          $raw[] = $response->{$var->name};
+        }
+      
+    }
+    return $raw;
+  }
+
+  /**
+   * gets the data counts for raw data
+   *
+   * @return array
+   * @author SIRS
+   **/
+  public function getDataCounts($raw)
+  {
+    $answered = array();
+    $totalCount = 0;
+    $answeredCount = 0;
+    $unansweredCount = 0;
+
+    foreach ($raw as $data) {
+      if( is_null( $data ) ){
+        $unansweredCount += 1;
+      }else{
+        $answeredCount += 1;
+        $answered[] = $data;
+      }
+      $totalCount += 1;
+    }
+
+    $arr = [
+      'answered' => $answered,
+      'totalCount' => $totalCount,
+      'answeredCount' => $answeredCount,
+      'unansweredCount' => $unansweredCount,
+    ];
+    return $arr;
+  }
+
+  /**
+   * gets data per option for questions with option
+   *
+   * @return collection
+   * @author sirs
+   **/
+  public function getOptionsData($data)
+  {
+    $options = array();
+    foreach ($this->options as $option) {
+      if( !array_key_exists( (string)$option->value, $options ) ){
+        $options[$option->value] = array();
+        $options[$option->value]['value'] = $option->value;
+        $options[$option->value]['label'] = $option->label;
+        $options[$option->value]['count'] = 0;
+      }
+    }
+
+    foreach( $data as $ans ){
+      if( array_key_exists( $ans, $options ) ){
+        $options[$ans]['count'] +=1;
+      }
+    }
+
+  return collect( $options );
+  }
+
+   /**
+   * returns a JSON obect of option data for nvd3 visualizations
+   *
+   * @return object
+   * @author sirs
+   **/
+  public function getJSONForVis($options){
+
+    $jsonArray = array();
+    $jsonArray['key'] = $this->variableName;
+    $jsonArray['values'] = array();
+    foreach ( $options as $option ) {
+      $val = array();
+      $val['value'] = $option['count'];
+      $val['label'] = $option['value'];
+      $jsonArray['values'][] = $val;
+    }
+
+    return collect($jsonArray)->toJSON();
+  }
 }

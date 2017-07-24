@@ -2,10 +2,9 @@
 
 namespace Sirs\Surveys\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 use Sirs\Surveys\Documents\SurveyDocument;
 use Sirs\Surveys\Models\Response;
 
@@ -59,19 +58,19 @@ class Survey extends Model implements SluggableInterface {
 	public function getSurveyDocument()
 	{
 		if( is_null($this->document) ){
-			if (!config('surveys.cacheDocuments')) {
-				\Debugbar::info('skipping survey document cache');
-				$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
-			}else{
-				if(Cache::has('survey-'.$this->slug)){
-					$this->document = Cache::get('survey-'.$this->slug);
-				}else{
-					$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
-					Cache::forever('survey-'.$this->slug, $this->document, 60);
-				}
-			}
+			$this->document = SurveyDocument::initFromFile( base_path($this->file_name) );
 		}
 		return $this->document;
+	}
+
+	public function getSurveyDocumentAttribute()
+	{
+		return $this->getSurveyDocument();
+	}
+
+	public function getDocumentAttribute()
+	{
+		return $this->getSurveyDocument();
 	}
 
 	/**
@@ -93,43 +92,16 @@ class Survey extends Model implements SluggableInterface {
 	 **/
 	public function getResponsesAttribute()
 	{
-		return Response::lookupTable($this->response_table)->get();
+		$responses =  Response::lookupTable($this->response_table)->get();
+		foreach ($responses as $response) {
+			$response->setTable($this->response_table);
+		}
+		return $responses;
 	}
 
 	public function getNameVersionAttribute()
 	{
 		return $this->name.$this->version;
-	}
-
-	/**
-	 * Get the title attribute from the survey document
-	 *
-	 * @return string
-	 **/
-	public function getTitleAttribute()
-	{
-		return $this->getSurveyDocument()->title;
-	}
-
-	/**
-	 * Get the title attribute from the survey document
-	 *
-	 * @return string
-	 **/
-	public function getPagesAttribute()
-	{
-		return $this->getSurveyDocument()->pages;
-	}
-
-	/**
-	 * Get the survey document as an attribute
-	 *
-	 * @return Sirs\Surveys\Documents\SurveyDocument
-	 * @author 
-	 **/
-	public function getSurveyDocumentAttribute()
-	{
-		return $this->getSurveyDocument();
 	}
 
 	/**
@@ -143,17 +115,10 @@ class Survey extends Model implements SluggableInterface {
 		
 	}
 
-	public function getLatestResponse($respondentType, $respondentId = null, $responseId = null)
+	public function getLatestResponse($respondent, $responseId = null)
 	{
-		if ($respondentType instanceOf \Illuminate\Database\Eloquent\Model) {
-			$respondent = $respondentType;
-		}else{
-			if(!$respondentId) throw new \Exception('You must provide a respondent id to get the latest response.');
-			$respondentType = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $respondentType)));
-			$respondent = $respondentType::findOrFail($respondentId);
-		}
-
 		$response = null;
+
 		if ( !is_null($responseId) ) {
 			$response = $this->responses()->findOrFail($responseId);
 			$response->setTable($this->response_table);
@@ -173,20 +138,53 @@ class Survey extends Model implements SluggableInterface {
 		return $response;
 	}
 
-	public function getNewResponse(Model $respondent)
-	{
+	public function getNewResponse($respondent){
 		$response = Response::newResponse($this->response_table);
 		$response->respondent_type = get_class($respondent);
 		$response->respondent_id = $respondent->id;
 		$response->survey_id = $this->id;
-
 		return $response;
+	}
+
+	public function getPagesAttribute()
+	{
+		return $this->document->pages;
 	}
 
 	public function getRules(Response $response)
 	{
 		$rulesClassName = $this->getSurveyDocument()->getRulesClass();
 		return new $rulesClassName($response);	
+	}
+
+
+	/**
+	 * returns an array of questions
+	 *
+	 * @return array
+	 * @author SIRS
+	 **/
+	public function getQuestions()
+	{
+		$doc = $this->getSurveyDocument();
+		return $doc->getQuestions();
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author 
+	 **/
+	public function getReports()
+	{
+		$rsp = $this->responses;
+		$questions = $this->getQuestions();
+		$report = array();
+		foreach ($questions as $q) {
+			$report[$q->variableName] = $q->getReport($rsp);
+		}
+		return collect($report);
 	}
 
 }
