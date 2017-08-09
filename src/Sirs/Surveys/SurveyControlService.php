@@ -261,7 +261,7 @@ class SurveyControlService
             'survey'=>[
                 'object'=>$this->survey,
                 'name'=>$this->survey->name,
-                'title'=>$this->survey->title,
+                'title'=>$this->survey->document->title,
                 'version'=>$this->survey->version,
                 'totalPages'=>count($this->survey->pages),
                 'currentPageIdx'=> $this->page->pageNumber - 1
