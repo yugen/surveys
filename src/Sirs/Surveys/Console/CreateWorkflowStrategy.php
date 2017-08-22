@@ -52,8 +52,7 @@ class CreateWorkflowStrategy extends Command
             $typeClassName = $this->buildClassName($type);
             $this->createClass($type);
             \Artisan::call('make:test', [
-                'name' => 'Surveys/'.$typeClassName.'WorkflowStrategyTest',
-                '--unit'=>true
+                'name' => 'Surveys/'.$typeClassName.'WorkflowStrategyTest'
             ]);
         });
     }
