@@ -1,6 +1,15 @@
 <div 
-  class="form-group question-block {{($renderable->class) ? $renderable->class : ''}} @if(isset($context['errors']) && $context['errors']->has($renderable->name)) has-errors @endif"
-  @if($renderable->id)id="{{$renderable->id}}"@endif
+  class="
+    form-group question-block 
+    {{($renderable->class) ? $renderable->class : ''}} 
+    
+    @if(isset($context['errors']) && $context['errors']->has($renderable->name)) 
+      has-errors 
+    @endif
+  "
+  @if($renderable->id)
+    id="{{$renderable->id}}"
+  @endif
 >
   @if(preg_match('/form-inline/', $renderable->class))
     <label>  

@@ -41,6 +41,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     $this->setRefuseLabel($this->getAttribute($simpleXmlElement, 'refuse-label'));
     $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
     $this->setValidationRules($this->getAttribute($simpleXmlElement, 'validation-rules'));
+    $this->setHidden($this->getAttribute($simpleXmlElement, 'hidden'));
   }
 
   /**
@@ -223,6 +224,14 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getLaravelValidationArray()
     {
       return [$this->name=>$this->getValidationString()];
+    }
+
+    public function setHidden($value)
+    {
+      $this->hidden = (boolean)$value;
+      if ($this->hidden) {
+        $this->defaultTemplate = 'questions.hidden';
+      }
     }
 
     public function setValidationRules($value)

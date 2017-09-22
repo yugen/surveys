@@ -1,7 +1,7 @@
 @if($question->refusable)
   @include('questions.refusable_input', ['question'=>$question])
 @else
-<input 
+<input
   type="{{$type or 'text'}}" 
   name="{{$question->name}}" 
   class="form-control {{$class or ''}}"
