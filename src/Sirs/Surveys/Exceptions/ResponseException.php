@@ -1,4 +1,5 @@
-<?php namespace Sirs\Surveys\Exceptions;
+<?php 
+namespace Sirs\Surveys\Exceptions;
 
 class ResponseException extends \Exception
 {
