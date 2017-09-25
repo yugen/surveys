@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Sirs\Surveys\Exceptions\InvalidSurveyResponseException;
 use Sirs\Surveys\Exceptions\SurveyNavigationException;
-use Sirs\Surveys\Models\Response;
-use Sirs\Surveys\Models\Survey;
+use Sirs\Surveys\Contracts\SurveyResponse;
+use Sirs\Surveys\Contracts\SurveyModel;
 
 /**
  * Class defines the default SurveyControlService
@@ -31,7 +31,7 @@ class SurveyControlService
      * @return void
      * @author 
      **/
-    public function __construct(Request $request, Response $response)
+    public function __construct(Request $request, SurveyResponse $response)
     {
         $this->request = $request;
         $this->response = $response;
@@ -191,7 +191,7 @@ class SurveyControlService
         return self::generateSurveyUrl($this->survey, $this->response);
     }
 
-    static public function generateSurveyUrl(Survey $survey, Response $response)
+    static public function generateSurveyUrl(SurveyModel $survey, SurveyResponse $response)
     {
         $urlParts = [
             strtolower(preg_replace('/\\\/', '-',$response->respondent_type)),

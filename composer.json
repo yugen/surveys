@@ -19,6 +19,9 @@
     "autoload": {
         "psr-0": {
             "Sirs\\Survey": "src"
-        }
+        },
+        "files": [
+            "src/Sirs/Surveys/helpers.php",
+        ]
     }
 }

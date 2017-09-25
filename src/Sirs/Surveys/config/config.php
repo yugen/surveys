@@ -19,8 +19,12 @@ return [
     'notify' => true,
     'notify_time' => 2500
   ],
-  
-
+  // 'bindings' => [
+  //   'models' => [
+  //     'Survey' => App\Survey::class
+  //     'Response' => App\SurveyResponse::class
+  //   ]
+  // ],
 ];
 
 ?>

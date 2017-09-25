@@ -27,7 +27,6 @@ class SurveysServiceProvider extends ServiceProvider {
 
     $this->publishes([ __DIR__.'/config/config.php' => config_path('surveys.php') ], 'config');
     $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');
-    // $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');
     $this->publishes([ __DIR__.'/../../../assets/sass/'=> base_path('/resources/assets/sass')], 'sass');
     $this->publishes([ __DIR__.'/../../../assets/js/'=> public_path('/js')], 'js');
     $this->publishes([ __DIR__.'/Policies/'=> app_path('Policies')], 'policies');
@@ -143,8 +142,28 @@ class SurveysServiceProvider extends ServiceProvider {
       \Event::listen('Sirs\Surveys\Events\SurveyResponseReopened', 'Sirs\Surveys\Handlers\RunWorkflow');
       \Event::listen('Sirs\Surveys\Events\SurveyResponseSaved', 'Sirs\Surveys\Handlers\RunWorkflow');
       \Event::listen('Sirs\Surveys\Events\SurveyResponseStarted', 'Sirs\Surveys\Handlers\RunWorkflow');
+    }
+
+    protected function bindInterfaces()
+    {
+      $this->app->bind(
+        \Sirs\Surveys\Survey::class, 
+        config('surveys.bindings.models.Survey', \Sirs\Surveys\Survey::class)
+      );
+      $this->app->bind(
+        \Sirs\Surveys\Response::class, 
+        config('surveys.bindings.models.Response', \Sirs\Surveys\Response::class)
+      );
 
 
+      $this->app->bind(
+        \Sirs\Surveys\Interfaces\Survey::class, 
+        config('surveys.bindings.models.Survey', \Sirs\Surveys\Survey::class)
+      );
+      $this->app->bind(
+        \Sirs\Surveys\Interfaces\SurveyResponse::class, 
+        config('surveys.bindings.models.Response', \Sirs\Surveys\SurveyResponse::class)
+      );
     }
 
 }

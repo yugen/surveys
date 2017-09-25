@@ -2,13 +2,14 @@
 
 namespace Sirs\Surveys\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Illuminate\Database\Eloquent\Model;
+use Sirs\Surveys\Contracts\SurveyModel;
+use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Documents\SurveyDocument;
-use Sirs\Surveys\Models\Response;
 
-class Survey extends Model
+class Survey extends Model implements SurveyModel
 {
     use Sluggable;
     use SluggableScopeHelpers;
@@ -90,7 +91,7 @@ class Survey extends Model
      **/
     public function responses()
     {
-        return Response::lookupTable($this->response_table);
+        return class_response()::lookupTable($this->response_table);
     }
 
     /**
@@ -101,7 +102,7 @@ class Survey extends Model
      **/
     public function getResponsesAttribute()
     {
-        $responses =  Response::lookupTable($this->response_table)->get();
+        $responses =  class_response()::lookupTable($this->response_table)->get();
         foreach ($responses as $response) {
             $response->setTable($this->response_table);
         }
@@ -148,7 +149,7 @@ class Survey extends Model
 
     public function getNewResponse($respondent)
     {
-        $response = Response::newResponse($this->response_table);
+        $response = class_response()::newResponse($this->response_table);
         $response->respondent_type = get_class($respondent);
         $response->respondent_id = $respondent->id;
         $response->survey_id = $this->id;

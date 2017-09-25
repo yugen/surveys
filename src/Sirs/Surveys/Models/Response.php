@@ -5,10 +5,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
 use Sirs\Surveys\Revisions\ResponseRevisionableTrait;
 
-class Response extends Model
+class Response extends Model implements SurveyResponse
 {
     use SoftDeletes;
     use ResponseRevisionableTrait;
@@ -96,7 +97,7 @@ class Response extends Model
 
     public function survey()
     {
-        return $this->belongsTo(Survey::class);
+        return $this->belongsTo(class_survey());
     }
 
     public function respondent()
