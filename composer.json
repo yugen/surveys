@@ -21,7 +21,7 @@
             "Sirs\\Survey": "src"
         },
         "files": [
-            "src/Sirs/Surveys/helpers.php",
+            "src/Sirs/Surveys/helpers.php"
         ]
     }
 }
