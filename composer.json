@@ -1,15 +1,21 @@
 {
     "name": "sirs/surveys",
+    "description": "Package for rapidly building surveys with data dictionaries and response storage",
+    "license": "MIT",
     "authors": [
         {
             "name": "TJ Ward",
             "email": "jward3@email.unc.edu"
+        },
+        {
+            "name": "Alex Harding",
+            "email": "ahhardin@email.unc.edu"
         }
     ],
     "require": {
         "php": ">=5.4.0",
         "windwalker/renderer": "~3.0",
-        "laravel/framework": ">=5.1",
+        "laravel/framework": "~5.1",
         "cviebrock/eloquent-sluggable": "^4.1",
         "venturecraft/revisionable": "1.*"
     },
