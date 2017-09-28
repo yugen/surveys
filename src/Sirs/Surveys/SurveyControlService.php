@@ -2,13 +2,14 @@
 
 namespace Sirs\Surveys;
 
+use Carbon\Carbon;
 use Debugbar as Dbg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Sirs\Surveys\Contracts\SurveyModel;
+use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\InvalidSurveyResponseException;
 use Sirs\Surveys\Exceptions\SurveyNavigationException;
-use Sirs\Surveys\Contracts\SurveyResponse;
-use Sirs\Surveys\Contracts\SurveyModel;
 
 /**
  * Class defines the default SurveyControlService
@@ -82,6 +83,11 @@ class SurveyControlService
     {
         // run the after save rule for the page (if any).
         $this->execRule($this->rules, $this->page->name, 'BeforeSave');
+
+        // set the started_at
+        if( is_null($this->response->started_at) ){
+          $this->response->started_at = new Carbon();
+        }
 
         $this->response->last_page = $this->page->name;
         $this->response->save();

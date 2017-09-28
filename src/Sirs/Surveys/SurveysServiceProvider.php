@@ -35,7 +35,7 @@ class SurveysServiceProvider extends ServiceProvider {
     $this->addWorkflowListeners();
 
     // register observers:
-    Response::observe(new SurveyResponseObserver);    
+    class_response()::observe(new SurveyResponseObserver);
 
     require __DIR__.'/routes.php';
 
