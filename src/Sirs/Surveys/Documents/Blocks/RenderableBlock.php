@@ -105,7 +105,14 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
 
 
     $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
-    $view = $this->renderer->render($this->getTemplate(), ['chromeTemplate'=>$chromeTemplate,'context'=>$context, 'renderable'=>$this]);
+    $view = $this->renderer->render(
+      $this->getTemplate(), 
+      [
+        'chromeTemplate'=>$chromeTemplate,
+        'context'=>$context, 
+        'renderable'=>$this
+      ]
+    );
     return $view;
   }
 
