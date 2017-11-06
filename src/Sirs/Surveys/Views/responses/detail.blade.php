@@ -36,18 +36,18 @@
         <div>
             <strong>Started:</strong>
             <br>
-            {{$response->started_at->format('m/d/Y h:i a')}}
+            {{($response->started_at) ? $response->started_at->format('m/d/Y h:i a') : ''}}
         </div>
         <div>
             <strong>Updated:</strong>
             <br>
-            {{$response->updated_at->format('m/d/Y h:i a')}}
+            {{($response->updated_at) ? $response->updated_at->format('m/d/Y h:i a') : ''}}
         </div>
         <div>
             <strong>Finalized:</strong>
             <br>
             @if($response->finalized_at)
-                {{$response->finalized_at->format('m/d/Y h:i a')}}
+                {{($response->finalized_at) ? $response->finalized_at->format('m/d/Y h:i a') : ''}}
             @endif
         </div>
         {{-- <div>
