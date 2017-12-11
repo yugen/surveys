@@ -6,7 +6,7 @@ use Sirs\Surveys\Events\SurveyResponseFinalized;
 use Sirs\Surveys\Events\SurveyResponseReopened;
 use Sirs\Surveys\Events\SurveyResponseSaved;
 use Sirs\Surveys\Events\SurveyResponseStarted;
-use Sirs\Surveys\Models\Response;
+use Sirs\Surveys\Contracts\SurveyResponse as Response;
 
 /**
  * participant model observer
@@ -24,11 +24,6 @@ class SurveyResponseObserver
   }
 
   public function saving(Response $surveyResponse){
-    // set the started_at
-    if( is_null($surveyResponse->started_at) ){
-      $surveyResponse->started_at = new Carbon();
-    }
-    
   }
 
   public function saved(Response $surveyResponse){

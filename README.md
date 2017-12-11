@@ -4,20 +4,9 @@ A package for building surveys using xml and rendering them to html in Laravel p
 
 ### Installing this package ###
 
-Add the following to your composer.json: 
+run
 ```
-"repositories": [
-    {
-      "type": "vcs",
-      "url": "ssh://hg@bitbucket.org/shepsweb/sirs-surveys"
-    }
-]
-...
-"require": {
-    ...
-    "sirs/surveys": "~1.2",  
-    ...
-}
+composer require sirs/surveys
 ```
 Add the service provider to config/app.php: 
 ```
@@ -44,7 +33,6 @@ $ php artisan vendor:publish
 6. To replace the migration run ```php artisan survey:migration <path_to_survey>```
 
 ### [Full Package Documentation](https://bitbucket.org/shepsweb/sirs-surveys/wiki/) ###
-
 
 ### Who do I talk to? ###
 

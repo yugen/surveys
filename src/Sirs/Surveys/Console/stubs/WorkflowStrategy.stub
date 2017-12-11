@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Surveys\Workflows;
+
+use Sirs\Surveys\SurveyResponseWorkflowStrategy;
+
+/**
+ * Extends SurveyResponseWorkflowStrategy (implements SurveyTypeWorkflowStrategyInterface).  
+ * You can override the following public methods:
+ *     run()
+ *     attended()
+ *     canceled()
+ *     missed()
+ *     scheduled()
+ *     wasRescheduled()
+ *     statusWasUpdated()
+ * Instance vars include $this->response and $this->event.
+ * 
+ **/
+class {DummyType}WorkflowStrategy extends SurveyResponseWorkflowStrategy
+{
+    public function finalized()
+    {
+    }
+
+    public function reopened()
+    {
+    }
+
+    public function saved()
+    {
+    }
+
+    public function started()
+    {
+    }
+    
+} // END class SurveyResponseTypeWorkflowStrategy
+
+?>

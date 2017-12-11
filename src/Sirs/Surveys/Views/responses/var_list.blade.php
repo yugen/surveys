@@ -4,7 +4,7 @@
         {{$page->title}}
         @can('editFinalized', $response)
             @if(count($page->getQuestions()) > 0)
-                <a href="{{route('survey_get', [get_class($response->respondent), $response->respondent->id, $response->survey->slug, $response->id])}}?page={{$page->name}}" class="btn btn-xs btn-default pull-right">Edit Page</a>
+                <a href="{{getSurveyFormUrl($response, $page->name)}}" class="btn btn-xs btn-default pull-right">Edit Page</a>
             @endif
         @endcan
     </h3>

@@ -2,7 +2,7 @@
 
 namespace Sirs\Surveys\Events;
 
-use Sirs\Surveys\Models\Response;
+use Sirs\Surveys\Contracts\SurveyResponse as Response;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 

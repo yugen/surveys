@@ -73,7 +73,7 @@ class CreateSurveyMigrationsFromDocument extends Command
 
         $str = str_replace('DummyClass', $this->formatClassName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
-        $str = str_replace('DummyName', $this->survey->getName(), $str);
+        $str = str_replace('DummyName', $this->survey->getName().$this->survey->getVersion(), $str);
 
         $str = str_replace('DummySlug', str_replace(' ', '_', $this->survey->getName()), $str);
 

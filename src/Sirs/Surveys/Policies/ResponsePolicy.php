@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Sirs\Surveys\Models\Response;
+use Sirs\Surveys\Contracts\SurveyResponse as Response;
 
 class ResponsePolicy
 {

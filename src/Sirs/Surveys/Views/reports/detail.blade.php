@@ -156,11 +156,24 @@
 												<hr />
 												
 												<script type="text/javascript">
-													<?php $vFormatted = str_replace( '_', '', $question->variableName ); ?> 
-													var width = document.getElementById("tab-content").offsetWidth;
-													
-													var {{$vFormatted}}data =  [{key: '{{$vFormatted}}', values:[<?php $commaCounter = count($question->options) - 1; ?>@foreach($question->options as $option ){'label':'{{$option->value}}','value': {{ $report['options'][$option->value]['count'] }}}@if( $commaCounter > 0),@endif<?php $commaCounter -= 1; ?>@endforeach ]}];
-													
+
+													<?php 
+														$vFormatted = str_replace( '_', '', $question->variableName ); ?> 
+														var width = document.getElementById("tab-content").offsetWidth;
+														
+														var {{$vFormatted}}data =  [{
+																key: '{{$vFormatted}}', 
+																values:[<?php $commaCounter = count($question->options) - 1; 
+													?>
+																	@foreach($question->options as $option )
+																		{
+																			'label':'{{$option->value}}',
+																			'value': {{ $report['options'][$option->value]['count'] }}
+																		}
+																		@if( $commaCounter > 0) , @endif
+																		<?php $commaCounter -= 1; ?>
+																	@endforeach ]}];
+														
 													nv.addGraph(function() {
 													  var chart = nv.models.discreteBarChart()
 													    .x(function(d) { return d.label })

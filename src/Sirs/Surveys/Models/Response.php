@@ -1,24 +1,18 @@
-<?php 
+<?php
 namespace Sirs\Surveys\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
 use Sirs\Surveys\Revisions\ResponseRevisionableTrait;
-// use Venturecraft\Revisionable\RevisionableTrait as VenturecraftRevisionableTrait;
 
-class Response extends Model {
+class Response extends Model implements SurveyResponse
+{
     use SoftDeletes;
     use ResponseRevisionableTrait;
-    // use VenturecraftRevisionableTrait, RevisionableTrait {
-    //     RevisionableTrait::revisionHistory insteadof VenturecraftRevisionableTrait;
-    //     RevisionableTrait::classRevisionHistory insteadof VenturecraftRevisionableTrait;
-    //     RevisionableTrait::postSave insteadof VenturecraftRevisionableTrait;
-    //     RevisionableTrait::postCreate insteadof VenturecraftRevisionableTrait;
-    //     RevisionableTrait::postDelete insteadof VenturecraftRevisionableTrait;
-    // }
 
     protected $table = null;
     protected $guarded = ['id', 'finalized_at', 'survey_id'];
@@ -40,7 +34,7 @@ class Response extends Model {
      *
      * @return void
      */
-    public static function lookupTable($table) 
+    public static function lookupTable($table)
     {
         // $instance = new static;
         // $instance->setTable($table);
@@ -62,12 +56,12 @@ class Response extends Model {
      **/
     public function getTable()
     {
-       if (isset($this->table)) {
+        if (isset($this->table)) {
             return $this->table;
         }
 
         return $this->survey->response_table;
-     }
+    }
     
     /**
      * finalize survey if it has not already been finalized
@@ -75,23 +69,23 @@ class Response extends Model {
      * @param bool  $override allow setting a new finalized_at date even if one already exists
      *
      * @return void
-     * @example 
+     * @example
      *    $responses  = Response;
      *    $responses->setSurveyVersion('Baseline')->get();
-     *    
+     *
      *    $response = Response::surveyVersion('Baseline', 3)->findOrFail(4);
     */
-    public function finalizeResponse( Carbon $finalizeDate = null, $override = false ) 
+    public function finalizeResponse(Carbon $finalizeDate = null, $override = false)
     {
-        if( $this->finalized_at == null || $override == true ){
-            if ( $finalizeDate )      {
+        if ($this->finalized_at == null || $override == true) {
+            if ($finalizeDate) {
                 $this->finalized_at = $finalizeDate;
-            }else{
+            } else {
                 $this->finalized_at = new Carbon();
             }
             
             $this->save();
-        }elseif( $override == false ){
+        } elseif ($override == false) {
             // throw new ResponsePreviouslyFinalizedException($this);
         }
     }
@@ -103,7 +97,7 @@ class Response extends Model {
 
     public function survey()
     {
-        return $this->belongsTo(Survey::class);
+        return $this->belongsTo(class_survey());
     }
 
     public function respondent()
@@ -121,7 +115,6 @@ class Response extends Model {
             $data[$column] = $this->{$column};
         }
         return $data;
-
     }
 
     /**
@@ -130,20 +123,20 @@ class Response extends Model {
      * @return void
      * @param Array $data Associative array of data field=>value
      **/
-    function setDataValues($data, $page)
+    public function setDataValues($data, $page)
     {
         // $page = $this->survey->survey_document->getPage($page);
         $pageVariables = collect($page->getVariables())->keyBy('name');
 
         foreach ($data as $key => $value) {
-            if( in_array($key, $pageVariables->keys()->all()) ){
+            if (in_array($key, $pageVariables->keys()->all())) {
                 $this->$key = ($value == '') ? null : $value;
             }
         }
 
         $dataKeys = array_keys($data);
-        foreach( $pageVariables as $idx => $pageVar ){
-            if(!in_array($pageVar->name, $dataKeys) ){
+        foreach ($pageVariables as $idx => $pageVar) {
+            if (!in_array($pageVar->name, $dataKeys)) {
                 $this->{$pageVar->name} = null;
             }
         }
@@ -153,17 +146,16 @@ class Response extends Model {
      * Gets the field names for data attributes
      *
      * @return void
-     * @author 
+     * @author
      **/
     public function getDataAttributeNames()
     {
         $cols = [];
         foreach ($cols as $idx => $column) {
-            if( in_array($column, ['id','respondent_id', 'respondent_type', 'survey_id', 'last_page', 'created_at', 'updated_at']) ){
+            if (in_array($column, ['id','respondent_id', 'respondent_type', 'survey_id', 'last_page', 'created_at', 'updated_at'])) {
                 unset($cols[$idx]);
             }
         }
         return $cols;
     }
-
 }

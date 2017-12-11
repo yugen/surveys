@@ -59,7 +59,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 
     public function getNumSelectable()
     {
-        return $this->numSelectable;
+        return $this->numSelectable ? $this->numSelectable : 1;
     }
 
     public function getTemplate()

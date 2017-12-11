@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\URL;
-use Sirs\Surveys\Models\Survey;
+use Sirs\Surveys\Contracts\Survey;
 use Sirs\Surveys\SurveyControlService;
 
 class SurveyController extends BaseController
@@ -35,7 +35,7 @@ class SurveyController extends BaseController
     {
         $this->setPreviousLocation($request);
 
-        $survey = Survey::where('slug', $surveySlug)->firstOrFail();
+        $survey = class_survey()::where('slug', $surveySlug)->firstOrFail();
         $respondent = $this->getRespondent($respondentType, $respondentId);
         if ($responseId == 'new') {
             $response = $survey->getNewResponse($respondent);
@@ -63,7 +63,7 @@ class SurveyController extends BaseController
 
         // $this->assemblePretext($request);
 
-        $survey = Survey::where('slug', $surveySlug)->firstOrFail();
+        $survey = class_survey()::where('slug', $surveySlug)->firstOrFail();
         $survey->getSurveyDocument()->validate();
         $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
 
@@ -73,7 +73,7 @@ class SurveyController extends BaseController
 
     public function autoSave(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
     {
-        $survey = Survey::where('slug', $surveySlug)->firstOrFail();
+        $survey = class_survey()::where('slug', $surveySlug)->firstOrFail();
         $survey->getSurveyDocument()->validate();
         $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
         $response->setTable($survey->response_table);

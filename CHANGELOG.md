@@ -1,5 +1,8 @@
 # Change Log
 
+## 2.2.1 - 2017-4-27
+* Any block with the hasQuestions trait (containers) now has a getQuestionByName($name) method which will return 
+
 ## 2.1.1 - 2017-02-06
 * Added autosave functionality.
 
