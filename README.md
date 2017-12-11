@@ -4,20 +4,9 @@ A package for building surveys using xml and rendering them to html in Laravel p
 
 ### Installing this package ###
 
-Add the following to your composer.json: 
+Add via composer
 ```
-"repositories": [
-    {
-      "type": "vcs",
-      "url": "ssh://hg@bitbucket.org/shepsweb/sirs-surveys"
-    }
-]
-...
-"require": {
-    ...
-    "sirs/surveys": "~1.2",  
-    ...
-}
+composer require sirs/surveys
 ```
 Add the service provider to config/app.php: 
 ```
