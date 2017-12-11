@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Sirs\Surveys\Contracts\SurveyModel;
 use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\InvalidSurveyResponseException;
+use Sirs\Surveys\Exceptions\ResponseValidationException;
 use Sirs\Surveys\Exceptions\SurveyNavigationException;
 
 /**
