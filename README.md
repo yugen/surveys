@@ -4,15 +4,9 @@ A package for building surveys using xml and rendering them to html in Laravel p
 
 ### Installing this package ###
 
-Add the following to your composer.json: 
+run
 ```
-...
-"require": {
-    ...
-    "sirs/surveys": "3.0.x-dev",  
-    ...
-}
-
+composer require sirs/surveys
 ```
 Add the service provider to config/app.php: 
 ```

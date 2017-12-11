@@ -15,7 +15,7 @@ use Sirs\Surveys\Exceptions\SurveyNavigationException;
  * Class defines the default SurveyControlService
  *
  * @package sirs/surveys
- * @author 
+ * @author
  **/
 class SurveyControlService
 {
@@ -28,9 +28,9 @@ class SurveyControlService
     /**
      * constructor
      *
-     * @param  Illuminate\Http\Request $request request 
+     * @param  Illuminate\Http\Request $request request
      * @return void
-     * @author 
+     * @author
      **/
     public function __construct(Request $request, SurveyResponse $response)
     {
@@ -45,18 +45,18 @@ class SurveyControlService
         $this->page = $this->survey->getSurveyDocument()->getPage($this->resolveCurrentPageName());
 
         // parse the request into various parts.
-        if ( in_array($request->getMethod(), ['POST', 'PUT']) ) {
+        if (in_array($request->getMethod(), ['POST', 'PUT'])) {
             $this->response->setDataValues($request->all(), $this->page);
         }
     }
 
     public function resolveCurrentPageName()
     {
-        if($this->request->input('page')){
+        if ($this->request->input('page')) {
             return $this->request->input('page');
-        }elseif($this->response->last_page){
+        } elseif ($this->response->last_page) {
             return $this->response->last_page;
-        }else{
+        } else {
             return null;
         }
     }
@@ -65,7 +65,7 @@ class SurveyControlService
      * return the rendered $this->page or the redirection to the data view screen.
      *
      * @return string
-     * @author 
+     * @author
      **/
     public function showPage()
     {
@@ -76,7 +76,7 @@ class SurveyControlService
 
     /**
      * Validate and store the response data
-     * 
+     *
      * @return Illuminate\Http\Response
      */
     public function storeResponseData()
@@ -85,8 +85,8 @@ class SurveyControlService
         $this->execRule($this->rules, $this->page->name, 'BeforeSave');
 
         // set the started_at
-        if( is_null($this->response->started_at) ){
-          $this->response->started_at = new Carbon();
+        if (is_null($this->response->started_at)) {
+            $this->response->started_at = new Carbon();
         }
 
         $this->response->last_page = $this->page->name;
@@ -103,6 +103,7 @@ class SurveyControlService
                 $this->rules->pretext->nav_dir = null;
                 $this->rules->setPretext($this->rules->pretext->getData());
                 $this->response->finalize();
+                // no break
             case 'save_exit':
                 $httpResponse = $this->redirect();
                 break;
@@ -116,15 +117,19 @@ class SurveyControlService
                 break;
         }
 
-        return $httpResponse;        
+        return $httpResponse;
     }
 
     public function saveAndContinue()
     {
         if ($errors = $this->getValidationErrors()) {
             return $this->render($errors);
-        }else{
-            $this->storeResponseData();
+        } else {
+            try {
+                $this->storeResponseData();
+            } catch (ResponseValidationException $e) {
+                return $this->render($e->getErrors());
+            }
             return $this->followNav();
         }
     }
@@ -138,7 +143,7 @@ class SurveyControlService
                 $pageNumber = $this->page->pageNumber + 1;
             } elseif ($this->request->input('nav') == 'prev') {
                 $pageNumber = $this->page->pageNumber - 1;
-            }else{
+            } else {
                 throw new SurveyNavigationException($this->request->input('nav'));
             }
         }
@@ -147,17 +152,17 @@ class SurveyControlService
 
         $skip = $this->execRule($this->rules, $target->name, 'Skip');
 
-        if ( $skip ) {
+        if ($skip) {
             switch ($skip) {
                 case 0: // we are not skipping page
-                    $params = [ 
-                        $this->response->respondent_type, 
-                        $this->response->respondent_id, 
-                        $this->survey-slug, 
-                        $this->response->id, 
-                        $target->name 
+                    $params = [
+                        $this->response->respondent_type,
+                        $this->response->respondent_id,
+                        $this->survey-slug,
+                        $this->response->id,
+                        $target->name
                     ];
-                    return redirect( action( 'SurveyController@show', $params ) );
+                    return redirect(action('SurveyController@show', $params));
                     break;
 
                 case 1: // we are skipping this page
@@ -166,26 +171,25 @@ class SurveyControlService
                     break;
 
                 case 2: // we are finalizing
-                    try{
+                    try {
                         $this->response->finalize();
-                    }catch(ResponsePreviouslyFinalizedException $e){
+                    } catch (ResponsePreviouslyFinalizedException $e) {
                         Log::notice($e->getMessage());
                     }
-                    $httpResponse = $this->redirect(); //redirect to 
+                    $httpResponse = $this->redirect(); //redirect to
                     // $request->session()->forget('pretext');
                     break;
 
-                case 3: // 
-                    $httpResponse = $this->redirect(); //redirect to 
+                case 3: //
+                    $httpResponse = $this->redirect(); //redirect to
                     // $request->session()->forget('pretext');
                     break;
                     
                 default:
-                    Throw new InvalidInputException("Invalid value returned in ".$target);
+                    throw new InvalidInputException("Invalid value returned in ".$target);
                     break;
             }
-
-        } else{
+        } else {
             // no custom method
             $httpResponse = redirect($this->survey_url.'?page='.$target->name);
         }
@@ -197,10 +201,10 @@ class SurveyControlService
         return self::generateSurveyUrl($this->survey, $this->response);
     }
 
-    static public function generateSurveyUrl(SurveyModel $survey, SurveyResponse $response)
+    public static function generateSurveyUrl(SurveyModel $survey, SurveyResponse $response)
     {
         $urlParts = [
-            strtolower(preg_replace('/\\\/', '-',$response->respondent_type)),
+            strtolower(preg_replace('/\\\/', '-', $response->respondent_type)),
             $response->respondent_id,
             'survey',
             $survey->slug,
@@ -214,10 +218,10 @@ class SurveyControlService
     {
         // get the redirect url
         $redirectUrl = null;
-        if( method_exists($this->rules, 'getRedirectUrl') ){
+        if (method_exists($this->rules, 'getRedirectUrl')) {
             $redirectUrl = $this->rules->getRedirectUrl();
         }
-        if(!$redirectUrl){
+        if (!$redirectUrl) {
             $redirectUrl = $this->request->session()->pull('survey_previous', '/');
         }
         $this->rules->forgetPretext();
@@ -227,10 +231,10 @@ class SurveyControlService
     public function getValidationErrors()
     {
         // Validate
-        $validator = Validator::make( $this->request->all(), $this->page->getValidation());
+        $validator = Validator::make($this->request->all(), $this->page->getValidation());
         $augmentedValidator = $this->execRule($this->rules, $this->page->name, 'GetValidator', ['validator'=>$validator]);
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
-        if ( $validator->fails() && $this->shouldValidate() ) {
+        if ($validator->fails() && $this->shouldValidate()) {
             return $validator->errors();
         }
         return null;
@@ -238,9 +242,9 @@ class SurveyControlService
 
     public function shouldValidate()
     {
-        if (in_array($this->request->nav, ['next', 'finalize'])){
+        if (in_array($this->request->nav, ['next', 'finalize'])) {
             return true;
-        }elseif($this->request->nav == 'save_exit' && $this->request->nav_dir == 'next'){
+        } elseif ($this->request->nav == 'save_exit' && $this->request->nav_dir == 'next') {
             return true;
         }
         return false;
@@ -248,17 +252,17 @@ class SurveyControlService
 
     /**
      * Render the $this->page for $this->response
-     * 
+     *
      * @param  mixed $errors error bag from validation
      * @return string         rendered page
      */
     protected function render($errors = null)
     {
         $context = $this->buildBaseContext($errors);
-        if( $ruleContext = $this->execRule($this->rules, $this->page->name, 'beforeShow') ){
+        if ($ruleContext = $this->execRule($this->rules, $this->page->name, 'beforeShow')) {
             $context = array_merge($context, $ruleContext);
         }
-        return  $this->page->render($context); 
+        return  $this->page->render($context);
     }
 
     public function buildBaseContext($errors = null)
@@ -277,8 +281,8 @@ class SurveyControlService
             'pretext'=>$this->rules->pretext
         ];
 
-        if($errors){
-            $context['errors'] = $errors;   
+        if ($errors) {
+            $context['errors'] = $errors;
         }
         return $context;
     }
@@ -289,17 +293,17 @@ class SurveyControlService
         $pageMethod = $pageName . ucfirst($methodName);
         $method = lcfirst($methodName);
 
-        if ( method_exists( $rulesObj, $pageMethod ) ) {
+        if (method_exists($rulesObj, $pageMethod)) {
             // run the page-specific method if we find it.
-            return ( $params ) 
-                        ? $rulesObj->$pageMethod($params) 
+            return ($params)
+                        ? $rulesObj->$pageMethod($params)
                         :  $rulesObj->$pageMethod();
-        }elseif( method_exists( $rulesObj, $method)){
+        } elseif (method_exists($rulesObj, $method)) {
             // run the survey-wide method if we find it.
-            return ( $params ) 
-                        ? $rulesObj->$method($params) 
+            return ($params)
+                        ? $rulesObj->$method($params)
                         : $rulesObj->$method();
-        }else{
+        } else {
             return;
         }
     }
@@ -313,10 +317,9 @@ class SurveyControlService
     {
         if (isset($this->{$attr})) {
             return $this->{$attr};
-        }elseif(method_exists($this, 'get'.camel_case($attr).'Attribute')){
+        } elseif (method_exists($this, 'get'.camel_case($attr).'Attribute')) {
             $methodName = 'get'.camel_case($attr).'Attribute';
             return $this->$methodName();
         }
     }
-
 } // END class SurveyControlService
