@@ -44,12 +44,12 @@ Route::group($routeGroup, function () {
 
     Route::group(['as'=>'surveys.', 'prefix'=>'surveys'], function () {
         Route::resource(
-            'surveys/{surveySlug}/responses',
+            '{surveySlug}/responses',
             'Sirs\Surveys\Controllers\ResponseController'
         );
         
         Route::resource(
-            'surveys/data-dictionary',
+            'data-dictionary',
             'Sirs\Surveys\Controllers\DictionaryController',
             ['only'=>['index','show']]
         );
