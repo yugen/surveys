@@ -14,7 +14,7 @@
           </small>
         @endif
 
-        <a href="{{route('responses.show', [$context['survey']['object']->slug, $context['response']->id])}}" class="btn btn-sm btn-default">View Data</a>
+        <a href="{{route('surveys.responses.show', [$context['survey']['object']->slug, $context['response']->id])}}" class="btn btn-sm btn-default">View Data</a>
       </div>
       <h4>
         <a href="{{route('participants.show', [$context['response']->respondent->id])}}">
