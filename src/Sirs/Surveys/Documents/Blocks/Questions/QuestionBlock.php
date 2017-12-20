@@ -196,14 +196,27 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         return ($this->refuseLabel) ? $this->refuseLabel : config('surveys.refuseLabel', 'Refused');
     }
 
+    protected function hasRequiredRule()
+    {
+        foreach ($this->validationRules as $rule) {
+            if (preg_match('/required/', $rule)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function getValidationRules()
     {
         // set rules baded datatype and required attribute
         if ($this->required) {
             $this->validationRules[] = 'required';
-        } else {
+        }
+
+        if (! $this->hasRequiredRule()) {
             $this->validationRules[] = 'nullable';
         }
+
         switch ($this->dataFormat) {
         case 'int':
         case 'tinyint':
