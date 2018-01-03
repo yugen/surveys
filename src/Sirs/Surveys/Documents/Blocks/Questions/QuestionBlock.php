@@ -211,9 +211,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         // set rules baded datatype and required attribute
         if ($this->required) {
             $this->validationRules[] = 'required';
-        }
-
-        if (! $this->hasRequiredRule()) {
+        } else {
             $this->validationRules[] = 'nullable';
         }
 
