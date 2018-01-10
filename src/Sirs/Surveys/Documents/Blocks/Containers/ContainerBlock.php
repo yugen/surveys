@@ -92,11 +92,16 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
     /**
      * Gets the contents of this container
      *
-     * @return array - Array of contents
+     * @return array - Hash of contents
      **/
     public function getContents()
     {
         return $this->contents;
+    }
+
+    public function getOrderedContents()
+    {
+        return array_values($this->contents);
     }
 
     /**
