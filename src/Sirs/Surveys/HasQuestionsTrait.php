@@ -28,6 +28,11 @@ trait HasQuestionsTrait
         return $questions;
     }
 
+    public function getOrderedQuestions()
+    {
+        return array_values($this->getQuestions());
+    }
+
     /**
      * gets variable names for all questions in this container
      *
@@ -59,7 +64,7 @@ trait HasQuestionsTrait
      *
      * @param  string $name
      * @return Sirs\Surveys\Documents\Blocks\Questions\Question
-     * @throws Exception Exception thrown when 
+     * @throws Exception Exception thrown when
      **/
     public function getQuestionByName($name)
     {
