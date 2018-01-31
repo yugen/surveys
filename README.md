@@ -7,8 +7,8 @@ A package for building surveys using xml and rendering them to html in Laravel p
 ### Conceptual overview
 It's helpful to understand the concepts behind the sirs/surveys package before diving into the technical details.
 
->#### Terms
->* **SurveyDocument**: An XML document that describes the structure of a survey using the *survey.xsd* schema.
+#### Terms
+* **SurveyDocument**: An XML document that describes the structure of a survey using the *survey.xsd* schema.
 * **Survey**: The model that represents surveys stored in the database
 * **Response**: The model that represents a survey response as stored in the database.
 * **Respondent**: The model in the application that is responding to the survey's questions. The model that the response should be associated with.
@@ -72,17 +72,17 @@ You can create surveys 2 ways
 ### Rules
 Once you've created a rules class for your survey you can begin defining behavior.  The rules class supports a number of methods that allow you to manipulate the behavior of the entire survey or a specific page.  
 
-> #### Attributes
+ #### Attributes
 
 * **$response** - resolves to instance of *Sirs\Surveys\Models\Response* or binding specified in the config.
 * **$survey** - resolves to instance of *Sirs\Surveys\Models\Survey* or binding specified in the config.
 * *Mixed* **$respondent** - The response's respondent
 
-> #### Methods
+ #### Methods
 
->>##### Survey-wide methods
+##### Survey-wide methods
 
->>* **beforeShow(void)**:*array $context* - executed before showing a page.  Allows you to add data to context passed to the view before rendering: `$context['beans'] = 'monkeys';`
+* **beforeShow(void)**:*array $context* - executed before showing a page.  Allows you to add data to context passed to the view before rendering: `$context['beans'] = 'monkeys';`
 * **beforeSave(void)** - Executes logic before the response data is saved.
 * **afterSave(void)** - Executes logic after the response data is saved.
 * **navigate(['page'=>'pageName', 'nav'=>'navType'])**:*int*|null - Allows for custom navigation behavior on 'next' or 'prev' navigation.  Return a **page number** to override the default navigation; return **null** for default navigation behavior. 
@@ -90,8 +90,8 @@ Once you've created a rules class for your survey you can begin defining behavio
 * *Advanced* **setPretext(array $requestData)** - Stores info from request to the session 
 * *Advanced* **forgetPretext()** - Clears pretext from session
 
->>##### Page-specific methods
->>* **[pageName]BeforeShow()** - Same as beforeShow() but for page with name *pageName*
+##### Page-specific methods
+* **[pageName]BeforeShow()** - Same as beforeShow() but for page with name *pageName*
 * **[pageName]BeforeSave()** - Same as beforeSave() but for page with name *pageName*
 * **[pageName]AfterSave()** - Same as afterSave() but for page with name *pageName*
 * **[pageName]Skip()**:*int* - Allows skiping of page with *pageName*. Called before showing page. Returns integer code for behavior:
@@ -101,10 +101,10 @@ Once you've created a rules class for your survey you can begin defining behavio
   * *3*: exit - exit survey without finalizing.
 * **[PageName]GetValidator(Validator $validator)**:*Validator $validator* - Augment the validation defined in the xml with additional rules. Should return validtor object.
 
->>#### Reusing rules classes across multiple surveys
->>There are several ways to reuse rule logic across surveys:
+#### Reusing rules classes across multiple surveys
+There are several ways to reuse rule logic across surveys:
 
->>1. Set the **rules-class** attribute to the FQNS of the rules class you want to use.
+1. Set the **rules-class** attribute to the FQNS of the rules class you want to use.
 2. Use traits to reuse rules for pages that appear in more than one survey
 3. Inherit from a rules class.
 
