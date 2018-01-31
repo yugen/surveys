@@ -1,0 +1,29 @@
+<question-group name="muppets-question-group" id="muppets-question-group">
+    <question name="mpt_fav" id="mpt_fav">
+        <question-text>Who is your favorite muppet</question-text>
+    </question>
+
+    <multiple-choice name="mpt-king" id="mpt-king">
+        <question-text>Who is the king of the muppets?</question-text>
+        <options>
+            <option><value>0</value><label>Oscar the Grouch</label></option>
+            <option><value>1</value><label>Kermit</label></option>
+            <option><value>2</value><label>Ms. Piggy</label></option>
+            <option><value>3</value><label>Gonzo</label></option>
+            <option><value>4</value><label>Grover</label></option>
+            <option><value>5</value><label>Scooter</label></option>
+        </options>
+    </multiple-choice>
+
+    <number name="mpt_met" id="mpt_met" min="0" max="100">
+        <question-text>
+            How many muppets have you met?
+        </question-text>
+    </number>
+
+    <date name="mpt_date" id="mpt_date" min="1900-01-01" max="2100-01-01">
+        <question-text>
+            When did the Muppet Show first air?
+        </question-text>
+    </date>
+</question-group>

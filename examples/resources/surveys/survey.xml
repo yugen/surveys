@@ -1,7 +1,6 @@
 <survey name="ParticipantIntake" version="1" title="Participant Intake" response-limit="-1">
 	<page name="demographics">
 		<question-group name="name">
-			
 			<question name="FirstName" required="1" placeholder="First" data-format="text">
 				<question-text>First Name</question-text>
 			</question>

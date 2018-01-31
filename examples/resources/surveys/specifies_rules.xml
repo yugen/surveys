@@ -1,0 +1,58 @@
+<survey name="specifiesRules" title="Specifies Rules Class" rules-class="App\Surveys\ReusableRules.php">
+    <page name="intro" title="intro">
+        <html>
+            <content>
+                <![CDATA[
+                    Hello, {{ $respondent->full_name }}.  Today is {{ $dayOfWeek }}. Please answer the questions below.
+                ]]>
+            </content>
+        </html>
+    </page>
+    <page name="page1" title="Page 1">
+        <multiple-choice name="p1_q1" id="p1_q1">
+            <question-text>How many beers do you want?</question-text>
+            <options>
+                <option><value>0</value><label>Zero</label></option>
+                <option><value>1</value><label>One</label></option>
+                <option><value>2</value><label>Two</label></option>
+                <option><value>3</value><label>Three</label></option>
+                <option><value>4</value><label>Four</label></option>
+                <option><value>5</value><label>Five</label></option>
+            </options>
+        </multiple-choice>
+        <multiple-choice name="p1_q2" id="p1_q2">
+            <question-text>How many beers should you have?</question-text>
+            <options>
+                <option><value>0</value><label>Zero</label></option>
+                <option><value>1</value><label>One</label></option>
+                <option><value>2</value><label>Two</label></option>
+                <option><value>3</value><label>Three</label></option>
+                <option><value>4</value><label>Four</label></option>
+                <option><value>5</value><label>Five</label></option>
+            </options>
+        </multiple-choice>
+    </page>
+
+    <page name="page2" title="Page 2">
+        <multiple-choice name="p2_q1" id="p2_q1">
+            <question-text>Do you have a hangover</question-text>
+            <options>
+                <option><value>0</value><label>No</label></option>
+                <option show="p2_q2"><value>1</value><label>Yes</label></option>
+            </options>
+        </multiple-choice>
+        
+        <multiple-choice name="p2_q2" id="p2_q2" validation-rules="required_if:p2_q1,1">
+            <question-text>How many advil do you need?</question-text>
+            <options>
+                <option><value>0</value><label>Zero</label></option>
+                <option><value>1</value><label>One</label></option>
+                <option><value>2</value><label>Two</label></option>
+                <option><value>3</value><label>Three</label></option>
+                <option><value>4</value><label>Four</label></option>
+                <option><value>5</value><label>Five</label></option>
+            </options>
+        </multiple-choice>
+        
+    </page>
+</survey>

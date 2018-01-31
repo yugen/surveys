@@ -1,0 +1,23 @@
+<page name="includePage3" title="Include Page 3">
+    <template source="project.custom.templates.other_page"></template>
+    <question name="p3-q1" id="p3-q1">
+        <question-text><![CDATA[Which <u>Lord of the Rings</u> character is the most badass?]]></question-text>
+    </question>
+    <question-group name="book_questions" id="book_questions">
+        <template source="templates.book_questions_group"></template>
+        <question name="fav-book" id="fav-book">
+            <question-text>What is your favorite book?</question-text>
+        </question>
+        <multiple-choice name="fav_tolkein" id="fav_tolkein">
+            <question-text>What is your favorite Tolkein book?</question-text>
+            <options>
+                <option><value>0</value><label>The Hobbit</label></option>
+                <option><value>1</value><label>The Fellowship of the Ring</label></option>
+                <option><value>2</value><label>The Two Towers</label></option>
+                <option><value>3</value><label>Return of the King</label></option>
+                <option><value>4</value><label>The Silmalrilion</label></option>
+                <option><value>5</value><label>The Forgotten Tails</label></option>
+            </options>
+        </multiple-choice>
+    </question-group>
+</page>
