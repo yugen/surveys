@@ -2,17 +2,6 @@
 
 A package for building surveys using xml and rendering them to html in Laravel projects.
 
-## Contents
-1. [Getting Started](getting-started)
-  1. [Conceptual Overview](conceptual-overview)
-  2. [Quick Start](quick-start-guide)
-  3. [Installation](installation)
-2. [Configuration](configuration)
-3. [Creating Surveys](creating-surveys)
-4. [Behavior](behavior)
-5. [Customization](customization)
-6. [XML](xml-schema)
-
 ## Getting started
 
 ### Conceptual overview
