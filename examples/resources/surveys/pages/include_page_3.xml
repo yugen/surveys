@@ -1,5 +1,12 @@
 <page name="includePage3" title="Include Page 3">
-    <template source="project.custom.templates.other_page"></template>
+    <template source="other_page"></template>
+    <html>
+        <content>
+            <![CDATA[
+                <div class="alert alert-info">This page is using a custom template.  So is book_questions_group.</div>
+            ]]>
+        </content>
+    </html>
     <question name="p3-q1" id="p3-q1">
         <question-text><![CDATA[Which <u>Lord of the Rings</u> character is the most badass?]]></question-text>
     </question>

@@ -1,0 +1,8 @@
+<page name="includePage2">
+    <html>
+        <content>
+            All questions on this page are included from a partial.
+        </content>
+    </html>
+    <include source="partials/muppet_questions.xml"></include>     
+</page>
