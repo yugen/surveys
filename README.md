@@ -2,9 +2,20 @@
 
 A package for building surveys using xml and rendering them to html in Laravel projects.
 
-## Getting started
+## Contents
+1. [Getting Started](#getting-started)
+  1. [Conceptual Overview](#concepts)
+  2. [Quick Start](#quick-start)
+  3. [Installation](#installation)
+2. [Configuration](#config)
+3. [Creating Surveys](#creating)
+4. [Behavior](#behavior)
+5. [Customization](#customization)
+6. [XML](#xml)
 
-### Conceptual overview
+## <a id="getting-started"></a>Getting started
+
+### <a id="concepts"></a>Conceptual overview
 It's helpful to understand the concepts behind the sirs/surveys package before diving into the technical details.
 
 #### Terms
@@ -15,7 +26,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
 * **Rules**: A class that defines how the survey behaves.
 * **WorkflowStrategies**: A class that is called when a SurveyResponseEvent for a particular survey is fired.
 
-### Quick Start Guide
+### <a id="quick-start"></a>Quick Start Guide
 1. Install the package
 1. Configure: update /config/surveys.php
 2. Create Survey definition directory: /resources/surveys
@@ -25,14 +36,14 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
 5. Run ```php artisan survey:new <path_to_survey>``` to create a migration and rules file
 6. To replace the migration run ```php artisan survey:migration <path_to_survey>```
 
-### Installation
+### <a id="installation"></a>Installation
 
 1. run `composer require sirs/surveys`
 2. add the service provider to config/app.php: `Sirs\Surveys\SurveysServiceProvider::class,`
 3. add the service provider to your app config: `Sirs\Surveys\SurveysServiceProvider::class,`
 4. Publish the stylesheets and config file: `$ php artisan vendor:publish`
 
-## Configuration
+## <a id="config"></a>Configuration
 
   * **editAfterFinalized**
   : *(bool)* - Allow users to edit responses after they've been marked finalized
@@ -57,7 +68,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
         * **Survey**: *(string)* - App\Survey::class (must implement  *Sirs\Surveys\Contracts\SurveyContract*)
         * **Response**: *(string)* - App\SurveyResponse::class (must implement *Sirs\Surveys\Contracts\SurveyResponse*)
 
-## Creating Surveys
+## <a id="creating"></a>Creating Surveys
 You can create surveys 2 ways
 
 * All at once:
@@ -68,7 +79,7 @@ You can create surveys 2 ways
   1. Create rules: `$ php artisan survey:rules path/to/survey/document`
   1. Create migration: `$ php artisan survey:migration path/to/survey/document`
 
-## Defining behavior
+## <a id="behavior"></a>Defining behavior
 ### Rules
 Once you've created a rules class for your survey you can begin defining behavior.  The rules class supports a number of methods that allow you to manipulate the behavior of the entire survey or a specific page.  
 
@@ -127,7 +138,7 @@ Each WorkflowStrategy class has the following attributes:
 * **$response** - The response that triggered the event.
 * **$event** - The event that was triggered.
 
-## Customization
+## <a id="customization"></a>Customization
 There are several was to customize the surveys package
 
 ### Overriding default templates
@@ -137,7 +148,7 @@ TODO
 See example [xml](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/resources/surveys/pages/include_page_3.xml?at=master&fileviewer=file-view-default) and [blade template](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/resources/views/?at=master)
 TODO
 
-## XML Schema
+## <a id="xml"></a>XML Schema
 See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/?at=master)
 
 TODO
