@@ -68,7 +68,7 @@ You can create surveys 2 ways
   1. Create rules: `$ php artisan survey:rules path/to/survey/document`
   1. Create migration: `$ php artisan survey:migration path/to/survey/document`
 
-## <a id="behavior"></a>Defining behavior
+## Defining behavior
 ### Rules
 Once you've created a rules class for your survey you can begin defining behavior.  The rules class supports a number of methods that allow you to manipulate the behavior of the entire survey or a specific page.  
 
