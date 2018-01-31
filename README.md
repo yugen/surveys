@@ -72,7 +72,7 @@ You can create surveys 2 ways
 ### Rules
 Once you've created a rules class for your survey you can begin defining behavior.  The rules class supports a number of methods that allow you to manipulate the behavior of the entire survey or a specific page.  
 
- #### Attributes
+#### Attributes
 
 * **$response** - resolves to instance of *Sirs\Surveys\Models\Response* or binding specified in the config.
 * **$survey** - resolves to instance of *Sirs\Surveys\Models\Survey* or binding specified in the config.
@@ -127,7 +127,18 @@ Each WorkflowStrategy class has the following attributes:
 * **$response** - The response that triggered the event.
 * **$event** - The event that was triggered.
 
+## Customization
+There are several was to customize the surveys package
+
+### Overriding default templates
+TODO
+
+### Custome templates
+See example [xml](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/resources/surveys/pages/include_page_3.xml?at=master&fileviewer=file-view-default) and [blade template](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/resources/views/?at=master)
+TODO
+
 ## XML Schema
+See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/?at=master)
 
 TODO
 
