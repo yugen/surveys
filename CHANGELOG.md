@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.x
+* Change namespacing to psr4
+* Add Auto-discovery
+* Add *responses* table migration.
+* Remove response_revisions migration b/c standard revisions table will work for responses now
+
+
 ## 2.2.1 - 2017-4-27
 * Any block with the hasQuestions trait (containers) now has a getQuestionByName($name) method which will return 
 
