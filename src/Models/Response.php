@@ -27,18 +27,18 @@ class Response extends Model implements SurveyResponse
     protected $revisionCreationsEnabled = true;
 
 
-    /**
-        * allows you to statically intialize Response
-        * @param string $surveyName ame of survey
-        * @param string  $versionNumber Version of the survey
-        *
-        * @return void
-        */
+ /**
+     * allows you to statically intialize Response
+     * @param string $surveyName ame of survey
+     * @param string  $versionNumber Version of the survey
+     *
+     * @return void
+     */
     public static function lookupTable($table)
     {
         // $instance = new static;
         // $instance->setTable($table);
-        $instance = (new static)->newQuery();
+        $instance = static::newResponse($table);
         return $instance->newQuery();
     }
 
