@@ -2,14 +2,30 @@
 
 namespace Sirs\Surveys\Test;
 
+use Cviebrock\EloquentSluggable\ServiceProvider;
 use Orchestra\Testbench\TestCase as TestBenchCase;
 use Sirs\Surveys\SurveysServiceProvider;
 
 abstract class TestCase extends TestBenchCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->withFactories(__DIR__.'/factories');
+    }
+
+    protected function migrate()
+    {
+        $this->artisan('migrate');
+        $this->loadLaravelMigrations();
+        $this->loadMigrationsFrom([
+            '--realpath' => realpath(__DIR__.'/../vendor/venturecraft/revisionable/src/migrations'),
+        ]);
+    }
+
     protected function getPackageProviders($app)
     {
-        return [SurveysServiceProvider::class];
+        return [SurveysServiceProvider::class, ServiceProvider::class];
     }
 
     /**
