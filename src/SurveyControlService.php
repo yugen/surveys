@@ -223,7 +223,7 @@ class SurveyControlService
             $redirectUrl = $this->rules->getRedirectUrl();
         }
         if (!$redirectUrl) {
-            $redirectUrl = $this->request->session()->pull('survey_previous', '/');
+            $redirectUrl = session()->pull('survey_previous', '/');
         }
         $this->rules->forgetPretext();
         return redirect($redirectUrl);

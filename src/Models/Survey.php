@@ -68,7 +68,7 @@ class Survey extends Model implements SurveyModel
     public function getSurveyDocument()
     {
         if (is_null($this->document)) {
-            $this->document = SurveyDocument::initFromFile(base_path($this->file_name));
+            $this->document = SurveyDocument::initFromFile($this->file_name);
         }
         return $this->document;
     }

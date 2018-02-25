@@ -4,8 +4,8 @@
         <html>
             <content>THIS IS INTRO TEXT</content>
         </html>
-        <multiple-choice name="p1q1" id="p1q1">
-            <question-text>Question test</question-text>
+        <multiple-choice name="p1q1" id="p1q1" validation-rules="numeric">
+            <question-text>Page 1 Question 1</question-text>
             <options>
                 <option><value>0</value><label>Zero</label></option>
                 <option><value>1</value><label>One</label></option>
@@ -15,13 +15,13 @@
                 <option><value>5</value><label>Five</label></option>
             </options>
         </multiple-choice>
-        <question name="p1q2" id="pq2">
-            <question-text>question-text</question-text>
+        <question name="p1q2" id="pq2" required="1">
+            <question-text>Page 1 Question 2</question-text>
         </question>
     </page>
     <page name="page-2" title="Page 2">
-        <multiple-choice name="p2q1" id="p2q1">
-            <question-text>Question test</question-text>
+        <multiple-choice name="p2q1" id="p2q1" required="1">
+            <question-text>Page 2 Question 1 test</question-text>
             <options>
                 <option><value>0</value><label>Zero</label></option>
                 <option><value>1</value><label>One</label></option>

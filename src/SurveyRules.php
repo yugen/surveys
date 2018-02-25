@@ -28,7 +28,7 @@ class SurveyRules
 
     public function setPretext($requestData)
     {
-        $pretext = request()->session()->get('pretext', []);
+        $pretext = session()->get('pretext', []);
 
         $this->pretext = (isset($pretext[$this->response->survey->slug][$this->response->respondent_id]))
                             ? $pretext[$this->response->survey->slug][$this->response->respondent_id]
@@ -58,7 +58,7 @@ class SurveyRules
             $pretext[$this->response->survey->slug][$this->response->respondent_id] = $this->pretext;
         }
 
-        request()->session()->put('pretext', $pretext);
+        session()->put('pretext', $pretext);
     }
 
     public function forgetPretext()

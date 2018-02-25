@@ -2,6 +2,7 @@
 
 namespace Sirs\Surveys\Test;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Schema;
 */
 class MigrationsTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function setUp()
     {
         parent::setUp();

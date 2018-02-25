@@ -3,6 +3,7 @@
 namespace Sirs\Surveys\Test;
 
 use Cviebrock\EloquentSluggable\ServiceProvider;
+use Illuminate\Foundation\Exceptions\Handler;
 use Orchestra\Testbench\TestCase as TestBenchCase;
 use Sirs\Surveys\SurveysServiceProvider;
 
@@ -43,5 +44,26 @@ abstract class TestCase extends TestBenchCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+        $app['config']->set('app.debug', true);
+        $app['config']->set('surveys.surveysPath', __DIR__.'/files/resources/surveys/');
+        $app['config']->set('surveys.rulesNamespace', 'Sirs\\Surveys\\Test\Stubs\\Surveys\\');
+        $app['config']->set('surveys.rendererConfig.cache_path', __DIR__.'/cache');
+        $app['config']->set('surveys.chromeTemplate', 'surveys::layouts.app');
+    }
+
+    protected function disableExceptionHandling()
+    {
+        $this->app->instance(ExceptionHandler::class, new class extends Handler {
+            public function __construct()
+            {
+            }
+            public function report(\Exception $e)
+            {
+            }
+            public function render($request, \Exception $e)
+            {
+                throw $e;
+            }
+        });
     }
 }

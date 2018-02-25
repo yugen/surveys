@@ -17,9 +17,7 @@
         <a href="{{route('surveys.responses.show', [$context['survey']['object']->slug, $context['response']->id])}}" class="btn btn-sm btn-default">View Data</a>
       </div>
       <h4>
-        <a href="{{route('participants.show', [$context['response']->respondent->id])}}">
-        {{$context['response']->respondent->full_name or 'Respondent:'.$context['response']->respondent->id}} 
-        </a>
+        {{$context['response']->respondent->name or 'Respondent:'.$context['response']->respondent->id}} 
         - 
         {{ $context['survey']['title'] or ucwords($context['survey']['name'])}}        
         - {{$renderable->title}}

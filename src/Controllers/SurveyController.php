@@ -17,11 +17,11 @@ class SurveyController extends BaseController
 
     protected function setPreviousLocation(Request $request)
     {
-        $previous = $request->session()->pull('survey_previous');
+        $previous = session()->pull('survey_previous');
         if (!preg_match('/\/survey\//', URL::previous())) {
             $previous = URL::previous();
         }
-        $request->session()->put('survey_previous', $previous);
+        session()->put('survey_previous', $previous);
     }
 
     /**

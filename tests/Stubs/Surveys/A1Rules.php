@@ -1,11 +1,11 @@
 <?php 
-namespace App\Surveys;
+namespace Sirs\Surveys\Test\Stubs\Surveys;
 
 use Sirs\Surveys\SurveyRules;
 
 class A1Rules extends SurveyRules
 {
-    /** 
+    /**
     Rules stub.  Will add more as we flesh this out
 
     format:
@@ -19,7 +19,7 @@ class A1Rules extends SurveyRules
 
     Known Page Titles:
         Page 1
-		Page 2
+        Page 2
     */
 
     /**
@@ -59,5 +59,4 @@ class A1Rules extends SurveyRules
     {
         return null;
     }
-
 }
