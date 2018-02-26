@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Debugbar as Dbg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Sirs\Surveys\Contracts\SurveyControlInterface;
 use Sirs\Surveys\Contracts\SurveyModel;
 use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\InvalidSurveyResponseException;
@@ -18,7 +19,7 @@ use Sirs\Surveys\Exceptions\SurveyNavigationException;
  * @package sirs/surveys
  * @author
  **/
-class SurveyControlService
+class SurveyControlService implements SurveyControlInterface
 {
     protected $request;
     protected $survey;

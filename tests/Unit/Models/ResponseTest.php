@@ -74,15 +74,4 @@ class ResponseTest extends TestCase
 
         $this->assertEquals(Carbon::create(), $this->rsp->finalized_at);
     }
-
-    /**
-     * @test
-     */
-    public function can_get_response_data_attribute_names()
-    {
-        $this->rsp->save();
-        $attrNames = $this->rsp->getDataAttributeNames();
-
-        $this->assertEquals(['p1q1', 'p1q2', 'p2q1', 'p2q2'], $attrNames);
-    }
 }
