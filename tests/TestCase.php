@@ -6,6 +6,7 @@ use Cviebrock\EloquentSluggable\ServiceProvider;
 use Illuminate\Foundation\Exceptions\Handler;
 use Orchestra\Testbench\TestCase as TestBenchCase;
 use Sirs\Surveys\SurveysServiceProvider;
+use Sirs\Surveys\Test\Stubs\User;
 
 abstract class TestCase extends TestBenchCase
 {
@@ -21,6 +22,9 @@ abstract class TestCase extends TestBenchCase
         $this->loadLaravelMigrations();
         $this->loadMigrationsFrom([
             '--realpath' => realpath(__DIR__.'/../vendor/venturecraft/revisionable/src/migrations'),
+        ]);
+        $this->loadMigrationsFrom([
+            '--realpath' => realpath(__DIR__.'/database/migrations'),
         ]);
     }
 
@@ -49,6 +53,8 @@ abstract class TestCase extends TestBenchCase
         $app['config']->set('surveys.rulesNamespace', 'Sirs\\Surveys\\Test\Stubs\\Surveys\\');
         $app['config']->set('surveys.rendererConfig.cache_path', __DIR__.'/cache');
         $app['config']->set('surveys.chromeTemplate', 'surveys::layouts.app');
+
+        $app['config']->set('auth.providers.users.model', User::class);
     }
 
     protected function disableExceptionHandling()

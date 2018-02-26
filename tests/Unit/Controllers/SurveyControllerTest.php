@@ -22,9 +22,6 @@ class SurveyControllerTest extends TestCase
     {
         parent::setUp();
         $this->migrate();
-        $this->loadMigrationsFrom([
-            '--realpath' => realpath(__DIR__.'/../../database/migrations'),
-        ]);
         $this->p = factory(Participant::class)->create();
         $this->u = factory(User::class)->create();
         $this->svy = Survey::find(1);

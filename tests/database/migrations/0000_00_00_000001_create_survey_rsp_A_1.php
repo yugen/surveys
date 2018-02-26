@@ -20,7 +20,7 @@ class CreateSurveyRspA1 extends Migration
             $table->string('p1q2')->nullable();
             $table->integer('p2q1')->nullable();
             $table->integer('p2q2')->nullable();
-            $table->string('last_page');
+            $table->string('last_page')->nullable();
             $table->integer('duration')->default(0);
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finalized_at')->nullable();

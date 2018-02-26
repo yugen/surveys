@@ -60,9 +60,6 @@ class SurveyController extends BaseController
      **/
     public function store(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
     {
-
-        // $this->assemblePretext($request);
-
         $survey = class_survey()::where('slug', $surveySlug)->firstOrFail();
         $survey->getSurveyDocument()->validate();
         $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
@@ -88,15 +85,5 @@ class SurveyController extends BaseController
     {
         $className = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $type)));
         return $className::findOrFail($id);
-    }
-
-    protected function assemblePretext(Request $request)
-    {
-        $pretext = $request->session()->get('pretext');
-        $pretext = ($pretext) ? $pretext : [];
-        $requestPretext = ($request->pretext) ? $request->pretext : [];
-        $pretext = array_merge($pretext, $requestPretext);
-        $pretext['nav'] = $request->nav;
-        $request->session()->put('pretext', $pretext);
     }
 }
