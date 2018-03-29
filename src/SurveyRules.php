@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 namespace Sirs\Surveys;
 
@@ -12,8 +13,8 @@ use Illuminate\Http\Request;
  **/
 class SurveyRules
 {
-    protected $response;
     public $pretext;
+    protected $response;
 
     /**
      * constructs the survey
@@ -24,6 +25,31 @@ class SurveyRules
     public function __construct($response)
     {
         $this->response = $response;
+    }
+
+    /**
+     * Overrides get to provide attribute style access
+     *
+     * @return void
+     * @author
+     **/
+    public function __get($attr)
+    {
+        switch ($attr) {
+            case 'surveyDocument':
+            case 'surveyDoc':
+                return $this->response->survey->getSurveyDocument();
+                break;
+            case 'survey':
+                return $this->response->survey;
+                break;
+            case 'respondent':
+                return $this->response->respondent;
+                break;
+            default:
+                return $this->{$attr};
+                break;
+        }
     }
 
     public function setPretext($requestData)
@@ -67,31 +93,6 @@ class SurveyRules
         if (isset($sessionPretext[$this->response->survey->slug][$this->response->respondent_id])) {
             unset($sessionPretext[$this->response->survey->slug][$this->response->respondent_id]);
             session()->put('pretext', $sessionPretext);
-        }
-    }
-
-    /**
-     * Overrides get to provide attribute style access
-     *
-     * @return void
-     * @author
-     **/
-    public function __get($attr)
-    {
-        switch ($attr) {
-            case 'surveyDocument':
-            case 'surveyDoc':
-                return $this->response->survey->getSurveyDocument();
-                break;
-            case 'survey':
-                return $this->response->survey;
-                break;
-            case 'respondent':
-                return $this->response->respondent;
-                break;
-            default:
-                return $this->{$attr};
-                break;
         }
     }
 } // END class SurveyRules
