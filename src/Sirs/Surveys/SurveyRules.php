@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 
 namespace Sirs\Surveys;
 
@@ -9,18 +8,18 @@ use Illuminate\Http\Request;
  * Base Survey Rules Class
  *
  * @package sirs/surveys
- * @author
+ * @author 
  **/
 class SurveyRules
 {
-    public $pretext;
     protected $response;
+    public $pretext;
 
     /**
      * constructs the survey
      *
      * @return void
-     * @author
+     * @author 
      **/
     public function __construct($response)
     {
@@ -56,7 +55,7 @@ class SurveyRules
     {
         $pretext = session()->get('pretext', []);
 
-        $this->pretext = (isset($pretext[$this->response->survey->slug][$this->response->respondent_id]))
+        $this->pretext = (isset($pretext[$this->response->survey->slug][$this->response->respondent_id])) 
                             ? $pretext[$this->response->survey->slug][$this->response->respondent_id]
                             : new RulesPretext([]);
 
@@ -64,15 +63,9 @@ class SurveyRules
         $this->pretext->page = $this->response->last_page;
 
         foreach ($requestData as $key => $value) {
-            if (in_array($key, ['_token'])) {
-                continue;
-            }
-            if (in_array($key, array_keys($this->response->getDataAttributes()))) {
-                continue;
-            }
-            if (in_array(preg_replace('/(_refused)|(_field)/', '', $key), array_keys($this->response->getDataAttributes()))) {
-                continue;
-            }
+            if(in_array($key, ['_token'])) continue;
+            if(in_array($key, array_keys($this->response->getDataAttributes()))) continue;
+            if(in_array(preg_replace('/(_refused)|(_field)/', '', $key), array_keys($this->response->getDataAttributes()))) continue;
 
             $this->pretext->{$key} = $value;
         }
@@ -80,7 +73,7 @@ class SurveyRules
             $pretext[$this->response->survey->slug] = [
                 $this->response->respondent_id => $this->pretext
             ];
-        } else {
+        }else{
             $pretext[$this->response->survey->slug][$this->response->respondent_id] = $this->pretext;
         }
 
@@ -90,7 +83,7 @@ class SurveyRules
     public function forgetPretext()
     {
         $sessionPretext = session()->get('pretext');
-        if (isset($sessionPretext[$this->response->survey->slug][$this->response->respondent_id])) {
+        if(isset($sessionPretext[$this->response->survey->slug][$this->response->respondent_id])){
             unset($sessionPretext[$this->response->survey->slug][$this->response->respondent_id]);
             session()->put('pretext', $sessionPretext);
         }

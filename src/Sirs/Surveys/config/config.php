@@ -10,8 +10,8 @@ return [
     'cache_path' => storage_path('storage/framework/views'),
   ],
   'routeGroup'=>['middleware' => 'auth'],
-  'chromeTemplate'=>'layouts.app',
-  'cacheDocuments'=>(env('APP_DEBUG')) ? false : true,
+  'chromeTemplate'=>'app',
+  'cacheDocuments'=>( env('APP_DEBUG') ) ? false : true,
   'refusedLabel'=>'Refused',
   'autosave'=>[
     'enabled' => true,
@@ -19,10 +19,6 @@ return [
     'notify' => true,
     'notify_time' => 2500
   ],
-  /**
-   * Bindings can be used to override the classes used for the Survey and Response modes.
-   * This allows you to do nifty things like define custom relationships, fire custom events, and override default behavior.
-   */
   // 'bindings' => [
   //   'models' => [
   //     'Survey' => App\Survey::class
@@ -30,3 +26,5 @@ return [
   //   ]
   // ],
 ];
+
+?>

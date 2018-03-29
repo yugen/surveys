@@ -19,8 +19,7 @@ if (! function_exists('getSurveyFromUrl')) {
     {
         $url = '/'.strtolower(preg_replace('/\\\/', '-', get_class($response->respondent)));
         $url .= '/'.$response->respondent->id.'/survey/'.$response->survey->slug;
-        $url .= ($response->id) ? '/'.$response->id : '';
-        $url .= ($pageName) ? '?page='.$pageName : '';
+        $url .= ($pageName)? '?page='.$pageName : '';
         return $url;
     }
 }

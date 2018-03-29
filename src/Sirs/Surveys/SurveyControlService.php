@@ -178,12 +178,12 @@ class SurveyControlService
                         Log::notice($e->getMessage());
                     }
                     $httpResponse = $this->redirect(); //redirect to
-                    // $request->session()->forget('pretext');
+                    // session()->forget('pretext');
                     break;
 
                 case 3: //
                     $httpResponse = $this->redirect(); //redirect to
-                    // $request->session()->forget('pretext');
+                    // session()->forget('pretext');
                     break;
                     
                 default:
@@ -223,7 +223,7 @@ class SurveyControlService
             $redirectUrl = $this->rules->getRedirectUrl();
         }
         if (!$redirectUrl) {
-            $redirectUrl = $this->request->session()->pull('survey_previous', '/');
+            $redirectUrl = session()->pull('survey_previous', '/');
         }
         $this->rules->forgetPretext();
         return redirect($redirectUrl);

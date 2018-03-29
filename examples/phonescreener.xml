@@ -3,9 +3,10 @@
 		<html>
 			<content>
 			<![CDATA[
-				<h2>Phone Screener</h2>
-	 			<h3>Telephone Screening Script</h3>
-				<p>Hello, this is ___(Study Team Member Name)____________ from the University of North Carolina at Chapel Hill.  May I speak with ____(Title and Last Name)______? </p>
+			<h2>Pain Coping Skills Training for African Americans with Osteoarthritis </h2>
+ 			<h3>Telephone Screening Script</h3>
+			<p>Hello, this is ___(Study Team Member Name)____________ from the University of North Carolina at Chapel Hill.  May I speak with ____(Title and Last Name)______?  
+</p>
 			]]>
 			</content>
 		</html>
@@ -25,7 +26,7 @@
 		<html id="available_yes">
 			<content>
 			<![CDATA[
-				<p>I am calling about a letter sent to you about a research study called "Pain Coping Skills Training for African Americans with Osteoarthritis."  Are you interested in hearing more about the study?</p>
+			<p>I am calling about a letter sent to you about a research study called "Pain Coping Skills Training for African Americans with Osteoarthritis."  Are you interested in hearing more about the study?</p>
 			]]>
 			</content>
 		</html>
