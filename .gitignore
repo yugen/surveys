@@ -14,5 +14,6 @@ public/css/app.css
 public/css/all.css
 public/build
 public/build/
+tests/cache/
 cache/*
 *.sublime-*
