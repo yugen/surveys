@@ -19,7 +19,7 @@ class RulesPretext
 
     public function save()
     {
-        request()->session()->put('pretext', $this->getData());        
+        session()->put('pretext', $this->getData());        
     }
 
     public function getData()
