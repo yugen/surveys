@@ -17,6 +17,16 @@ class RulesPretext
         $this->data = $data;
     }
 
+    public function save()
+    {
+        session()->put('pretext', $this->getData());
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
     public function __set($attr, $val)
     {
         if (property_exists(get_class($this), $attr)) {
@@ -35,21 +45,11 @@ class RulesPretext
     {
         if (property_exists(get_class($this), $attr)) {
             return $this->{$attr};
+        } else {
+            if (isset($this->data[$attr])) {
+                return $this->data[$attr];
+            }
+            return null;
         }
-        if (isset($this->data[$attr])) {
-            return $this->data[$attr];
-        }
-
-        return null;
-    }
-
-    public function save()
-    {
-        session()->put('pretext', $this->getData());
-    }
-
-    public function getData()
-    {
-        return $this->data;
     }
 } // END class RulesPretext

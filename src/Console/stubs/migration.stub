@@ -26,16 +26,11 @@ class DummyClass extends Migration
             $table->softDeletes();
 
             $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('restrict');
+            $table->index(['respondent_type', 'respondent_id']);
             $table->index(['respondent_type']);
             $table->index(['survey_id']);
             $table->index(['started_at', 'finalized_at', 'survey_id']);
         });
-        $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes('DummyTable');
-        if(!array_key_exists('DummyTable_respondent_type_respondent_id_index', $indexes)){
-            Schema::table('DummyTable', function (Blueprint $table) {
-                $table->index(['respondent_type', 'respondent_id']);
-            });
-        }
 
         Illuminate\Database\Eloquent\Model::unguard();
         \Sirs\Surveys\Models\Survey::firstOrCreate([
