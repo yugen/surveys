@@ -1,0 +1,545 @@
+<survey name="phonescreener" version="1" title="POA CST Phone Screener" response-limit="1">
+	<page name="introduction">
+		<html>
+			<content>
+			<![CDATA[
+			<h2>Pain Coping Skills Training for African Americans with Osteoarthritis </h2>
+ 			<h3>Telephone Screening Script</h3>
+			<p>Hello, this is ___(Study Team Member Name)____________ from the University of North Carolina at Chapel Hill.  May I speak with ____(Title and Last Name)______?  
+</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="available" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>Available</question-text>
+			<options>
+				<option name="No" show="available_no" hide="available_yes" >
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="available_yes" hide="available_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="available_yes">
+			<content>
+			<![CDATA[
+			<p>I am calling about a letter sent to you about a research study called "Pain Coping Skills Training for African Americans with Osteoarthritis."  Are you interested in hearing more about the study?</p>
+			]]>
+			</content>
+		</html>
+		<html id="available_no">
+			<content>
+			<![CDATA[
+			<p>Thank you, I will call back at another time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="interested" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>Are you interested in hearing more about the study?</question-text>
+			<options>
+				<option name="No" show="interested_no" hide="interested_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="interested_yes" hide="interested_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="interested_yes">
+			<content>
+			<![CDATA[
+			<div>
+				<p>This study evaluates the effectiveness of a pain coping skills training (CST) program for African American patients with hip or knee osteoarthritis.  This study will include about 248 people with hip or knee osteoarthritis.  People who participate in this study will be involved for about 9 months and can earn up to $125.  If you qualify for the study, it would involve the following activities:</p>
+				<ul>
+					<li>First, we will ask you to meet with a study team member to answer some questions about your health and arthritis symptoms. This visit will take up to 2 hours.  </li>
+					<li>Second, using a procedure like flipping a coin, participants will be randomly assigned to one of two groups.  </li>
+					<li>One group will receive the pain CST program.  The other group will be the “waiting list” control group, this group will receive no additional treatment for nine months.  However, this group will be given access to the pain CST program after completing the 9-month assessment. The CST intervention will involve 11 sessions, conducted via telephone to enhance accessibility and reach. Each session will take approximately 30-45 minutes. The sessions include the following:  general information about pain coping skills training, training in specific pain coping skills (such as progressive muscle relaxation, communication, imagery, and activity pacing), and guided practice with each skill.  The CST program will also include information about other behaviors important for OA, such as physical activity and weight management.</li>
+					<li>Both groups will continue with any other usual care they receive for their hip or knee OA, from their usual health care providers.   Within about a week after the baseline visit, a study team member will call to tell you which study group you have been assigned to.  </li>
+					<li>Third, no matter which study group you are assigned to, we will ask you to meet with a study team member again at about 3-months and complete an assessment via telephone at about 9-months after your initial visit.  At both of these follow-ups, we will ask you to complete similar surveys as you did at the first visit. These assessments will take about 1 hour each.</li>
+					<li>For all three assessments (baseline, 3-months, and 9-months), we will pay you to help compensate for your time and travel. You will receive $50 for each of the two in-person visits (at baseline and 3-months) and $25 for the 9-month phone assessment.</li>
+				</ul>
+			</div>
+			]]>
+			</content>
+		</html>
+		<html id="interested_no">
+			<content>
+			<![CDATA[
+			<p >Thank you for your time</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="questions" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>Do you have any questions about the study?</question-text>
+			<options>
+				<option name="No" show="question_no">
+					<label>No / not interested</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="question_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="question_no">
+			<content>
+			<![CDATA[
+			<p >If no: <b>May I ask you a few questions to see if you are eligible for this study? </b></p>
+			<p> If not interested: <b>Thank you for your time today</b>.</p>
+			]]>
+			</content>
+		</html>
+	</page>
+	<page name="questions" title="Screening Questions">
+		<html>
+			<content>
+			<![CDATA[
+			<p >Do you have any questions?</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="race_AA" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>1. Do you consider your race to be Black or African American?</question-text>
+			<options>
+				<option name="No" show="race_AA_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="race_AA_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="race_AA_no">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on this information, you will not be able to participate in this study. This study is only enrolling individuals who identify as Black or African American.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="patient_unchc" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>2. For self/provider referral only: Are you a patient of the UNC Health Care system?</question-text>
+			<options>
+				<option name="No" show="patient_unchc_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="patient_unchc_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<question-group id="patient_unchc_no" name="patient_unchc_no">
+			<multiple-choice name="patient_durhamva" required="1" placeholder=""  data-format="int" num-selectable="1">
+				<question-text>Are you a patient of the Durham VA Medical Center? </question-text>
+				<options>
+					<option name="No" show="patient_durhamva_no" hide="patient_durhamva_yes">
+						<label>No</label>
+						<value>0</value>
+					</option>
+					<option name="Yes" show="patient_durhamva_yes" hide="patient_durhamva_no">
+						<label>Yes</label>
+						<value>1</value>
+					</option>
+				</options>
+			</multiple-choice>
+			<html id="patient_durhamva_no">
+				<content>
+				<![CDATA[
+				<p >I’m sorry, we are only enrolling patients of UNC Health Care and the Durham VA at this time and thus you will not be able to participate in the study. Thank you for your time.</p>
+				]]>
+				</content>
+			</html>
+			<html id="patient_durhamva_yes">
+				<content>
+				<![CDATA[
+				<p >Refer them to our enrollment contact at the VA</p>
+				]]>
+				</content>
+			</html>
+		</question-group>
+		<multiple-choice name="have_oa" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>3. Have you EVER been told by a doctor or other healthcare professional that you have osteoarthritis, degenerative arthritis or rheumatism in your knees or hips, or that your knee or hip cartilage or joints were "wearing out?"  
+</question-text>
+			<options>
+				<option name="No" show="have_oa_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="have_oa_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="have_oa_no">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on your answer, it is not certain whether you have knee osteoarthritis.  If you receive a diagnosis of osteoarthritis or have continuing knee symptoms, we would be glad to talk with you again about this study in the future. Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="had_pain_12_months" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>4. In the past 12 months, have you had pain, aching, stiffness, or swelling in or around your (joint(s) with OA)? </question-text>
+			<options>
+				<option name="No" show="had_pain_12_months_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="had_pain_12_months_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="had_pain_12_months_no">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on your answer, it is not certain whether you have knee osteoarthritis.  If you have continuing knee symptoms, we would be glad to talk with you again about this study in the future. Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="symptoms_present_past_month" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>5. Were these symptoms present on most days for the past month? 
+ </question-text>
+			<options>
+				<option name="No" show="symptoms_present_past_month_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="symptoms_present_past_month_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="symptoms_present_past_month_no">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on your answer, it is not certain whether you have knee osteoarthritis.  If you have continuing knee symptoms, we would be glad to talk with you again about this study in the future. Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="symptoms_began_6_months_ago" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>6. Did these symptoms begin over 6 months ago?
+
+ </question-text>
+			<options>
+				<option name="No" show="symptoms_began_6_months_ago_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="symptoms_began_6_months_ago_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="symptoms_began_6_months_ago_no">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on your answer, it is not certain whether you have knee osteoarthritis.  If you have continuing knee symptoms, we would be glad to talk with you again about this study in the future. Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="have_rheumatic_cond" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>7. Do you have rheumatoid arthritis, lupus, or any other rheumatic condition?
+ </question-text>
+			<options>
+				<option name="No" hide="have_rheumatic_cond_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="have_rheumatic_cond_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="have_rheumatic_cond_yes">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on this information, you will not be able to participate in the study.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="have_fibromyalgia" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>8. Do have severe fibromyalgia that you take specific medication for? (examples: Cymbalta, Lyrica, Savella, Elavil, or narcotics like Codeine, Demerol, Oxycodone, Percocet, Percodan, Ultram, Vicodin). 
+
+
+ </question-text>
+			<options>
+				<option name="No" hide="have_fibromyalgia_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="have_fibromyalgia_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="have_fibromyalgia_yes">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on this information, you will not be able to participate in the study.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="have_gout" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>9. Do you have gout in your knees or hips?
+
+
+ </question-text>
+			<options>
+				<option name="No" hide="have_gout_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="have_gout_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="have_gout_yes">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on this information, you will not be able to participate in the study.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="awaiting_joint_replacement" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>10. Are you scheduled for or on a waiting list for joint replacement surgery?
+
+
+ </question-text>
+			<options>
+				<option name="No" hide="awaiting_joint_replacement_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="awaiting_joint_replacement_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="awaiting_joint_replacement_yes">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but because you may have joint replacement surgery soon, this may make a big change in your arthritis symptoms, and you will not be able to participate in this study.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="had_knee_surgery_6_months" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>11. Have you had any total knee or hip replacement surgery, other knee surgery, a torn meniscus in your knee, or a torn ACL in your knee during the past 6 months?
+
+
+ </question-text>
+			<options>
+				<option name="No" hide="had_knee_surgery_6_months_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="had_knee_surgery_6_months_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="had_knee_surgery_6_months_yes">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on this information, you will not be able to participate in this study.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="other_studies_hip_knee" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>12. Are you participating in any other studies related to knee or hip osteoarthritis?</question-text>
+			<options>
+				<option name="No" hide="other_studies_hip_knee_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="other_studies_hip_knee_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<question-group id="other_studies_hip_knee_yes" name="other_studies_hip_knee_yes">
+			<question name="questions" required="1" placeholder="" data-format="int">
+				<question-text>Can you tell me what this study is about?  </question-text>
+		</question>
+			<html >
+				<content>
+				<![CDATA[
+				<p >If study is observational only, continue with questions.</p>
+<p>If study is interventional: <b>I am sorry, but based on this information, you will not be able to participate in this study.  Thank you for your time.</b></p>
+</p>
+				]]>
+				</content>
+			</html>
+		</question-group>
+		<multiple-choice name="other_disqualifying_conditions" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>13. Do you have any other health conditions that you think would make you unable to participate in the study I have described?  These may include but are not limited to:    significant memory loss, active substance abuse disorder, or a severe mental health condition. 
+
+
+
+ </question-text>
+			<options>
+				<option name="No" hide="other_disqualifying_conditions_yes">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" show="other_disqualifying_conditions_yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html id="other_disqualifying_conditions_yes">
+			<content>
+			<![CDATA[
+			<p >I am sorry, but based on this information, you will not be able to participate in this study.  Thank you for your time.</p>
+			]]>
+			</content>
+		</html>
+	</page>
+	<page name="conclusion">
+		<question-group name="meeting" id="meeting">
+			<question name="meeting_time" required="1" placeholder="00:00:00" data-format="time">
+				<question-text>Meeting Time</question-text>
+			</question>
+			<multiple-choice name="meeting_place" required="1" placeholder=""  data-format="int" num-selectable="1">
+				<question-text>Meeting Place</question-text>
+				<options>
+					<data-source URI="/sitelist.php" />
+					<option name="DC">
+						<label>District of Columbia Site</label>
+						<value>0</value>
+					</option>
+				</options>
+			</multiple-choice>
+		</question-group>
+		<multiple-choice name="current_phone_number_best" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>Is the number I called today the best phone number at which to reach you?</question-text>
+			<options>
+				<option name="No" show="current_phone_number_best_no">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes" hide="current_phone_number_best_no">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<question-group id="current_phone_number_best_no" name="current_phone_number_best_no">
+			<question name="best_phone_number" required="1" placeholder="555-555-5555" data-format="text">
+					<question-text>Could you give me a better number?</question-text>
+			</question>
+		</question-group>
+		<multiple-choice name="have_cell_number" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>Do you have a cell number in case we need to reach you on the day of your appointment?</question-text>
+			<options>
+				<option name="No">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<multiple-choice name="other_contact_numbers" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>Are there any other contact numbers we should have on file for you?</question-text>
+			<options>
+				<option name="No">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<multiple-choice name="got_email_address" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>May I have your email address?</question-text>
+			<options>
+				<option name="No">
+					<label>No</label>
+					<value>0</value>
+				</option>
+				<option name="Yes">
+					<label>Yes</label>
+					<value>1</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html>
+			<content>
+			<![CDATA[
+			<p>I'd like to confirm your mailing address with you...</p>
+			]]>
+			</content>
+		</html>
+		<multiple-choice name="preferred_contact_method" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>What is your preferred contact method?</question-text>
+			<options>
+				<option name="Phone">
+					<label>Phone</label>
+					<value>1</value>
+				</option>
+				<option name="Email">
+					<label>Email</label>
+					<value>2</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<multiple-choice name="confirmation_letter_method" required="1" placeholder=""  data-format="int" num-selectable="1">
+			<question-text>I'm going to send you a confirmation letter of your appointment, direcitons to the appointment, and a copy of the consent form to look over ahead of time.  Would you like this mailed or emailed to you (or both)?</question-text>
+			<options>
+				<option name="Phone">
+					<label>Phone</label>
+					<value>1</value>
+				</option>
+				<option name="Email">
+					<label>Email</label>
+					<value>2</value>
+				</option>
+				<option name="Both">
+					<label>Both</label>
+					<value>3</value>
+				</option>
+			</options>
+		</multiple-choice>
+		<html>
+			<content>
+			<![CDATA[
+			<p><b>Do you have any questions?</b></p>
+			<p>Answer any questions and proceed</p>
+			]]>
+			</content>
+		</html>
+		<html>
+			<content>
+			<![CDATA[
+			<p>Thank you for your time.  I look forward to meeting with you on .</p>
+			]]>
+			</content>
+		</html>
+
+	</page>
+</survey>

@@ -1,0 +1,6 @@
+formatter.name: pretty
+suites:
+    survey_suite:
+        namespace: Sirs\Surveys
+    documents_suite:
+        namespace: Sirs\Surveys\Documents

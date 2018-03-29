@@ -20,20 +20,14 @@
         "venturecraft/revisionable": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7.0",
-        "orchestra/testbench": "^3.6"
+        "phpunit/phpunit": "~4.0"
     },
     "autoload": {
-        "psr-4": {
-            "Sirs\\Surveys\\": "src"
+        "psr-0": {
+            "Sirs\\Survey": "src"
         },
         "files": [
-            "src/helpers.php"
+            "src/Sirs/Surveys/helpers.php"
         ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Sirs\\Surveys\\Test\\": "tests/"
-        }
     }
 }

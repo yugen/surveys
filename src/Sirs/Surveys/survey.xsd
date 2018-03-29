@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<!-- validator -->
+	<xs:element name="survey">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="include" type="include" />				
+				<xs:element name="page" type="page" />
+				<xs:element name="parameter" type="parameter" />
+			</xs:choice>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="version" type="xs:string" use="required" />
+			<xs:attribute name="title" type="xs:string" />
+			<xs:attribute name="response-limit" type="xs:integer" />
+			<xs:attribute name="rules-class" type="xs:string" />
+			<xs:attribute name="survey-id" type="xs:integer" />
+		</xs:complexType>
+	</xs:element>
+
+<!-- element declarations  -->
+
+	<!-- include tag -->
+		<xs:complexType name="include">
+			<xs:attribute name="source" type="xs:string" />
+		</xs:complexType>
+	
+	<!-- container and children -->
+		<!-- container -->
+		<xs:complexType name="container">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="question" type="question" />
+				<xs:element name="duration" type="duration" />
+				<xs:element name="number" type="number" />
+				<xs:element name="numeric-scale" type="numeric-scale" />
+				<xs:element name="date" type="date" />
+				<xs:element name="time" type="time" />
+				<xs:element name="upload" type="upload" />
+				<xs:element name="multiple-choice" type="multiple-choice" />
+				<xs:element name="likert" type="likert" />
+				<xs:element name="html" type="html" />
+				<xs:element name="question-group" type="question-group" />
+				<xs:element name="template" type="template" />
+				<xs:element name="include" type="include" />
+				<xs:element name="parameter" type="parameter" />
+			</xs:choice>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="class" type="xs:string"/>
+		</xs:complexType>
+
+			<!-- question group -->
+			<!-- included for semantic purposes -->
+			<xs:complexType name="question-group">
+				<xs:complexContent>
+					<xs:extension base="container">
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<!-- page -->
+			<xs:complexType name="page">
+				<xs:complexContent>
+					<xs:extension base="container">
+						<xs:attribute name="source" type="xs:string" />
+						<xs:attribute name="title" type="xs:string" />
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+	<!-- question and children -->
+		<!-- question -->
+		<xs:complexType name="question">
+				<xs:choice maxOccurs="2" minOccurs="0">
+					<xs:element name="question-text" type="xs:string"/>
+					<xs:element name="template" type="template"/>
+				</xs:choice>
+				<xs:attribute name="name" type="xs:string" use="required"/>
+				<xs:attribute name="id" type="xs:string" />
+				<xs:attribute name="required" type="xs:boolean" />
+				<xs:attribute name="class" type="xs:string" />
+				<xs:attribute name="placeholder" type="xs:string" />
+				<xs:attribute name="hidden" type="xs:boolean" />
+				<xs:attribute name="refusable" type="xs:boolean" />
+				<xs:attribute name="refuse-label" type="xs:string" />
+				<xs:attribute name="data-format" type="data-format" />
+				<xs:attribute name="validation-rules" type="xs:string" />
+		</xs:complexType>
+
+			<!-- date inputs -->
+			<xs:complexType name="date">
+			  <xs:complexContent>
+			    <xs:extension base="question">
+			        <xs:attribute name="min" type="xs:date"/>
+					<xs:attribute name="max" type="xs:date"/>
+			    </xs:extension>
+			  </xs:complexContent>
+			</xs:complexType>
+
+			<!-- file upload -->
+			<xs:complexType name="upload">
+			  <xs:complexContent>
+			    <xs:extension base="question">
+			        <xs:attribute name="multiple" type="xs:boolean" />
+			    </xs:extension>
+			  </xs:complexContent>
+			</xs:complexType>
+
+			<!-- multiple choice -->
+			<xs:complexType name="multiple-choice">
+				<xs:complexContent>
+					<xs:extension base="question">
+						<xs:choice maxOccurs="unbounded">
+							<xs:element name="options" type="options" />
+						</xs:choice>
+						<xs:attribute name="num-selectable" type="xs:integer" />
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<!-- number inputs -->
+			<xs:complexType name="number">
+			  <xs:complexContent>
+			    <xs:extension base="question">
+			      	<xs:attribute name="min" type="xs:decimal"/>
+							<xs:attribute name="max" type="xs:decimal"/>
+			    </xs:extension>
+			  </xs:complexContent>
+			</xs:complexType>
+
+			<!-- numeric scale inputs -->
+			<xs:complexType name="numeric-scale">
+			  <xs:complexContent>
+			    <xs:extension base="number">
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="legend" type="legend" maxOccurs="1"  minOccurs="0"/>
+							</xs:choice>
+							<xs:attribute name="interval" type="xs:decimal" />
+			    </xs:extension>
+			  </xs:complexContent>
+			</xs:complexType>
+
+			<!-- duration input -->
+			<xs:complexType name="duration">
+				<xs:complexContent>
+					<xs:extension base="number">
+						<xs:attribute name="unit" type="time-unit"></xs:attribute>
+						<xs:attribute name="precision" type="time-unit"></xs:attribute>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<!-- time inputs -->
+			<xs:complexType name="time">
+			  <xs:complexContent>
+			    <xs:extension base="question">
+			        <xs:attribute name="min" type="xs:time"/>
+							<xs:attribute name="max" type="xs:time"/>
+			    </xs:extension>
+			  </xs:complexContent>
+			</xs:complexType>
+
+	<!-- others -->
+		<!-- likerts -->
+		<xs:complexType name="likert">
+			<xs:complexContent>
+				<xs:extension base="container">
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="prompt" type="xs:string" maxOccurs="1"/>
+						<xs:element name="options" type="options"/>
+					</xs:choice>
+					<xs:attribute name="refusable" type="xs:boolean" />
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+
+		<!-- template -->
+		<xs:complexType name="template">
+			<xs:attribute name="source" type="xs:string" />
+		</xs:complexType>
+
+		<!-- legend for a numeric-scale question -->
+		<xs:complexType name="legend">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="item" type="item"></xs:element>
+			</xs:choice>
+		</xs:complexType>
+
+		<!-- item for a legend -->
+		<xs:complexType name="item">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="label" type="xs:string" />
+				<xs:element name="value" type="xs:string" />
+			</xs:choice>
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="class" type="xs:string"/>
+		</xs:complexType>
+
+		<!-- data-format -->
+		<xs:simpleType name="data-format">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="tinyint" />
+				<xs:enumeration value="smallint" />
+				<xs:enumeration value="mediumint" />
+				<xs:enumeration value="int" />
+				<xs:enumeration value="bigint" />
+				<xs:enumeration value="float" />
+				<xs:enumeration value="double" />
+				<xs:enumeration value="decimal" />
+				<xs:enumeration value="bit" />
+				<xs:enumeration value="char" />
+				<xs:enumeration value="varchar" />
+				<xs:enumeration value="tinytext" />
+				<xs:enumeration value="text" />
+				<xs:enumeration value="mediumtext" />
+				<xs:enumeration value="longtext" />
+                <xs:enumeration value="json" />
+				<xs:enumeration value="binary" />
+				<xs:enumeration value="varbinary" />
+				<xs:enumeration value="tinyblob" />
+				<xs:enumeration value="blob" />
+				<xs:enumeration value="longblob" />
+				<xs:enumeration value="enum" />
+				<xs:enumeration value="set" />
+				<xs:enumeration value="date" />
+				<xs:enumeration value="datetime" />
+				<xs:enumeration value="time" />
+				<xs:enumeration value="timestamp" />
+				<xs:enumeration value="year" />
+			</xs:restriction>
+		</xs:simpleType>
+
+		<!-- time-unit -->
+		<xs:simpleType name="time-unit">
+			<xs:restriction base="xs:string">
+				<!-- <xs:enumeration value="millisecond" />
+				<xs:enumeration value="second" /> -->
+				<xs:enumeration value="minute" />
+				<xs:enumeration value="hour" />
+				<!-- <xs:enumeration value="day" />
+				<xs:enumeration value="week" />
+				<xs:enumeration value="month" />
+				<xs:enumeration value="year" /> -->
+			</xs:restriction>
+		</xs:simpleType>
+
+		<!-- options -->
+		<xs:complexType name="options">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="option" type="option" />
+				<xs:element name="data-source">
+					<xs:complexType>
+						<xs:attribute name="URI" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+
+		<!-- option -->
+		<xs:complexType name="option">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="label" type="xs:string" />
+				<xs:element name="value" type="xs:string" />
+				<xs:element name="template" type="template" minOccurs="0" />
+			</xs:choice>
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="selected" type="xs:boolean"/>
+			<xs:attribute name="class" type="xs:string"/>
+			<xs:attribute name="show" type="xs:string" />
+			<xs:attribute name="hide" type="xs:string" />
+			<xs:attribute name="other" type="xs:boolean" />
+		</xs:complexType>
+
+		<!-- HTML -->
+		<xs:complexType name="html">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="content" type="xs:string" />
+			</xs:choice>
+			<xs:attribute name="id"/>
+			<xs:attribute name="name"/>
+			<xs:attribute name="class"/>
+		</xs:complexType>
+
+		<!-- Parameter -->
+		<xs:complexType name="parameter">
+			<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+			<xs:attribute name="value" type="xs:string" use="required"></xs:attribute>
+		</xs:complexType>
+</xs:schema>
