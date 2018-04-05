@@ -20,7 +20,7 @@
             @foreach($q->variables as $var)
                 <tr>
                     <td>{{$var->name}}</td>
-                    <td>{{{$q->questionText}}}</td>
+                    <td>{!!$q->questionText!!}</td>
                     <td>
                         @if($q->hasOptions())
                             <ul class="list-unstyled">
