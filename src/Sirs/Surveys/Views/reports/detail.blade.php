@@ -19,12 +19,12 @@
 		<div class="panel-body">
 			<ul class="nav nav-tabs" role="tablist">
 				<?php 
-				if( !is_null($pageName) ){
-					$navTabCounter = 1;
-				}else{
-					$navTabCounter = 0; 	
-				}
-				?>
+                if (!is_null($pageName)) {
+                    $navTabCounter = 1;
+                } else {
+                    $navTabCounter = 0;
+                }
+                ?>
 				@foreach( $survey->getPages() as $page  )
 					@if( count($page->getQuestions()) > 0 )
 						<li role="presentation" @if( $navTabCounter == 0 || $pageName == $page->name ) class="active" @endif>
@@ -35,8 +35,8 @@
 		    </ul>
 		    <div class="tab-content">
 		    	<?php 
-		    		$navTabContentCounter = (!is_null($pageName)) ? 1 : 0;
-				?>
+                    $navTabContentCounter = (!is_null($pageName)) ? 1 : 0;
+                ?>
 		        @foreach( $survey->getPages() as $page )
 		        	@if( count($page->getQuestions()) > 0 )
 			        <div role="tabpanel" class="tab-pane @if( $navTabContentCounter == 0 || $pageName == $page->name ) active @endif" id="{{ $page->name }}-tab">
@@ -44,12 +44,12 @@
 				        	<div class="col-xs-3">
 								<ul class="nav nav-pills nav-stacked" role="tablist" id="{{$page->name}}_pills">
 									<?php 
-									if( !is_null($variableName) ){
-										$pillCounter = 1;
-									}else{
-										$pillCounter = 0; 	
-									}
-									 ?>
+                                    if (!is_null($variableName)) {
+                                        $pillCounter = 1;
+                                    } else {
+                                        $pillCounter = 0;
+                                    }
+                                     ?>
 									@foreach( $page->getQuestions() as $question )
 										<li role="presentation" @if ( $pillCounter == 0 || $variableName == $question->variableName) class="active" @endif >
 										<a data-target="#{{$question->variableName}}" aria-controls="{{$question->variableName}}" role="tab" data-toggle="tab">{{$question->variableName}}</a></li>
@@ -60,12 +60,12 @@
 							<div class="col-xs-9">
 								<div class="tab-content" id="tab-content">
 									<?php 
-									if( !is_null($variableName) ){
-										$pillTabContentCounter = 1;
-									}else{
-										$pillTabContentCounter = 0; 	
-									}
-									 ?>
+                                    if (!is_null($variableName)) {
+                                        $pillTabContentCounter = 1;
+                                    } else {
+                                        $pillTabContentCounter = 0;
+                                    }
+                                     ?>
 									@foreach( $page->getQuestions() as $question)
 										<?php $report = $reports[$question->variableName]; ?>
 										<div role="tabpanel" class="tab-pane @if ($pillTabContentCounter == 0 || $variableName == $question->variableName ) active @endif" id="{{$question->variableName}}">
@@ -77,7 +77,7 @@
 												<dt style="margin-left:0; text-align:left;">Data Format</dt>
 												<dd>{{ $question->dataFormat }}</dd>
 												<dt style="margin-left:0; text-align:left;">Question Text</dt>
-												<dd >{{ $question->questionText }}</dd>
+												<dd >{!! $question->questionText !!}</dd>
 											</dl>
 											<hr />
 											<h4>Answer Frequency</h4>
@@ -158,13 +158,13 @@
 												<script type="text/javascript">
 
 													<?php 
-														$vFormatted = str_replace( '_', '', $question->variableName ); ?> 
+                                                        $vFormatted = str_replace('_', '', $question->variableName); ?> 
 														var width = document.getElementById("tab-content").offsetWidth;
 														
 														var {{$vFormatted}}data =  [{
 																key: '{{$vFormatted}}', 
-																values:[<?php $commaCounter = count($question->options) - 1; 
-													?>
+																values:[<?php $commaCounter = count($question->options) - 1;
+                                                    ?>
 																	@foreach($question->options as $option )
 																		{
 																			'label':'{{$option->value}}',
