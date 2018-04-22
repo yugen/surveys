@@ -8,12 +8,14 @@ use Sirs\Surveys\Documents\PageDocument;
 use Sirs\Surveys\Documents\XmlDocument;
 use Sirs\Surveys\HasParametersTrait;
 use Sirs\Surveys\HasQuestionsTrait;
+use Sirs\Surveys\HasMetadataTrait;
 use Sirs\Surveys\XmlValidator;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 {
     use HasQuestionsTrait;
     use HasParametersTrait;
+    use HasmetadataTrait;
 
     protected $name;
     protected $title;
@@ -24,19 +26,20 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     protected $responseLimit;
     protected $rulesClass;
     protected $parameters;
+    protected $metadata;
     protected $contents;
     protected $id;
 
     public function __construct($xml = null)
     {
-
         $validator = new XmlValidator(__DIR__.'/../survey.xsd');
         $validator->validate($xml);
         $this->pages = [];
         parent::__construct($xml);
     }
 
-    static public function initFromFile($filePath){
+    public static function initFromFile($filePath)
+    {
         $xmlString = file_get_contents($filePath);
         $class = get_called_class();
         return new $class($xmlString);
@@ -44,8 +47,8 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getPageByName($name)
     {
-        foreach( $this->getPages() as $idx => $page ){
-            if( $page->name == $name ){
+        foreach ($this->getPages() as $idx => $page) {
+            if ($page->name == $name) {
                 return $page;
             }
         }
@@ -54,8 +57,8 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getPageIndexByName($name)
     {
-        foreach( $this->getPages() as $idx => $page ){
-            if( $page->name == $name ){
+        foreach ($this->getPages() as $idx => $page) {
+            if ($page->name == $name) {
                 return $idx;
             }
         }
@@ -64,8 +67,8 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getPageNumberByName($name)
     {
-        foreach( $this->getPages() as $idx => $page ){
-            if( $page->name == $name ){
+        foreach ($this->getPages() as $idx => $page) {
+            if ($page->name == $name) {
                 return $idx+1;
             }
         }
@@ -82,8 +85,9 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         $this->setRulesClass($this->getAttribute($simpleXmlElement, 'rules-class'));
         $this->setSurveyId($this->getAttribute($simpleXmlElement, 'survey-id'));
         $this->parseParameters($simpleXmlElement);
+        $this->parseMetadata($simpleXmlElement);
         $pageNum = 0;
-        foreach( $simpleXmlElement->page as $idx => $pageElement ){
+        foreach ($simpleXmlElement->page as $idx => $pageElement) {
             $pageNum++;
             $page = PageDocument::createWithParameters($pageElement, $this->getParameters());
             $page->setPageNumber($pageNum);
@@ -107,12 +111,14 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         return $this->id;
     }
 
-    public function setRulesClass($class){
+    public function setRulesClass($class)
+    {
         $this->rulesClass = $class;
         return $this;
     }
 
-    public function getRulesClass(){
+    public function getRulesClass()
+    {
         return ($this->rulesClass) ? $this->rulesClass : config('surveys.rulesNamespace', 'App\\Surveys\\').$this->getRulesClassName();
     }
 
@@ -143,7 +149,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
      * get the title of the page
      *
      * @return string
-     * @author 
+     * @author
      **/
     public function getTitle()
     {
@@ -152,7 +158,6 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function render($context)
     {
-
     }
 
     /**
@@ -161,7 +166,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
      * @return $this
      * @param string $name
      **/
-    function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
         return $this;
@@ -183,7 +188,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
      * @return $this;
      * @param string $version
      **/
-    function setVersion($version)
+    public function setVersion($version)
     {
         $this->version = $version;
         return $this;
@@ -206,7 +211,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
      * @return $this
      * @param array $pages
      **/
-    function setPages($pages)
+    public function setPages($pages)
     {
         $this->pages = $pages;
         return $this;
@@ -239,7 +244,8 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
      * @return $this
      * @param Sirs\Surveys\Contracts\PageDocument $page
      **/
-    function appendPage(PageDocument $page){
+    public function appendPage(PageDocument $page)
+    {
         array_push($this->pages, $page);
         return $this;
     }
@@ -249,7 +255,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
      *
      * @param PageDocument $page
      * @return $this
-     * @author 
+     * @author
      **/
     public function prependPage(PageDocument $page)
     {
@@ -268,25 +274,25 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         return ($this->responseLimit) ? $this->responseLimit : 1;
     }
 
-    public function getPage($pageKey){
-        if( $pageKey ){
-            if(ctype_digit($pageKey)){
-                if((int)$pageKey >= count($this->pages)) {
+    public function getPage($pageKey)
+    {
+        if ($pageKey) {
+            if (ctype_digit($pageKey)) {
+                if ((int)$pageKey >= count($this->pages)) {
                     return end($this->pages);
                 }
                 $idx = ((int)$pageKey)-1;
                 return $this->pages[$idx];
-            }else{
+            } else {
                 return $this->getPageByName($pageKey);
             }
-        }else{
+        } else {
             return $this->pages[0];
         }
     }
 
-    public function getRulesClassName() 
-    {   
-        return ucfirst( str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules' ) ) );
+    public function getRulesClassName()
+    {
+        return ucfirst(str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules')));
     }
-
 }

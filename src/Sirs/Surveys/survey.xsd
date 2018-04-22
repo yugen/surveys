@@ -75,6 +75,7 @@
 				<xs:choice maxOccurs="2" minOccurs="0">
 					<xs:element name="question-text" type="xs:string"/>
 					<xs:element name="template" type="template"/>
+					<xs:element name="metadata" type="metadata" />
 				</xs:choice>
 				<xs:attribute name="name" type="xs:string" use="required"/>
 				<xs:attribute name="id" type="xs:string" />
@@ -86,7 +87,6 @@
 				<xs:attribute name="refuse-label" type="xs:string" />
 				<xs:attribute name="data-format" type="data-format" />
 				<xs:attribute name="validation-rules" type="xs:string" />
-				<xs:element name="metadata" type="metadata" />
 		</xs:complexType>
 
 			<!-- date inputs -->
