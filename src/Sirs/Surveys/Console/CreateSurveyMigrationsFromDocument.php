@@ -2,9 +2,9 @@
 
 namespace Sirs\Surveys\Console;
 
+use File;
 use Illuminate\Console\Command;
 use Sirs\Surveys\Documents\SurveyDocument;
-use File;
 
 class CreateSurveyMigrationsFromDocument extends Command
 {
@@ -30,13 +30,12 @@ class CreateSurveyMigrationsFromDocument extends Command
      */
     protected $documentFile = null;
 
-     /**
-     * The survey object
-     *
-     * @var string
-     */
+    /**
+    * The survey object
+    *
+    * @var string
+    */
     protected $survey = null;
-
 
     /**
      * Execute the console command.
@@ -45,7 +44,6 @@ class CreateSurveyMigrationsFromDocument extends Command
      */
     public function handle()
     {
-        
         $this->documentFile =  $this->argument('document');
         $this->survey = SurveyDocument::initFromFile($this->documentFile);
 
@@ -54,49 +52,45 @@ class CreateSurveyMigrationsFromDocument extends Command
             .'_'.$this->survey->name
             .'_'.str_replace('.', '', $this->survey->version).'.php';
 
-        if (File::put($filename, $contents) === false){
+        if (File::put($filename, $contents) === false) {
             throw new \Exception("Error writing to file");
-        }else{
-            $this->info('Created ' . $filename);
         }
-        
-        
-        
+        $this->info('Created ' . $filename);
     }
-    public function getMigrationText() 
+    public function getMigrationText()
     {
         $str = $this->getDefaultText();
 
         $questions = $this->survey->getQuestions();
-        
-        $str = str_replace('DummyTable', $this->formatTableName( $this->survey->getName(), $this->survey->getVersion() ), $str);
 
-        $str = str_replace('DummyClass', $this->formatClassName( $this->survey->getName(), $this->survey->getVersion() ), $str);
+        $str = str_replace('DummyTable', $this->formatTableName($this->survey->getName(), $this->survey->getVersion()), $str);
+
+        $str = str_replace('DummyClass', $this->formatClassName($this->survey->getName(), $this->survey->getVersion()), $str);
 
         $str = str_replace('DummyName', $this->survey->getName().$this->survey->getVersion(), $str);
 
         $str = str_replace('DummySlug', str_replace(' ', '_', $this->survey->getName()), $str);
 
-        $str = str_replace('DummyVersion',  $this->survey->getVersion(), $str);
+        $str = str_replace('DummyVersion', $this->survey->getVersion(), $str);
 
         if ($this->survey->getSurveyId()) {
             $str = str_replace('DummySurveyId', $this->survey->getSurveyId(), $str);
-        }else{
+        } else {
             $str = str_replace("            \"id\"=>DummySurveyId,\n", '', $str);
         }
 
-        if( !preg_match('/\.xml$/', $this->documentFile) ){
+        if (!preg_match('/\.xml$/', $this->documentFile)) {
             $this->documentFile .= '.xml';
         }
         $str = str_replace('DummyFileName', $this->documentFile, $str);
 
         $questionStrings = [];
-        foreach( $questions as $question ) {
+        foreach ($questions as $question) {
             $variables = $question->getVariables();
-            print("$question->name vars: ".count($variables)."\n");
+            // print("$question->name vars: ".count($variables)."\n");
 
             foreach ($variables as $idx => $var) {
-                print_r('var: '.$var->name."\n");
+                // print_r('var: '.$var->name."\n");
                 $questionStrings[] = '$table->'.$this->setMigrationDataType($var->dataFormat)
                    ."('".$var->name."')->nullable();";
             }
@@ -104,11 +98,11 @@ class CreateSurveyMigrationsFromDocument extends Command
 
         $questionsStr = implode("\n\t\t\t", $questionStrings);
         $str = str_replace('INSERTSURVEY', $questionsStr, $str);
-        
+
         return $str;
     }
 
-    public function setMigrationDataType( $dataFormat ) 
+    public function setMigrationDataType($dataFormat)
     {
         $mysqlToLaravelTypeMap = [
             'tinyint'=>'tinyInteger',
@@ -139,29 +133,27 @@ class CreateSurveyMigrationsFromDocument extends Command
             'time'=>'time',
             'timestamp'=>'timestamp',
             'year'=>'date',
-        ];        
-        if( isset($mysqlToLaravelTypeMap[$dataFormat]) ){
+        ];
+        if (isset($mysqlToLaravelTypeMap[$dataFormat])) {
             return $mysqlToLaravelTypeMap[$dataFormat];
-        }else{
-            throw new \Exception($dataFormat.' not found in available data formats');
         }
+        throw new \Exception($dataFormat.' not found in available data formats');
     }
 
-    public function formatTableName( $name, $version ) 
+    public function formatTableName($name, $version)
     {
-        return 'rsp_'.strtolower( str_replace('-', '_', $name )).'_'.$version;
+        return 'rsp_'.strtolower(str_replace('-', '_', $name)).'_'.$version;
     }
 
-    public function formatClassName( $name, $version ) 
+    public function formatClassName($name, $version)
     {
-        $string = preg_replace('/\./', '', 'CreateSurveyRsp'.ucfirst($name).$version );
+        $string = preg_replace('/\./', '', 'CreateSurveyRsp'.ucfirst($name).$version);
+
         return ucfirst(camel_case($string));
     }
 
-    public function getDefaultText() 
+    public function getDefaultText()
     {
-
         return file_get_contents(__DIR__.'/stubs/migration.stub');
-
     }
 }
