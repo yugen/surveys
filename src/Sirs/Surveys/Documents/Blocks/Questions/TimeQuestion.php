@@ -2,8 +2,6 @@
 
 namespace Sirs\Surveys\Documents\Blocks\Questions;
 
-use Sirs\Surveys\Documents\Blocks\Questions\BoundedQuestion;
-
 class TimeQuestion extends BoundedQuestion
 {
     protected $min;
@@ -12,30 +10,31 @@ class TimeQuestion extends BoundedQuestion
     public function __construct($xml = null)
     {
         parent::__construct($xml);
-        $this->defaultTemplate = 'questions.time.time';
+        $this->defaultTemplate = config('surveys.default_templates.time', 'questions.time.time');
         $this->defaultDataFormat = 'time';
     }
 
-      public function boundaryIsValid($boundary)
-      {
-          if( is_string($boundary) ){
-              return (boolean)(preg_match('/^\d\d:\d\d(:\d\d)?$/', $boundary));
-          }elseif(is_null($boundary)){
-            return true; 
-          }
-          return false;
-      }
+    public function boundaryIsValid($boundary)
+    {
+        if (is_string($boundary)) {
+            return (boolean)(preg_match('/^\d\d:\d\d(:\d\d)?$/', $boundary));
+        } elseif (is_null($boundary)) {
+            return true;
+        }
+
+        return false;
+    }
 
     public function getValidationRules()
     {
-      $validations = parent::getValidationRules();
-      if( $this->min ){
-        $validations[] = 'after:'.$this->min;
-      }
-      if( $this->max ){
-        $validations[] = 'before:'.$this->max;
-    }
-      return $validations;
-    }
+        $validations = parent::getValidationRules();
+        if ($this->min) {
+            $validations[] = 'after:'.$this->min;
+        }
+        if ($this->max) {
+            $validations[] = 'before:'.$this->max;
+        }
 
+        return $validations;
+    }
 }
