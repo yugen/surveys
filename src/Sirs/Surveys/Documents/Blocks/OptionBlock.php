@@ -48,7 +48,7 @@ class OptionBlock extends RenderableBlock
         return ($this->label != '') ? $this->label : $this->value;
     }
 
-    public function getCompiledQuestionText($context)
+    public function getCompiledLabel($context)
     {
         return $this->bladeCompile($this->label, $context);
     }
