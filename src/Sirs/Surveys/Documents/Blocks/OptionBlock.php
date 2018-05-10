@@ -7,110 +7,121 @@ namespace Sirs\Surveys\Documents\Blocks;
 */
 class OptionBlock extends RenderableBlock
 {
-  protected $value;
-  protected $selected;
-  protected $label;
-  protected $name;
-  protected $variableName;
-  protected $show = null;
-  protected $hide = null;
+    protected $value;
+    protected $selected;
+    protected $label;
+    protected $name;
+    protected $variableName;
+    protected $show = null;
+    protected $hide = null;
 
-  public function __construct($variableName, $xml = null )
-  {
-    $this->variableName = $variableName;
-    parent::__construct($xml);
-    $this->defaultTemplate = 'options.default_radio_option';
-  }
+    public function __construct($variableName, $xml = null)
+    {
+        $this->variableName = $variableName;
+        parent::__construct($xml);
+        $this->defaultTemplate = 'options.default_radio_option';
+    }
 
-
-
-  public function parse(\SimpleXMLElement $simpleXmlElement)
-  {
-      parent::parse($simpleXmlElement);
-      if( $this->getAttribute($simpleXmlElement, 'name') ){
+    public function parse(\SimpleXMLElement $simpleXmlElement)
+    {
+        parent::parse($simpleXmlElement);
+        if ($this->getAttribute($simpleXmlElement, 'name')) {
+            $this->setName($this->getAttribute($simpleXmlElement, 'name'));
+        }
+        $this->setLabel($simpleXmlElement->label[0]->__toString());
+        $this->setValue($simpleXmlElement->value[0]->__toString());
+        $this->setSelected($this->getAttribute($simpleXmlElement, 'selected'));
         $this->setName($this->getAttribute($simpleXmlElement, 'name'));
-      }
-      $this->setLabel($simpleXmlElement->label[0]->__toString());
-      $this->setValue($simpleXmlElement->value[0]->__toString());
-      $this->setSelected($this->getAttribute($simpleXmlElement, 'selected'));
-      $this->setName($this->getAttribute($simpleXmlElement, 'name'));
-      $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
-      $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
-  }
+        $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
+        $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
+    }
 
-  public function setLabel($label)
-  {
-      $this->label = $label;
-      return $this;
-  }
+    public function setLabel($label)
+    {
+        $this->label = $label;
 
-  public function getLabel()
-  {
-    return ($this->label != '') ? $this->label : $this->value;
-  }
+        return $this;
+    }
 
-  public function setValue($value)
-  {
-      $this->value = $value;
-      return $this;
-  }
+    public function getLabel()
+    {
+        return ($this->label != '') ? $this->label : $this->value;
+    }
 
-  public function getValue()
-  {
-      return $this->value;
-  }
+    public function getCompiledQuestionText($context)
+    {
+        return $this->bladeCompile($this->label, $context);
+    }
 
-  public function getSelected()
-  {
-    return (bool)$this->selected;
-  }
+    public function setValue($value)
+    {
+        $this->value = $value;
 
-  public function setSelected($selected)
-  {
-      $this->selected = $selected;
-      return $this;
-  }
+        return $this;
+    }
 
-  public function setName($name){
-    $this->name = $name;
-    return $this;
-  }
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-  public function getName()
-  {
-    return ($this->name) ? $this->name : $this->variableName;
-  }
+    public function getSelected()
+    {
+        return (bool)$this->selected;
+    }
 
-  public function getId()
-  {
-    return ($this->id) ? $this->id : $this->name.'-'.$this->value ;
-  }
+    public function setSelected($selected)
+    {
+        $this->selected = $selected;
 
-  public function render($context){
-    $output = parent::render($context);
-    return $output;
-  }
+        return $this;
+    }
 
-  public function setShow($show)
-  {
-    $this->show = $show;
-    return $this;
-  }
+    public function setName($name)
+    {
+        $this->name = $name;
 
-  public function getShow(){
-    return $this->show;
-  }
+        return $this;
+    }
 
-  public function setHide($hide)
-  {
-    $this->hide = $hide;
-    return $this;
-  }
+    public function getName()
+    {
+        return ($this->name) ? $this->name : $this->variableName;
+    }
 
-  public function getHide(){
-    return $this->hide;
-  }
+    public function getId()
+    {
+        return ($this->id) ? $this->id : $this->name.'-'.$this->value ;
+    }
 
+    public function render($context)
+    {
+        $output = parent::render($context);
 
+        return $output;
+    }
 
+    public function setShow($show)
+    {
+        $this->show = $show;
+
+        return $this;
+    }
+
+    public function getShow()
+    {
+        return $this->show;
+    }
+
+    public function setHide($hide)
+    {
+        $this->hide = $hide;
+
+        return $this;
+    }
+
+    public function getHide()
+    {
+        return $this->hide;
+    }
 }

@@ -6,5 +6,5 @@
     autocomplete="off" 
     {{($renderable->selected) ? 'checked' : ''}}
   >
-  {{$renderable->label}}
+    {{$renderable->getCompiledQuestionText($context)}}
 </label>
