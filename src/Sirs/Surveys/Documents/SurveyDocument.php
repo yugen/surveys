@@ -2,13 +2,10 @@
 
 namespace Sirs\Surveys\Documents;
 
-use Sirs\Surveys\Contracts\RenderableInterface;
 use Sirs\Surveys\Contracts\SurveyDocumentInterface;
-use Sirs\Surveys\Documents\PageDocument;
-use Sirs\Surveys\Documents\XmlDocument;
+use Sirs\Surveys\HasMetadataTrait;
 use Sirs\Surveys\HasParametersTrait;
 use Sirs\Surveys\HasQuestionsTrait;
-use Sirs\Surveys\HasMetadataTrait;
 use Sirs\Surveys\XmlValidator;
 
 class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
@@ -42,6 +39,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     {
         $xmlString = file_get_contents($filePath);
         $class = get_called_class();
+
         return new $class($xmlString);
     }
 
@@ -75,8 +73,6 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
         throw new \OutOfBoundsException('The page '.$name.' was not found');
     }
 
-
-
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
         $this->setTitle($this->getAttribute($simpleXmlElement, 'title'));
@@ -98,6 +94,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setSurveyId($id)
     {
         $this->id = ($id) ? $id : null;
+
         return $this;
     }
 
@@ -114,6 +111,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setRulesClass($class)
     {
         $this->rulesClass = $class;
+
         return $this;
     }
 
@@ -125,6 +123,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setTemplate($template = null)
     {
         $this->template = $template;
+
         return $this;
     }
 
@@ -142,6 +141,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -169,6 +169,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -191,6 +192,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setVersion($version)
     {
         $this->version = $version;
+
         return $this;
     }
 
@@ -214,6 +216,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function setPages($pages)
     {
         $this->pages = $pages;
+
         return $this;
     }
 
@@ -247,6 +250,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function appendPage(PageDocument $page)
     {
         array_push($this->pages, $page);
+
         return $this;
     }
 
@@ -260,12 +264,14 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
     public function prependPage(PageDocument $page)
     {
         array_unshift($this->pages, $page);
+
         return $this;
     }
 
     public function setResponseLimit($responseLimit)
     {
         $this->responseLimit = $responseLimit;
+
         return $this;
     }
 
@@ -282,17 +288,28 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
                     return end($this->pages);
                 }
                 $idx = ((int)$pageKey)-1;
+
                 return $this->pages[$idx];
-            } else {
-                return $this->getPageByName($pageKey);
             }
-        } else {
-            return $this->pages[0];
+
+            return $this->getPageByName($pageKey);
         }
+
+        return $this->pages[0];
     }
 
     public function getRulesClassName()
     {
         return ucfirst(str_replace('-', '', str_replace('.', '', $this->name.$this->version.'Rules')));
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'name' => $this->name,
+            'title' => $this->title,
+            'version' => $this->version,
+            'pages' => $this->pages
+        ];
     }
 }

@@ -531,6 +531,13 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         return collect($jsonArray)->toJSON();
     }
 
+    public function jsonSerialize()
+    {
+        return array_merge(parent::jsonSerialize(), [
+        'variables' => $this->variables
+      ]);
+    }
+
     protected function hasRequiredRule()
     {
         foreach ($this->validationRules as $rule) {

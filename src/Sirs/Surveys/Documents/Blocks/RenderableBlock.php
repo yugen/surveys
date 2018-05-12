@@ -5,14 +5,15 @@ namespace Sirs\Surveys\Documents\Blocks;
 use Illuminate\Support\Facades\Blade;
 use Sirs\Surveys\Contracts\RenderableInterface;
 use Sirs\Surveys\Documents\XmlDocument;
-use Sirs\Surveys\HasParametersTrait;
 use Sirs\Surveys\HasMetadataTrait;
+use Sirs\Surveys\HasParametersTrait;
 use Windwalker\Renderer\BladeRenderer;
 
 class RenderableBlock extends XmlDocument implements RenderableInterface
 {
     use HasParametersTrait;
     use HasMetadataTrait;
+    public $content;
 
     protected $class;
     protected $id;
@@ -23,7 +24,6 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     protected $renderer;
     protected $parameters;
     protected $metadata;
-    public $content;
 
     public function __construct($xml = null)
     {
@@ -54,6 +54,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
         // print('template: '. $template."\n");
         //
         $this->template = $template;
+
         return $this;
     }
 
@@ -70,6 +71,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
     public function getId()
@@ -80,6 +82,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
     public function getName()
@@ -90,6 +93,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     public function setClass($class)
     {
         $this->class = $class;
+
         return $this;
     }
 
@@ -115,7 +119,6 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
         'cache_path' => config('surveys.rendererConfig.cache_path')
     ]);
 
-
         $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
         $view = $this->renderer->render(
       $this->getTemplate(),
@@ -125,6 +128,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
         'renderable'=>$this
       ]
     );
+
         return $view;
     }
 
@@ -132,6 +136,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     {
         $renderTemplate = ($this->getTemplate()) ? $this->getTemplate() : $defaultTemplate;
         $view = $this->renderer->render($renderTemplate, ['renderable'=>$this]);
+
         return $view;
     }
 
@@ -139,10 +144,11 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
     {
         $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
         $view = $this->renderer->render($template, ['chromeTemplate'=>$chromeTemplate,'context'=>$context, 'renderable'=>$this]);
+
         return $view;
     }
 
-    public function bladeCompile($value, array $args = array())
+    public function bladeCompile($value, array $args = [])
     {
         $generated = Blade::compileString($value);
 
@@ -166,5 +172,15 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
         $content = ob_get_clean();
 
         return $content;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'class' => $this->class,
+            'id' => $this->id,
+            'name' => $this->name,
+            'template' => $this->template
+        ];
     }
 }

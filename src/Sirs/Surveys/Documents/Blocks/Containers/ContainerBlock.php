@@ -35,6 +35,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
         parent::parse($simpleXmlElement);
         // foreach children do the right thing
         $this->setContents($this->parseContents($simpleXmlElement));
+
         return $this;
     }
 
@@ -53,6 +54,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
                 $children[$childBlock->name] = $childBlock;
             }
         }
+
         return $children;
     }
 
@@ -64,6 +66,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -86,6 +89,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
     public function setContents(array $contents)
     {
         $this->contents = $contents;
+
         return $this;
     }
 
@@ -116,6 +120,7 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
         foreach ($content as $idx => $item) {
             array_push($this->contents, $item);
         }
+
         return $this;
     }
 
@@ -131,6 +136,14 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
         foreach (array_reverse($content) as $idx => $item) {
             array_unshift($this->contents, $item);
         }
+
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return array_merge(parent::jsonSerialize(), [
+            'contents' => $this->contents
+        ]);
     }
 }
