@@ -127,7 +127,7 @@ class Survey extends Model implements SurveyModel
 
     public function getResponse($id)
     {
-        $response = $this->responses()->findOrFail($responseId);
+        $response = $this->responses()->findOrFail($id);
         $response->setTable($this->response_table);
 
         return ($response);
