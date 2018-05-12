@@ -19,7 +19,7 @@ class DummyClass extends Migration
             $table->integer('survey_id')->unsigned();
             INSERTSURVEY
             $table->string('last_page');
-            $table->integer('duration');
+            $table->integer('duration')->nullable();
             $table->timestamp('started_at')->nullable();
             $table->timestamp('finalized_at')->nullable();
             $table->timestamps();
