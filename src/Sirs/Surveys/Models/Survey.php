@@ -138,7 +138,7 @@ class Survey extends Model implements SurveyModel
         $response = null;
 
         if (!is_null($responseId)) {
-            $response = $this->getResponse();
+            $response = $this->getResponse($responseId);
         } else {
             $responseQuery = $this->responses()
                 ->where('respondent_type', '=', get_class($respondent))
