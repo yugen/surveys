@@ -273,6 +273,7 @@
 			<xs:attribute name="show" type="xs:string" />
 			<xs:attribute name="hide" type="xs:string" />
 			<xs:attribute name="other" type="xs:boolean" />
+			<xs:attribute name="exclusive" type="xs:integer" />
 		</xs:complexType>
 
 		<!-- HTML -->

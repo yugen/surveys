@@ -14,6 +14,7 @@ class OptionBlock extends RenderableBlock
     protected $variableName;
     protected $show = null;
     protected $hide = null;
+    protected $exclusive = null;
 
     public function __construct($variableName, $xml = null)
     {
@@ -34,6 +35,7 @@ class OptionBlock extends RenderableBlock
         $this->setName($this->getAttribute($simpleXmlElement, 'name'));
         $this->setShow($this->getAttribute($simpleXmlElement, 'show'));
         $this->setHide($this->getAttribute($simpleXmlElement, 'hide'));
+        $this->setExclusive($this->getAttribute($simpleXmlElement, 'exclusive'));
     }
 
     public function setLabel($label)
@@ -123,5 +125,15 @@ class OptionBlock extends RenderableBlock
     public function getHide()
     {
         return $this->hide;
+    }
+
+    public function setExclusive($value)
+    {
+        $this->exclusive = $value;
+    }
+
+    public function getExclusive()
+    {
+        return $this->exclusive;
     }
 }

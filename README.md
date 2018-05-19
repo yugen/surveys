@@ -140,7 +140,23 @@ TODO
 ## XML Schema
 See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/?at=master)
 
-TODO
+## Containers
+### Page
+### QuestionGroup
+
+## Questions
+### Question
+### MultipleChoice
+#### Options
+##### Attributes
+* name - string - required
+* id
+* class
+* exclusive - integer: integer indicates group
+
+### Date
+### Numeric
+...
 
 ### Who do I talk to? ###
 
