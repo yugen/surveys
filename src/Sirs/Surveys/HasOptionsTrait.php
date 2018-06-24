@@ -91,6 +91,24 @@ trait HasOptionsTrait{
         return $options;
     } 
 
+    public function getOptionByName($name)
+    {
+        foreach ($this->options as $option) {
+            if ($option->name == $name) {
+                return $option;
+            }
+        }
+    }
+
+    public function getOptionByValue($value)
+    {
+        foreach ($this->options as $option) {
+            if ($option->value == $value) {
+                return $option;
+            }
+        }
+    }
+
     public function getOptionNames()
     {
         $names = [];
@@ -100,4 +118,5 @@ trait HasOptionsTrait{
         return $names;
     } 
 
+    
 }
