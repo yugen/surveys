@@ -289,7 +289,7 @@ class SurveyControlService
     }
 
 
-    protected function execRule($rulesObj, $pageName, $methodName, $params = null)
+    public function execRule($rulesObj, $pageName, $methodName, $params = null)
     {
         $pageMethod = $pageName . ucfirst($methodName);
         $method = lcfirst($methodName);
