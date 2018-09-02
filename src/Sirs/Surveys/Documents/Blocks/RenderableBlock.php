@@ -180,7 +180,8 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
             'class' => $this->class,
             'id' => $this->id,
             'name' => $this->name,
-            'template' => $this->template
+            'template' => $this->template,
+            'metadata' => $this->metadata
         ];
     }
 }
