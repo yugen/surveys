@@ -16,6 +16,6 @@
     @if($renderable->placeholder)
       placeholder="{{$renderable->placeholder}}" 
     @endif
-    value="{{$context['response']->{$renderable->name} or ''}}"
+    value="{{$context['response']->{$renderable->name} ?? ''}}"
   />
 </span>

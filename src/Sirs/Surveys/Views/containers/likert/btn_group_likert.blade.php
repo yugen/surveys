@@ -12,7 +12,7 @@
       <tr class="likert-question
          {{($question->class) ? ' '.$question->class : ''}}
          @if(isset($context['errors']) && $context['errors']->has($question->name)) has-errors @endif"
-        id="{{$question->id or ''}}"
+        id="{{$question->id ?? ''}}"
       >
         <td class="question-col question-text">
           {!! html_entity_decode($question->getCompiledQuestionText($context)); !!}

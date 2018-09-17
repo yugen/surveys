@@ -2,9 +2,9 @@
   @include('questions.refusable_input', ['question'=>$question])
 @else
 <input
-  type="{{$type or 'text'}}" 
+  type="{{$type ?? 'text'}}" 
   name="{{$question->name}}" 
-  class="form-control {{$class or ''}}"
+  class="form-control {{$class ?? ''}}"
   @if($question->placeholder)
   placeholder="{{$question->placeholder}}" 
   @endif

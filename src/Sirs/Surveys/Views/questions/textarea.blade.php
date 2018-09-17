@@ -3,7 +3,7 @@
 @else
   <textarea 
     name="{{$question->name}}" 
-    class="form-control {{$class or ''}}"
+    class="form-control {{$class ?? ''}}"
     @if($question->placeholder)
     placeholder="{{$question->placeholder}}" 
     @endif
