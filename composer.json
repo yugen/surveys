@@ -13,10 +13,10 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0.0",
         "windwalker/renderer": "~3.0",
         "laravel/framework": "~5.1",
-        "cviebrock/eloquent-sluggable": "^4.1",
+        "cviebrock/eloquent-sluggable": ">=4.1",
         "venturecraft/revisionable": "1.*",
         "doctrine/dbal": "^2.7"
     },

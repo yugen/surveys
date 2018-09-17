@@ -11,6 +11,7 @@
     >
      <input 
       type="radio" 
+      class="{{ $option->class }}"
       name="{{$question->name}}" 
       id="{{$question->name}}_{{$option->value}}" 
       value="{{ $option->value }}"

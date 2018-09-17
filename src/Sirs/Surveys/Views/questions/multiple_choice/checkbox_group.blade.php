@@ -2,11 +2,12 @@
 
 @section('answers')
   @foreach($renderable->options as $option)
-    <div class="checkbox">
+    <div class="checkbox {{$option->class}}">
     <label>
      <input type="checkbox" 
       name="{{ $option->name }}"
       id="{{ $option->name }}_checkbox" 
+      class="{{ $option->class}}"
       autocomplete="off"
       value="1"
   }

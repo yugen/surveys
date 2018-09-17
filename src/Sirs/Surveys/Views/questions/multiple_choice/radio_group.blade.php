@@ -3,12 +3,13 @@
 @section('answers')
       <div class="btn-group" role="group" data-toggle="buttons">
         @foreach($renderable->options as $option)
-          <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif">
+          <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif  {{ $option->class }}">
            <input 
             type="radio" 
             name="{{$renderable->name}}" 
             id="{{$renderable->name}}_{{$option->value}}" 
             value="{{ $option->value }}"
+            class="{{ $option->class }}"
             {{($renderable->required) ? ' required' : ''}}
             autocomplete="off"
             @if($context['response']->{$renderable->name} == $option->value)

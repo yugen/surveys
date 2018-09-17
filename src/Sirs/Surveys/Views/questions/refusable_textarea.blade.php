@@ -1,8 +1,8 @@
-<input type="hidden" name="{{$question->name}}" value="{{$context['response']->{$question->name} or ''}}"></input>
+<input type="hidden" name="{{$question->name}}" value="{{$context['response']->{$question->name} ?? ''}}"></input>
 <span class="mutually-exclusive">
     <textarea 
       name="{{$question->name}}_field" 
-      class="form-control {{$class or ''}}"
+      class="form-control {{$class ?? ''}}"
       @if($question->placeholder)
       placeholder="{{$question->placeholder}}" 
       @endif

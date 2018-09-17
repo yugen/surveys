@@ -9,6 +9,7 @@
             name="{{$renderable->name}}" 
             id="{{$renderable->name}}_{{$option->value}}" 
             value="{{ $option->value }}"
+            class="{{ $option->class }}"
             {{($renderable->required) ? ' required' : ''}}
             autocomplete="off"
             @if($context['response']->{$renderable->name} == $option->value)
