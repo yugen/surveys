@@ -18,10 +18,10 @@
       </div>
       <h4>
         <a href="{{route('participants.show', [$context['response']->respondent->id])}}">
-        {{$context['response']->respondent->full_name or 'Respondent:'.$context['response']->respondent->id}} 
+        {{$context['response']->respondent->full_name ?? 'Respondent:'.$context['response']->respondent->id}} 
         </a>
         - 
-        {{ $context['survey']['title'] or ucwords($context['survey']['name'])}}        
+        {{ $context['survey']['title'] ?? ucwords($context['survey']['name'])}}        
         - {{$renderable->title}}
       </h4>
     </div>
@@ -60,7 +60,7 @@
 <div class="alert alert-info notification" id="flast-notification">Auto-saved at <span id="notification-time"></span>.</div>
 <div class="text-muted">
   <small>
-    {{ $context['survey']['title'] or ucwords($context['survey']['name'])}}        
+    {{ $context['survey']['title'] ?? ucwords($context['survey']['name'])}}        
     - {{$renderable->title}}
     version {{$context['survey']['version']}}
   </small>

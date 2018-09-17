@@ -60,7 +60,7 @@
             </td>
             <td>
                 @if(!$question->hasOptions())
-                    {{$response->{$question->name} or 'null'}}
+                    {{$response->{$question->name} ?? 'null'}}
                 @elseif( $question->hasOptions())
                     @if($question->numSelectable > 1)
                         <ul class="list-no-indent">

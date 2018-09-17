@@ -12,8 +12,8 @@
     @foreach($responses as $response)
     <tr>
       <td>{{$response->respondent->full_name}} ({{$response->respondent->id}})</td>
-      <td>{{$response->started_at or 'not started'}}</td>
-      <td>{{$response->finalized_at or 'pending'}}</td>
+      <td>{{$response->started_at ?? 'not started'}}</td>
+      <td>{{$response->finalized_at ?? 'pending'}}</td>
       <td>
         @if($response->finalized_at)
         <a href="{{route('responses.show', [$survey->slug, $response->id])}}">View response</a>
