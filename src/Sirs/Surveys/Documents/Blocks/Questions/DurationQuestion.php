@@ -2,8 +2,6 @@
 
 namespace Sirs\Surveys\Documents\Blocks\Questions;
 
-use Sirs\Surveys\Documents\Blocks\Questions\NumberQuestion;
-
 class DurationQuestion extends NumberQuestion
 {
     protected $unit;
@@ -12,15 +10,15 @@ class DurationQuestion extends NumberQuestion
     public function __construct($xml = null)
     {
         parent::__construct($xml);
-        $this->defaultTemplate = 'questions.number.duration';
+        $this->defaultTemplate = config('surveys.default_templates.duration', 'questions.number.duration');
         $this->defaultDataFormat = 'int';
     }
 
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-      parent::parse($simpleXmlElement);
-      $this->setUnit($this->getAttribute($simpleXmlElement, 'unit'));
-      $this->setPrecision($this->getAttribute($simpleXmlElement, 'precision'));
+        parent::parse($simpleXmlElement);
+        $this->setUnit($this->getAttribute($simpleXmlElement, 'unit'));
+        $this->setPrecision($this->getAttribute($simpleXmlElement, 'precision'));
     }
 
     public function setUnit($unit)
@@ -42,5 +40,4 @@ class DurationQuestion extends NumberQuestion
     {
         return ($this->precision) ? $this->precision : 'minute';
     }
-
 }

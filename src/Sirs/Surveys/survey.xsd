@@ -8,6 +8,7 @@
 				<xs:element name="include" type="include" />				
 				<xs:element name="page" type="page" />
 				<xs:element name="parameter" type="parameter" />
+				<xs:element name="metadata" type="metadata" />
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="version" type="xs:string" use="required" />
@@ -43,6 +44,7 @@
 				<xs:element name="template" type="template" />
 				<xs:element name="include" type="include" />
 				<xs:element name="parameter" type="parameter" />
+				<xs:element name="metadata" type="metadata" />
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="id" type="xs:string" />
@@ -73,6 +75,7 @@
 				<xs:choice maxOccurs="2" minOccurs="0">
 					<xs:element name="question-text" type="xs:string"/>
 					<xs:element name="template" type="template"/>
+					<xs:element name="metadata" type="metadata" />
 				</xs:choice>
 				<xs:attribute name="name" type="xs:string" use="required"/>
 				<xs:attribute name="id" type="xs:string" />
@@ -270,6 +273,7 @@
 			<xs:attribute name="show" type="xs:string" />
 			<xs:attribute name="hide" type="xs:string" />
 			<xs:attribute name="other" type="xs:boolean" />
+			<xs:attribute name="exclusive" type="xs:integer" />
 		</xs:complexType>
 
 		<!-- HTML -->
@@ -286,5 +290,22 @@
 		<xs:complexType name="parameter">
 			<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
 			<xs:attribute name="value" type="xs:string" use="required"></xs:attribute>
+		</xs:complexType>
+
+		<!-- Parameter -->
+		<xs:complexType name="datum">
+			<xs:all minOccurs="0" maxOccurs="1">
+				<xs:element name="key" type="xs:string" />
+				<xs:element name="value" type="xs:string" />
+			</xs:all>
+			<xs:attribute name="key" type="xs:string"></xs:attribute>
+			<xs:attribute name="value" type="xs:string"></xs:attribute>
+		</xs:complexType>
+
+		<!-- Metadata -->
+		<xs:complexType name="metadata">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="datum" type="datum" />
+			</xs:choice>
 		</xs:complexType>
 </xs:schema>

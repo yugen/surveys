@@ -6,7 +6,6 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Illuminate\Database\Eloquent\Model;
 use Sirs\Surveys\Contracts\SurveyModel;
-use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Documents\SurveyDocument;
 
 class Survey extends Model implements SurveyModel
@@ -70,6 +69,7 @@ class Survey extends Model implements SurveyModel
         if (is_null($this->document)) {
             $this->document = SurveyDocument::initFromFile(base_path($this->file_name));
         }
+
         return $this->document;
     }
 
@@ -106,6 +106,7 @@ class Survey extends Model implements SurveyModel
         foreach ($responses as $response) {
             $response->setTable($this->response_table);
         }
+
         return $responses;
     }
 
@@ -124,13 +125,20 @@ class Survey extends Model implements SurveyModel
     {
     }
 
+    public function getResponse($id)
+    {
+        $response = $this->responses()->findOrFail($id);
+        $response->setTable($this->response_table);
+
+        return ($response);
+    }
+
     public function getLatestResponse($respondent, $responseId = null)
     {
         $response = null;
 
         if (!is_null($responseId)) {
-            $response = $this->responses()->findOrFail($responseId);
-            $response->setTable($this->response_table);
+            $response = $this->getResponse($responseId);
         } else {
             $responseQuery = $this->responses()
                 ->where('respondent_type', '=', get_class($respondent))
@@ -144,6 +152,7 @@ class Survey extends Model implements SurveyModel
             }
             $response->survey_id = $this->id;
         }
+
         return $response;
     }
 
@@ -153,6 +162,7 @@ class Survey extends Model implements SurveyModel
         $response->respondent_type = get_class($respondent);
         $response->respondent_id = $respondent->id;
         $response->survey_id = $this->id;
+
         return $response;
     }
 
@@ -164,9 +174,9 @@ class Survey extends Model implements SurveyModel
     public function getRules(Response $response)
     {
         $rulesClassName = $this->getSurveyDocument()->getRulesClass();
+
         return new $rulesClassName($response);
     }
-
 
     /**
      * returns an array of questions
@@ -177,6 +187,7 @@ class Survey extends Model implements SurveyModel
     public function getQuestions()
     {
         $doc = $this->getSurveyDocument();
+
         return $doc->getQuestions();
     }
 
@@ -190,10 +201,11 @@ class Survey extends Model implements SurveyModel
     {
         $rsp = $this->responses;
         $questions = $this->getQuestions();
-        $report = array();
+        $report = [];
         foreach ($questions as $q) {
             $report[$q->variableName] = $q->getReport($rsp);
         }
+
         return collect($report);
     }
 }

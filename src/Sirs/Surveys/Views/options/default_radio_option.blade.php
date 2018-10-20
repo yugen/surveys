@@ -6,6 +6,6 @@
       id="{{$renderable->id}}"
       value="{{$renderable->value}}"{{($renderable->selected ? ' selected' : '')}}
     />
-    {{$renderable->label}}
+    {!! $renderable->getCompiledLabel($context) !!}
   </label>
 </div>

@@ -24,7 +24,20 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     {
         parent::__construct($xml);
         $this->defaultDataFormat = 'varchar';
-        $this->defaultTemplate = 'questions.text.default_text';
+        $this->defaultTemplate = config('surveys.default_templates.question', 'questions.text.default_text');
+    }
+
+    public function __get($property)
+    {
+        switch ($property) {
+        case 'hasOptions':
+          return $this->hasOptions;
+          break;
+
+        default:
+          return parent::__get($property);
+          break;
+      }
     }
 
     public function parse(\SimpleXMLElement $simpleXmlElement)
@@ -52,6 +65,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setName($varName)
     {
         $this->variableName = $varName;
+
         return $this;
     }
 
@@ -73,6 +87,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setDataFormat($dataFormat)
     {
         $this->dataFormat = $dataFormat;
+
         return $this;
     }
 
@@ -95,6 +110,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setQuestionText($questionText)
     {
         $this->questionText = $questionText;
+
         return $this;
     }
 
@@ -117,6 +133,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setShow($show)
     {
         $this->show = $show;
+
         return $this;
     }
 
@@ -128,6 +145,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setHide($hide)
     {
         $this->Hide = $hide;
+
         return $this;
     }
 
@@ -135,7 +153,6 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     {
         return $this->hide;
     }
-
 
     /**
      * returns a data definition for this item
@@ -155,6 +172,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setRequired($required)
     {
         $this->required = ($required !== null) ? $required : false;
+
         return $this;
     }
 
@@ -166,6 +184,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setPlaceholder($placeholder)
     {
         $this->placeholder = ($placeholder !== null) ? $placeholder : null;
+
         return $this;
     }
 
@@ -177,6 +196,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setRefusable($value)
     {
         $this->refusable = ($value) ? true : false;
+
         return $this;
     }
 
@@ -188,22 +208,13 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function setRefuseLabel($value)
     {
         $this->refuseLabel = ($value) ? $value : config('surveys.refuseLabel', 'Refused');
+
         return $this;
     }
 
     public function getRefuseLabel()
     {
         return ($this->refuseLabel) ? $this->refuseLabel : config('surveys.refuseLabel', 'Refused');
-    }
-
-    protected function hasRequiredRule()
-    {
-        foreach ($this->validationRules as $rule) {
-            if (preg_match('/required/', $rule)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public function getValidationRules()
@@ -237,7 +248,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         default:
           break;
       }
-      
+
         return $this->validationRules;
     }
 
@@ -281,19 +292,6 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         return (isset($this->options));
     }
 
-    public function __get($property)
-    {
-        switch ($property) {
-        case 'hasOptions':
-          return $this->hasOptions;
-          break;
-        
-        default:
-          return parent::__get($property);
-          break;
-      }
-    }
-
     /**
      * gets reporting data for a given question's responses
      *
@@ -304,7 +302,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     {
 
     // getting report Types based on data format
-        $reportTypes = array();
+        $reportTypes = [];
 
         switch ($this->dataFormat) {
       case 'int':
@@ -336,7 +334,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $answered = $counts['answered'];
 
         // setting up report
-        $report = array();
+        $report = [];
         $report['total'] = $counts['totalCount'];
         $report['answered'] = $counts['answeredCount'];
         $report['unanswered'] = $counts['unansweredCount'];
@@ -354,6 +352,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
                 $report[$type] = $this->$method($answered);
             }
         }
+
         return collect($report);
     }
 
@@ -368,6 +367,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $sum = array_sum($data);
         $count = count($data);
         $mean = $sum / $count;
+
         return $mean;
     }
 
@@ -390,6 +390,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
             $high = $a[$middle + 1];
             $median = (($low + $high) / 2);
         }
+
         return $median;
     }
 
@@ -401,7 +402,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
      **/
     public function getMode($data)
     {
-        $values = array();
+        $values = [];
         foreach ($data as $a) {
             if (!array_key_exists($a, $values)) {
                 $values[$a] = 0;
@@ -411,6 +412,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         arsort($values);
         reset($values);
         $mode = key($values);
+
         return $mode;
     }
 
@@ -426,6 +428,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $min = array_values($data)[0];
         arsort($data);
         $max = array_values($data)[0];
+
         return ["min" => $min, "max" => $max];
     }
 
@@ -437,12 +440,13 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
      **/
     public function getRawData($responses)
     {
-        $raw = array();
+        $raw = [];
         foreach ($responses as $response) {
             foreach ($this->getVariables() as $var) {
                 $raw[] = $response->{$var->name};
             }
         }
+
         return $raw;
     }
 
@@ -454,7 +458,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
      **/
     public function getDataCounts($raw)
     {
-        $answered = array();
+        $answered = [];
         $totalCount = 0;
         $answeredCount = 0;
         $unansweredCount = 0;
@@ -475,6 +479,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
       'answeredCount' => $answeredCount,
       'unansweredCount' => $unansweredCount,
     ];
+
         return $arr;
     }
 
@@ -486,10 +491,10 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
      **/
     public function getOptionsData($data)
     {
-        $options = array();
+        $options = [];
         foreach ($this->options as $option) {
             if (!array_key_exists((string)$option->value, $options)) {
-                $options[$option->value] = array();
+                $options[$option->value] = [];
                 $options[$option->value]['value'] = $option->value;
                 $options[$option->value]['label'] = $option->label;
                 $options[$option->value]['count'] = 0;
@@ -513,16 +518,34 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     **/
     public function getJSONForVis($options)
     {
-        $jsonArray = array();
+        $jsonArray = [];
         $jsonArray['key'] = $this->variableName;
-        $jsonArray['values'] = array();
+        $jsonArray['values'] = [];
         foreach ($options as $option) {
-            $val = array();
+            $val = [];
             $val['value'] = $option['count'];
             $val['label'] = $option['value'];
             $jsonArray['values'][] = $val;
         }
 
         return collect($jsonArray)->toJSON();
+    }
+
+    public function jsonSerialize()
+    {
+        return array_merge(parent::jsonSerialize(), [
+        'variables' => $this->variables
+      ]);
+    }
+
+    protected function hasRequiredRule()
+    {
+        foreach ($this->validationRules as $rule) {
+            if (preg_match('/required/', $rule)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

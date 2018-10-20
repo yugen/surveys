@@ -3,7 +3,7 @@
 @section('answers')
       <div class="btn-group-vertical" role="group" data-toggle="buttons">
         @foreach($renderable->options as $option)
-          <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif" style="text-align: left">
+          <label class="@if($context['response']->{$renderable->name} == $option->value)active @endif" style="text-align: left">
            <input 
             type="radio" 
             name="{{$renderable->name}}" 

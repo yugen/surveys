@@ -24,7 +24,7 @@
         class="{{$option->class}}"
       @endif
       />
-     {{$option->label}}
+       {!! $option->getCompiledLabel($context) !!}
    </label>
    </div>
   @endforeach

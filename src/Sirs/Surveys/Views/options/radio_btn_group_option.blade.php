@@ -7,5 +7,5 @@
     class="{{ $option->class }}"
     {{($renderable->selected) ? 'checked' : ''}}
   > 
-    {{$renderable->label}}
+    {!! $renderable->getCompiledLabel($context) !!}
 </label>
