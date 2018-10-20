@@ -7,7 +7,7 @@ use Sirs\Surveys\Models\Response;
  * Contract defining public API for a Survey model
  *
  * @package default
- * @author 
+ * @author
  **/
 interface SurveyModel
 {
@@ -87,5 +87,4 @@ interface SurveyModel
      * @author
      **/
     public function getReports();
-
 } // END interface SurveyContract

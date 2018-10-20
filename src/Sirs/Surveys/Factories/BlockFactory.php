@@ -9,15 +9,17 @@ use Sirs\Surveys\Factories\QuestionFactory;
 
 class BlockFactory
 {
-  protected $blockTypes;
+    protected $blockTypes;
 
-  function create(\SimpleXMLElement $element){
-    $class = $this->getBlockClass($element);
-    return new $class($element);
-  }
+    public function create(\SimpleXMLElement $element)
+    {
+        $class = $this->getBlockClass($element);
+        return new $class($element);
+    }
 
-  function getWhitelist(){
-    $whitelist = [
+    public function getWhitelist()
+    {
+        $whitelist = [
     'container',
     'date',
     'duration',
@@ -31,12 +33,12 @@ class BlockFactory
     'time',
     'upload',
     ];
-    return $whitelist;
-  }
+        return $whitelist;
+    }
 
-  function getBlockClass(\SimpleXMLElement $element)
-  {
-    switch ($element->getName()) {
+    public function getBlockClass(\SimpleXMLElement $element)
+    {
+        switch ($element->getName()) {
       case 'container':
       case 'question-group':
         return ContainerBlock::class;
@@ -62,5 +64,5 @@ class BlockFactory
         throw new \InvalidArgumentException('Unsupported Tag '.$element->getName());
         break;
     }
-  }
+    }
 }

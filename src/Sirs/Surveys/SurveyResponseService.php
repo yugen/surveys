@@ -6,11 +6,12 @@ namespace Sirs\Surveys;
  * undocumented class
  *
  * @package default
- * @author 
+ * @author
  **/
 class SurveyResponseService implements SurveyResponseServiceInterface
 {
-    protected function render($survey, $page, $pageIdx, $response, $respondent, $errors=null){
+    protected function render($survey, $page, $pageIdx, $response, $respondent, $errors=null)
+    {
         $rules = $survey->getRules($response);
         $context = [
             'survey'=>[
@@ -23,21 +24,21 @@ class SurveyResponseService implements SurveyResponseServiceInterface
             'respondent'=>$respondent,
             'response'=>$response
         ];
-        if($errors){
-            $context['errors'] = $errors;   
+        if ($errors) {
+            $context['errors'] = $errors;
         }
 
-        if( $ruleContext = $this->execRule($rules, $page->name, 'BeforeShow') ){
+        if ($ruleContext = $this->execRule($rules, $page->name, 'BeforeShow')) {
             $context = array_merge($context, $ruleContext);
         }
 
-        return  $page->render($context); 
+        return  $page->render($context);
     }
 
     protected function setPreviousLocation(Request $request)
     {
         $previous = $request->session()->pull('survey_previous');
-        if( !preg_match('/\/survey\//', URL::previous()) ){
+        if (!preg_match('/\/survey\//', URL::previous())) {
             $previous = URL::previous();
         }
         $request->session()->put('survey_previous', $previous);
@@ -47,10 +48,10 @@ class SurveyResponseService implements SurveyResponseServiceInterface
     {
         // get the redirect url
         $redirectUrl = null;
-        if( method_exists($rules, 'getRedirectUrl') ){
+        if (method_exists($rules, 'getRedirectUrl')) {
             $redirectUrl = $rules->getRedirectUrl();
         }
-        if(!$redirectUrl){
+        if (!$redirectUrl) {
             $redirectUrl = $request->session()->pull('survey_previous', '/');
             $request->session()->forget('survey_previous');
         }
@@ -59,21 +60,20 @@ class SurveyResponseService implements SurveyResponseServiceInterface
     
     protected function execRule($rulesObj, $pageName, $methodName, $params = null)
     {
-       $method = $pageName . $methodName;
-        if ( method_exists( $rulesObj, $method ) ) {
-            if( $params ){
+        $method = $pageName . $methodName;
+        if (method_exists($rulesObj, $method)) {
+            if ($params) {
                 return $rulesObj->$method($params);
             }
             return $rulesObj->$method();
-        }else{
+        } else {
             return;
         }
     }
 
     protected function getRespondent($type, $id)
     {
-        $className = str_replace(' ', '\\', ucwords(str_replace('-',' ',$type)));
+        $className = str_replace(' ', '\\', ucwords(str_replace('-', ' ', $type)));
         return $className::findOrFail($id);
     }
-
-} // END class 
+} // END class

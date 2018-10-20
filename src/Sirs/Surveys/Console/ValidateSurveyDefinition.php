@@ -29,15 +29,15 @@ class ValidateSurveyDefinition extends Command
     public function handle()
     {
         $doc = SurveyDocument::initFromFile($this->argument('survey'));
-        try{
-            if($doc->validate()){
+        try {
+            if ($doc->validate()) {
                 $this->info('Survey at '.$this->argument('survey').' is valid');
                 return true;
-            }else{
+            } else {
                 $this->error('Survey at '.$this->argument('survey').' is not valid');
                 return false;
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             throw $e;
             return false;
         }

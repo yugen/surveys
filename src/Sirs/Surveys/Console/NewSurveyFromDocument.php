@@ -30,11 +30,11 @@ class NewSurveyFromDocument extends Command
      */
     protected $templateFile = null;
 
-     /**
-     * The survey object
-     *
-     * @var string
-     */
+    /**
+    * The survey object
+    *
+    * @var string
+    */
     protected $survey = null;
 
 
@@ -46,11 +46,9 @@ class NewSurveyFromDocument extends Command
      */
     public function handle()
     {
-        
         $this->survey = $this->argument('document');
 
         try {
-
             $this->call('survey:validate', [
                 'survey' => $this->survey
             ]);
@@ -62,11 +60,9 @@ class NewSurveyFromDocument extends Command
             $this->call('survey:rules', [
                 'document' => $this->survey
             ]);
-
         } catch (Exception $e) {
             $this->error($e->getMessage());
             return false;
         }
-   
     }
 }

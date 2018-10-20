@@ -8,22 +8,22 @@ use Illuminate\View\Compilers\BladeCompiler;
  * describes a renderable block
  *
  * @package Sirs/Surveys
- * @author 
+ * @author
  **/
 interface HtmlBlockInterface extends RenderableInterface
 {
-  /**
-   * Html that will be rendered
-   *
-   * @return $this;
-   * @param string $html
-   **/
-  function setHtml($html);
+    /**
+     * Html that will be rendered
+     *
+     * @return $this;
+     * @param string $html
+     **/
+    public function setHtml($html);
 
-  /**
-   * returns the HTML
-   *
-   * @return string
-   **/
-  function getHtml();
+    /**
+     * returns the HTML
+     *
+     * @return string
+     **/
+    public function getHtml();
 } // END interface HtmlBlockInterface extends RenderableInterface

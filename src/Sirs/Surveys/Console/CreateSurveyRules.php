@@ -42,35 +42,33 @@ class CreateSurveyRules extends Command
         $dir = config('surveys.rulesPath');
         $filename =  $dir.'/'.$this->className .'.php';
 
-        if( !File::exists($dir) ){
+        if (!File::exists($dir)) {
             File::makeDirectory($dir, 0775, true);
         }
 
-        if(File::exists($filename)){
+        if (File::exists($filename)) {
             $this->info('Cannot create the rules class '.$this->className.'. File '.$filename.' already exists.');
         }
 
         $bytes_written = File::put($filename, $this->getRulesText());
 
-        if ($bytes_written === false)
-        {
+        if ($bytes_written === false) {
             throw new Exception("Error writing to file");
-        }else{
+        } else {
             $testName = 'Surveys/'.$this->className.'Test';
             Artisan::call('make:test', ['name'=>$testName]);
             $this->info('Created ' . $filename.' and test, tests/'.$testName);
         }
     }
 
-    public function getRulesText() 
-    {        
+    public function getRulesText()
+    {
         $str = str_replace(
-            'DummyClass', 
+            'DummyClass',
             $this->className,
             file_get_contents(__DIR__.'/stubs/rules.stub')
         );
        
-       return $str;
+        return $str;
     }
-
 }
