@@ -6,7 +6,6 @@ use InvalidArgumentException;
 use Sirs\Surveys\HasMetadataTrait;
 use Sirs\Surveys\HasParametersTrait;
 use Illuminate\Support\Facades\Blade;
-use Windwalker\Renderer\BladeRenderer;
 use Sirs\Surveys\Documents\XmlDocument;
 use Sirs\Surveys\Contracts\RenderableInterface;
 
