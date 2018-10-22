@@ -34,5 +34,4 @@ class CreateResponseRevisionsTable extends Migration
     {
         Schema::drop('response_revisions');
     }
-
 }

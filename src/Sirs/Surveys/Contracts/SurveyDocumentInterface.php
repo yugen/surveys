@@ -8,7 +8,7 @@ use Sirs\Surveys\Documents\PageDocument;
  * undocumented class
  *
  * @package default
- * @author 
+ * @author
  **/
 interface SurveyDocumentInterface extends RenderableInterface
 {
@@ -19,67 +19,66 @@ interface SurveyDocumentInterface extends RenderableInterface
    * @return void
    * @param string $name
    **/
-  function setName($name);
+    public function setName($name);
 
-  /**
-   * gets this survey's name
-   *
-   * @return string 
-   **/
-  function getName();
+    /**
+     * gets this survey's name
+     *
+     * @return string
+     **/
+    public function getName();
 
-  /**
-   * sets the version
-   *
-   * @return void
-   * @param string $version
-   **/
-  function setVersion($version);
+    /**
+     * sets the version
+     *
+     * @return void
+     * @param string $version
+     **/
+    public function setVersion($version);
 
-  /**
-   * gets this survey's version
-   *
-   * @return string 
-   **/
-  function getVersion();
+    /**
+     * gets this survey's version
+     *
+     * @return string
+     **/
+    public function getVersion();
 
-  /**
-   * gets pages in this survey
-   *
-   * @return Sirs\Surveys\Contracts\PageDocument
-   * @author 
-   **/
-  function getPages();
+    /**
+     * gets pages in this survey
+     *
+     * @return Sirs\Surveys\Contracts\PageDocument
+     * @author
+     **/
+    public function getPages();
 
-  /**
-   * set pages for the survey
-   *
-   * @return void
-   * @param array $pages
-   **/
-  function setPages($pages);
+    /**
+     * set pages for the survey
+     *
+     * @return void
+     * @param array $pages
+     **/
+    public function setPages($pages);
 
-  /**
-   * adds a page to the end of the survey
-   *
-   * @return void
-   * @param Sirs\Surveys\Contracts\PageDocument $page
-   **/
-  function appendPage(PageDocument $page);
+    /**
+     * adds a page to the end of the survey
+     *
+     * @return void
+     * @param Sirs\Surveys\Contracts\PageDocument $page
+     **/
+    public function appendPage(PageDocument $page);
 
-  /**
-   * prepends a page to the survey
-   *
-   * @return void
-   * @param Sirs\Surveys\Contracts\PageDocument $page
-   **/
-  function prependPage(PageDocument $page);
+    /**
+     * prepends a page to the survey
+     *
+     * @return void
+     * @param Sirs\Surveys\Contracts\PageDocument $page
+     **/
+    public function prependPage(PageDocument $page);
 
-  /**
-   * gets all questions in the survey
-   *
-   * @return array of questionBlocks
-   **/
-  public function getQuestions();
-
+    /**
+     * gets all questions in the survey
+     *
+     * @return array of questionBlocks
+     **/
+    public function getQuestions();
 } // END interface SurveyDocument

@@ -41,8 +41,8 @@ class CreateSurveyXml extends Command
     public function handle()
     {
         $name = ucfirst(camel_case($this->argument('name')));
-        $title = ($this->option('title')) 
-                    ? $this->option('title') 
+        $title = ($this->option('title'))
+                    ? $this->option('title')
                     : ucwords(str_replace('_', ' ', snake_case($name)));
         $version = $this->option('survey_version');
 
@@ -53,12 +53,10 @@ class CreateSurveyXml extends Command
 
         $filename =  config('surveys.surveysPath').'/'.snake_case($name).'.xml';
 
-        if (\File::put($filename, $contents) === false){
+        if (\File::put($filename, $contents) === false) {
             throw new \Exception("Error writing to file");
-        }else{
+        } else {
             $this->info('Created ' . $filename);
         }
-
-
     }
 }

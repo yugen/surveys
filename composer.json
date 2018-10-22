@@ -30,5 +30,12 @@
         "files": [
             "src/Sirs/Surveys/helpers.php"
         ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sirs\\Surveys\\SurveysServiceProvider"
+            ]
+        }
     }
 }

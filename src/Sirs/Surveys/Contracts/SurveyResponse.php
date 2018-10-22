@@ -3,7 +3,7 @@ namespace Sirs\Surveys\Contracts;
 
 use Carbon\Carbon;
 
-interface SurveyResponse 
+interface SurveyResponse
 {
 
     /**

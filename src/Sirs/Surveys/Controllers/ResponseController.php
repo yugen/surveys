@@ -14,20 +14,20 @@ class ResponseController extends BaseController
 
     public function index(Request $request, $surveySlug)
     {
-      $survey = class_survey()::findBySlug($surveySlug);
-      $responses = $survey->responses;
-      return response()->view('surveys::responses.list', ['responses'=>$responses, 'survey'=>$survey]);
+        $survey = class_survey()::findBySlug($surveySlug);
+        $responses = $survey->responses;
+        return response()->view('surveys::responses.list', ['responses'=>$responses, 'survey'=>$survey]);
     }
 
     public function show($surveySlug, $id)
     {
-      $response = class_survey()::findBySlug($surveySlug)->responses()->findOrFail($id);
-      $surveyRoute = route('survey_get', [
-        get_class($response->respondent), 
-        $response->respondent->id, 
+        $response = class_survey()::findBySlug($surveySlug)->responses()->findOrFail($id);
+        $surveyRoute = route('survey_get', [
+        get_class($response->respondent),
+        $response->respondent->id,
         $surveySlug,
-        $response->id 
+        $response->id
       ]);
-      return response()->view('surveys::responses.detail', ['response'=>$response, 'surveyRoute'=>$surveyRoute]);
+        return response()->view('surveys::responses.detail', ['response'=>$response, 'surveyRoute'=>$surveyRoute]);
     }
 }

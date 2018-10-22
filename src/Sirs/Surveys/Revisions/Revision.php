@@ -37,7 +37,7 @@ class Revision extends VentercraftRevision
      */
     public function revisionable()
     {
-        return Response::lookupTable($this->response_table)->where('id','=',$this->response_id);
+        return Response::lookupTable($this->response_table)->where('id', '=', $this->response_id);
     }
 
 

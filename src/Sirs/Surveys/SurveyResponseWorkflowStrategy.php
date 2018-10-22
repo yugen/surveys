@@ -13,7 +13,6 @@ use Sirs\Surveys\Models\Response;
  **/
 class SurveyResponseWorkflowStrategy implements WorkflowStrategy
 {
-
     protected $response;
     protected $event;
 
@@ -23,14 +22,15 @@ class SurveyResponseWorkflowStrategy implements WorkflowStrategy
      * @param SurveyResponse $response  The Survey for which the SurveyResponseEvent was fired
      * @param Events\SurveyResponseEvent $event
      */
-    public function __construct(Response $response, SurveyResponseEvent $event){
+    public function __construct(Response $response, SurveyResponseEvent $event)
+    {
         $this->response = $response;
         $this->event = $event;
     }
 
     /**
      * Determines and executes the appropriate instance method based on SurveyResponseEvent type.
-     * @return void 
+     * @return void
      */
     public function run()
     {
@@ -38,10 +38,9 @@ class SurveyResponseWorkflowStrategy implements WorkflowStrategy
 
         $method = lcfirst(substr($reflection->getShortName(), strlen('SurveyResponse')));
         
-        if ( method_exists($this, $method) ) {
+        if (method_exists($this, $method)) {
             $this->$method($this->response);
         }
-        
     }
 
     public function finalized()
@@ -59,5 +58,4 @@ class SurveyResponseWorkflowStrategy implements WorkflowStrategy
     public function started()
     {
     }
-
 } // END class SurveyTypeWorkflowStrategy

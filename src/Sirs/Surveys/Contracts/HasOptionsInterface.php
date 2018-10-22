@@ -9,20 +9,19 @@ namespace Sirs\Surveys\Contracts;
  **/
 interface HasOptionsInterface
 {
+    public function parseOptions(\SimpleXmlElement $simpleXmlElement);
 
-  public function parseOptions(\SimpleXmlElement $simpleXmlElement);
+    /**
+     * Sets options for possible values
+     *
+     * @param array $options
+     **/
+    public function setOptions(array $options);
 
-  /**
-   * Sets options for possible values
-   *
-   * @param array $options
-   **/
-  public function setOptions(array $options);  
-
-  /**
-   * Gets options for possible values
-   *
-   * @return array or options
-   **/
-  public function getOptions();
+    /**
+     * Gets options for possible values
+     *
+     * @return array or options
+     **/
+    public function getOptions();
 } // END interface EnumStructuredData extends StructuredData

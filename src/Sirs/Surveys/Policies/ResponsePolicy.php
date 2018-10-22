@@ -33,5 +33,4 @@ class ResponsePolicy
     {
         return true;
     }
-
 }

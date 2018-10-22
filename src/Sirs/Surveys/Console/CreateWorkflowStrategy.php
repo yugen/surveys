@@ -38,9 +38,9 @@ class CreateWorkflowStrategy extends Command
         $surveys = collect([]);
         if ($surveySlug == 'all') {
             $surveys = Survey::all();
-        }else{
+        } else {
             $surveys = Survey::where('slug', $surveySlug)->get();
-            if($surveys->count() < 1){
+            if ($surveys->count() < 1) {
                 $this->error('Could not find survey type with slug '.$this->argument('survey_slug').'.');
                 $typeSlugs = Survey::all()->lists('slug')->toArray();
                 $this->info("Appointment types for this project: \n\t".implode("\n\t", $typeSlugs));
@@ -48,7 +48,7 @@ class CreateWorkflowStrategy extends Command
             }
         }
 
-        $surveys->each(function($type){
+        $surveys->each(function ($type) {
             $typeClassName = $this->buildClassName($type);
             $this->createClass($type);
             \Artisan::call('make:test', [
@@ -58,31 +58,30 @@ class CreateWorkflowStrategy extends Command
         });
     }
 
-    protected function createClass(Survey $survey){
-
+    protected function createClass(Survey $survey)
+    {
         $typeClassName = $this->buildClassName($survey);
         $stub = file_get_contents(__DIR__.'/stubs/WorkflowStrategy.stub');
         $classContent = preg_replace('/{DummyType}/', $typeClassName, $stub);
 
-        if( !file_exists(app_path('Surveys/Workflows')) ){
+        if (!file_exists(app_path('Surveys/Workflows'))) {
             mkdir(app_path('Surveys/Workflows'));
         }
 
         $classFile = app_path('Surveys/Workflows/'.$typeClassName.'WorkflowStrategy.php');
-        if( !file_exists($classFile) ){
+        if (!file_exists($classFile)) {
             file_put_contents($classFile, $classContent);
             $this->info('Created class at '.$classFile);
-        }elseif($this->confirm("There's already a workflow class for this survey type.\n Do you want to replace the existing file? [y|N]")){
+        } elseif ($this->confirm("There's already a workflow class for this survey type.\n Do you want to replace the existing file? [y|N]")) {
             file_put_contents($classFile, $classContent);
             $this->info('Replaced '.$classFile);
-        }else{
+        } else {
             $this->info('Left existing workflow in place.');
         }
     }
 
     protected function buildClassName(Survey $survey)
     {
-        return ucfirst(camel_case($survey->slug));        
+        return ucfirst(camel_case($survey->slug));
     }
-
 }

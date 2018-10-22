@@ -10,15 +10,13 @@ use Sirs\Surveys\Documents\Blocks\Questions\NumericScaleQuestion;
 use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
 use Sirs\Surveys\Documents\Blocks\Questions\TimeQuestion;
 
-
 class QuestionFactory
 {
-
     protected $tagToClassMap;
 
     public function __construct()
     {
-      $this->tagToClassMap = [
+        $this->tagToClassMap = [
         'question' => QuestionBlock::class,
         'date'     => DateQuestion::class,
         'time'     => TimeQuestion::class,
@@ -32,12 +30,12 @@ class QuestionFactory
 
     public function create($xmlElement)
     {
-      $questionClass = $this->getQuestionClass($xmlElement);
-      return new $questionClass($xmlElement);
+        $questionClass = $this->getQuestionClass($xmlElement);
+        return new $questionClass($xmlElement);
     }
 
     public function getQuestionClass($xmlElement)
     {
-      return $this->tagToClassMap[$xmlElement->getName()];
+        return $this->tagToClassMap[$xmlElement->getName()];
     }
 }

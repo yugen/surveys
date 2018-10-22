@@ -5,14 +5,15 @@ namespace Sirs\Surveys;
  * validates xml and returns detailed error messages
  *
  * @package default
- * @author 
+ * @author
  **/
-class XmlValidator 
+class XmlValidator
 {
     protected $schemaPath;
 
-    public function __construct($schemaPath){
-      $this->schemaPath = __DIR__.'/survey.xsd';
+    public function __construct($schemaPath)
+    {
+        $this->schemaPath = __DIR__.'/survey.xsd';
     }
 
     protected function libxml_display_error($error, $xmlString)
@@ -40,19 +41,20 @@ class XmlValidator
         return $return;
     }
 
-    public function validate($xmlString){
+    public function validate($xmlString)
+    {
         // Enable user error handling
         libxml_use_internal_errors(true);
 
-        $doc = new \DOMDocument(); 
+        $doc = new \DOMDocument();
         $doc->loadXML($xmlString);
 
         if (!$doc->schemaValidate($this->schemaPath)) {
-          $errors = libxml_get_errors();
-          foreach ($errors as $error) {
-              throw new \Exception( $this->libxml_display_error($error, $xmlString));
-          }
-          libxml_clear_errors();
+            $errors = libxml_get_errors();
+            foreach ($errors as $error) {
+                throw new \Exception($this->libxml_display_error($error, $xmlString));
+            }
+            libxml_clear_errors();
         }
     }
-} // END XmlValidator class 
+} // END XmlValidator class

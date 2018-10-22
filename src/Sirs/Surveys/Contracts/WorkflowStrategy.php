@@ -18,7 +18,7 @@ interface WorkflowStrategy
 
     /*
      * runs the appropriate method based on $this->task and $this->event
-     */ 
+     */
     public function run();
 
 
@@ -29,5 +29,4 @@ interface WorkflowStrategy
     public function finalized();
 
     public function reopened();
-
 } // END interface SurveyWorkflowStrategyInterface

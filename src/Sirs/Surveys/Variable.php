@@ -9,18 +9,17 @@ namespace Sirs\Surveys;
  **/
 class Variable
 {
-  public $name;
-  public $dataFormat;
+    public $name;
+    public $dataFormat;
 
-  public function __construct($name, $dataFormat)
-  {
-    $this->name = $name;
-    $this->dataFormat = $dataFormat;
-
-  }
+    public function __construct($name, $dataFormat)
+    {
+        $this->name = $name;
+        $this->dataFormat = $dataFormat;
+    }
     public function getType()
     {
-        switch($this->dataFormat){
+        switch ($this->dataFormat) {
             case 'int':
             case 'float':
             case 'double':
@@ -43,7 +42,8 @@ class Variable
         }
     }
 
-    public function __get($attr){
+    public function __get($attr)
+    {
         if (method_exists($this, 'get'.ucfirst($attr))) {
             $method = 'get'.ucfirst($attr);
             return $this->$method();

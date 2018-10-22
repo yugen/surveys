@@ -8,7 +8,7 @@
         <div class="modal-body">
             <div id="revision-history">
                 <?php 
-                    $revisions = $response->revisionHistory->groupBy(function($item, $key){
+                    $revisions = $response->revisionHistory->groupBy(function ($item, $key) {
                         return $item->created_at->format('Y-m-d H:i:s');
                     });
                 ?>

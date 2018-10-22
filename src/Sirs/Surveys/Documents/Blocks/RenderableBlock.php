@@ -50,9 +50,6 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
      **/
     public function setTemplate($template = null)
     {
-        // print("\n----\n RenderableBlock::setTemplate \n---\n");
-        // print('template: '. $template."\n");
-        //
         $this->template = $template;
 
         return $this;
@@ -121,13 +118,13 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
 
         $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
         $view = $this->renderer->render(
-      $this->getTemplate(),
-      [
-        'chromeTemplate'=>$chromeTemplate,
-        'context'=>$context,
-        'renderable'=>$this
-      ]
-    );
+        $this->getTemplate(),
+            [
+                'chromeTemplate'=>$chromeTemplate,
+                'context'=>$context,
+                'renderable'=>$this
+            ]
+        );
 
         return $view;
     }

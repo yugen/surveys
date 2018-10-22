@@ -6,7 +6,7 @@ namespace Sirs\Surveys;
  * A simple container for pretext data to make it easier to work with.
  *
  * @package sirs/surveys
- * @author 
+ * @author
  **/
 class RulesPretext
 {
@@ -19,7 +19,7 @@ class RulesPretext
 
     public function save()
     {
-        session()->put('pretext', $this->getData());        
+        session()->put('pretext', $this->getData());
     }
 
     public function getData()
@@ -29,9 +29,9 @@ class RulesPretext
 
     public function __set($attr, $val)
     {
-        if(property_exists(get_class($this), $attr)){
+        if (property_exists(get_class($this), $attr)) {
             $this->{$attr} = $val;
-        }else{
+        } else {
             $this->data[$attr] = $val;
         }
     }
@@ -45,12 +45,11 @@ class RulesPretext
     {
         if (property_exists(get_class($this), $attr)) {
             return $this->{$attr};
-        }else{
+        } else {
             if (isset($this->data[$attr])) {
                 return $this->data[$attr];
             }
             return null;
         }
-
     }
 } // END class RulesPretext

@@ -31,11 +31,11 @@ class CreateSurveyRulesFromDocument extends Command
      */
     protected $documentFile = null;
 
-     /**
-     * The survey object
-     *
-     * @var string
-     */
+    /**
+    * The survey object
+    *
+    * @var string
+    */
     protected $survey = null;
 
 
@@ -53,7 +53,7 @@ class CreateSurveyRulesFromDocument extends Command
         $dir = config('surveys.rulesPath');
         $filename =  $dir.'/'.$this->surveyDoc->getRulesClassName() .'.php';
 
-        if( !File::exists($dir) ){
+        if (!File::exists($dir)) {
             File::makeDirectory($dir, 0775, true);
         }
         if (File::exists($filename)) {
@@ -61,10 +61,9 @@ class CreateSurveyRulesFromDocument extends Command
         }
         $bytes_written = File::put($filename, $this->getRulesText());
 
-        if ($bytes_written === false)
-        {
+        if ($bytes_written === false) {
             throw new Exception("Error writing to file");
-        }else{
+        } else {
             $testName = 'Surveys/'.$this->surveyDoc->getRulesClassName().'Test';
             Artisan::call('make:test', ['name'=>$testName]);
             $this->info('Created ' . $filename);
@@ -72,22 +71,21 @@ class CreateSurveyRulesFromDocument extends Command
         }
     }
 
-    public function getRulesText() 
-    {        
+    public function getRulesText()
+    {
         $str = str_replace(
-            'DummyClass', 
-            $this->surveyDoc->getRulesClassName() ,
+            'DummyClass',
+            $this->surveyDoc->getRulesClassName(),
             file_get_contents(__DIR__.'/stubs/rules.stub')
         );
        
-       $pageStr = '';
-       $pageTitles = [];
-       foreach( $this->surveyDoc->getPages() as $page ) {
+        $pageStr = '';
+        $pageTitles = [];
+        foreach ($this->surveyDoc->getPages() as $page) {
             $pageTitles[] = $page->getTitle();
-       }
-       $pageStr = implode("\n\t\t", $pageTitles);
+        }
+        $pageStr = implode("\n\t\t", $pageTitles);
         $str = str_replace('PAGES', $pageStr, $str);
-       return $str;
+        return $str;
     }
-
 }
