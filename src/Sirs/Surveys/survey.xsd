@@ -200,7 +200,7 @@
 		</xs:complexType>
 
 		<!-- data-format -->
-		<xs:simpleType name="data-format">
+		<xs:simpleType name="data-type">
 			<xs:restriction base="xs:string">
 				<xs:enumeration value="tinyint" />
 				<xs:enumeration value="smallint" />
@@ -217,7 +217,7 @@
 				<xs:enumeration value="text" />
 				<xs:enumeration value="mediumtext" />
 				<xs:enumeration value="longtext" />
-                <xs:enumeration value="json" />
+				<xs:enumeration value="json" />
 				<xs:enumeration value="binary" />
 				<xs:enumeration value="varbinary" />
 				<xs:enumeration value="tinyblob" />
@@ -231,6 +231,16 @@
 				<xs:enumeration value="timestamp" />
 				<xs:enumeration value="year" />
 			</xs:restriction>
+		</xs:simpleType>
+
+		<xs:simpleType name="data-format">
+			<xs:union memberTypes="data-type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="varchar(\d+)" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:union>
 		</xs:simpleType>
 
 		<!-- time-unit -->
