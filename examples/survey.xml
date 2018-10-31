@@ -1,7 +1,6 @@
 <survey name="ParticipantIntake" version="1" title="Participant Intake" response-limit="-1">
 	<page name="demographics">
 		<question-group name="name">
-			
 			<question name="FirstName" required="1" placeholder="First" data-format="text">
 				<question-text>First Name</question-text>
 			</question>
@@ -12,7 +11,7 @@
 				<question-text>Last Name</question-text>
 			</question>
 		</question-group>
-		<date name="DOB" required="1" placeholder="MM/DD/YYYY" data-format="date">
+		<date name="DOB" required="1" placeholder="MM/DD/YYYY">
 			<question-text>Date of Birth</question-text>
 		</date>
 		<number name="Height" required="1" data-format="int">

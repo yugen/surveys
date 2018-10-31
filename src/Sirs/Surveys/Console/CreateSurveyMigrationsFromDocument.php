@@ -91,8 +91,7 @@ class CreateSurveyMigrationsFromDocument extends Command
 
             foreach ($variables as $idx => $var) {
                 // print_r('var: '.$var->name."\n");
-                $questionStrings[] = '$table->'.$this->setMigrationDataType($var->dataFormat)
-                   ."('".$var->name."')->nullable();";
+                $questionStrings[] = $this->buildColumnDefinition($var);
             }
         }
 
@@ -102,8 +101,25 @@ class CreateSurveyMigrationsFromDocument extends Command
         return $str;
     }
 
-    public function setMigrationDataType($dataFormat)
+    private function buildColumnDefinition($var)
     {
+        $type = $this->getMigrationDataType($var->dataFormat);
+
+        $def = '$table->'.$type->name.'(\''.$var->name.'\'';
+        $def .= ($type->size) ? ', '.$type->size : '';
+                    
+        $def .= ')->nullable();';
+
+        return $def;
+    }
+
+    public function getMigrationDataType($dataFormat)
+    {
+        $type = (object)[
+            'name' => null,
+            'size' => null
+        ];
+
         $mysqlToLaravelTypeMap = [
             'tinyint'=>'tinyInteger',
             'smallint'=>'smallInteger',
@@ -134,10 +150,18 @@ class CreateSurveyMigrationsFromDocument extends Command
             'timestamp'=>'timestamp',
             'year'=>'date',
         ];
-        if (isset($mysqlToLaravelTypeMap[$dataFormat])) {
-            return $mysqlToLaravelTypeMap[$dataFormat];
+        $parts = preg_split('/\(|\)/', $dataFormat);
+
+        if (!isset($mysqlToLaravelTypeMap[$parts[0]])) {
+            throw new \Exception($parts[0].' not found in available data formats');
         }
-        throw new \Exception($dataFormat.' not found in available data formats');
+
+        $type->name = $mysqlToLaravelTypeMap[$parts[0]];
+
+        if (isset($parts[1])) {
+            $type->size = $parts[1];
+        }
+        return $type;
     }
 
     public function formatTableName($name, $version)
