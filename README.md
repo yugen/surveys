@@ -143,20 +143,62 @@ See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-survey
 ## Containers
 ### Page
 ### QuestionGroup
+### Html
+
 
 ## Questions
 ### Question
 ### MultipleChoice
 #### Options
 ##### Attributes
-* name - string - required
+* name - string - *required*
 * id
 * class
 * exclusive - integer: integer indicates group
 
 ### Date
-### Numeric
-...
+A question collectind date information between optional **min** and **max** boundaries
+```
+<date name="DOB" required="1" placeholder="MM/DD/YYYY" min="1940-01-01" max="1990-01-01">
+  <question-text>Date of Birth</question-text>
+</date>
+```
+### Time
+### Duration
+### Number
+A question which requires a number for a value between **min** to **max**.
+```
+<number name="Height" required="1" data-format="int">
+  <template source="Height_Inches.blade.php" />
+  <question-text>Height (inches)</question-text>
+</number>
+```
+### Numeric Scale
+A numeric-scale with options ranging from **min** to **max** at **interval**.
+```
+<numeric-scale name="test" min="1" max="5" interval="1">
+    <question-text>Numeric scale question.</question-text>
+    <legend>
+        <item>
+            <label>First</label>
+            <value>1</value>
+        </item>
+        <item>
+            <label>Last</label>
+            <value>5</value>
+        </item>
+    </legend>
+</numeric-scale>
+```
+#### Attributes
+*  min - interger - *required*
+*  max - integer - *required*
+*  interval - integer - interval between options
+
+#### Legend:
+The legend describes the meaning of the options.  It is made up of any number of items each of whicl have a `<label>` and `<value>`.  When rendered the items will be evenly distributed above the options.
+
+
 
 ### Who do I talk to? ###
 
