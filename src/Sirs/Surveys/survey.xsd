@@ -275,6 +275,7 @@
 				<xs:element name="label" type="xs:string" />
 				<xs:element name="value" type="xs:string" />
 				<xs:element name="template" type="template" minOccurs="0" />
+				<xs:element name="metadata" type="metadata" />
 			</xs:choice>
 			<xs:attribute name="id" type="xs:string" />
 			<xs:attribute name="name" type="xs:string" />
