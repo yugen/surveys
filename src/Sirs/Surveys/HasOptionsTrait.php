@@ -46,7 +46,7 @@ trait HasOptionsTrait
 
     public function getOptions()
     {
-        return ($this->options) ? $this->options : [];
+        return ($this->options) ? collect($this->options) : collect([]);
     }
 
     public function appendOption(OptionBlock $option)

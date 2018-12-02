@@ -1,5 +1,3 @@
-<!-- <?php print('<pre>');print_r($renderable->getOptions());print('</pre>'); ?> -->
-
 <div class="conatiner-block likert-container">
   <table class="table table-striped">
     <thead>
@@ -16,7 +14,7 @@
       >
         <td class="question-col question-text">
           {!! html_entity_decode($question->getCompiledQuestionText($context)); !!}
-          <div>@include('error', ['question'=>$question])</div>
+          <div>@include('survey::error', ['question'=>$question])</div>
         </td>
         <td class="option-col">
           <div class="btn-group" role="group" data-toggle="buttons">

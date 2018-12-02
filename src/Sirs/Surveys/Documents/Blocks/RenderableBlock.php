@@ -2,12 +2,12 @@
 
 namespace Sirs\Surveys\Documents\Blocks;
 
-use Illuminate\Support\Facades\Blade;
-use Sirs\Surveys\Contracts\RenderableInterface;
-use Sirs\Surveys\Documents\XmlDocument;
+use InvalidArgumentException;
 use Sirs\Surveys\HasMetadataTrait;
 use Sirs\Surveys\HasParametersTrait;
-use Windwalker\Renderer\BladeRenderer;
+use Illuminate\Support\Facades\Blade;
+use Sirs\Surveys\Documents\XmlDocument;
+use Sirs\Surveys\Contracts\RenderableInterface;
 
 class RenderableBlock extends XmlDocument implements RenderableInterface
 {
@@ -106,27 +106,8 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
      **/
     public function render($context)
     {
-        $customTemplatePath = config('surveys.customTemplatePath');
-        $paths = new \SplPriorityQueue;
-        $paths->insert(__DIR__.'/../../Views', 100);
-        if ($customTemplatePath) {
-            $paths->insert($customTemplatePath, 200);
-        }
-        $this->renderer = new BladeRenderer($paths, [
-        'cache_path' => config('surveys.rendererConfig.cache_path')
-    ]);
-
         $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
-        $view = $this->renderer->render(
-        $this->getTemplate(),
-            [
-                'chromeTemplate'=>$chromeTemplate,
-                'context'=>$context,
-                'renderable'=>$this
-            ]
-        );
-
-        return $view;
+        return view('surveys::'.$this->getTemplate(), ['context'=>$context, 'renderable' => $this, 'chromeTemplate'=>$chromeTemplate])->render();
     }
 
     public function renderWithDefault($defaultTemplate)
