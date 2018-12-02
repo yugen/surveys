@@ -1,5 +1,3 @@
-<!-- <?php print('<pre>');print_r($renderable->getOptions());print('</pre>'); ?> -->
-
 <div class="conatiner-block likert-container">
   <table class="table table-striped">
     <thead>
