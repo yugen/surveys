@@ -15,7 +15,7 @@ class Survey extends Model implements SurveyModel
 
     protected $table = "surveys";
     protected $fillable = ['name', 'version', 'file_name', 'response_table'];
-    protected $document = null;
+    protected $_document = null;
 
     public function sluggable()
     {
@@ -66,19 +66,19 @@ class Survey extends Model implements SurveyModel
      **/
     public function getSurveyDocument()
     {
-        if (is_null($this->document)) {
-            $this->document = SurveyDocument::initFromFile(base_path($this->file_name));
+        if (is_null($this->_document)) {
+            $this->_document = SurveyDocument::initFromFile(base_path($this->file_name));
         }
 
-        return $this->document;
+        return $this->_document;
     }
 
-    public function getSurveyDocumentAttribute()
+    public function getDocumentAttribute()
     {
         return $this->getSurveyDocument();
     }
 
-    public function getDocumentAttribute()
+    public function getSurveyDocumentAttribute()
     {
         return $this->getSurveyDocument();
     }
