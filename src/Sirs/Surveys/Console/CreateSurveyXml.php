@@ -51,6 +51,10 @@ class CreateSurveyXml extends Command
         $contents = str_replace('DUMMY_TITLE', $title, $contents);
         $contents = str_replace('DUMMY_VERSION', $version, $contents);
 
+        if (!file_exists(config('surveys.surveysPath'))) {
+            mkdir(config('surveys.surveysPath'));
+        }
+
         $filename =  config('surveys.surveysPath').'/'.snake_case($name).'.xml';
 
         if (\File::put($filename, $contents) === false) {
