@@ -9,7 +9,7 @@ return [
     'rendererConfig' => [
         'cache_path' => storage_path('storage/framework/views'),
     ],
-    'routeGroup'=>['middleware' => 'auth'],
+    'routeGroup'=>['middleware' => ['web', 'auth']],
     'chromeTemplate'=>'app',
     'cacheDocuments'=>(env('APP_DEBUG')) ? false : true,
     'refusedLabel'=>'Refused',
