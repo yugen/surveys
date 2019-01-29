@@ -57,7 +57,7 @@ class CreateSurveyRules extends Command
         } else {
             $testName = 'Surveys/'.$this->className.'Test';
             Artisan::call('make:test', ['name'=>$testName]);
-            $this->info('Created ' . $filename.' and test, tests/'.$testName);
+            $this->info('Created ' . $filename.' and test, tests/Feature/Surveys'.$testName);
         }
     }
 
