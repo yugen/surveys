@@ -62,11 +62,14 @@ You can create surveys 2 ways
 
 * All at once:
   1. Create XML stub and Rules: `$ php artisan make:survey survey_name`
+  1. Add questions to your survey.
   2. Create migration: `$ php artisan survey:migration path/to/survey/survey_name.xml`
 * By hand:
   1. Add survey XML document to your surveysPath (see configuration)
-  1. Create rules: `$ php artisan survey:rules path/to/survey/document`
-  1. Create migration: `$ php artisan survey:migration path/to/survey/document`
+  1. Create a rules class and a migration with `$ php artisan survey:new path/to/survey/document`
+      * Alternately you can run those seperately:
+        1. Create rules: `$ php artisan survey:rules path/to/survey/document`
+        1. Create migration: `$ php artisan survey:migration path/to/survey/document`
 
 ## Defining behavior
 ### Rules
