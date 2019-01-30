@@ -128,7 +128,7 @@ trait ResponseRevisionableTrait
                 'key' => self::CREATED_AT,
                 'old_value' => null,
                 'new_value' => $this->{self::CREATED_AT},
-                'user_id' => Auth::user()->id,
+                'user_id' => (Auth::user()) ? Auth::user()->id : null,
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             );
