@@ -51,11 +51,13 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
     * **frequency**: *(int)* - Frequency of autosaves in milliseconds
     * **notify**: *(bool)* - Notify the user of the autosave
     * **notify_time**: *(int)* - Length of time the notification is displayed
-    * **bindings**: 
-          Bindings can be used to override the classes used for the Survey and Response models, allowing you to do things like define relationships, fire custom events, and override default behavior. Leave this section of the config commented out to use the models provided by the package.
-      * **models**:
-        * **Survey**: *(string)* - App\Survey::class (must implement  *Sirs\Surveys\Contracts\SurveyContract*)
-        * **Response**: *(string)* - App\SurveyResponse::class (must implement *Sirs\Surveys\Contracts\SurveyResponse*)
+  * **bindings**: 
+        Bindings can be used to override the classes used for the Survey and Response models, allowing you to do things like define relationships, fire custom events, and override default behavior. Leave this section of the config commented out to use the models provided by the package.
+
+        NOTE: This is optional. If not set Sirs\Surveys\Models\Response and Sirs\Surveys\Models\Survey will be used.
+    * **models**:
+      * **Survey**: *(string)* - App\Survey::class (must implement  *Sirs\Surveys\Contracts\SurveyContract*)
+      * **Response**: *(string)* - App\SurveyResponse::class (must implement *Sirs\Surveys\Contracts\SurveyResponse*)
 
 ## Creating Surveys
 You can create surveys 2 ways
