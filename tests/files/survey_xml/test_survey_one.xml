@@ -1,0 +1,43 @@
+<survey name="test_survey_one" title="Test Survey One" version="1">
+    <page name="page_1" title="Page 1">
+        <question name="q1" id="q1">
+            <question-text>What is the question</question-text>
+        </question>
+        <multiple-choice name="q2" id="q2" num-selectable="1">
+            <question-text>
+                question?
+            </question-text>
+            <options>
+                <option name="q2a">
+                    <value>a</value>
+                    <label>A</label>
+                </option>
+                <option name="q2b">
+                    <value>b</value>
+                    <label>B</label>
+                </option>
+                <option name="q2c">
+                    <value>c</value>
+                    <label>C</label>
+                </option>
+                <option name="q2d">
+                    <value>d</value>
+                    <label>D</label>
+                </option>
+                <option name="q2e">
+                    <value>e</value>
+                    <label>E</label>
+                </option>
+                <option name="q2f">
+                    <value>f</value>
+                    <label>F</label>
+                </option>
+                <option name="q2g">
+                    <value>g</value>
+                    <label>G</label>
+                </option>
+            </options>
+        </multiple-choice>
+    </page>
+    <include source="include_page.xml"></include>   
+</survey>
