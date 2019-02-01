@@ -19,8 +19,10 @@
       <h4>
         {{$context['response']->respondent->full_name ?? 'Respondent:'.$context['response']->respondent->id}} 
         - 
-        {{ $context['survey']['title'] ?? ucwords($context['survey']['name'])}}        
-        - {{$renderable->title}}
+        {{ $context['survey']['title'] ?? ucwords($context['survey']['name'])}}
+        @if ($renderable->title)
+          - {{$renderable->title}}
+        @endif
       </h4>
     </div>
     <div class="panel-body card-body">

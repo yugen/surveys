@@ -31,16 +31,10 @@
             }
 
             .error-block{
-                {{-- @extend .alert;
-                @extend .alert-danger; --}}
                 font-size: 12px;
                 padding: .5em
             }
             .error-block>.error-list{
-            }
-
-            .question-block.vertical .btn-group{
-                {{-- @extend .btn-group-vertical; --}}
             }
 
             .likert-container .question-text

@@ -1,8 +1,8 @@
-<div class="btn-group" role="group" data-toggle="buttons">
+<div class="btn-group btn-group-toggle" role="group" data-toggle="buttons">
   @foreach($question->options as $option)
     <label 
       id="{{$question->name}}-{{$option->name}}-label"
-      class="btn btn-default @if(!is_null($context['response']->{$question->name}) && $context['response']->{$question->name} == $option->value)active @endif
+      class="btn btn-light border @if(!is_null($context['response']->{$question->name}) && $context['response']->{$question->name} == $option->value)active @endif
         @if($option->class){{$option->class}}@endif
       "
       @if(isset($fixedWidth))
