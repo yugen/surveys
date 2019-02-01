@@ -25,6 +25,7 @@ class SurveysServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/Views', 'surveys');
+        ServiceProvider::loadMigrationsFrom(__DIR__.'/database/migrations');
 
         $this->publishes([ __DIR__.'/config/config.php' => config_path('surveys.php') ], 'config');
         $this->publishes([ __DIR__.'/database/migrations/' => database_path('/migrations') ], 'migrations');

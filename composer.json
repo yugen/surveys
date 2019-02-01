@@ -13,18 +13,22 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1.0",
         "laravel/framework": "~5.1",
         "cviebrock/eloquent-sluggable": ">=4.1",
         "venturecraft/revisionable": "1.*",
         "doctrine/dbal": "^2.7"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~7.0",
+        "orchestra/testbench": "^3.7"
     },
     "autoload": {
         "psr-0": {
             "Sirs\\Survey": "src"
+        },
+        "psr-4": {
+            "Sirs\\Surveys\\Tests\\": "tests"
         },
         "files": [
             "src/Sirs/Surveys/helpers.php"

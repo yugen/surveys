@@ -89,7 +89,7 @@ abstract class XmlDocument implements JsonSerializable
         } elseif ($xml instanceof \SimpleXMLElement) {
             $doc = $xml;
         } else {
-            throw new \Exception('XML String of SimpleXMLElement expected.');
+            throw new \Exception('XML String or SimpleXMLElement expected.');
         }
 
         $docDom = dom_import_simplexml($doc);
