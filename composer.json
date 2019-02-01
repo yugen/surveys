@@ -27,12 +27,14 @@
         "psr-0": {
             "Sirs\\Survey": "src"
         },
-        "psr-4": {
-            "Sirs\\Surveys\\Tests\\": "tests"
-        },
         "files": [
             "src/Sirs/Surveys/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sirs\\Surveys\\Tests\\": "tests"
+        }
     },
     "extra": {
         "laravel": {
