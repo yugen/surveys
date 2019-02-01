@@ -1,5 +1,7 @@
-@extends('questions.question')
+@component('surveys::questions.question', compact('renderable', 'context'))
 
-@section('answers')
-  @include('questions.input', ['question'=>$renderable, 'context'=>$context, 'type'=>'text', 'class'=>"timepicker"])
-@endsection
+  @slot('answers')
+    @include('surveys::questions.input', ['question'=>$renderable, 'context'=>$context, 'type'=>'text', 'class'=>"timepicker"])
+  @endslot
+
+@endcomponent

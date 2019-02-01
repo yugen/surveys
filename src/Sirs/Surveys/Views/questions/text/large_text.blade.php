@@ -1,5 +1,5 @@
-@extends('questions.question')
+@extends('surveys::questions.question')
 
 @section('answers')
-  @include('questions.textarea', ['question'=>$renderable, 'context'=>$context])
+  @include('surveys::questions.textarea', ['question'=>$renderable, 'context'=>$context])
 @endsection

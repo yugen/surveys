@@ -1,12 +1,12 @@
-@extends('layouts.app')
+@extends('surveys::default_layout')
 
 @section('content')
-
+<br>
 <form class="sirs-survey" method="POST" name="{{$context['survey']['name']}}-{{$renderable->name}}" novalidate>
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <div class="pull-right" style="margin-top: 4px;">
+  <div class="panel panel-default card">
+    <div class="panel-heading card-header">
+      <div class="pull-right float-right" style="margin-top: 4px;">
         
         @if($context['response']->finalized_at)
           <small class="finalized-response-warning">
@@ -23,7 +23,7 @@
         - {{$renderable->title}}
       </h4>
     </div>
-    <div class="panel-body">
+    <div class="panel-body card-body">
       @if($renderable->contents)
         @foreach($renderable->contents as $content)
           {!! $content->render($context) !!}
@@ -34,7 +34,7 @@
         </div>
       @endif
     </div>
-    <div class="panel-footer">
+    <div class="panel-footer card-footer">
       @if($context['survey']['currentPageIdx'] > 0)
         <button id="nav-prev" type="submit" name="nav" value="prev" class="btn btn-default">Back</button>
       @endif
@@ -44,7 +44,7 @@
       @if($context['survey']['currentPageIdx'] == ($context['survey']['totalPages']-1))
         <button id="nav-finalize" type="submit" name="nav" value="finalize" class="btn btn-primary">Finish &amp; Finalize</button>
       @endif
-      <div id="save-buttons" class="pull-right">
+      <div id="save-buttons" class="pull-right float-right">
         @if(!isset($context['hideSave']) || !$context['hideSave'])
         <button id="nav-save" type="submit" name="nav" value="save" class="btn btn-default">Save</button>
         @endif
@@ -55,7 +55,9 @@
     </div>
   </div>
 </form>
-<div class="alert alert-info notification" id="flast-notification">Auto-saved at <span id="notification-time"></span>.</div>
+
+<div class="alert alert-info notification d-none" id="flast-notification">Auto-saved at <span id="notification-time"></span>.</div>
+
 <div class="text-muted">
   <small>
     {{ $context['survey']['title'] ?? ucwords($context['survey']['name'])}}        
@@ -77,68 +79,7 @@
   </style>
 @endpush
 
-@push('scripts')
-<script>
-
-  // Plugins
-  $(document).ready(function(){
-    $('[data-skipTarget]').skipTrigger();
-    $('.mutually-exclusive').mutuallyExclusive();
-    $('.sm_datepicker').datepicker({
-        format: "mm/dd/yyyy"
-    });
-
-    $('.timepicker').timepicker({
-      minTime: '5:00am',
-      maxTime: '7:00pm'
-    }).on('keydown', function(evt){
-      if([13,38,40].indexOf(evt.keyCode) < 0) {
-        $(this).timepicker('hide');
-      }
-    }).on('changeTime', function(){
-      $(this).removeClass('input-error');
-    }).on('timeFormatError', function(){
-      $(this).addClass('input-error');
-    });
-  });
-
-  @if(config('surveys.autosave.enabled'))
-  // autosave
-  $(document).ready(function(){
-
-    var activeRequest = false;
-
-    var formIsDirty = false;
-    $('form.sirs-survey').on('change', function(){ formIsDirty = true; });
-
-    var notify = function(){
-      $('#notification-time').text(moment().format('hh:mm:ss'))
-      $('#flast-notification').fadeIn();
-      setTimeout( function(){$('#flast-notification').fadeOut()}, {{config('surveys.autosave.notify_time', 2500) }});
-    }
-
-    var autosave = function(){
-      if(!activeRequest && formIsDirty){
-        activeRequest = true;
-        $.ajax({
-          url: '{{route('surveys.autosave', [ get_class($context['respondent']),  $context['respondent']->id,  $context['survey']['object']->slug,  $context['response']->id ])}}',
-          method: 'PUT',
-          data: $('form.sirs-survey').serializeArray(),
-          success: function(){
-            activeRequest = formIsDirty = false;
-            @if(config('surveys.autosave.notify'))
-            notify();
-            @endif
-          },
-          error: function(xhr, error){
-            activeRequest = formIsDirty = false;
-          }
-        })    
-      }
-    };
-
-    setInterval(autosave, {{config('surveys.autosave.frequency', 10000)}});
-  });
-  @endif
-</script>
+@push('js')
+  @include('surveys::js.plugins')
+  @include('surveys::js.autosave')
 @endpush

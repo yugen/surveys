@@ -78,8 +78,8 @@
 </div>
 
 <div style="height: 500px; overflow-y: scroll; padding-top: 1em; border-top: 1px solid #aaa; margin-top: 1em;">
-    @include('surveys::responses.var_list', ['response'=>$response])
+    @include('surveys::surveys::responses.var_list', ['response'=>$response])
 </div>
 
-@include('surveys::responses.revisions');
+@include('surveys::surveys::responses.revisions');
 @endsection

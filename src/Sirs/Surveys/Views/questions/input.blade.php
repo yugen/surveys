@@ -1,5 +1,5 @@
 @if($question->refusable)
-  @include('questions.refusable_input', ['question'=>$question])
+  @include('surveys::questions.refusable_input', ['question'=>$question])
 @else
 <input
   type="{{$type ?? 'text'}}" 

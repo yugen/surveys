@@ -17,21 +17,21 @@
     </label>
     @yield('answers')
     <div class="pull-right col-sm-3">
-      @include('survey::error', ['question'=>$renderable])
+      @include('surveys::survey::error', ['question'=>$renderable])
     </div>
   @else
     @if($renderable->questionText)
-      @include('questions.question_text', ['question'=>$renderable])
+      @include('surveys::questions.question_text', ['question'=>$renderable])
     @endif
-
     <div class="row">
       <div class="question-answers col-sm-9">
-        @yield('answers')
+        {{-- @yield('answers') --}}
+        {{$answers}}
       </div>
     
       <div class="col-sm-3">
-        @yield('errors')
-        @include('survey::error', ['question'=>$renderable])
+        @yield('errors-block')
+        @include('surveys::error', ['question'=>$renderable])
       </div>
     
     </div>

@@ -1,6 +1,6 @@
-@extends('questions.question')
+@component('surveys::questions.question', compact('context', 'renderable'))
 
-@section('answers')
+@slot('answers')
       <div class="btn-group" role="group" data-toggle="buttons">
         @foreach($renderable->options as $option)
           <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif  {{ $option->class }}">
@@ -26,4 +26,6 @@
          </label>
         @endforeach
       </div>
-@endsection
+@endslot
+
+@endcomponent
