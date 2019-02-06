@@ -39,7 +39,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
   * **surveysPath**: *(string)* - Path to survey XML documents
   * **rulesPath**: *(string)* - Path to rules classes
   * **rulesNamespace**: *(string)* - Namespace of rules classes
-  * **customTemplatePath**: *(string)* - Path to custom templates
+  * ~~**customTemplatePath**: *(string)* - Path to custom templates~~ REMOVED
   * **rendererConfig**:
     * **cache_path**: *(string)* - Path to view cache
   * **routeGroup**: *(array)* - Route group to apply to survey routes
@@ -51,6 +51,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
     * **frequency**: *(int)* - Frequency of autosaves in milliseconds
     * **notify**: *(bool)* - Notify the user of the autosave
     * **notify_time**: *(int)* - Length of time the notification is displayed
+  * **defualt_templates**: *(array)* - An array defining default templates for blocks.
   * **bindings**: 
         Bindings can be used to override the classes used for the Survey and Response models, allowing you to do things like define relationships, fire custom events, and override default behavior. Leave this section of the config commented out to use the models provided by the package.
 
@@ -135,12 +136,19 @@ Each WorkflowStrategy class has the following attributes:
 ## Customization
 There are several was to customize the surveys package
 
+### Temlates ###
+Survey package templates use the `surveys::` blade namespace (i.e. `surveys::questions.multiple_choice.select`).
+
 ### Overriding default templates
-TODO
+Use the define default templates using the `surveys.default_templates` config.
+
+Alternately, you can override default templates by adding a template with the same relative path to `resources/views/vendor/surveys`.  For example, if you wanted to override the default page template, simply add `resources/views/vendor/surveys/container/page/page.blade.php` to your project.
 
 ### Custom templates
 See example [xml](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/resources/surveys/pages/include_page_3.xml?at=master&fileviewer=file-view-default) and [blade template](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/resources/views/?at=master)
-TODO
+
+In addition to checking for views in `surveys::` views namespace, the package will also check to see if the specified custom template exists in the default view namespace.  This is currently included to support projects using pre-4.0 custom template organization.
+
 
 ## XML Schema
 See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-surveys/src/dbdb6fdfac1007d8a747a08c23dab44b1b2100ef/examples/?at=master)

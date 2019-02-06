@@ -20,6 +20,7 @@ return [
         'notify_time' => 2500
     ],
     'default_templates' => [
+        'page' => 'containers.page.page',
         'date' => 'questions.date.date',
         'duration' => 'questions.number.duration',
         'multiple_choice' => [
