@@ -15,12 +15,13 @@ class PageDocument extends ContainerBlock implements PageDocumentInterface
 
     protected $source;
     protected $title;
-    protected $defaultTemplate = 'containers.page.page';
+    protected $defaultTemplate = null;
     protected $pageNumber;
 
     public function __construct($xml = null)
     {
         parent::__construct($xml);
+        $this->defaultTemplate = config('surveys.default_templates.page', 'containers.page.page');
     }
 
     public function parse(\SimpleXMLElement $simpleXmlElement)

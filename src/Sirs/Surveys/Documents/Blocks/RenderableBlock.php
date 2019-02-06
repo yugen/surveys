@@ -111,7 +111,14 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
                             : 'default_layout';
 
         $template = $this->getTemplate();
-        $templatePath = (substr($template, 0, 7) == 'surveys::') ? $template : 'surveys::'.$template;
+        
+        $templatePath = $template;
+        if (!\View::exists($templatePath)) {
+            if (substr($template, 0, 7) != 'surveys::') {
+                $templatePath = 'surveys::'.$template;
+            }
+        }
+
         $view = view(
             $templatePath,
             [
