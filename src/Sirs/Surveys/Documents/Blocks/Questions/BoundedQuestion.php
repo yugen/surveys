@@ -3,6 +3,7 @@
 namespace Sirs\Surveys\Documents\Blocks\Questions;
 
 use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
+use Sirs\Surveys\Exceptions\InvalidAttributeValueException;
 
 abstract class BoundedQuestion extends QuestionBlock
 {
@@ -22,7 +23,7 @@ abstract class BoundedQuestion extends QuestionBlock
             $this->min = $min;
             return $this;
         } else {
-            throw new \InvalidArgumentException('Invalid min given for quesiton '.$this->getName());
+            throw new InvalidAttributeValueException('Invalid min given for quesiton '.$this->getName());
         }
     }
 
@@ -37,7 +38,7 @@ abstract class BoundedQuestion extends QuestionBlock
             $this->max = $max;
             return $this;
         } else {
-            throw new \InvalidArgumentException('Invalid max given for quesiton '.$this->getName());
+            throw new InvalidAttributeValueException('Invalid max given for quesiton '.$this->getName());
         }
     }
 
