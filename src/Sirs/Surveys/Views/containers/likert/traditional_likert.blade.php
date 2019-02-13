@@ -1,10 +1,12 @@
 <div class="conatiner-block likert-container">
-  <p class="likert-prompt">{{$renderable->prompt}}</p>
+  <p class="likert-prompt"><strong>{{$renderable->prompt}}</strong></p>
   <table class="table table-striped">
     <thead>
-      <th class="question-col">&nbsp;</th>
+      <th class="question-col" style="width: 50%">&nbsp;</th>
       @foreach($renderable->options as $option)
-      <th class="option-col">{{$option->label}}</th>
+        <th class="option-col text-center" style="width: {{(1/$renderable->options->count()*50)}}%">
+          {{$option->labelIsSet() ? $option->label : ''}}
+        </th>
       @endforeach
     </thead>
     <tbody>
@@ -14,18 +16,20 @@
           {!! html_entity_decode($question->getCompiledQuestionText($context)) !!}
         </td>
         @foreach($renderable->options as $option)
-        <td class="option-col">
-          {{$option->renderWith('options.traditional_likert_option')}}
+        <td class="option-col text-center">
+          <input type="radio" name="{{$renderable->name}}" value="{{$option->value}}">
         </td>
         @endforeach
       </tr>
       @endforeach
     </tbody>
-    <tfoot>
+    {{-- <tfoot>
       <th class="question-col">&nbsp;</th>
       @foreach($renderable->options as $option)
-      <th class="option-col">{{$option->label}}</th>
+        <th class="option-col text-center" style="width: {{(1/$renderable->options->count()*50)}}%">
+          {{$option->labelIsSet() ? $option->label : ''}}
+        </th>
       @endforeach
-    </tfoot>
+    </tfoot> --}}
   </table>
 </div>
