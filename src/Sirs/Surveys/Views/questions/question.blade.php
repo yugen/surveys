@@ -17,7 +17,7 @@
     </label>
     @yield('answers')
     <div class="pull-right col-sm-3">
-      @include('surveys::survey::error', ['question'=>$renderable])
+      @include('surveys::error', ['question'=>$renderable])
     </div>
   @else
     @if($renderable->questionText)
@@ -25,7 +25,6 @@
     @endif
     <div class="row">
       <div class="question-answers col-sm-9">
-        {{-- @yield('answers') --}}
         {{$answers}}
       </div>
     

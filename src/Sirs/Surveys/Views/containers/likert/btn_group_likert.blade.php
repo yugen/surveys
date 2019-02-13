@@ -14,7 +14,7 @@
       >
         <td class="question-col question-text">
           {!! html_entity_decode($question->getCompiledQuestionText($context)); !!}
-          <div>@include('surveys::survey::error', ['question'=>$question])</div>
+          <div>@include('surveys::error', ['question'=>$question])</div>
         </td>
         <td class="option-col">
           <div class="btn-group" role="group" data-toggle="buttons">
