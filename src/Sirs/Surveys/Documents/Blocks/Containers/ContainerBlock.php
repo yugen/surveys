@@ -44,15 +44,15 @@ class ContainerBlock extends RenderableBlock implements ContainerInterface
         $blockFactory = new BlockFactory();
         $children = [];
         foreach ($simpleXmlElement->children() as $child) {
-            if (in_array($child->getName(), $blockFactory->getWhitelist())) {
-                $childClass = $blockFactory->getBlockClass($child);
-                $childBlock = $childClass::createWithParameters($child, $this->getParameters());
-                if (!$childBlock->name) {
-                    $classParts = explode('\\', $childClass);
-                    $childBlock->name = uniqid(end($classParts).'-', false);
-                }
-                $children[$childBlock->name] = $childBlock;
+            // if (in_array($child->getName(), $blockFactory->getWhitelist())) {
+            $childClass = $blockFactory->getBlockClass($child);
+            $childBlock = $childClass::createWithParameters($child, $this->getParameters());
+            if (!$childBlock->name) {
+                $classParts = explode('\\', $childClass);
+                $childBlock->name = uniqid(end($classParts).'-', false);
             }
+            $children[$childBlock->name] = $childBlock;
+            // }
         }
 
         return $children;
