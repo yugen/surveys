@@ -18,7 +18,7 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
     public function __construct($xml = null)
     {
         parent::__construct($xml);
-        $this->defaultTemplate = 'containers.likert.btn_group_likert';
+        $this->defaultTemplate = config('surveys.default_templates.likert', 'surveys::containers.likert.btn_group_likert');
     }
 
 
