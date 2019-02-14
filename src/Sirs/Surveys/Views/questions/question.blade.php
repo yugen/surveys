@@ -15,7 +15,8 @@
     <label>  
       {!! html_entity_decode($renderable->getCompiledQuestionText($context)); !!}
     </label>
-    @yield('answers')
+    &nbsp;&nbsp;
+    {{$answers}}
     <div class="pull-right col-sm-3">
       @include('surveys::error', ['question'=>$renderable])
     </div>

@@ -1,5 +1,5 @@
 <select name="{{$question->name}}" id="{{$question->id}}"
-  class=" form-control
+  class=" form-control form-control-sm
   @if($question->class)
     {{$question->class}}
   @endif

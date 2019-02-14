@@ -25,7 +25,7 @@
     @if($renderable->refusable)
       </div>
       <div class="radio">
-        <label class="btn-group ">
+        <label class="btn-group">
           <input type="radio" 
             id="{{$renderable->name}}-refused" 
             name="{{$renderable->name}}" 

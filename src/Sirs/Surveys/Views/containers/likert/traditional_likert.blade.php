@@ -1,6 +1,6 @@
 <div class="conatiner-block likert-container">
   <p class="likert-prompt"><strong>{{$renderable->prompt}}</strong></p>
-  <table class="table table-striped">
+  <table class="table table-striped table-sm">
     <thead>
       <th class="question-col" style="width: 50%">&nbsp;</th>
       @foreach($renderable->options as $option)
