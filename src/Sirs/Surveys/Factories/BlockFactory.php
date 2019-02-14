@@ -33,8 +33,8 @@ class BlockFactory
           'question',
           'time',
           'upload',
-          // 'month',
-          // 'year'
+          'month',
+          'year'
         ];
         return $whitelist;
     }
