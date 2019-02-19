@@ -17,7 +17,7 @@ class YearQuestion extends NumericScaleQuestion
     public function setMin($min)
     {
         try {
-            return parent::setMin($min);
+            return parent::setMin($this->parseYear($min));
         } catch (InvalidAttributeValueException $e) {
             $this->min = 1900;
             return $this;
@@ -27,7 +27,7 @@ class YearQuestion extends NumericScaleQuestion
     public function setMax($max)
     {
         try {
-            return parent::setMax($max);
+            return parent::setMax($this->parseYear($max));
         } catch (InvalidAttributeValueException $e) {
             $this->max = 2100;
             return $this;
@@ -37,5 +37,12 @@ class YearQuestion extends NumericScaleQuestion
     public function boundaryIsValid($bound)
     {
         return (!is_null($bound));
+    }
+
+    private function parseYear($string) {
+        if (strpos($string, 'now') !== false) {
+            return date('Y', strtotime($string));
+        }
+        return $string;
     }
 }
