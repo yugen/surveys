@@ -6,7 +6,8 @@
   "
   {{($question->required) ? ' required' : ''}}
 >
-    <option value="">Select...</option>
+    <option value="">{{$question->placeholder ? $question->placeholder : 'Select...'}}</option>
+
     @foreach($question->options as $option)
       <option 
         id="{{$question->name}}_{{$option->value}}" 
