@@ -61,14 +61,16 @@ trait HasOptionsTrait
 
     protected function getOptionsFromDataSource($dataSourceUri)
     {
-        $responseString = file_get_contents(url($dataSourceUri));
+        $responseString = \Cache::remember('surveys:datasource:'.$dataSourceUri, config('surveys.datasource_cachelife', 20), function () use ($dataSourceUri) {
+            return file_get_contents(url($dataSourceUri));
+        });
         if ($responseString === false) {
             throw new \Exception('Failed to got data from '.$dataSourceUri);
         }
         $sourceData = json_decode($responseString);
         foreach ($sourceData as $idx => $optionData) {
             if ($this->numSelectable > 1) {
-                if ($optionData->slug) {
+                if (isset($optionData->slug)) {
                     $name = $optionData->slug;
                 } else {
                     $name = preg_replace('/ /', '_', $optionData->name);
