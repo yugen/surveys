@@ -1,6 +1,6 @@
 @component('surveys::questions.question', compact('renderable', 'context'))
   @slot('answers')
-        <div class="btn-group-vertical" role="group" data-toggle="buttons">
+        <div class="btn-group-vertical" role="group">
           @foreach($renderable->options as $option)
             <label class="@if($context['response']->{$renderable->name} == $option->value)active @endif" style="text-align: left">
             <input 
