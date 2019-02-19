@@ -21,7 +21,6 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
         $this->defaultTemplate = config('surveys.default_templates.likert', 'surveys::containers.likert.btn_group_likert');
     }
 
-
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
         $this->setPrompt((string)$simpleXmlElement->prompt[0]);
@@ -67,6 +66,12 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
         }
         return $this;
     }
+
+    public function getCompiledPrompt($context)
+    {
+        return $this->bladeCompile($this->prompt, $context);
+    }
+
 
     public function getRefusable()
     {
