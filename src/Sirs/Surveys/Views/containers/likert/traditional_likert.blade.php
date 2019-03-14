@@ -16,7 +16,7 @@
     <tbody>
       @foreach($renderable->questions as $question)
       <tr class="likert-question">
-        <td class="question-col question-text">
+        <td class="question-col question-text @if ($question->class) {{$question->class}} @endif">
           {!! html_entity_decode($question->getCompiledQuestionText($context)) !!}
         </td>
         @foreach($renderable->options as $option)
