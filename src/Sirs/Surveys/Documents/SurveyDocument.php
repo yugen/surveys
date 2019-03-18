@@ -37,9 +37,6 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public static function initFromFile($filePath)
     {
-        if (substr($filePath, 0, strlen(base_path())) != base_path()) {
-            $filePath = base_path($filePath);
-        }
         $xmlString = file_get_contents($filePath);
         $class = get_called_class();
 
@@ -68,9 +65,11 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getPageNumberByName($name)
     {
-        foreach ($this->getPages() as $idx => $page) {
-            if ($page->name == $name) {
-                return $idx+1;
+        if ($name == null) {
+            foreach ($this->getPages() as $idx => $page) {
+                if ($page->name == $name) {
+                    return $idx+1;
+                }
             }
         }
         throw new \OutOfBoundsException('The page '.$name.' was not found');
