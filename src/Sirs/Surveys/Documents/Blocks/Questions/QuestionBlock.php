@@ -56,6 +56,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
         $this->setValidationRules($this->getAttribute($simpleXmlElement, 'validation-rules'));
         $this->setHidden($this->getAttribute($simpleXmlElement, 'hidden'));
+        $this->setDisabled($this->getAttribute($simpleXmlElement, 'disabled'));
+        $this->setReadonly($this->getAttribute($simpleXmlElement, 'readonly'));
     }
 
     /**
