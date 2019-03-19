@@ -31,6 +31,12 @@
             name="{{$renderable->name}}" 
             class="exclusive" 
             value="-77"
+            @if($renderable->disabled)
+              disabled
+            @endif
+            @if($renderable->readonly)
+              readonly
+            @endif
             @if($context['response']->{$renderable->name} == -77)checked @endif></input>
           Refuse
         </label>

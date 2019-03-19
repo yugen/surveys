@@ -4,6 +4,12 @@
   <textarea 
     name="{{$question->name}}" 
     class="form-control {{$class ?? ''}}"
+    @if($question->disabled)
+      disabled
+    @endif
+    @if($question->readonly)
+      readonly
+    @endif
     @if($question->placeholder)
     placeholder="{{$question->placeholder}}" 
     @endif

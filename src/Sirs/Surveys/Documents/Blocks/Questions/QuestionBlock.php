@@ -19,6 +19,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     protected $hide = null;
     protected $refusable = null;
     protected $refuseLabel = null;
+    protected $disabled = null;
+    protected $readonly = null;
 
     public function __construct($xml = null)
     {

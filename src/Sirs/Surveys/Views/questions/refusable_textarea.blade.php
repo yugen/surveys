@@ -1,6 +1,12 @@
 <input type="hidden" name="{{$question->name}}" value="{{$context['response']->{$question->name} ?? ''}}"></input>
 <span class="mutually-exclusive">
     <textarea 
+      @if($question->disabled)
+        disabled
+      @endif
+      @if($question->readonly)
+        readonly
+      @endif
       name="{{$question->name}}_field" 
       class="form-control {{$class ?? ''}}"
       @if($question->placeholder)

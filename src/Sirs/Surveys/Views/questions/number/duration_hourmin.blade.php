@@ -15,6 +15,12 @@
             $context['response']->{$renderable->name} !== '')
           value="{{($context['response']->{$renderable->name} !== null) ? (floor($context['response']->{$renderable->name}/60)) : '' }}"
         @endif
+        @if($renderable->disabled)
+          disabled
+        @endif
+        @if($renderable->readonly)
+          readonly
+        @endif
       />
       <span class="input-group-addon">hours</span>
       <input type="text"  id="{{$renderable->name}}_minutes" 
@@ -30,7 +36,13 @@
             $context['response']->{$renderable->name} !== null &&
             $context['response']->{$renderable->name} !== '' )
             value="{{ ($context['response']->{$renderable->name} !== null) ? ($context['response']->{$renderable->name} % 60) : ''  }}"
-          @endif
+        @endif
+        @if($renderable->disabled)
+          disabled
+        @endif
+        @if($renderable->readonly)
+          readonly
+        @endif
       />
 
       <span class="input-group-addon">minutes</span>
