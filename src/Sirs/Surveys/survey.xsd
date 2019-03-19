@@ -89,6 +89,8 @@
 				<xs:attribute name="refuse-label" type="xs:string" />
 				<xs:attribute name="data-format" type="data-format" />
 				<xs:attribute name="validation-rules" type="xs:string" />
+				<xs:attribute name="readonly" type="xs:boolean" />
+				<xs:attribute name="disabled" type="xs:boolean" />
 		</xs:complexType>
 
 			<!-- date inputs -->

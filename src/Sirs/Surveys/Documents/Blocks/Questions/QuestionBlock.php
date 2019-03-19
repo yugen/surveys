@@ -193,6 +193,30 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         return $this->placeholder;
     }
 
+    public function setReadonly($readonly)
+    {
+        $this->readonly = ($readonly !== null) ? $readonly : null;
+
+        return $this;
+    }
+
+    public function getReadonly()
+    {
+        return $this->readonly;
+    }
+
+    public function setDisabled($disabled)
+    {
+        $this->disabled = ($disabled !== null) ? $disabled : null;
+
+        return $this;
+    }
+
+    public function getDisabled()
+    {
+        return $this->disabled;
+    }
+
     public function setRefusable($value)
     {
         $this->refusable = ($value) ? true : false;
