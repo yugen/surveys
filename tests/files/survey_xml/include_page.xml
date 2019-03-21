@@ -1,0 +1,7 @@
+<page name="included_page" title="Included Page">
+    <html>
+        <content>
+            This is an included page.
+        </content>
+    </html>
+</page>
