@@ -1,12 +1,13 @@
-<?php 
+<?php
 namespace Sirs\Surveys;
 
-use Carbon\Carbon;
 use Event;
-use Sirs\Surveys\Events\SurveyResponseFinalized;
-use Sirs\Surveys\Events\SurveyResponseReopened;
+use Carbon\Carbon;
 use Sirs\Surveys\Events\SurveyResponseSaved;
+use Sirs\Surveys\Events\SurveyResponseSaving;
 use Sirs\Surveys\Events\SurveyResponseStarted;
+use Sirs\Surveys\Events\SurveyResponseReopened;
+use Sirs\Surveys\Events\SurveyResponseFinalized;
 use Sirs\Surveys\Contracts\SurveyResponse as Response;
 
 /**
@@ -27,6 +28,7 @@ class SurveyResponseObserver
 
     public function saving(Response $surveyResponse)
     {
+        Event::fire(new SurveyResponseSaving($surveyResponse));
     }
 
     public function saved(Response $surveyResponse)
