@@ -247,7 +247,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     public function getValidationRules()
     {
-        // set rules baded datatype and required attribute
+        // set rules based datatype and required attribute
         if ($this->required) {
             $this->validationRules[] = 'required';
         } else {
@@ -255,27 +255,27 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         }
 
         switch ($this->dataFormat) {
-        case 'int':
-        case 'tinyint':
-        case 'mediumint':
-        case 'bigint':
-          $this->validationRules[] = 'integer';
-          break;
-        case 'float':
-        case 'double':
-        case 'decimal':
-          $this->validationRules[] = 'numeric';
-          break;
-        case 'date':
-        case 'time':
-          $this->validationRules[] = 'date';
-          break;
-        case 'year':
-          $this->validationRules[] = 'regex:\d\d\d\d';
-          // no break
-        default:
-          break;
-      }
+            case 'int':
+            case 'tinyint':
+            case 'mediumint':
+            case 'bigint':
+                $this->validationRules[] = 'integer';
+                break;
+            case 'float':
+            case 'double':
+            case 'decimal':
+                $this->validationRules[] = 'numeric';
+                break;
+            case 'date':
+            case 'time':
+                $this->validationRules[] = 'date';
+                break;
+            case 'year':
+                $this->validationRules[] = 'regex:\d\d\d\d';
+                break;
+            default:
+                break;
+        }
 
         return $this->validationRules;
     }
