@@ -161,21 +161,118 @@ See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-survey
 
 ## Questions
 ### Question
+The root question: expects a string based response.
+```
+<question name="name" id="name">
+    <question-text>question-text</question-text>
+</question>
+```
+
+#### Options (applies to all question types)
+* **name** - string - *required*|*unique*: This is used as the variable/column name
+* **id** - string: Analogous to html attribute
+* **class** - string: Analogous to html attribute
+* **placeholder** - string: Analogous to html attribute
+* **disabled** - boolean [false]: Analogous to html attribute
+* **readonly** - boolean [false]: Analogous to html attribute
+* **hidden** - boolean [false]: Indicates question should be hidden
+* **refusable** - boolean [false]: Indicates the respondent should be able to mark the question as refused to answer;
+* **refuse**-label - string [refused]: Label used for refusable questions
+* **data**-format - string [varchar]: Data type used for sql column.  All valid mysql column types supported.
+* **validation**-rules - string: Laravel validation rules string.
+
+#### Child Tags (applies to all question types)
+##### QuestionText
+The question prompt or text.
+```
+  <question-text>Question text goes here</question-text>
+```
+##### Template
+Specifies an alternate template to use for the block.
+```
+  <template source="path.to.template"></template>
+```
+##### Metadata
+Allows for the definition of additional information about the question.  Requires one or more `<datum>` children. Keys and values can be defined as attributes or children of `<datum>` tag
+```
+<metadata>
+  <datum key="datum_key" value="datum-value"></datum>
+  <datum>
+    <key>Another Key</key>
+    <value>
+      <![CDATA[my cdata-requiring value here.]]>
+    </value>
+  </datum>
+</metadata>
+```
+#### Included Templates
+* questions.text.default_text (default) - text input
+* questions.text.inline - inline text input
+* questions.large_text - textarea (should be used with `data-format="text"` or similar, or validated to prevent response truncation when stored)
+* questions.other_field - inline text input for use as other details.
+
 ### MultipleChoice
-#### Options
-##### Attributes
+A question with a set number of possible answers.  MulipleChoice questions can be single-select or multi-select (if `num-selectable` attribute is greater than 1).
+```
+<multiple-choice name="my_mc" id="my_mc" num-selectable="1">
+    <question-text>
+        <![CDATA[What is your favorite color]]>
+    </question-text>
+    <options>
+        <option name="my_mc1">
+            <value>1</value>
+            <label>blue</label>
+        </option>
+        <option name="my_mc2">
+            <value>2</value>
+            <label>green</label>
+        </option>
+        <option name="my_mc3">
+            <value>3</value>
+            <label>yellow</label>
+        </option>
+        <option name="my_mc4">
+            <value>4</value>
+            <label>red</label>
+        </option>
+        <option name="my_mc5">
+            <value>5</value>
+            <label>black</label>
+        </option>
+    </options>
+</multiple-choice>
+```
+#### Attributes
+* **num-selectable** - integer [1]: Number of options the respondent can select.
+
+#### Child Tags
+##### Options
+###### Attributes
 * name - string - *required*
 * id
 * class
 * exclusive - integer: integer indicates group
 
+#### Included Templates
+##### Single-select
+* questions.multiple_choice.radio_group (default) - bootstrap button style radio buttons
+* questions.multiple_choice.radio_group_vertical - radio buttons
+* questions.multiple_choice.select - html select
+##### Multi-select
+* questions.multiple_choice.checkbox_group (default - multi-select) - checkboxes
+* questions.multiple_choice.select - html select
+
 ### Date
-A question collectind date information between optional **min** and **max** boundaries
+A question collecting date information between optional **min** and **max** boundaries
 ```
 <date name="DOB" required="1" placeholder="MM/DD/YYYY" min="1940-01-01" max="1990-01-01">
   <question-text>Date of Birth</question-text>
 </date>
 ```
+#### Attributes
+* 
+
+
 ### Time
 ### Duration
 ### Number
