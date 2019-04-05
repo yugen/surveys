@@ -88,7 +88,7 @@ trait ResponseRevisionableTrait
                     'key' => $key,
                     'old_value' => array_get($this->originalData, $key),
                     'new_value' => $this->updatedData[$key],
-                    'user_id' => Auth::user()->id,
+                    'user_id' => (Auth::user()) ? Auth::user()->id : null,
                     'created_at' => new \DateTime(),
                     'updated_at' => new \DateTime(),
                 );
@@ -154,7 +154,7 @@ trait ResponseRevisionableTrait
                 'key' => $this->getDeletedAtColumn(),
                 'old_value' => null,
                 'new_value' => $this->{$this->getDeletedAtColumn()},
-                'user_id' => Auth::user()->id,
+                'user_id' => (Auth::user()) ? Auth::user()->id : null,
                 'created_at' => new \DateTime(),
                 'updated_at' => new \DateTime(),
             );
