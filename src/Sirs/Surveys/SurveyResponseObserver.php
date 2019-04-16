@@ -28,24 +28,24 @@ class SurveyResponseObserver
 
     public function saving(Response $surveyResponse)
     {
-        Event::fire(new SurveyResponseSaving($surveyResponse));
+        Event::disptach(new SurveyResponseSaving($surveyResponse));
     }
 
     public function saved(Response $surveyResponse)
     {
-        Event::fire(new SurveyResponseSaved($surveyResponse));
+        Event::disptach(new SurveyResponseSaved($surveyResponse));
 
-        // fire started at event
+        // disptach started at event
         if ($surveyResponse->isDirty('started_at') && !is_null($surveyResponse->started_at)) {
-            Event::fire(new SurveyResponseStarted($surveyResponse));
+            Event::disptach(new SurveyResponseStarted($surveyResponse));
         }
 
-        // fire finalized event or reopened event
+        // disptach finalized event or reopened event
         if ($surveyResponse->isDirty('finalized_at')) {
             if (!is_null($surveyResponse->finalized_at) && is_null($surveyResponse->getOriginal('finalize_at'))) {
-                Event::fire(new SurveyResponseFinalized($surveyResponse));
+                Event::disptach(new SurveyResponseFinalized($surveyResponse));
             } elseif (is_null($surveyResponse->finalized_at)) {
-                Event::fire(new SurveyResponseReopened($surveyResponse));
+                Event::disptach(new SurveyResponseReopened($surveyResponse));
             }
         }
     }
