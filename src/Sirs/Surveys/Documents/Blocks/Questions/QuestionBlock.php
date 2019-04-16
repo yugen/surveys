@@ -432,10 +432,10 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     {
         $values = [];
         foreach ($data as $a) {
-            if (!array_key_exists($a, $values)) {
-                $values[$a] = 0;
+            if (!array_key_exists((string)$a, $values)) {
+                $values[(string)$a] = 0;
             }
-            $values[$a] += 1;
+            $values[(string)$a] += 1;
         }
         arsort($values);
         reset($values);
@@ -522,16 +522,16 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $options = [];
         foreach ($this->options as $option) {
             if (!array_key_exists((string)$option->value, $options)) {
-                $options[$option->value] = [];
-                $options[$option->value]['value'] = $option->value;
-                $options[$option->value]['label'] = $option->label;
-                $options[$option->value]['count'] = 0;
+                $options[(string)$option->value] = [];
+                $options[(string)$option->value]['value'] = $option->value;
+                $options[(string)$option->value]['label'] = $option->label;
+                $options[(string)$option->value]['count'] = 0;
             }
         }
 
         foreach ($data as $ans) {
             if (array_key_exists($ans, $options)) {
-                $options[$ans]['count'] +=1;
+                $options[(string)$ans]['count'] +=1;
             }
         }
 
