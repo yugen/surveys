@@ -65,7 +65,7 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getPageNumberByName($name)
     {
-        if ($name == null) {
+        if ($name != null) {
             foreach ($this->getPages() as $idx => $page) {
                 if ($page->name == $name) {
                     return $idx+1;
