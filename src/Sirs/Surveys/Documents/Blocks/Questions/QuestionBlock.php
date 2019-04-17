@@ -502,7 +502,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         }
 
         foreach ($data as $ans) {
-            if (array_key_exists($ans, $options)) {
+            if (array_key_exists((string)$ans, $options)) {
                 $options[(string)$ans]['count'] +=1;
             }
         }
