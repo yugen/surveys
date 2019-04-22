@@ -12,6 +12,12 @@
             "email": "ahhardin@email.unc.edu"
         }
     ],
+    "repositories": {
+        "venturecraft/revisionable": {
+            "type": "vcs",
+            "url": "git@github.com:shepsweb/revisionable.git"
+        }
+    },
     "require": {
         "php": ">=7.1.0",
         "laravel/framework": ">=5.4.0",
