@@ -11,7 +11,7 @@
       autocomplete="off"
       value="1"
   }
-      @if( isset($context['response']->{$option->name}) )
+      @if( isset($context['response']->{$option->name})  && $context['response']->{$option->name)
         checked="checked"
       @endif
       @if($option->show)
