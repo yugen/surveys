@@ -246,6 +246,8 @@ A question with a set number of possible answers.  MulipleChoice questions can b
 * **num-selectable** - integer [1]: Number of options the respondent can select.
 
 #### Child Tags
+* options - takes a list of option tags or a data-source tag.  data-source's URI attribute supports a api endpoint URL, a function, or a class method using laravel's 'action' syntax (ClassName@method).  For methods and functions parameters can be passed in the format `ClassName@method:param1=val1,param2=val2`
+
 ##### Options
 ###### Attributes
 * name - string - *required*
