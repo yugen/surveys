@@ -154,8 +154,44 @@ See examples in [source examples dir](https://bitbucket.org/shepsweb/sirs-survey
 ## Questions
 ### Question
 ### MultipleChoice
-#### Options
-##### Attributes
+A question with a set number of possible answers.  MulipleChoice questions can be single-select or multi-select (if `num-selectable` attribute is greater than 1).
+```
+<multiple-choice name="my_mc" id="my_mc" num-selectable="1">
+    <question-text>
+        <![CDATA[What is your favorite color]]>
+    </question-text>
+    <options>
+        <option name="my_mc1">
+            <value>1</value>
+            <label>blue</label>
+        </option>
+        <option name="my_mc2">
+            <value>2</value>
+            <label>green</label>
+        </option>
+        <option name="my_mc3">
+            <value>3</value>
+            <label>yellow</label>
+        </option>
+        <option name="my_mc4">
+            <value>4</value>
+            <label>red</label>
+        </option>
+        <option name="my_mc5">
+            <value>5</value>
+            <label>black</label>
+        </option>
+    </options>
+</multiple-choice>
+```
+#### Attributes
+* **num-selectable** - integer [1]: Number of options the respondent can select.
+
+#### Child Tags
+* options - takes a list of option tags or a data-source tag.  data-source's URI attribute supports a api endpoint URL, a function, or a class method using laravel's 'action' syntax (ClassName@method).  For methods and functions parameters can be passed in the format `ClassName@method:param1=val1,param2=val2`
+
+##### Options
+###### Attributes
 * name - string - *required*
 * id
 * class

@@ -28,3 +28,4 @@ class CreateRespondentTable extends Migration
     {
         Schema::dropIfExists('respondents');
     }
+}
