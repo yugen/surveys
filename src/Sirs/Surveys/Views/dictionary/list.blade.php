@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
+                <li><a href="#all" class="dictionary-link" id="{{'all-surveys-link'}}">All survey variables</a></li>
                 @foreach($surveys as $survey)
                     <li>
                         <a href="#{{$survey->slug}}" class="dictionary-link" id="{{$survey->slug}}-link">{{$survey->name}}</a>

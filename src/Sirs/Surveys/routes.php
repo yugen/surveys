@@ -48,6 +48,8 @@ Route::group($routeGroup, function () {
             'Sirs\Surveys\Controllers\ResponseController'
         );
         
+        Route::get('data-dictionary/{surveySlug}/csv', 'Sirs\Surveys\Controllers\DictionaryController@getCsv');
+
         Route::resource(
             'data-dictionary',
             'Sirs\Surveys\Controllers\DictionaryController',
