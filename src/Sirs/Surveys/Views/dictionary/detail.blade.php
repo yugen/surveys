@@ -3,6 +3,9 @@
     <small class="text-muted">(table: {{$survey->response_table}})</small>
     <div class="pull-right">
         <a href="/surveys/{{$survey->slug}}/report/" class="btn btn-info btn-xs">Data Summary</a>
+        @if (!isset($hide) || !$hide)
+            <a href="/surveys/data-dictionary/{{$survey->slug}}/csv" class="btn btn-info btn-xs">Download as csv</a>
+        @endif
     </div>
 </h3>
 <table class="table table-striped table-bordered">
