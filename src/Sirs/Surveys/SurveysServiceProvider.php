@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Sirs\Surveys;
 
 use Illuminate\Support\Facades\Blade;
@@ -108,6 +108,9 @@ class SurveysServiceProvider extends ServiceProvider
         $this->app->singleton('command.survey.migration', function ($app) {
             return new CreateSurveyMigrationsFromDocument();
         });
+        $this->app->singleton('command.survey.refresh', function ($app) {
+            return new RefreshSurveyResponseTables();
+        });
         $this->commands('command.survey.migration');
 
         $this->app->singleton('command.survey.rules', function ($app) {
@@ -148,22 +151,22 @@ class SurveysServiceProvider extends ServiceProvider
     protected function bindInterfaces()
     {
         $this->app->bind(
-        \Sirs\Surveys\Survey::class,
-        config('surveys.bindings.models.Survey', \Sirs\Surveys\Survey::class)
+            \Sirs\Surveys\Survey::class,
+            config('surveys.bindings.models.Survey', \Sirs\Surveys\Survey::class)
       );
         $this->app->bind(
-        \Sirs\Surveys\Response::class,
-        config('surveys.bindings.models.Response', \Sirs\Surveys\Response::class)
+            \Sirs\Surveys\Response::class,
+            config('surveys.bindings.models.Response', \Sirs\Surveys\Response::class)
       );
 
 
         $this->app->bind(
-        \Sirs\Surveys\Interfaces\Survey::class,
-        config('surveys.bindings.models.Survey', \Sirs\Surveys\Survey::class)
+            \Sirs\Surveys\Interfaces\Survey::class,
+            config('surveys.bindings.models.Survey', \Sirs\Surveys\Survey::class)
       );
         $this->app->bind(
-        \Sirs\Surveys\Interfaces\SurveyResponse::class,
-        config('surveys.bindings.models.Response', \Sirs\Surveys\SurveyResponse::class)
+            \Sirs\Surveys\Interfaces\SurveyResponse::class,
+            config('surveys.bindings.models.Response', \Sirs\Surveys\SurveyResponse::class)
       );
     }
 }
