@@ -60,6 +60,19 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
       * **Survey**: *(string)* - App\Survey::class (must implement  *Sirs\Surveys\Contracts\SurveyContract*)
       * **Response**: *(string)* - App\SurveyResponse::class (must implement *Sirs\Surveys\Contracts\SurveyResponse*)
 
+## Artisan commands
+  * `make:survey` - Creates a stub survey file
+  * `make:survey-rules` - Create a new survey rules class
+  * `survey:migration` - Create/update migrations from survey document
+  * `survey:migrations-all` - Command description
+  * `survey:new` - Creates new survey migration and rules document
+  * `survey:refresh` - Refresh response tables
+  * `survey:rules` - Create/update rules file from survey document
+  * `survey:validate` - Validate a survey against the schema
+  * `survey:workflow` - Create SurveyWorkflowStrategy class for survey of type
+
+Run `php artisan list | grep survey` for a complete list of artisan commands related to surveys.  Run `php artisan help <command>` for details on commands.
+
 ## Creating Surveys
 You can create surveys 2 ways
 
