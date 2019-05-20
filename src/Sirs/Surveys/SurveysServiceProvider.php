@@ -108,10 +108,11 @@ class SurveysServiceProvider extends ServiceProvider
         $this->app->singleton('command.survey.migration', function ($app) {
             return new CreateSurveyMigrationsFromDocument();
         });
+        $this->commands('command.survey.migration');
         $this->app->singleton('command.survey.refresh', function ($app) {
             return new RefreshSurveyResponseTables();
         });
-        $this->commands('command.survey.migration');
+        $this->commands('command.survey.refresh');
 
         $this->app->singleton('command.survey.rules', function ($app) {
             return new CreateSurveyRulesFromDocument();
