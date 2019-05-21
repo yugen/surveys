@@ -32,6 +32,9 @@ return [
         'question' => 'questions.text.default_text',
         'time' => 'questions.time.time'
     ],
+    'validation_messages' => [
+        // 'my_field.validation_rule' => 'My custom mssage',
+    ],
     'datasource_cachelife' => 20,
     // 'bindings' => [
     //   'models' => [

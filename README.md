@@ -52,6 +52,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
     * **notify**: *(bool)* - Notify the user of the autosave
     * **notify_time**: *(int)* - Length of time the notification is displayed
   * **defualt_templates**: *(array)* - An array defining default templates for blocks.
+  * **validation_messages**: *(array)* - An array of Laravel validatition custom messages.  You can customize the message for a rule globally or for a specific field as per the [Laravel Validation Documentation](https://laravel.com/docs/5.8/validation#customizing-the-error-messages)
   * **bindings**: 
         Bindings can be used to override the classes used for the Survey and Response models, allowing you to do things like define relationships, fire custom events, and override default behavior. Leave this section of the config commented out to use the models provided by the package.
 
