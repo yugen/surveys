@@ -14,6 +14,7 @@ use Sirs\Surveys\Console\ValidateSurveyDefinition;
 use Sirs\Surveys\Console\RefreshSurveyResponseTables;
 use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
 use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
+use Sirs\Surveys\Console\RebuildSurveyMigrations;
 
 class SurveysServiceProvider extends ServiceProvider
 {
@@ -110,10 +111,16 @@ class SurveysServiceProvider extends ServiceProvider
             return new CreateSurveyMigrationsFromDocument();
         });
         $this->commands('command.survey.migration');
+
         $this->app->singleton('command.survey.refresh', function ($app) {
             return new RefreshSurveyResponseTables();
         });
         $this->commands('command.survey.refresh');
+
+        $this->app->singleton('command.survey.migrations-all', function ($app) {
+            return new RebuildSurveyMigrations();
+        });
+        $this->commands('command.survey.migrations-all');
 
         $this->app->singleton('command.survey.rules', function ($app) {
             return new CreateSurveyRulesFromDocument();

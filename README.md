@@ -65,7 +65,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
   * `make:survey` - Creates a stub survey file
   * `make:survey-rules` - Create a new survey rules class
   * `survey:migration` - Create/update migrations from survey document
-  * `survey:migrations-all` - Command description
+  * `survey:migrations-all` - Rebuild migrations for all surveys in the project.
   * `survey:new` - Creates new survey migration and rules document
   * `survey:refresh` - Refresh response tables
   * `survey:rules` - Create/update rules file from survey document
