@@ -232,8 +232,13 @@ class SurveyControlService
     public function getValidationErrors()
     {
         // Validate
-        $validator = Validator::make($this->request->all(), $this->page->getValidation());
+        $validator = Validator::make(
+            $this->request->all(),
+            $this->page->getValidation(),
+            getSurveyValidationMessages()
+        );
         $augmentedValidator = $this->execRule($this->rules, $this->page->name, 'GetValidator', ['validator'=>$validator]);
+
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
         if ($validator->fails() && $this->shouldValidate()) {
             return $validator->errors();

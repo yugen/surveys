@@ -23,3 +23,19 @@ if (! function_exists('getSurveyFromUrl')) {
         return $url;
     }
 }
+
+if (! function_exists('getSurveyValidationMessages')) {
+    function getSurveyValidationMessages() {
+        $defaultOverrides = [
+            'required' => 'This field is required',
+            'required_if' => 'This field is required',
+            'required_unless' => 'This field is required',
+            'required_with' => 'This field is required',
+            'required_without' => 'This field is required',
+            'required_with_all' => 'This field is required',
+            'required_without_all' => 'This field is required',
+        ];
+
+        return array_merge($defaultOverrides, config('surveys.validation_messages', []));
+    }
+}
