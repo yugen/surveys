@@ -43,11 +43,6 @@ abstract class XmlDocument implements JsonSerializable
         return true;
     }
 
-    // public function validate(\SimpleXMLElement $simpleXmlElement)
-    // {
-    //     return $this->validateXmlElement($simpleXmlElement);
-    // }
-
     public function validateXmlElement(\SimpleXMLElement $element)
     {
         $validator = new XmlValidator(__DIR__.'/../survey.xsd');
