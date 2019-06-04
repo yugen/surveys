@@ -19,6 +19,11 @@ trait HasMetadataTrait
         }
     }
 
+    public function hasMetadata()
+    {
+        return $this->metadata && count($this->metadata) > 0;
+    }
+
     public function setMetadata(array $metadata)
     {
         $this->metadata = $metadata;
