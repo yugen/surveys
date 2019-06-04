@@ -192,7 +192,8 @@ Specifies an alternate template to use for the block.
   <template source="path.to.template"></template>
 ```
 #### Metadata
-Allows for the definition of additional information about the container.  Requires one or more `<datum>` children. Keys and values can be defined as attributes or children of `<datum>` tag
+Allows for the definition of additional information about the renderable block.  
+Requires one or more `<datum>` children. Keys and values can be defined as attributes or children of `<datum>` tag
 ```
 <metadata>
   <datum key="datum_key" value="datum-value"></datum>
@@ -340,6 +341,22 @@ A question with a set number of possible answers.  MulipleChoice questions can b
 * id
 * class
 * exclusive - integer: integer indicates group
+
+###### Metadata
+Allows for the definition of additional information about the renderable block.  
+Requires one or more `<datum>` children. Keys and values can be defined as attributes or children of `<datum>` tag
+```
+<metadata>
+  <datum key="datum_key" value="datum-value"></datum>
+  <datum>
+    <key>Another Key</key>
+    <value>
+      <![CDATA[my cdata-requiring value here.]]>
+    </value>
+  </datum>
+</metadata>
+```
+
 
 #### Included Templates
 ##### Single-select
