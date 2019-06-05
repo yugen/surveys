@@ -167,10 +167,10 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getDataDefinition()
     {
         return [
-      'variableName'=>$this->getName(),
-      'dataFormat'=>$this->getDataFormat(),
-      'questionText'=>$this->getQuestionText()
-    ];
+            'variableName'=>$this->getName(),
+            'dataFormat'=>$this->getDataFormat(),
+            'questionText'=>$this->getQuestionText()
+        ];
     }
 
     public function setRequired($required)
@@ -273,6 +273,12 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
             case 'year':
                 $this->validationRules[] = 'regex:\d\d\d\d';
                 break;
+            case 'varchar':
+                $this->validationRules[] = 'max:255';
+                break;
+            case 'text':
+                $this->validationRules[] = 'max:65535';
+                break;
             default:
                 break;
         }
@@ -333,28 +339,28 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $reportTypes = [];
 
         switch ($this->dataFormat) {
-      case 'int':
-      case 'tinyint':
-      case 'mediumint':
-      case 'bigint':
-      case 'float':
-      case 'double':
-      case 'decimal':
-        $reportTypes[] = 'mean';
-        $reportTypes[] = 'median';
-        $reportTypes[] = 'mode';
-        $reportTypes[] = 'range';
-        break;
-      case 'date':
-      case 'time':
-      case 'year':
-        $reportTypes[] = 'median';
-        $reportTypes[] = 'mode';
-        $reportTypes[] = 'range';
-        break;
-      default:
-        break;
-    }
+            case 'int':
+            case 'tinyint':
+            case 'mediumint':
+            case 'bigint':
+            case 'float':
+            case 'double':
+            case 'decimal':
+                $reportTypes[] = 'mean';
+                $reportTypes[] = 'median';
+                $reportTypes[] = 'mode';
+                $reportTypes[] = 'range';
+                break;
+            case 'date':
+            case 'time':
+            case 'year':
+                $reportTypes[] = 'median';
+                $reportTypes[] = 'mode';
+                $reportTypes[] = 'range';
+                break;
+            default:
+                break;
+        }
 
         // gathering raw data for this question, getting counts
         $raw = $this->getRawData($responses);
