@@ -35,9 +35,7 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
         $blockFactory = new BlockFactory();
         foreach ($simpleXmlElement->children() as $child) {
             if (in_array($child->getName(), $blockFactory->getWhitelist())) {
-                $childClass = MultipleChoiceQuestion::class;
-                $childBlock = $childClass::createWithParameters($child, $this->getParameters());
-                $childBlock->setOptions($this->options);
+                $childBlock = MultipleChoiceQuestion::createWithParameters($child, $this->getParameters());
                 $children[] = $childBlock;
             }
         }
