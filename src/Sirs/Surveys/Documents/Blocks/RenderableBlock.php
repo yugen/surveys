@@ -57,6 +57,40 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
         return ($this->template) ? $this->template : $this->defaultTemplate;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+    public function getId()
+    {
+        return ($this->id) ? $this->id : $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    public function getClass()
+    {
+        return $this->class;
+    }
+
     /**
      * Render the block using it's template
      *
