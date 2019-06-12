@@ -35,7 +35,7 @@ class QuestionFactory
     public function create($xmlElement)
     {
         $questionClass = $this->getQuestionClass($xmlElement);
-        dd($questionClass);
+        // dd($questionClass);
         return new $questionClass($xmlElement);
     }
 
