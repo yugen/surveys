@@ -40,7 +40,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
         $this->name = $this->getAttribute($simpleXmlElement, 'name');
         $this->id = $this->getAttribute($simpleXmlElement, 'id');
         if ($simpleXmlElement->template[0]) {
-            $this->setTemplate($this->getAttribute($simpleXmlElement->template[0], 'source'));
+            $this->template = $this->getAttribute($simpleXmlElement->template[0], 'source');
         }
         $this->parseParameters($simpleXmlElement);
         $this->parseMetadata($simpleXmlElement);
