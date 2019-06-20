@@ -1,18 +1,19 @@
 <?php
 namespace Sirs\Surveys;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\ServiceProvider;
-use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
-use Sirs\Surveys\Console\CreateSurveyRules;
-use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
-use Sirs\Surveys\Console\CreateSurveyXml;
-use Sirs\Surveys\Console\CreateWorkflowStrategy;
-use Sirs\Surveys\Console\NewSurveyFromDocument;
-use Sirs\Surveys\Console\ValidateSurveyDefinition;
 use Sirs\Surveys\Models\Response;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use Sirs\Surveys\Console\CreateSurveyXml;
+use Sirs\Surveys\Console\CreateSurveyRules;
+use Sirs\Surveys\Console\NewSurveyFromDocument;
+use Sirs\Surveys\Console\CreateWorkflowStrategy;
+use Sirs\Surveys\Console\ValidateSurveyDefinition;
+use Sirs\Surveys\Console\RefreshSurveyResponseTables;
+use Sirs\Surveys\Console\CreateSurveyRulesFromDocument;
+use Sirs\Surveys\Console\CreateSurveyMigrationsFromDocument;
 
 class SurveysServiceProvider extends ServiceProvider
 {
