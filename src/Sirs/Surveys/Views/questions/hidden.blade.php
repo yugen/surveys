@@ -1,1 +1,1 @@
-@include('questions.input', ['question'=>$renderable, 'type'=>"hidden"])
+@include('surveys::questions.input', ['question'=>$renderable, 'type'=>"hidden"])

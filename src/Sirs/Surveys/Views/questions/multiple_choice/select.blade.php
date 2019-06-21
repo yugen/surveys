@@ -5,6 +5,5 @@
         @include('surveys::questions.multiple_choice.select_input', ['question'=>$renderable, 'context'=>$context])
       </div>
     </div>
-    <div class="col-sm-3">@include('survey::error', ['question'=>$renderable])</div>
-  </div>
-@endsection
+  @endslot
+@endcomponent

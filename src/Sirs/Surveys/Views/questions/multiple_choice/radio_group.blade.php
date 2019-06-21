@@ -1,9 +1,9 @@
-@extends('questions.question')
+@component('surveys::questions.question', compact('context', 'renderable'))
 
-@section('answers')
-      <div class="btn-group" role="group" data-toggle="buttons">
+@slot('answers')
+      <div class="btn-group btn-group-toggle  btn-group-sm" role="group" data-toggle="buttons">
         @foreach($renderable->options as $option)
-          <label class="btn btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif  {{ $option->class }}">
+          <label class="btn btn-light border btn-default @if($context['response']->{$renderable->name} == $option->value)active @endif  {{ $option->class }}">
            <input 
             type="radio" 
             name="{{$renderable->name}}" 
@@ -26,4 +26,6 @@
          </label>
         @endforeach
       </div>
-@endsection
+@endslot
+
+@endcomponent

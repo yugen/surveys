@@ -7,6 +7,12 @@
       @if($question->placeholder)
       placeholder="{{$question->placeholder}}" 
       @endif
+      @if($question->disabled)
+        disabled
+      @endif
+      @if($question->readonly)
+        readonly
+      @endif
       @if(method_exists($question, 'getMin') && $question->min)
       min="{{$question->min}}"
       @endif
