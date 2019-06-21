@@ -62,7 +62,7 @@ trait HasOptionsTrait
 
     protected function getOptionsFromDataSource($dataSourceUri)
     {
-        $responseString = \Cache::remember('surveys:datasource:'.$dataSourceUri, config('surveys.datasource_cachelife', 20), function () use ($dataSourceUri) {
+        $responseString = \Cache::remember('surveys:datasource:'.$dataSourceUri, config('surveys.datasource_cachelife', 20*60), function () use ($dataSourceUri) {
             $params = [];
             if (strstr($dataSourceUri, ':')) {
                 list($dataSourceUri, $paramString) = explode(':', $dataSourceUri);
