@@ -24,38 +24,29 @@ class DictionaryController extends BaseController
 
     public function getCsv($surveySlug)
     {
+        $rows = [[
+            'Name',
+            'Question',
+            'Options',
+            'Category'
+        ]];
         $questions = [];
         if ($surveySlug == 'all') {
-            foreach (class_survey()::all() as $survey) {                
-                $questions = array_merge($questions, (array)$survey->document->questions);
+            $rows[0][] = 'Survey';
+            foreach (class_survey()::all() as $survey) {
+                $questions = $survey->document->questions;
+                foreach ($questions as $q) {
+                    $rows[] = $this->assembleRow($q, $survey);
+                }
             }
         } else {
             $survey = class_survey()::findBySlug($surveySlug);
             $questions = $survey->document->questions;
+            foreach ($questions as $q) {
+                $rows[] = $this->assembleRow($q);
+            }
         }
 
-        $rows = [
-            ['Name', 'Question', 'Options', 'Category', 'Survey']
-        ];
-        foreach($questions as $q){
-            foreach($q->variables as $idx => $var){
-                if($q->hasOptions()) {
-                    $options = '';
-                    foreach($q->options as $option){
-                        $options .= $option->value.': '.$option->label."; ";
-                    }
-                } else {
-                    $options = 'n/a';
-                }
-
-                $rows[] = [
-                    'Name' => $var->name,
-                    'Question' => $q->questionText,
-                    'Category' => $var->type,
-                    'Options' => $options,
-                ];
-            }   
-        }
         $handle = fopen(storage_path('app/survey-dictionary-'.$surveySlug.'.csv'), 'w');
 
         foreach ($rows as $row) {
@@ -64,6 +55,31 @@ class DictionaryController extends BaseController
         fclose($handle);
 
         return response()->download(storage_path('app/survey-dictionary-'.$surveySlug.'.csv'), 'survey-dictionary-'.$surveySlug.'.csv');
+    }
 
+    private function assembleRow($question, $survey = null)
+    {
+        foreach ($question->variables as $idx => $var) {
+            if ($question->hasOptions()) {
+                $options = '';
+                foreach ($question->options as $option) {
+                    $options .= $option->value.': '.$option->label."; ";
+                }
+            } else {
+                $options = 'n/a';
+            }
+
+            $row = [
+                    'Name' => $var->name,
+                    'Question' => $question->questionText,
+                    'Category' => $var->type,
+                    'Options' => $options,
+                ];
+            if ($survey) {
+                $row['Survey'] = $survey->name;
+            }
+
+            return $row;
+        }
     }
 }
