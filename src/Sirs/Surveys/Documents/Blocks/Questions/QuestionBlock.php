@@ -19,6 +19,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     protected $hide = null;
     protected $refusable = null;
     protected $refuseLabel = null;
+    protected $disabled = null;
+    protected $readonly = null;
 
     public function __construct($xml = null)
     {
@@ -285,6 +287,30 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getVariables()
     {
         return [new Variable($this->variableName, $this->getDataFormat())];
+    }
+
+    public function setReadonly($readonly)
+    {
+        $this->readonly = ($readonly !== null) ? $readonly : null;
+
+        return $this;
+    }
+
+    public function getReadonly()
+    {
+        return $this->readonly;
+    }
+
+    public function setDisabled($disabled)
+    {
+        $this->disabled = ($disabled !== null) ? $disabled : null;
+
+        return $this;
+    }
+
+    public function getDisabled()
+    {
+        return $this->disabled;
     }
 
     public function hasOptions()
