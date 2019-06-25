@@ -49,7 +49,7 @@
                             }}
                         @else
                             {{
-                                ($response->{$question->name} == -77) 
+                                ($response->{$question->name} == config('surveys.refusedValue', -77)) 
                                     ? config('surveys.refuseLabel', 'Refused') 
                                     : $response->{$question->name} 
                             }}

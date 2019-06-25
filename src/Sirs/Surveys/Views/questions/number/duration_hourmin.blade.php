@@ -10,7 +10,7 @@
           max="{{floor($renderable->max / 60)}}"
         @endif
         {{($renderable->required) ? ' required' : ''}}
-        @if($context['response']->{$renderable->name} != -77 && 
+        @if($context['response']->{$renderable->name} != config('surveys.refusedValue', -77) && 
             $context['response']->{$renderable->name} !== null &&
             $context['response']->{$renderable->name} !== '')
           value="{{($context['response']->{$renderable->name} !== null) ? (floor($context['response']->{$renderable->name}/60)) : '' }}"
@@ -32,7 +32,7 @@
         max="{{59}}"
         @endif
         {{($renderable->required) ? ' required' : ''}}
-        @if($context['response']->{$renderable->name} != -77 && 
+        @if($context['response']->{$renderable->name} != config('surveys.refusedValue', -77) && 
             $context['response']->{$renderable->name} !== null &&
             $context['response']->{$renderable->name} !== '' )
             value="{{ ($context['response']->{$renderable->name} !== null) ? ($context['response']->{$renderable->name} % 60) : ''  }}"

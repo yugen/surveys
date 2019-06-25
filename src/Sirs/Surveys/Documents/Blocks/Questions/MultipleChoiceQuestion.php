@@ -44,7 +44,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->refusable) {
             $refusedIdx = 0;
             foreach ($this->options as $idx => $option) {
-                if ($option->value == -77) {
+                if ($option->value == config('surveys.refusedValue', -77)) {
                     $refusedIdx = $idx;
                 }
             }
@@ -94,7 +94,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->refusable) {
             $refusedOption = new OptionBlock('refused');
             $refusedOption->setName('refused');
-            $refusedOption->setValue(-77);
+            $refusedOption->setValue(config('surveys.refusedValue', -77));
             $refusedOption->setLabel($this->refuseLabel);
             $refusedOption->setClass('exclusive');
             $this->appendOption($refusedOption);

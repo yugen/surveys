@@ -30,15 +30,15 @@
                 id="{{$renderable->name}}-refused" 
                 name="{{$renderable->name}}" 
                 class="exclusive" 
-                value="-77"
+                value="config('surveys.refusedValue', -77)"
                 @if($renderable->disabled)
                     disabled
                 @endif
                 @if($renderable->readonly)
                     readonly
                 @endif
-                @if($context['response']->{$renderable->name} == -77)checked @endif></input>
-                    Refuse
+                @if($context['response']->{$renderable->name} == config('surveys.refusedValue', -77))checked @endif></input>
+                    {{config('surveys.refusedLabel', 'Refused')}}
             </label>
         </div>
         </div>

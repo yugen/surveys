@@ -36,7 +36,7 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
         if ($this->refusable) {
             $refusable = new OptionBlock('refused');
             $refusable->setLabel('Refused');
-            $refusable->setValue(-77);
+            $refusable->setValue(config('surveys.refusedValue', -77));
             $refusable->setClass('hidden');
             $this->appendOption($refusable);
         }

@@ -91,10 +91,11 @@ return [
     | Refused label
     |--------------------------------------------------------------------------
     |
-    | Label to use for refused option on refusable questions
+    | Label and value to use for refused option on refusable questions
     |
     */
-    'refusedLabel'=>'Refused',
+    'refusedLabel' => 'Refused',
+    'refusedValue' => -77,
 
     /*
     |--------------------------------------------------------------------------

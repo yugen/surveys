@@ -86,13 +86,13 @@ class SurveysServiceProvider extends ServiceProvider
             return str_replace(':min', $parameters[0], 'Must be greater than or equal to :min');
         });
         Validator::extend('refusableIntMin', function ($attribute, $value, $parameters, $validator) {
-            return ((int)$value >= (int)$parameters[0] || (int)$value == -77);
+            return ((int)$value >= (int)$parameters[0] || (int)$value == config('surveys.refusedValue', -77));
         });
         Validator::replacer('refusableIntMin', function ($message, $attribute, $rule, $parameters) {
             if ($message == 'validation.refusable_int_min') {
-                $message = 'Must be greater than or equal to :min or -77 (refused)';
+                $message = 'Must be greater than or equal to :min or '.config('surveys.refusedValue', -77).' (refused)';
             }
-            return str_replace(':min', $parameters[0], 'Must be greater than or equal to :min or -77 (refused)');
+            return str_replace(':min', $parameters[0], 'Must be greater than or equal to :min or '.config('surveys.refusedValue', -77).' (refused)');
         });
         Validator::extend('intMax', function ($attribute, $value, $parameters, $validator) {
             return ((int)$value <= (int)$parameters[0]);

@@ -19,11 +19,11 @@
       max="{{$question->max}}"
       @endif
       {{($question->required) ? ' required' : ''}}
-    />{{($context['response']->{$question->name} !== null && $context['response']->{$question->name} != -77) ? (string)$context['response']->{$question->name} : ''}}</textarea>
+    />{{($context['response']->{$question->name} !== null && $context['response']->{$question->name} != config('surveys.refusedValue', -77)) ? (string)$context['response']->{$question->name} : ''}}</textarea>
     <div class="checkbox">
         <label>
             <input id="beans" type="checkbox" name="{{$question->name}}_refused" class="exclusive" 
-              @if($context['response']->{$question->name} == -77) checked @endif
+              @if($context['response']->{$question->name} == config('surveys.refusedValue', -77)) checked @endif
             />
             {{$question->refuseLabel}}
         </label>
@@ -35,7 +35,7 @@
         });
         document.querySelector('[name="{{$question->name}}_refused"]').addEventListener('change', function(evt){
           if(evt.target.checked){
-            document.querySelector('[name={{$question->name}}]').value = -77;  
+            document.querySelector('[name={{$question->name}}]').value = {{config('surveys.refusedValue', config('surveys.refusedValue', -77))}};  
           }else{
             document.querySelector('[name={{$question->name}}]').value = null;  
           }

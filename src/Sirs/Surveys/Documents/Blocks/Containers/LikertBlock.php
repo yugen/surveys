@@ -58,7 +58,7 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
         $this->refusable = ($value) ? true : false;
         if ($this->refusable) {
             $refusedOption = new OptionBlock('refused');
-            $refusedOption->setValue(-77);
+            $refusedOption->setValue(config('surveys.refusedValue', -77));
             $refusedOption->setLabel('Refused');
             $this->appendOption($refusedOption);
         }
