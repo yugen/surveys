@@ -29,8 +29,8 @@
 			? (string)$context['response']->{$question->name} 
 			: ''
 	}}"
-	@if($renderable->show)
-		data-skipTarget="{{$renderable->show}}"
+	@if($question->show)
+		data-skipTarget="{{$question->show}}"
 	@endif
 />
 @endif
