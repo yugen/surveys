@@ -397,6 +397,7 @@ A numeric-scale with options ranging from **min** to **max** at **interval**. (E
 *  min - interger - *required*
 *  max - integer - *required*
 *  interval - integer - interval between options - default: 1
+*  reverse - boolean - if 1 list scale in reverse order
 
 #### Legend:
 The legend describes the meaning of the options.  It is made up of any number of items each of whicl have a `<label>` and `<value>`.  When rendered the items will be evenly distributed above the options.
