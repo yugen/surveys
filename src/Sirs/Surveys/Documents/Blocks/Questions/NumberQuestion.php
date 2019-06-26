@@ -26,15 +26,20 @@ class NumberQuestion extends BoundedQuestion
     {
         $validations = parent::getValidationRules();
         $validations[] = 'numeric';
-        if ($this->min !== null) {
+
+        $min = min($this->min, $this->max);
+        $max = max($this->min, $this->max);
+
+        if ($min !== null) {
             if ($this->refusable) {
-                $validations[] = 'refusableIntMin:'.$this->min;
+                $validations[] = 'refusableIntMin:'.$min;
             } else {
-                $validations[] = 'intMin:'.$this->min;
+                $validations[] = 'intMin:'.$min;
             }
         }
-        if ($this->max !== null) {
-            $validations[] = 'intMax:'.$this->max;
+
+        if ($max !== null) {
+            $validations[] = 'intMax:'.$max;
         }
 
         return $validations;
