@@ -1,12 +1,12 @@
 <div class="conatiner-block likert-container {{$renderable->class ?? ''}}" id="{{$renderable->id ?? ''}}">
-  <p class="likert-prompt">
+  <p class="likert-prompt mb-1">
     <strong>
       {!! html_entity_decode($renderable->getCompiledPrompt($context)) !!}
     </strong>
   </p>
-  <table class="table table-striped table-sm">
+  <table class="table table-striped table-sm mb-1 ml-4" style="width: 90%">
     <thead>
-      <th class="question-col">&nbsp;</th>
+      <th class="question-col" style="width: 50%">&nbsp;</th>
       @foreach($renderable->options as $option)
         <th class="option-col text-center" style="width: {{(1/$renderable->options->count()*50)}}%">
           {{$option->labelIsSet() ? $option->label : ''}}

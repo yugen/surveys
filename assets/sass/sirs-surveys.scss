@@ -42,37 +42,10 @@ label{
   @extend .btn-group-vertical;
 }
 
-.likert-container
+.likert-container .question-text
 {
-  margin-bottom: 2.5rem;
-
-  .likert-prompt
-  {
-    margin-bottom: .25rem
-  }
-
-  & > table {
-    margin-bottom: .25rem;
-    margin-left: 1.5rem;
-    width: 90%;  
-  }
-  
-  & > table thead th {
-    border-top: none;
-    font-size: .8rem;
-    font-weight: normal;
-  }
-  
-  & > table tbody th {
-    padding: .5rem;
-  }
-  
-  & > table th:first-child {
-    width: 50%;
-  }
+  width: 475px;
 }
-
-
 
 // response data view
   #page-nav.affix {
