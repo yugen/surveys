@@ -26,7 +26,6 @@ class Response extends Model implements SurveyResponse
     );
     protected $revisionCreationsEnabled = true;
 
-
     /**
         * allows you to statically intialize Response
         * @param string $surveyName ame of survey
@@ -157,5 +156,31 @@ class Response extends Model implements SurveyResponse
             }
         }
         return $cols;
+    }
+
+    public function mutateDataValues()
+    {
+        $this->transformDataValues(function ($value) {
+            return json_encode($value, true);
+        });
+    }
+
+    public function accessDataValues()
+    {
+        $this->transformDataValues(function ($value) {
+            return json_decode($value, true);
+        });
+    }
+
+    protected function transformDataValues($callback)
+    {
+        $vars = collect($this->survey->document->variables)->pluck('dataFormat', 'name');
+        foreach ($this->getAttributes() as $key => $value) {
+            if ($vars->keys()->contains($key)) {                # code...
+                if ($vars->get($key) == 'json') {
+                    $this->attributes[$key] = $callback($value);
+                }
+            }
+        }        
     }
 }

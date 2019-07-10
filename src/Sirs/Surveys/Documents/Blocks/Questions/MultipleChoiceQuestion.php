@@ -15,12 +15,14 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     protected $numSelectable;
     protected $defaultSingleTemplate;
     protected $defaultMultiTemplate;
+    protected $defaultJsonTemplate;
 
     public function __construct($xml = null)
     {
         parent::__construct($xml);
         $this->defaultSingleTemplate = config('surveys.default_templates.multiple_choice.single', 'questions.multiple_choice.radio_group');
         $this->defaultMultiTemplate = config('surveys.default_templates.multiple_choice.multi', 'questions.multiple_choice.checkbox_group');
+        $this->defaultJsonTemplate = config('surveys.default_templates.multiple_choice.json', 'questions.multiple_choice.checkbox_group_array');
         $this->defaultTemplate = $this->defaultSingleTemplate;
         $this->defaultDataFormat = 'int';
     }
@@ -67,7 +69,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 
     public function getTemplate()
     {
-        $this->defaultTemplate = ($this->getNumSelectable() > 1) ? $this->defaultMultiTemplate : $this->defaultSingleTemplate;
+        $this->defaultTemplate = ($this->getNumSelectable() > 1)
+                                    ? ($this->dataFormat == 'json')
+                                        ? $this->defaultJsonTemplate
+                                        : $this->defaultMultiTemplate
+                                    : $this->defaultSingleTemplate;
 
         return parent::getTemplate();
     }
@@ -81,11 +87,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function getDataDefinition()
     {
         return [
-        'variableName'=>$this->getName(),
-        'dataFormat'=>$this->getDataFormat(),
-        'questionText'=>$this->getQuestionText(),
-        'options'=>$this->getOptions(),
-      ];
+            'variableName'=>$this->getName(),
+            'dataFormat'=>$this->getDataFormat(),
+            'questionText'=>$this->getQuestionText(),
+            'options'=>$this->getOptions(),
+        ];
     }
 
     public function setRefusable($value)
@@ -112,6 +118,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->numSelectable == 1) {
             return parent::getVariables();
         }
+
+        if ($this->dataFormat == 'json') {
+            return parent::getVariables();
+        }
+        
         $varNames = [];
         foreach ($this->getOptions() as $idx => $option) {
             $varNames[] = new Variable($option->getName(), 'tinyint');

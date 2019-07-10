@@ -132,6 +132,7 @@ return [
         'multiple_choice' => [
             'single' => 'questions.multiple_choice.radio_group',
             'multi' => 'questions.multiple_choice.checkbox_group',
+            'json' => 'questions.multiple_choice.checkbox_group_array',
         ],
         'number' => 'questions.number.number',
         'numeric_scale' => 'questions.number.numeric_scale',

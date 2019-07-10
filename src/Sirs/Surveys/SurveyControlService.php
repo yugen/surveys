@@ -72,6 +72,7 @@ class SurveyControlService
     {
         // set the last page to the newly displayed page so the user will alwyas return to where they left off.
         $this->response->update(['last_page' => $this->page->name]);
+        $this->response->accessDataValues();
         return $this->render();
     }
 
@@ -91,6 +92,7 @@ class SurveyControlService
         }
 
         $this->response->last_page = $this->page->name;
+        $this->response->mutateDataValues();
         $this->response->save();
 
         // run the after save rule for the page (if any).
@@ -199,7 +201,7 @@ class SurveyControlService
 
     protected function getSurveyUrlAttribute()
     {
-        return self::generateSurveyUrl($this->survey, $this->response);
+        return static::generateSurveyUrl($this->survey, $this->response);
     }
 
     public static function generateSurveyUrl(SurveyModel $survey, SurveyResponse $response)
