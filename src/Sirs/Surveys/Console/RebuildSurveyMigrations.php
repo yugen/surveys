@@ -39,11 +39,11 @@ class RebuildSurveyMigrations extends Command
     {
         $dir = base_path('resources/surveys');
         foreach (scandir($dir) as $filename) {
-            $this->info('Create migration for '.$filename);
             if (in_array($filename, ['.', '..']) || is_dir($dir.'/'.$filename) || pathinfo($dir.'/'.$filename)['extension'] != 'xml') {
                 continue;
             }
-            \Artisan::call('survey:migration', ['document'=>config('surveys.surveysPath').$filename]);
+            $this->info('Create migration for '.$filename);
+            \Artisan::call('survey:migration', ['document'=>config('surveys.surveysPath').'/'.$filename]);
         }
     }
 }
