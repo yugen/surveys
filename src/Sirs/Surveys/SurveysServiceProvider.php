@@ -152,8 +152,11 @@ class SurveysServiceProvider extends ServiceProvider
     protected function addWorkflowListeners()
     {
         \Event::listen('Sirs\Surveys\Events\SurveyResponseFinalized', 'Sirs\Surveys\Handlers\RunWorkflow');
+        \Event::listen('Sirs\Surveys\Events\SurveyResponseFinalizing', 'Sirs\Surveys\Handlers\RunWorkflow');
         \Event::listen('Sirs\Surveys\Events\SurveyResponseReopened', 'Sirs\Surveys\Handlers\RunWorkflow');
+        \Event::listen('Sirs\Surveys\Events\SurveyResponseReopening', 'Sirs\Surveys\Handlers\RunWorkflow');
         \Event::listen('Sirs\Surveys\Events\SurveyResponseSaved', 'Sirs\Surveys\Handlers\RunWorkflow');
+        \Event::listen('Sirs\Surveys\Events\SurveyResponseSaving', 'Sirs\Surveys\Handlers\RunWorkflow');
         \Event::listen('Sirs\Surveys\Events\SurveyResponseStarted', 'Sirs\Surveys\Handlers\RunWorkflow');
     }
 
