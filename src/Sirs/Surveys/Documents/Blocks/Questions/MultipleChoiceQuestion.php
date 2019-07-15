@@ -136,6 +136,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->numSelectable == 1) {
             return parent::setValidationRules($value);
         }
+
+        if ($this->dataFormat == 'json') {
+            return parent::setValidationRules($value);
+        }
+
         // set based on validation-rules attribute
         if (is_null($value)) {
             return;
@@ -156,6 +161,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->numSelectable == 1) {
             return parent::getLaravelValidationArray();
         }
+
+        if ($this->dataFormat == 'json') {
+            return  parent::getLaravelValidationArray();
+        }
+
         $valRules = ($this->getValidationRules()) ? $this->getValidationRules() : [];
         $rules = [];
         foreach ($valRules as $optionName => $optionRules) {
@@ -168,39 +178,43 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function getValidationRules()
     {
         if ($this->numSelectable == 1) {
-            parent::getValidationRules();
-        } else {
-            $optionNames = $this->getOptionNames();
-            foreach ($this->options as $option) {
-                $this->validationRules[$option->name] = [];
-                if ($this->required) {
-                    $others = $optionNames;
-                    array_splice($others, array_search($option->name, $others), 1);
-                    $this->validationRules[$option->name][] = 'required_without_all:'.implode(',', $others);
-                }
-                switch ($this->dataFormat) {
-            case 'int':
-            case 'tinyint':
-            case 'mediumint':
-            case 'bigint':
-              $this->validationRules[$option->name][] = 'integer';
-              break;
-            case 'float':
-            case 'double':
-            case 'decimal':
-              $this->validationRules[$option->name][] = 'numeric';
-              break;
-            case 'date':
-            case 'time':
-              $this->validationRules[$option->name][] = 'date';
-              break;
-            case 'year':
-              $this->validationRules[$option->name][] = 'regex:\d\d\d\d';
-              // no break
-            default:
-              break;
-          }
+            return parent::getValidationRules();
+        }
+
+        if ($this->dataFormat == 'json') {
+            return parent::getValidationRules();
+        }
+
+        $optionNames = $this->getOptionNames();
+        foreach ($this->options as $option) {
+            $this->validationRules[$option->name] = [];
+            if ($this->required) {
+                $others = $optionNames;
+                array_splice($others, array_search($option->name, $others), 1);
+                $this->validationRules[$option->name][] = 'required_without_all:'.implode(',', $others);
             }
+            switch ($this->dataFormat) {
+                case 'int':
+                case 'tinyint':
+                case 'mediumint':
+                case 'bigint':
+                    $this->validationRules[$option->name][] = 'integer';
+                    break;
+                case 'float':
+                case 'double':
+                case 'decimal':
+                    $this->validationRules[$option->name][] = 'numeric';
+                    break;
+                case 'date':
+                case 'time':
+                    $this->validationRules[$option->name][] = 'date';
+                    break;
+                case 'year':
+                    $this->validationRules[$option->name][] = 'regex:\d\d\d\d';
+                    // no break
+                default:
+                    break;
+                }
         }
 
         return $this->validationRules;
