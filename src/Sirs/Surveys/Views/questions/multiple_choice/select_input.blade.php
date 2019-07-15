@@ -1,10 +1,8 @@
 <select name="{{$question->name}}" id="{{$question->id}}"
-  class=" form-control form-control-sm
-  @if($question->class)
-    {{$question->class}}
-  @endif
-  "
-  {{($question->required) ? ' required' : ''}}
+  class=" form-control form-control-sm {{($question->class) ? $question->class : ''}}"
+  {{($question->required) ? ' required' : ''}}  
+  {{($question->disabled) ? 'disabled' : ''}}
+  {{($question->readonly) ? 'readonly' : ''}}
 >
     <option value="">{{$question->placeholder ? $question->placeholder : 'Select...'}}</option>
 
