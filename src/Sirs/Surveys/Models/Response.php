@@ -160,27 +160,34 @@ class Response extends Model implements SurveyResponse
 
     public function mutateDataValues()
     {
-        $this->transformDataValues(function ($value) {
-            return json_encode($value, true);
+        $this->transformDataValues('json', function ($value, $key) {
+            if ($this->isDirty($key)) {
+                return json_encode($value, true);
+            }
+            return $value;
         });
     }
 
     public function accessDataValues()
     {
-        $this->transformDataValues(function ($value) {
+        $this->transformDataValues('json', function ($value, $key) {
             return json_decode($value, true);
         });
     }
 
-    protected function transformDataValues($callback)
+    protected function transformDataValues($dataFormat, $callback)
     {
         $vars = collect($this->survey->document->variables)->pluck('dataFormat', 'name');
         foreach ($this->getAttributes() as $key => $value) {
-            if ($vars->keys()->contains($key)) {                # code...
-                if ($vars->get($key) == 'json') {
-                    $this->attributes[$key] = $callback($value);
-                }
+            if (!$vars->keys()->contains($key)) {
+                continue;
             }
-        }        
+            
+            if ($vars->get($key) != $dataFormat) {
+                continue;
+            }
+
+            $this->attributes[$key] = $callback($value, $key);
+        }
     }
 }
