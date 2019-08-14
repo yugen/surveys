@@ -229,27 +229,35 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         }
 
         switch ($this->dataFormat) {
-        case 'int':
-        case 'tinyint':
-        case 'mediumint':
-        case 'bigint':
-          $this->validationRules[] = 'integer';
-          break;
-        case 'float':
-        case 'double':
-        case 'decimal':
-          $this->validationRules[] = 'numeric';
-          break;
-        case 'date':
-        case 'time':
-          $this->validationRules[] = 'date';
-          break;
-        case 'year':
-          $this->validationRules[] = 'regex:\d\d\d\d';
-          // no break
-        default:
-          break;
-      }
+            case 'int':
+            case 'tinyint':
+            case 'mediumint':
+            case 'bigint':
+                $this->validationRules[] = 'integer';
+                break;
+            case 'float':
+            case 'double':
+            case 'decimal':
+                $this->validationRules[] = 'numeric';
+                break;
+            case 'date':
+                $this->validationRules[] = 'date';
+                break;
+            case 'time':
+                $this->validationRules[] = 'date_format:g:ia';
+                break;
+            case 'year':
+                $this->validationRules[] = 'regex:\d\d\d\d';
+                break;
+            case 'varchar':
+                $this->validationRules[] = 'max:255';
+                break;
+            case 'text':
+                $this->validationRules[] = 'max:65535';
+                break;
+            default:
+                break;
+        }
 
         return $this->validationRules;
     }
