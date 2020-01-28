@@ -32,6 +32,27 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
 3. add the service provider to your app config: `Sirs\Surveys\SurveysServiceProvider::class,`
 4. Publish the stylesheets and config file: `$ php artisan vendor:publish`
 
+## Usage Notes
+* Because the Response model refers to a number of different response tables the best way to interact with responses is through survyeys:
+  ```
+    $respondent = new Participant();
+    $survey = class_survey()::findBySlug('svyslug'); //see bindings in configuration for info on class_path()
+    $responses = $survey->responses;
+    $newResponse = $survey->getNewResponse($respondent);
+  ```
+* New responses can be accessed via the route 
+  ```
+    /{full-respondent-class-name}/{id}/survey/{survey-slug}/new` i.e. `app-participant/1/survey/screener1/new
+  ```
+* Existing response can be accessed via the route 
+  ```
+    /{full-respondent-class-name}/{id}/survey/screener1/{response_id}`
+  ```
+* Latest existing or new response can be accessed via the route 
+  ```
+    /{full-respondent-class-name}/{id}/survey/screener1
+  ```
+
 ## Configuration
 
   * **editAfterFinalized**
@@ -59,6 +80,7 @@ It's helpful to understand the concepts behind the sirs/surveys package before d
         NOTE: This is optional. If not set Sirs\Surveys\Models\Response and Sirs\Surveys\Models\Survey will be used.
     * **models**:
       * **Survey**: *(string)* - App\Survey::class (must implement  *Sirs\Surveys\Contracts\SurveyContract*)
+        * the `class_surve()` will always return the configured Survey model.  Using `class_survey::methond()` instead of `\Sirs\Surveys\Models\Surveys::method()` is recommended for future-proofing your application from changing configurations.
       * **Response**: *(string)* - App\SurveyResponse::class (must implement *Sirs\Surveys\Contracts\SurveyResponse*)
 
 ## Artisan commands
