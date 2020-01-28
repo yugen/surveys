@@ -1,12 +1,11 @@
 <select name="{{$question->name}}" id="{{$question->id}}"
-  class=" form-control
-  @if($question->class)
-    {{$question->class}}
-  @endif
-  "
-  {{($question->required) ? ' required' : ''}}
+  class=" form-control form-control-sm {{($question->class) ? $question->class : ''}}"
+  {{($question->required) ? ' required' : ''}}  
+  {{($question->disabled) ? 'disabled' : ''}}
+  {{($question->readonly) ? 'readonly' : ''}}
 >
-    <option value="">Select...</option>
+    <option value="">{{$question->placeholder ? $question->placeholder : 'Select...'}}</option>
+
     @foreach($question->options as $option)
       <option 
         id="{{$question->name}}_{{$option->value}}" 

@@ -8,18 +8,39 @@ use Sirs\Surveys\SurveyResponseWorkflowStrategy;
  * Extends SurveyResponseWorkflowStrategy (implements SurveyTypeWorkflowStrategyInterface).  
  * You can override the following public methods:
  *     run()
- *     attended()
- *     canceled()
- *     missed()
- *     scheduled()
- *     wasRescheduled()
- *     statusWasUpdated()
+ *     started()
+ *     saving()
+ *     saved()
+ *     finalizing()
+ *     finalized()
+ *     reopening()
+ *     reopened()
  * Instance vars include $this->response and $this->event.
  * 
  **/
 class {DummyType}WorkflowStrategy extends SurveyResponseWorkflowStrategy
 {
+    public function started()
+    {
+    }
+
+    public function saving()
+    {
+    }
+
+    public function saved()
+    {
+    }
+    
+    public function finalizing()
+    {
+    }
+
     public function finalized()
+    {
+    }
+
+    public function reopening()
     {
     }
 
@@ -27,14 +48,6 @@ class {DummyType}WorkflowStrategy extends SurveyResponseWorkflowStrategy
     {
     }
 
-    public function saved()
-    {
-    }
-
-    public function started()
-    {
-    }
-    
 } // END class SurveyResponseTypeWorkflowStrategy
 
 ?>

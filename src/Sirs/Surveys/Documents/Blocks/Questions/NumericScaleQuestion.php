@@ -25,9 +25,11 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
     {
         parent::parse($simpleXmlElement);
         $this->setInterval($this->getAttribute($simpleXmlElement, 'interval'));
+        $this->setReverse($this->getAttribute($simpleXmlElement, 'reverse'));
         $this->parseLegend($simpleXmlElement);
 
-        foreach (range($this->min, $this->max, $this->getInterval()) as $num) {
+        $range = ($this->reverse) ? range($this->max, $this->min, $this->getInterval()) : range($this->min, $this->max, $this->getInterval());
+        foreach ($range as $num) {
             $option = new OptionBlock($num);
             $option->setLabel($num);
             $option->setValue($num);
@@ -36,10 +38,20 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
         if ($this->refusable) {
             $refusable = new OptionBlock('refused');
             $refusable->setLabel('Refused');
-            $refusable->setValue(-77);
+            $refusable->setValue(config('surveys.refusedValue', -77));
             $refusable->setClass('hidden');
             $this->appendOption($refusable);
         }
+    }
+
+    public function setReverse($reverse)
+    {
+        $this->reverse = $reverse;
+    }
+
+    public function getReverse()
+    {
+        return $this->reverse ?? 0;
     }
 
     public function setInterval($interval)
@@ -74,7 +86,9 @@ class NumericScaleQuestion extends NumberQuestion implements HasOptionsInterface
 
     public function getLegend()
     {
-        return ($this->legend) ? $this->legend : [];
+        return ($this->legend)
+            ? ($this->reverse) ? array_reverse($this->legend) : $this->legend
+            : [];
     }
 
     public function appendItem($item)

@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Blade;
 use Sirs\Surveys\Documents\XmlDocument;
 use Sirs\Surveys\Contracts\RenderableInterface;
 
+/**
+ * A renderable XmlDocument block. 
+ * The renderable block is the ancestor of all containers (page, question-group, etc.), questions, and other displayable elements of a survey (html, option, etc.)
+ */
 class RenderableBlock extends XmlDocument implements RenderableInterface
 {
     use HasParametersTrait;
     use HasMetadataTrait;
-    public $content;
 
+    // public $content;
     protected $class;
     protected $id;
     protected $template;
@@ -32,31 +36,19 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
 
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
-        $this->setClass($this->getAttribute($simpleXmlElement, 'class'));
-        $this->setName($this->getAttribute($simpleXmlElement, 'name'));
-        $this->setId($this->getAttribute($simpleXmlElement, 'id'));
+        $this->class = $this->getAttribute($simpleXmlElement, 'class');
+        $this->name = $this->getAttribute($simpleXmlElement, 'name');
+        $this->id = $this->getAttribute($simpleXmlElement, 'id');
         if ($simpleXmlElement->template[0]) {
-            $this->setTemplate($this->getAttribute($simpleXmlElement->template[0], 'source'));
+            $this->template = $this->getAttribute($simpleXmlElement->template[0], 'source');
         }
         $this->parseParameters($simpleXmlElement);
         $this->parseMetadata($simpleXmlElement);
     }
 
     /**
-     * Sets the template to use for this block
-     *
-     * @param string $template
-     * @return void
-     **/
-    public function setTemplate($template = null)
-    {
-        $this->template = $template;
-
-        return $this;
-    }
-
-    /**
      * Get the template for this block
+     * Returns $this->template if set, otherwise returns $this->defaultTemplate
      *
      * @return string
      **/
@@ -106,13 +98,32 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
      **/
     public function render($context)
     {
-        $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
-        return view('surveys::'.$this->getTemplate(), ['context'=>$context, 'renderable' => $this, 'chromeTemplate'=>$chromeTemplate])->render();
+        $chromeTemplate = config('surveys.chromeTemplate', 'default_layout');
+
+        $template = $this->getTemplate();
+        
+        $templatePath = $template;
+        if (!\View::exists($templatePath)) {
+            if (substr($template, 0, 7) != 'surveys::') {
+                $templatePath = 'surveys::'.$template;
+            }
+        }
+
+        $view = view(
+            $templatePath,
+            [
+                'context'=>$context,
+                'renderable' => $this,
+                'chromeTemplate'=>$chromeTemplate
+            ]
+        );
+        return $view->render();
     }
 
     public function renderWithDefault($defaultTemplate)
     {
-        $renderTemplate = ($this->getTemplate()) ? $this->getTemplate() : $defaultTemplate;
+        $renderTemplate = $this->getTemplate();
+
         $view = $this->renderer->render($renderTemplate, ['renderable'=>$this]);
 
         return $view;
@@ -120,7 +131,7 @@ class RenderableBlock extends XmlDocument implements RenderableInterface
 
     public function renderWith($template, $context)
     {
-        $chromeTemplate = (config('surveys.chromeTemplate')) ? config('surveys.chromeTemplate') : 'chrome';
+        $chromeTemplate = config('surveys.chromeTemplate', 'default_layout');
         $view = $this->renderer->render($template, ['chromeTemplate'=>$chromeTemplate,'context'=>$context, 'renderable'=>$this]);
 
         return $view;

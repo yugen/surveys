@@ -1,12 +1,15 @@
-<?php 
+<?php
 namespace Sirs\Surveys;
 
-use Carbon\Carbon;
 use Event;
-use Sirs\Surveys\Events\SurveyResponseFinalized;
-use Sirs\Surveys\Events\SurveyResponseReopened;
+use Carbon\Carbon;
 use Sirs\Surveys\Events\SurveyResponseSaved;
+use Sirs\Surveys\Events\SurveyResponseSaving;
 use Sirs\Surveys\Events\SurveyResponseStarted;
+use Sirs\Surveys\Events\SurveyResponseReopened;
+use Sirs\Surveys\Events\SurveyResponseFinalized;
+use Sirs\Surveys\Events\SurveyResponseReopening;
+use Sirs\Surveys\Events\SurveyResponseFinalizing;
 use Sirs\Surveys\Contracts\SurveyResponse as Response;
 
 /**
@@ -27,23 +30,33 @@ class SurveyResponseObserver
 
     public function saving(Response $surveyResponse)
     {
+        Event::dispatch(new SurveyResponseSaving($surveyResponse));
+
+        // dispatch finalizing event or reopening event
+        if ($surveyResponse->isDirty('finalized_at')) {
+            if (!is_null($surveyResponse->finalized_at) && is_null($surveyResponse->getOriginal('finalize_at'))) {
+                Event::dispatch(new SurveyResponseFinalizing($surveyResponse));
+            } elseif (is_null($surveyResponse->finalized_at)) {
+                Event::dispatch(new SurveyResponseReopening($surveyResponse));
+            }
+        }
     }
 
     public function saved(Response $surveyResponse)
     {
-        Event::fire(new SurveyResponseSaved($surveyResponse));
+        Event::dispatch(new SurveyResponseSaved($surveyResponse));
 
-        // fire started at event
+        // dispatch started at event
         if ($surveyResponse->isDirty('started_at') && !is_null($surveyResponse->started_at)) {
-            Event::fire(new SurveyResponseStarted($surveyResponse));
+            Event::dispatch(new SurveyResponseStarted($surveyResponse));
         }
 
-        // fire finalized event or reopened event
+        // dispatch finalized event or reopened event
         if ($surveyResponse->isDirty('finalized_at')) {
             if (!is_null($surveyResponse->finalized_at) && is_null($surveyResponse->getOriginal('finalize_at'))) {
-                Event::fire(new SurveyResponseFinalized($surveyResponse));
+                Event::dispatch(new SurveyResponseFinalized($surveyResponse));
             } elseif (is_null($surveyResponse->finalized_at)) {
-                Event::fire(new SurveyResponseReopened($surveyResponse));
+                Event::dispatch(new SurveyResponseReopened($surveyResponse));
             }
         }
     }

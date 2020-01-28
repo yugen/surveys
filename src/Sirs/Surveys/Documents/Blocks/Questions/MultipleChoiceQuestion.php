@@ -15,12 +15,14 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     protected $numSelectable;
     protected $defaultSingleTemplate;
     protected $defaultMultiTemplate;
+    protected $defaultJsonTemplate;
 
     public function __construct($xml = null)
     {
         parent::__construct($xml);
         $this->defaultSingleTemplate = config('surveys.default_templates.multiple_choice.single', 'questions.multiple_choice.radio_group');
         $this->defaultMultiTemplate = config('surveys.default_templates.multiple_choice.multi', 'questions.multiple_choice.checkbox_group');
+        $this->defaultJsonTemplate = config('surveys.default_templates.multiple_choice.json', 'questions.multiple_choice.checkbox_group_array');
         $this->defaultTemplate = $this->defaultSingleTemplate;
         $this->defaultDataFormat = 'int';
     }
@@ -44,7 +46,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->refusable) {
             $refusedIdx = 0;
             foreach ($this->options as $idx => $option) {
-                if ($option->value == -77) {
+                if ($option->value == config('surveys.refusedValue', -77)) {
                     $refusedIdx = $idx;
                 }
             }
@@ -67,7 +69,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
 
     public function getTemplate()
     {
-        $this->defaultTemplate = ($this->getNumSelectable() > 1) ? $this->defaultMultiTemplate : $this->defaultSingleTemplate;
+        $this->defaultTemplate = ($this->getNumSelectable() > 1)
+                                    ? ($this->dataFormat == 'json')
+                                        ? $this->defaultJsonTemplate
+                                        : $this->defaultMultiTemplate
+                                    : $this->defaultSingleTemplate;
 
         return parent::getTemplate();
     }
@@ -81,11 +87,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function getDataDefinition()
     {
         return [
-        'variableName'=>$this->getName(),
-        'dataFormat'=>$this->getDataFormat(),
-        'questionText'=>$this->getQuestionText(),
-        'options'=>$this->getOptions(),
-      ];
+            'variableName'=>$this->getName(),
+            'dataFormat'=>$this->getDataFormat(),
+            'questionText'=>$this->getQuestionText(),
+            'options'=>$this->getOptions(),
+        ];
     }
 
     public function setRefusable($value)
@@ -94,7 +100,7 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->refusable) {
             $refusedOption = new OptionBlock('refused');
             $refusedOption->setName('refused');
-            $refusedOption->setValue(-77);
+            $refusedOption->setValue(config('surveys.refusedValue', -77));
             $refusedOption->setLabel($this->refuseLabel);
             $refusedOption->setClass('exclusive');
             $this->appendOption($refusedOption);
@@ -112,6 +118,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->numSelectable == 1) {
             return parent::getVariables();
         }
+
+        if ($this->dataFormat == 'json') {
+            return parent::getVariables();
+        }
+        
         $varNames = [];
         foreach ($this->getOptions() as $idx => $option) {
             $varNames[] = new Variable($option->getName(), 'tinyint');
@@ -125,6 +136,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->numSelectable == 1) {
             return parent::setValidationRules($value);
         }
+
+        if ($this->dataFormat == 'json') {
+            return parent::setValidationRules($value);
+        }
+
         // set based on validation-rules attribute
         if (is_null($value)) {
             return;
@@ -145,6 +161,11 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
         if ($this->numSelectable == 1) {
             return parent::getLaravelValidationArray();
         }
+
+        if ($this->dataFormat == 'json') {
+            return  parent::getLaravelValidationArray();
+        }
+
         $valRules = ($this->getValidationRules()) ? $this->getValidationRules() : [];
         $rules = [];
         foreach ($valRules as $optionName => $optionRules) {
@@ -157,39 +178,43 @@ class MultipleChoiceQuestion extends QuestionBlock implements HasOptionsInterfac
     public function getValidationRules()
     {
         if ($this->numSelectable == 1) {
-            parent::getValidationRules();
-        } else {
-            $optionNames = $this->getOptionNames();
-            foreach ($this->options as $option) {
-                $this->validationRules[$option->name] = [];
-                if ($this->required) {
-                    $others = $optionNames;
-                    array_splice($others, array_search($option->name, $others), 1);
-                    $this->validationRules[$option->name][] = 'required_without_all:'.implode(',', $others);
-                }
-                switch ($this->dataFormat) {
-            case 'int':
-            case 'tinyint':
-            case 'mediumint':
-            case 'bigint':
-              $this->validationRules[$option->name][] = 'integer';
-              break;
-            case 'float':
-            case 'double':
-            case 'decimal':
-              $this->validationRules[$option->name][] = 'numeric';
-              break;
-            case 'date':
-            case 'time':
-              $this->validationRules[$option->name][] = 'date';
-              break;
-            case 'year':
-              $this->validationRules[$option->name][] = 'regex:\d\d\d\d';
-              // no break
-            default:
-              break;
-          }
+            return parent::getValidationRules();
+        }
+
+        if ($this->dataFormat == 'json') {
+            return parent::getValidationRules();
+        }
+
+        $optionNames = $this->getOptionNames();
+        foreach ($this->options as $option) {
+            $this->validationRules[$option->name] = [];
+            if ($this->required) {
+                $others = $optionNames;
+                array_splice($others, array_search($option->name, $others), 1);
+                $this->validationRules[$option->name][] = 'required_without_all:'.implode(',', $others);
             }
+            switch ($this->dataFormat) {
+                case 'int':
+                case 'tinyint':
+                case 'mediumint':
+                case 'bigint':
+                    $this->validationRules[$option->name][] = 'integer';
+                    break;
+                case 'float':
+                case 'double':
+                case 'decimal':
+                    $this->validationRules[$option->name][] = 'numeric';
+                    break;
+                case 'date':
+                case 'time':
+                    $this->validationRules[$option->name][] = 'date';
+                    break;
+                case 'year':
+                    $this->validationRules[$option->name][] = 'regex:\d\d\d\d';
+                    // no break
+                default:
+                    break;
+                }
         }
 
         return $this->validationRules;

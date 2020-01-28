@@ -2,8 +2,10 @@
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">{{$response->survey->name}} - Revision History</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
             <div id="revision-history">
@@ -12,34 +14,42 @@
                         return $item->created_at->format('Y-m-d H:i:s');
                     });
                 ?>
-                <div class="row">
-                    <div class="col-sm-2">Date/Time</div>
-                    <div class="col-sm-7">Changes</div>
-                    <div class="col-sm-3">User</div>
-                </div>
-                @foreach($revisions as $key => $revision)
-                <div class="row separator-top revision-row">
-                    <div class="col-sm-2">
-                        <strong>{{ $revision->first()->created_at->format('Y-m-d') }}</strong><br>
-                        {{ $revision->first()->created_at->format("g:ia") }}
-                    </div>
-                    <div class="col-sm-7">
-                        @foreach($revision as $field)
-                            <div class="row separator-bottom-narrow data-row">
-                                <div class="col-sm-4"><strong>{{$field->fieldName()}}:</strong></div>
-                                <div class="col-sm-8">
-                                    <s class="text-muted">{{$field->oldValue()}}</s>
-                                    <span>{{$field->newValue()}}</span>
-                                </div>
-                            </div>
-                        @endforeach
-                        </ul>
-                    </div>
-                    <div class="col-sm-3">
-                        <strong>{{$revision->first()->userResponsible()->full_name}}</strong>
-                    </div>
-                </div>
-                @endforeach
+                <table class="table table-sm table-hover table-striped">
+                    <tr>
+                        <th style="width: 7rem">Date/Time</th>
+                        <th>Changes</th>
+                        <th style="width: 7rem">User</th>
+                    </tr>
+                    @foreach($revisions as $key => $revision)
+                        <tr class="revision-row">
+                            <td>
+                                <strong>{{ $revision->first()->created_at->format('Y-m-d') }}</strong><br>
+                                {{ $revision->first()->created_at->format("g:ia") }}
+                            </td>
+                            <td>
+                                <table class="table table-sm table-borderless">
+                                    @foreach($revision as $field)
+                                        <tr>
+                                            <td style="border-top: none; width: 7rem;"><strong>{{$field->fieldName()}}:</strong></td>
+                                            <td style="border-top: none;">
+                                                <span class="text-muted">{{$field->oldValue()}}</span>
+                                                <span>{{$field->newValue()}}</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                                </ul>
+                            </td>
+                            <td>
+                                @if($revision->first()->userResponsible())
+                                    <strong>{{  $revision->first()->userResponsible()->full_name }}</strong>
+                                @else
+                                    <span class="text-muted">guest</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
         </div>
         <div class="modal-footer">

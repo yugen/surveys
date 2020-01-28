@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "laravel/framework": "~5.1",
+        "laravel/framework": ">=5.4.0",
         "cviebrock/eloquent-sluggable": ">=4.1",
         "venturecraft/revisionable": "1.*",
         "doctrine/dbal": "^2.7"

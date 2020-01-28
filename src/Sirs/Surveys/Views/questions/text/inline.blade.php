@@ -13,6 +13,12 @@
     type="text" 
     name="{{$renderable->name}}" 
     class="form-control"
+    @if($renderable->disabled)
+      disabled
+    @endif
+    @if($renderable->readonly)
+      readonly
+    @endif
     @if($renderable->placeholder)
       placeholder="{{$renderable->placeholder}}" 
     @endif

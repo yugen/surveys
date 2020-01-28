@@ -65,9 +65,11 @@ class SurveyDocument extends XmlDocument implements SurveyDocumentInterface
 
     public function getPageNumberByName($name)
     {
-        foreach ($this->getPages() as $idx => $page) {
-            if ($page->name == $name) {
-                return $idx+1;
+        if ($name != null) {
+            foreach ($this->getPages() as $idx => $page) {
+                if ($page->name == $name) {
+                    return $idx+1;
+                }
             }
         }
         throw new \OutOfBoundsException('The page '.$name.' was not found');

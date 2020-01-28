@@ -36,6 +36,8 @@
 				<xs:element name="numeric-scale" type="numeric-scale" />
 				<xs:element name="date" type="date" />
 				<xs:element name="time" type="time" />
+				<xs:element name="month" type="month" />
+				<xs:element name="year" type="year" />
 				<xs:element name="upload" type="upload" />
 				<xs:element name="multiple-choice" type="multiple-choice" />
 				<xs:element name="likert" type="likert" />
@@ -72,7 +74,7 @@
 	<!-- question and children -->
 		<!-- question -->
 		<xs:complexType name="question">
-				<xs:choice maxOccurs="2" minOccurs="0">
+				<xs:choice maxOccurs="3" minOccurs="0">
 					<xs:element name="question-text" type="xs:string"/>
 					<xs:element name="template" type="template"/>
 					<xs:element name="metadata" type="metadata" />
@@ -87,6 +89,8 @@
 				<xs:attribute name="refuse-label" type="xs:string" />
 				<xs:attribute name="data-format" type="data-format" />
 				<xs:attribute name="validation-rules" type="xs:string" />
+				<xs:attribute name="readonly" type="xs:boolean" />
+				<xs:attribute name="disabled" type="xs:boolean" />
 		</xs:complexType>
 
 			<!-- date inputs -->
@@ -134,12 +138,28 @@
 			<xs:complexType name="numeric-scale">
 			  <xs:complexContent>
 			    <xs:extension base="number">
-							<xs:choice maxOccurs="unbounded">
-								<xs:element name="legend" type="legend" maxOccurs="1"  minOccurs="0"/>
-							</xs:choice>
-							<xs:attribute name="interval" type="xs:decimal" />
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="legend" type="legend" maxOccurs="1"  minOccurs="0"/>
+					</xs:choice>
+					<xs:attribute name="interval" type="xs:decimal" />
 			    </xs:extension>
 			  </xs:complexContent>
+			</xs:complexType>
+
+			<!-- month inputs -->
+			<xs:complexType name="month">
+				<xs:complexContent>
+					<xs:extension base="numeric-scale">
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<!-- year inputs -->
+			<xs:complexType name="year">
+				<xs:complexContent>
+					<xs:extension base="numeric-scale">
+					</xs:extension>
+				</xs:complexContent>
 			</xs:complexType>
 
 			<!-- duration input -->

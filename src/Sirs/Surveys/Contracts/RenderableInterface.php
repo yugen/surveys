@@ -12,14 +12,6 @@ use Closure;
 interface RenderableInterface
 {
 
-  /**
-   * Sets the template to use for this block
-   *
-   * @param string $template
-   * @return void
-   **/
-    public function setTemplate($template = null);
-
     /**
      * Get the template for this block
      *

@@ -3,6 +3,7 @@
 namespace Sirs\Surveys;
 
 use Sirs\Surveys\Documents\Blocks\OptionBlock;
+use Psy\Util\Str;
 
 trait HasOptionsTrait
 {
@@ -61,14 +62,43 @@ trait HasOptionsTrait
 
     protected function getOptionsFromDataSource($dataSourceUri)
     {
-        $responseString = file_get_contents(url($dataSourceUri));
+        $responseString = \Cache::remember('surveys:datasource:'.$dataSourceUri, config('surveys.datasource_cachelife', 20), function () use ($dataSourceUri) {
+            $params = [];
+            if (strstr($dataSourceUri, ':')) {
+                list($dataSourceUri, $paramString) = explode(':', $dataSourceUri);
+                $keyVals = explode(',', $paramString);
+                foreach ($keyVals as $keyVal) {
+                    list($key, $val) = explode('=', $keyVal);
+                    $params[$key] = $val;
+                }
+            }
+
+            if (function_exists($dataSourceUri)) {
+                $data = call_user_func_array($dataSourceUri, [$params]);
+                return json_encode($data);
+            }
+
+            if (strstr($dataSourceUri, '@')) {
+                list($class, $method) = explode('@', $dataSourceUri);
+
+                $data = call_user_func_array([new $class, $method], [$params]);
+                return json_encode($data);
+            }
+
+            return file_get_contents(url($dataSourceUri));
+        });
+
+        // dd($responseString);
+
         if ($responseString === false) {
             throw new \Exception('Failed to got data from '.$dataSourceUri);
         }
         $sourceData = json_decode($responseString);
+        // dump($dataSourceUri);
+        // dump($sourceData);
         foreach ($sourceData as $idx => $optionData) {
             if ($this->numSelectable > 1) {
-                if ($optionData->slug) {
+                if (isset($optionData->slug)) {
                     $name = $optionData->slug;
                 } else {
                     $name = preg_replace('/ /', '_', $optionData->name);

@@ -45,9 +45,14 @@ class OptionBlock extends RenderableBlock
         return $this;
     }
 
+    public function labelIsSet()
+    {
+        return $this->label != '';
+    }
+
     public function getLabel()
     {
-        return ($this->label != '') ? trim($this->label) : $this->value;
+        return ($this->labelIsSet()) ? trim($this->label) : $this->value;
     }
 
     public function getCompiledLabel($context)

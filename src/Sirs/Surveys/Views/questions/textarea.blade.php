@@ -1,9 +1,15 @@
 @if($question->refusable)
-  @include('questions.refusable_textarea', ['question'=>$question])
+  @include('surveys::questions.refusable_textarea', ['question'=>$question])
 @else
   <textarea 
     name="{{$question->name}}" 
     class="form-control {{$class ?? ''}}"
+    @if($question->disabled)
+      disabled
+    @endif
+    @if($question->readonly)
+      readonly
+    @endif
     @if($question->placeholder)
     placeholder="{{$question->placeholder}}" 
     @endif

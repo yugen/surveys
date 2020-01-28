@@ -3,12 +3,14 @@
 namespace Sirs\Surveys\Factories;
 
 use Sirs\Surveys\Documents\Blocks\Questions\DateQuestion;
-use Sirs\Surveys\Documents\Blocks\Questions\DurationQuestion;
-use Sirs\Surveys\Documents\Blocks\Questions\MultipleChoiceQuestion;
-use Sirs\Surveys\Documents\Blocks\Questions\NumberQuestion;
-use Sirs\Surveys\Documents\Blocks\Questions\NumericScaleQuestion;
-use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
 use Sirs\Surveys\Documents\Blocks\Questions\TimeQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\YearQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\MonthQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\QuestionBlock;
+use Sirs\Surveys\Documents\Blocks\Questions\NumberQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\DurationQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\NumericScaleQuestion;
+use Sirs\Surveys\Documents\Blocks\Questions\MultipleChoiceQuestion;
 
 class QuestionFactory
 {
@@ -19,6 +21,8 @@ class QuestionFactory
         $this->tagToClassMap = [
         'question' => QuestionBlock::class,
         'date'     => DateQuestion::class,
+        'year'     => YearQuestion::class,
+        'month'    => MonthQuestion::class,
         'time'     => TimeQuestion::class,
         'number'   => NumberQuestion::class,
         'multiple-choice' => MultipleChoiceQuestion::class,
@@ -31,6 +35,7 @@ class QuestionFactory
     public function create($xmlElement)
     {
         $questionClass = $this->getQuestionClass($xmlElement);
+        // dd($questionClass);
         return new $questionClass($xmlElement);
     }
 

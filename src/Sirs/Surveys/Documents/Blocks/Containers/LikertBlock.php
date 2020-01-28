@@ -18,9 +18,8 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
     public function __construct($xml = null)
     {
         parent::__construct($xml);
-        $this->defaultTemplate = 'containers.likert.btn_group_likert';
+        $this->defaultTemplate = config('surveys.default_templates.likert', 'surveys::containers.likert.btn_group_likert');
     }
-
 
     public function parse(\SimpleXMLElement $simpleXmlElement)
     {
@@ -36,8 +35,7 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
         $blockFactory = new BlockFactory();
         foreach ($simpleXmlElement->children() as $child) {
             if (in_array($child->getName(), $blockFactory->getWhitelist())) {
-                $childClass = MultipleChoiceQuestion::class;
-                $childBlock = $childClass::createWithParameters($child, $this->getParameters());
+                $childBlock = MultipleChoiceQuestion::createWithParameters($child, $this->getParameters());
                 $childBlock->setOptions($this->options);
                 $children[] = $childBlock;
             }
@@ -61,12 +59,18 @@ class LikertBlock extends ContainerBlock implements HasOptionsInterface
         $this->refusable = ($value) ? true : false;
         if ($this->refusable) {
             $refusedOption = new OptionBlock('refused');
-            $refusedOption->setValue(-77);
+            $refusedOption->setValue(config('surveys.refusedValue', -77));
             $refusedOption->setLabel('Refused');
             $this->appendOption($refusedOption);
         }
         return $this;
     }
+
+    public function getCompiledPrompt($context)
+    {
+        return $this->bladeCompile($this->prompt, $context);
+    }
+
 
     public function getRefusable()
     {

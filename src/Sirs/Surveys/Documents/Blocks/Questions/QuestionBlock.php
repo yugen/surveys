@@ -19,6 +19,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     protected $hide = null;
     protected $refusable = null;
     protected $refuseLabel = null;
+    protected $disabled = null;
+    protected $readonly = null;
 
     public function __construct($xml = null)
     {
@@ -54,6 +56,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $this->setRefusable($this->getAttribute($simpleXmlElement, 'refusable'));
         $this->setValidationRules($this->getAttribute($simpleXmlElement, 'validation-rules'));
         $this->setHidden($this->getAttribute($simpleXmlElement, 'hidden'));
+        $this->setDisabled($this->getAttribute($simpleXmlElement, 'disabled'));
+        $this->setReadonly($this->getAttribute($simpleXmlElement, 'readonly'));
     }
 
     /**
@@ -163,10 +167,10 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getDataDefinition()
     {
         return [
-      'variableName'=>$this->getName(),
-      'dataFormat'=>$this->getDataFormat(),
-      'questionText'=>$this->getQuestionText()
-    ];
+            'variableName'=>$this->getName(),
+            'dataFormat'=>$this->getDataFormat(),
+            'questionText'=>$this->getQuestionText()
+        ];
     }
 
     public function setRequired($required)
@@ -191,6 +195,30 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getPlaceholder()
     {
         return $this->placeholder;
+    }
+
+    public function setReadonly($readonly)
+    {
+        $this->readonly = ($readonly !== null) ? $readonly : null;
+
+        return $this;
+    }
+
+    public function getReadonly()
+    {
+        return $this->readonly;
+    }
+
+    public function setDisabled($disabled)
+    {
+        $this->disabled = ($disabled !== null) ? $disabled : null;
+
+        return $this;
+    }
+
+    public function getDisabled()
+    {
+        return $this->disabled;
     }
 
     public function setRefusable($value)
@@ -219,7 +247,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     public function getValidationRules()
     {
-        // set rules baded datatype and required attribute
+        // set rules based datatype and required attribute
         if ($this->required) {
             $this->validationRules[] = 'required';
         } else {
@@ -227,27 +255,35 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         }
 
         switch ($this->dataFormat) {
-        case 'int':
-        case 'tinyint':
-        case 'mediumint':
-        case 'bigint':
-          $this->validationRules[] = 'integer';
-          break;
-        case 'float':
-        case 'double':
-        case 'decimal':
-          $this->validationRules[] = 'numeric';
-          break;
-        case 'date':
-        case 'time':
-          $this->validationRules[] = 'date';
-          break;
-        case 'year':
-          $this->validationRules[] = 'regex:\d\d\d\d';
-          // no break
-        default:
-          break;
-      }
+            case 'int':
+            case 'tinyint':
+            case 'mediumint':
+            case 'bigint':
+                $this->validationRules[] = 'integer';
+                break;
+            case 'float':
+            case 'double':
+            case 'decimal':
+                $this->validationRules[] = 'numeric';
+                break;
+            case 'date':
+                $this->validationRules[] = 'date';
+                break;
+            case 'time':
+                $this->validationRules[] = 'date_format:g:ia';
+                break;
+            case 'year':
+                $this->validationRules[] = 'regex:\d\d\d\d';
+                break;
+            case 'varchar':
+                $this->validationRules[] = 'max:255';
+                break;
+            case 'text':
+                $this->validationRules[] = 'max:65535';
+                break;
+            default:
+                break;
+        }
 
         return $this->validationRules;
     }
@@ -305,28 +341,28 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $reportTypes = [];
 
         switch ($this->dataFormat) {
-      case 'int':
-      case 'tinyint':
-      case 'mediumint':
-      case 'bigint':
-      case 'float':
-      case 'double':
-      case 'decimal':
-        $reportTypes[] = 'mean';
-        $reportTypes[] = 'median';
-        $reportTypes[] = 'mode';
-        $reportTypes[] = 'range';
-        break;
-      case 'date':
-      case 'time':
-      case 'year':
-        $reportTypes[] = 'median';
-        $reportTypes[] = 'mode';
-        $reportTypes[] = 'range';
-        break;
-      default:
-        break;
-    }
+            case 'int':
+            case 'tinyint':
+            case 'mediumint':
+            case 'bigint':
+            case 'float':
+            case 'double':
+            case 'decimal':
+                $reportTypes[] = 'mean';
+                $reportTypes[] = 'median';
+                $reportTypes[] = 'mode';
+                $reportTypes[] = 'range';
+                break;
+            case 'date':
+            case 'time':
+            case 'year':
+                $reportTypes[] = 'median';
+                $reportTypes[] = 'mode';
+                $reportTypes[] = 'range';
+                break;
+            default:
+                break;
+        }
 
         // gathering raw data for this question, getting counts
         $raw = $this->getRawData($responses);
@@ -404,10 +440,10 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     {
         $values = [];
         foreach ($data as $a) {
-            if (!array_key_exists($a, $values)) {
-                $values[$a] = 0;
+            if (!array_key_exists((string)$a, $values)) {
+                $values[(string)$a] = 0;
             }
-            $values[$a] += 1;
+            $values[(string)$a] += 1;
         }
         arsort($values);
         reset($values);
@@ -494,16 +530,16 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $options = [];
         foreach ($this->options as $option) {
             if (!array_key_exists((string)$option->value, $options)) {
-                $options[$option->value] = [];
-                $options[$option->value]['value'] = $option->value;
-                $options[$option->value]['label'] = $option->label;
-                $options[$option->value]['count'] = 0;
+                $options[(string)$option->value] = [];
+                $options[(string)$option->value]['value'] = $option->value;
+                $options[(string)$option->value]['label'] = $option->label;
+                $options[(string)$option->value]['count'] = 0;
             }
         }
 
         foreach ($data as $ans) {
-            if (array_key_exists($ans, $options)) {
-                $options[$ans]['count'] +=1;
+            if (array_key_exists((string)$ans, $options)) {
+                $options[(string)$ans]['count'] +=1;
             }
         }
 

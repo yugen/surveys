@@ -1,7 +1,5 @@
-@extends('questions.question')
-@section('answers')
-  <!-- <div class="input-group"> -->
-    @include('questions.input', ['question'=>$renderable, 'context'=>$context, 'type'=>'text'])
-    <!-- <span class="">{{$renderable->unit}}s</span> -->
-  <!-- </div> -->
- @endsection
+@component('surveys::questions.question', compact('renderable', 'context'))
+  @slot('answers')
+    @include('surveys::questions.input', ['question'=>$renderable, 'context'=>$context, 'type'=>'text'])
+  @endslot
+ @endcomponent
