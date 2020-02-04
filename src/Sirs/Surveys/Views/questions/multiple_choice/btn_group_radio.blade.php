@@ -12,7 +12,7 @@
             @if(isset($fixedWidth))
                 style="min-width: {{$fixedWidth/count($question->options)}}px"
             @else
-                style="width: {{1/count($question->options)}}%"
+                style="width: {{100/count($question->options)}}%"
             @endif
         >
             <input 
