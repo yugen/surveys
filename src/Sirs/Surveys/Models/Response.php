@@ -1,6 +1,7 @@
 <?php
 namespace Sirs\Surveys\Models;
 
+use Sirs\Surveys\Models\Concerns\UsesUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ class Response extends Model implements SurveyResponse
 {
     use SoftDeletes;
     use ResponseRevisionableTrait;
+    use UsesUuid;
 
     protected $table = null;
     protected $guarded = ['id', 'finalized_at', 'survey_id'];
