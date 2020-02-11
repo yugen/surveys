@@ -14,7 +14,7 @@ class DummyClass extends Migration
     {
         
         Schema::create('DummyTable', function (Blueprint $table) {
-            $table->increments('id')->unsigned();
+            $table->uuid('id');
             $table->morphs('respondent');
             $table->integer('survey_id')->unsigned();
             INSERTSURVEY
