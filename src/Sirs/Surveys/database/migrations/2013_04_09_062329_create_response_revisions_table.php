@@ -13,7 +13,7 @@ class CreateResponseRevisionsTable extends Migration
     {
         Schema::create('response_revisions', function ($table) {
             $table->increments('id');
-            $table->integer('response_id');
+            $table->uuid('response_id');
             $table->string('response_table');
             $table->integer('user_id')->nullable();
             $table->string('key');

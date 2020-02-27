@@ -12,9 +12,9 @@ trait UsesUuid
             if (! $model->getKey()) {
                 // Get uuid and verify it's unique
                 $uuid = (string) Str::uuid();
-                while($model::where($model->getKeyName(), '=', $uuid)->exists()) {
+                /* while($model::where($model->getKeyName(), '=', $uuid)->exists()) {
                     $uuid = (string) Str::uuid();
-                }
+                }*/
                 $model->{$model->getKeyName()} = $uuid;
             }
         });
