@@ -13,7 +13,11 @@ class CreateResponseRevisionsTable extends Migration
     {
         Schema::create('response_revisions', function ($table) {
             $table->increments('id');
-            $table->uuid('response_id');
+            if( config( 'surveys.useUuidForResponses', false) ){
+                $table->uuid('response_id');
+            }else{
+                $table->integer('response_id')->unsigned();
+            }
             $table->string('response_table');
             $table->integer('user_id')->nullable();
             $table->string('key');

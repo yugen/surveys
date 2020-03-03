@@ -12,9 +12,10 @@ class DummyClass extends Migration
      */
     public function up()
     {
+
         
         Schema::create('DummyTable', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            IDDEF
             $table->morphs('respondent');
             $table->integer('survey_id')->unsigned();
             INSERTSURVEY
