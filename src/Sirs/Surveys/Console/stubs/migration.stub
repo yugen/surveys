@@ -16,7 +16,8 @@ class DummyClass extends Migration
         
         Schema::create('DummyTable', function (Blueprint $table) {
             IDDEF
-            $table->morphs('respondent');
+            $table->string('respondent_type');
+            $table->unsignedBigInteger('respondent_id');
             $table->integer('survey_id')->unsigned();
             INSERTSURVEY
             $table->string('last_page')->nullable();
@@ -32,9 +33,9 @@ class DummyClass extends Migration
             $table->index(['started_at', 'finalized_at', 'survey_id'], 'started_finalized_survey_index');
         });
         $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes('DummyTable');
-        if(!array_key_exists('DummyTable_respondent_type_respondent_id_index', $indexes)){
+        if(!array_key_exists('respondent_morph_index', $indexes)){
             Schema::table('DummyTable', function (Blueprint $table) {
-                $table->index(['respondent_type', 'respondent_id']);
+                $table->index(['respondent_type', 'respondent_id'],'respondent_morph_index');
             });
         }
 
