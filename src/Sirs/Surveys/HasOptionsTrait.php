@@ -118,7 +118,7 @@ trait HasOptionsTrait
         $options = [];
         if ($this->numSelectable > 1) {
             if ($this->dataFormat == 'json') {
-                $responseValues = json_decode($responseValue);
+                $responseValues = json_decode($responseValue) ?? [];
                 foreach ($this->options as $option) {
                     if (in_array($option->value, $responseValues)) {
                         $options[] = $option;
