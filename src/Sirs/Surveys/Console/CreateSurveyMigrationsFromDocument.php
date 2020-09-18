@@ -63,6 +63,13 @@ class CreateSurveyMigrationsFromDocument extends Command
 
         $questions = $this->survey->getQuestions();
 
+        $IDDEF = config('surveys.useUuidForResponses',false)
+            ? '$table->uuid(\'id\')->primary();'
+            : '$table->increments(\'id\');'
+        ;
+
+        $str = str_replace('IDDEF', $IDDEF, $str);
+
         $str = str_replace('DummyTable', $this->formatTableName($this->survey->getName(), $this->survey->getVersion()), $str);
 
         $str = str_replace('DummyClass', $this->formatClassName($this->survey->getName(), $this->survey->getVersion()), $str);
