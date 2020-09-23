@@ -83,7 +83,7 @@ class SurveyControlService
      */
     public function storeResponseData()
     {
-        if ($this->request->input('nav') === 'prev') {
+        if (in_array($this->request->input('nav'), ['autosave', 'prev'])) {
             return;
         }
 
@@ -254,7 +254,7 @@ class SurveyControlService
 
     public function shouldValidate()
     {
-        if (in_array($this->request->nav, ['next', 'save', 'save_exit', 'finalize'])) {
+        if (in_array($this->request->nav, ['autosave', 'next', 'save', 'save_exit', 'finalize'])) {
             return true;
         } elseif ($this->request->nav == 'save_exit' && $this->request->nav_dir == 'next') {
             return true;
