@@ -83,7 +83,7 @@ class SurveyControlService
      */
     public function storeResponseData()
     {
-        if (in_array($this->request->input('nav'), ['autosave', 'prev'])) {
+        if ($this->request->input('nav') === 'prev') {
             return;
         }
 
