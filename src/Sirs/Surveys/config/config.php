@@ -45,13 +45,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Data Summary
+    |--------------------------------------------------------------------------
+    |
+    | Show the Data Summary link
+    |
+    */
+    'showDataSummary' => env('SHOW_DATA_SUMMARY', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Route group
     |--------------------------------------------------------------------------
     |
     | Route group definition for survey routes
     |
     */
-    'routeGroup'=>['middleware' => ['web', 'auth']],
+    'routeGroup' => ['middleware' => ['web', 'auth']],
 
 
     /*
@@ -64,8 +74,8 @@ return [
     | in production.
     |
     */
-    'cacheDocuments'=>(env('APP_DEBUG')) ? false : true,
-    
+    'cacheDocuments' => (env('APP_DEBUG')) ? false : true,
+
     /*
     |--------------------------------------------------------------------------
     | Chrome template
@@ -74,7 +84,7 @@ return [
     | Template that the page's template extends.  This my be your projects base template
     | or one specifically for surveys.
     */
-    'chromeTemplate'=>'app',
+    'chromeTemplate' => 'app',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +94,7 @@ return [
     | Boolean for whether or not to allow users to edit a survey response after it is marked finalized.
     |
     */
-    'editAfterFinalized'=>true,
+    'editAfterFinalized' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -117,7 +127,7 @@ return [
     | in production.
     |
     */
-    'autosave'=>[
+    'autosave' => [
         'enabled' => true,
         'frequency' => 10000, // time in miliseconds
         'notify' => true,
@@ -149,7 +159,7 @@ return [
         'question' => 'questions.text.default_text',
         'time' => 'questions.time.time'
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Validation messages
