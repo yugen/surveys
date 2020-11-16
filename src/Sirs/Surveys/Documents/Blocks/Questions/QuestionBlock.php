@@ -32,14 +32,14 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function __get($property)
     {
         switch ($property) {
-        case 'hasOptions':
-          return $this->hasOptions;
-          break;
+            case 'hasOptions':
+                return $this->hasOptions;
+                break;
 
-        default:
-          return parent::__get($property);
-          break;
-      }
+            default:
+                return parent::__get($property);
+                break;
+        }
     }
 
     public function parse(\SimpleXMLElement $simpleXmlElement)
@@ -167,9 +167,9 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getDataDefinition()
     {
         return [
-            'variableName'=>$this->getName(),
-            'dataFormat'=>$this->getDataFormat(),
-            'questionText'=>$this->getQuestionText()
+            'variableName' => $this->getName(),
+            'dataFormat' => $this->getDataFormat(),
+            'questionText' => $this->getQuestionText()
         ];
     }
 
@@ -254,7 +254,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
             $this->validationRules[] = 'nullable';
         }
 
-        switch ($this->dataFormat) {
+        switch ($this->getDataFormat()) {
             case 'int':
             case 'tinyint':
             case 'mediumint':
@@ -290,12 +290,12 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
     public function getLaravelValidationArray()
     {
-        return [$this->name=>$this->getValidationString()];
+        return [$this->name => $this->getValidationString()];
     }
 
     public function setHidden($value)
     {
-        $this->hidden = (boolean)$value;
+        $this->hidden = (bool)$value;
         if ($this->hidden) {
             $this->defaultTemplate = 'questions.hidden';
         }
@@ -337,10 +337,10 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function getReport($responses)
     {
 
-    // getting report Types based on data format
+        // getting report Types based on data format
         $reportTypes = [];
 
-        switch ($this->dataFormat) {
+        switch ($this->getDataFormat()) {
             case 'int':
             case 'tinyint':
             case 'mediumint':
@@ -384,7 +384,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         // getting reports
         if ($counts['answeredCount'] > 0) {
             foreach ($reportTypes as $type) {
-                $method = 'get'.ucfirst($type);
+                $method = 'get' . ucfirst($type);
                 $report[$type] = $this->$method($answered);
             }
         }
@@ -420,7 +420,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         $count = count($a);
         $middle = floor(($count - 1) / 2);
         if ($count % 2) {
-            $median = $a[ $middle ];
+            $median = $a[$middle];
         } else {
             $low = $a[$middle];
             $high = $a[$middle + 1];
@@ -510,11 +510,11 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
         }
 
         $arr = [
-      'answered' => $answered,
-      'totalCount' => $totalCount,
-      'answeredCount' => $answeredCount,
-      'unansweredCount' => $unansweredCount,
-    ];
+            'answered' => $answered,
+            'totalCount' => $totalCount,
+            'answeredCount' => $answeredCount,
+            'unansweredCount' => $unansweredCount,
+        ];
 
         return $arr;
     }
@@ -539,7 +539,7 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
 
         foreach ($data as $ans) {
             if (array_key_exists((string)$ans, $options)) {
-                $options[(string)$ans]['count'] +=1;
+                $options[(string)$ans]['count'] += 1;
             }
         }
 
@@ -547,11 +547,11 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     }
 
     /**
-    * returns a JSON obect of option data for nvd3 visualizations
-    *
-    * @return object
-    * @author sirs
-    **/
+     * returns a JSON obect of option data for nvd3 visualizations
+     *
+     * @return object
+     * @author sirs
+     **/
     public function getJSONForVis($options)
     {
         $jsonArray = [];
@@ -570,8 +570,8 @@ class QuestionBlock extends RenderableBlock implements StructuredDataInterface
     public function jsonSerialize()
     {
         return array_merge(parent::jsonSerialize(), [
-        'variables' => $this->variables
-      ]);
+            'variables' => $this->variables
+        ]);
     }
 
     protected function hasRequiredRule()

@@ -1,11 +1,10 @@
 <?php
+
 namespace Sirs\Surveys\Models;
 
-use Sirs\Surveys\Models\Concerns\UsesUuid;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
 use Sirs\Surveys\Revisions\ResponseRevisionableTrait;
@@ -14,7 +13,6 @@ class Response extends Model implements SurveyResponse
 {
     use SoftDeletes;
     use ResponseRevisionableTrait;
-    use UsesUuid;
 
     protected $table = null;
     protected $guarded = ['id', 'finalized_at', 'survey_id'];
@@ -23,30 +21,30 @@ class Response extends Model implements SurveyResponse
     protected $name = null;
     protected $version = null;
 
-    protected $dontKeepRevisionOf = array(
-        'last_page'
-    );
+    protected $dontKeepRevisionOf = [
+        'last_page',
+    ];
     protected $revisionCreationsEnabled = true;
 
     /**
-        * allows you to statically intialize Response
-        * @param string $surveyName ame of survey
-        * @param string  $versionNumber Version of the survey
-        *
-        * @return void
-        */
+     * allows you to statically intialize Response.
+     *
+     * @return void
+     */
     public static function lookupTable($table)
     {
         // $instance = new static;
         // $instance->setTable($table);
         $instance = static::newResponse($table);
+
         return $instance->newQuery();
     }
 
     public static function newResponse($table)
     {
-        $instance = new static;
+        $instance = new static();
         $instance->setTable($table);
+
         return $instance;
     }
 
@@ -63,19 +61,21 @@ class Response extends Model implements SurveyResponse
 
         return $this->survey->response_table;
     }
-    
+
     /**
-     * finalize survey if it has not already been finalized
+     * finalize survey if it has not already been finalized.
+     *
      * @param string $finalizeDate date string of time to set finalized_at to
-     * @param bool  $override allow setting a new finalized_at date even if one already exists
+     * @param bool   $override     allow setting a new finalized_at date even if one already exists
      *
      * @return void
+     *
      * @example
      *    $responses  = Response;
      *    $responses->setSurveyVersion('Baseline')->get();
      *
      *    $response = Response::surveyVersion('Baseline', 3)->findOrFail(4);
-    */
+     */
     public function finalizeResponse(Carbon $finalizeDate = null, $override = false)
     {
         if ($this->finalized_at == null || $override == true) {
@@ -84,7 +84,7 @@ class Response extends Model implements SurveyResponse
             } else {
                 $this->finalized_at = new Carbon();
             }
-            
+
             $this->save();
         } elseif ($override == false) {
             // throw new ResponsePreviouslyFinalizedException($this);
@@ -115,14 +115,16 @@ class Response extends Model implements SurveyResponse
         foreach ($dataCols as $column) {
             $data[$column] = $this->{$column};
         }
+
         return $data;
     }
 
     /**
-     * Sets the values of the dataAttributes from an associative array
+     * Sets the values of the dataAttributes from an associative array.
      *
      * @return void
-     * @param Array $data Associative array of data field=>value
+     *
+     * @param array $data Associative array of data field=>value
      **/
     public function setDataValues($data, $page)
     {
@@ -144,19 +146,21 @@ class Response extends Model implements SurveyResponse
     }
 
     /**
-     * Gets the field names for data attributes
+     * Gets the field names for data attributes.
      *
      * @return void
+     *
      * @author
      **/
     public function getDataAttributeNames()
     {
         $cols = [];
         foreach ($cols as $idx => $column) {
-            if (in_array($column, ['id','respondent_id', 'respondent_type', 'survey_id', 'last_page', 'created_at', 'updated_at'])) {
+            if (in_array($column, ['id', 'respondent_id', 'respondent_type', 'survey_id', 'last_page', 'created_at', 'updated_at'])) {
                 unset($cols[$idx]);
             }
         }
+
         return $cols;
     }
 
@@ -166,6 +170,7 @@ class Response extends Model implements SurveyResponse
             if ($this->isDirty($key)) {
                 return json_encode($value, true);
             }
+
             return $value;
         });
     }
@@ -184,7 +189,7 @@ class Response extends Model implements SurveyResponse
             if (!$vars->keys()->contains($key)) {
                 continue;
             }
-            
+
             if ($vars->get($key) != $dataFormat) {
                 continue;
             }
