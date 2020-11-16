@@ -38,11 +38,11 @@ class SurveyControlService
         $this->request = $request;
         $this->response = $response;
         $this->survey = $response->survey;
-        
+
         $this->rules = $this->survey->getRules($response);
         $this->rules->setPretext($request->all());
 
-       
+
         $this->page = $this->survey->getSurveyDocument()->getPage($this->resolveCurrentPageName());
 
         // parse the request into various parts.
@@ -83,6 +83,10 @@ class SurveyControlService
      */
     public function storeResponseData()
     {
+        if ($this->request->input('nav') === 'prev') {
+            return;
+        }
+
         // run the after save rule for the page (if any).
         $this->execRule($this->rules, $this->page->name, 'BeforeSave');
 
@@ -112,7 +116,7 @@ class SurveyControlService
                 break;
             case 'save':
                 $destinationPage = ($this->rules->pretext->destination_page) ? $this->rules->pretext->destination_page : $this->page->name;
-                $httpResponse = redirect($this->survey_url.'?page='.$destinationPage);
+                $httpResponse = redirect($this->survey_url . '?page=' . $destinationPage);
                 break;
             default:
                 // passing all data to navigate function
@@ -140,7 +144,7 @@ class SurveyControlService
     public function navigate()
     {
         // getting page index and incrementing it to match the navigation button
-        $pageNumber = $this->execRule($this->rules, $this->page->name, 'navigate', ['page'=>$this->page->name, 'nav'=>$this->request->input('nav')]);
+        $pageNumber = $this->execRule($this->rules, $this->page->name, 'navigate', ['page' => $this->page->name, 'nav' => $this->request->input('nav')]);
         if (!$pageNumber) {
             if ($this->request->input('nav') == 'next') {
                 $pageNumber = $this->page->pageNumber + 1;
@@ -161,7 +165,7 @@ class SurveyControlService
                     $params = [
                         $this->response->respondent_type,
                         $this->response->respondent_id,
-                        $this->survey-slug,
+                        $this->survey->slug,
                         $this->response->id,
                         $target->name
                     ];
@@ -187,14 +191,14 @@ class SurveyControlService
                     $httpResponse = $this->redirect(); //redirect to
                     // session()->forget('pretext');
                     break;
-                    
+
                 default:
-                    throw new InvalidInputException("Invalid value returned in ".$target);
+                    throw new InvalidInputException("Invalid value returned in " . $target);
                     break;
             }
         } else {
             // no custom method
-            $httpResponse = redirect($this->survey_url.'?page='.$target->name);
+            $httpResponse = redirect($this->survey_url . '?page=' . $target->name);
         }
         return $httpResponse;
     }
@@ -239,7 +243,7 @@ class SurveyControlService
             $this->page->getValidation(),
             getSurveyValidationMessages()
         );
-        $augmentedValidator = $this->execRule($this->rules, $this->page->name, 'GetValidator', ['validator'=>$validator]);
+        $augmentedValidator = $this->execRule($this->rules, $this->page->name, 'GetValidator', ['validator' => $validator]);
 
         $validator = ($augmentedValidator) ? $augmentedValidator : $validator;
         if ($validator->fails() && $this->shouldValidate()) {
@@ -250,7 +254,7 @@ class SurveyControlService
 
     public function shouldValidate()
     {
-        if (in_array($this->request->nav, ['next', 'finalize'])) {
+        if (in_array($this->request->nav, ['autosave', 'next', 'save', 'save_exit', 'finalize'])) {
             return true;
         } elseif ($this->request->nav == 'save_exit' && $this->request->nav_dir == 'next') {
             return true;
@@ -276,17 +280,17 @@ class SurveyControlService
     public function buildBaseContext($errors = null)
     {
         $context = [
-            'survey'=>[
-                'object'=>$this->survey,
-                'name'=>$this->survey->name,
-                'title'=>$this->survey->document->title,
-                'version'=>$this->survey->version,
-                'totalPages'=>count($this->survey->pages),
-                'currentPageIdx'=> $this->page->pageNumber - 1
+            'survey' => [
+                'object' => $this->survey,
+                'name' => $this->survey->name,
+                'title' => $this->survey->document->title,
+                'version' => $this->survey->version,
+                'totalPages' => count($this->survey->pages),
+                'currentPageIdx' => $this->page->pageNumber - 1
             ],
-            'respondent'=>$this->response->respondent,
-            'response'=>$this->response,
-            'pretext'=>$this->rules->pretext
+            'respondent' => $this->response->respondent,
+            'response' => $this->response,
+            'pretext' => $this->rules->pretext
         ];
 
         if ($errors) {
@@ -304,13 +308,13 @@ class SurveyControlService
         if (method_exists($rulesObj, $pageMethod)) {
             // run the page-specific method if we find it.
             return ($params)
-                        ? $rulesObj->$pageMethod($params)
-                        :  $rulesObj->$pageMethod();
+                ? $rulesObj->$pageMethod($params)
+                :  $rulesObj->$pageMethod();
         } elseif (method_exists($rulesObj, $method)) {
             // run the survey-wide method if we find it.
             return ($params)
-                        ? $rulesObj->$method($params)
-                        : $rulesObj->$method();
+                ? $rulesObj->$method($params)
+                : $rulesObj->$method();
         } else {
             return;
         }
@@ -325,8 +329,8 @@ class SurveyControlService
     {
         if (isset($this->{$attr})) {
             return $this->{$attr};
-        } elseif (method_exists($this, 'get'.camel_case($attr).'Attribute')) {
-            $methodName = 'get'.camel_case($attr).'Attribute';
+        } elseif (method_exists($this, 'get' . camel_case($attr) . 'Attribute')) {
+            $methodName = 'get' . camel_case($attr) . 'Attribute';
             return $this->$methodName();
         }
     }

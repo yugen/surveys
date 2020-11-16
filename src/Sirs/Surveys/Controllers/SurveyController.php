@@ -1,4 +1,5 @@
 <?php
+
 namespace Sirs\Surveys\Controllers;
 
 use Auth;
@@ -71,15 +72,25 @@ class SurveyController extends BaseController
         return $control->saveAndContinue();
     }
 
-    public function autoSave(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
+    public function autosave(Request $request, $respondentType, $respondentId, $surveySlug, $responseId = null)
     {
         $survey = class_survey()::where('slug', $surveySlug)->firstOrFail();
         $survey->getSurveyDocument()->validate();
         $response = $survey->getLatestResponse($this->getRespondent($respondentType, $respondentId), $responseId);
         $response->setTable($survey->response_table);
 
+        $request->merge(['nav' => 'autosave']);
+
         $svc = new SurveyControlService($request, $response);
-        $svc->storeResponseData();
+        if ($errors = $svc->getValidationErrors()) {
+            $log = "Auto-Save Validation Errors\nSurvey Name: {$survey->name}\nResponse ID: {$responseId}\nValidation Errors:";
+            foreach ($errors->toArray() as $column => $error) {
+                $log .= "\n{$column} - {$error[0]}";
+            }
+            \Log::warning($log);
+        } else {
+            $svc->storeResponseData();
+        }
 
         return $svc->response->toJson();
     }
