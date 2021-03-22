@@ -5,6 +5,7 @@ namespace Sirs\Surveys\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use InvalidArgumentException;
 use Sirs\Surveys\Contracts\SurveyResponse;
 use Sirs\Surveys\Exceptions\ResponsePreviouslyFinalizedException;
 use Sirs\Surveys\Revisions\ResponseRevisionableTrait;
@@ -168,7 +169,7 @@ class Response extends Model implements SurveyResponse
     {
         $this->transformDataValues('json', function ($value, $key) {
             if ($this->isDirty($key)) {
-                return json_encode($value, true);
+                return $this->decodeJsonField($key, $value);
             }
 
             return $value;
@@ -177,9 +178,35 @@ class Response extends Model implements SurveyResponse
 
     public function accessDataValues()
     {
-        $this->transformDataValues('json', function ($value, $key) {
-            return json_decode($value, true);
+        $errors = [];
+        $this->transformDataValues('json', function ($value, $key) use (&$errors) {
+            // json_decode is sometimes erroring out when value is null.  
+            // Not sure why, but we want to handle that case and keep the user
+            // moving forward in any case.
+            try {
+                return json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+            } catch (\JsonException $e) {
+                if (is_null($value)) {
+                    return null;
+                }
+                $errors[] = ['message'=>$e->getMessage(), 'survey'=>$this->survey->name, 'response_id'=>$this->id, 'key' => $key, 'value'=>$value];
+                return null;
+                
+            }
         });
+
+        if (count($errors) > 0) {
+            $groupedErrors = collect($errors)
+                ->groupBy('message')
+                ->each(function ($g, $message) {
+                    $data = $g->map(function ($err) {
+                        return collect($err)->only('key', 'value');
+                    })->toArray();
+                    $data['survey'] = $g->first()['survey'];
+                    $data['response_id'] = $g->first()['response_id'];
+                    \Log::error('JSON error: '.$message, $data);
+                });
+        }
     }
 
     protected function transformDataValues($dataFormat, $callback)
@@ -196,5 +223,15 @@ class Response extends Model implements SurveyResponse
 
             $this->attributes[$key] = $callback($value, $key);
         }
+    }
+
+    private function decodeJsonField($key, $value) 
+    {
+        try {
+            return decodeJson($value, true);
+        } catch (InvalidArgumentException $e) {
+            \Log::error('Caught exception where \Sirs\Surveys\Models\Response::mutateDataValues tried to decode a '.gettype($value).' for field '.$key.'. String expected', $this);
+        }
+        return $value;
     }
 }
