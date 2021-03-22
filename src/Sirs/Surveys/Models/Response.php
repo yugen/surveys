@@ -180,7 +180,7 @@ class Response extends Model implements SurveyResponse
     {
         $errors = [];
         $this->transformDataValues('json', function ($value, $key) use (&$errors) {
-            // json_decode is sometimes erroring out when value is null.  
+            // json_decode is sometimes erroring out when value is null.
             // Not sure why, but we want to handle that case and keep the user
             // moving forward in any case.
             try {
@@ -191,7 +191,6 @@ class Response extends Model implements SurveyResponse
                 }
                 $errors[] = ['message'=>$e->getMessage(), 'survey'=>$this->survey->name, 'response_id'=>$this->id, 'key' => $key, 'value'=>$value];
                 return null;
-                
             }
         });
 
@@ -225,12 +224,12 @@ class Response extends Model implements SurveyResponse
         }
     }
 
-    private function decodeJsonField($key, $value) 
+    private function decodeJsonField($key, $value)
     {
         try {
             return decodeJson($value, true);
         } catch (InvalidArgumentException $e) {
-            \Log::error('Caught exception where \Sirs\Surveys\Models\Response::mutateDataValues tried to decode a '.gettype($value).' for field '.$key.'. String expected', $this);
+            \Log::error('Caught exception where \Sirs\Surveys\Models\Response::mutateDataValues tried to decode a '.gettype($value).' for field '.$key.'. String expected', $this->toArray());
         }
         return $value;
     }

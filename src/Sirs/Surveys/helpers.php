@@ -46,7 +46,7 @@ if (!function_exists('decodeJson')) {
     function decodeJson($jsonString, $assoc = false, $depth = 512)
     {
         if (!is_string($jsonString)) {
-            throw new InvalidArgumentException('decodeJson expectes first argument to be a string.  '.getttype($jsonString).' given');
+            throw new InvalidArgumentException('decodeJson expectes first argument to be a string.  '.gettype($jsonString).' given');
         }
         json_decode($jsonString, $assoc, $depth, JSON_THROW_ON_ERROR);
     }
