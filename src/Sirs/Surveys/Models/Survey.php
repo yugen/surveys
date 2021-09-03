@@ -17,7 +17,7 @@ class Survey extends Model implements SurveyModel
     protected $fillable = ['name', 'version', 'file_name', 'response_table'];
     protected $_document = null;
 
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [
