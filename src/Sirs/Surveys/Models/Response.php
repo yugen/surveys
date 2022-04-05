@@ -181,32 +181,7 @@ class Response extends Model implements SurveyResponse
         $errors = [];
         $this->transformDataValues('json', function ($value, $key) use (&$errors) {
             return $this->decodeJsonField($key, $value);
-            // json_decode is sometimes erroring out when value is null.
-            // Not sure why, but we want to handle that case and keep the user
-            // moving forward in any case.
-            // try {
-            //     return json_decode($value, true, 512, JSON_THROW_ON_ERROR);
-            // } catch (\Exception $e) {
-            //     if (is_null($value)) {
-            //         return null;
-            //     }
-            //     $errors[] = ['message'=>$e->getMessage(), 'survey'=>$this->survey->name, 'response_id'=>$this->id, 'key' => $key, 'value'=>$value];
-            //     return null;
-            // }
         });
-
-        // if (count($errors) > 0) {
-        //     $groupedErrors = collect($errors)
-        //         ->groupBy('message')
-        //         ->each(function ($g, $message) {
-        //             $data = $g->map(function ($err) {
-        //                 return collect($err)->only('key', 'value');
-        //             })->toArray();
-        //             $data['survey'] = $g->first()['survey'];
-        //             $data['response_id'] = $g->first()['response_id'];
-        //             \Log::error('JSON error: '.$message, $data);
-        //         });
-        // }
     }
 
     protected function transformDataValues($dataFormat, $callback)
